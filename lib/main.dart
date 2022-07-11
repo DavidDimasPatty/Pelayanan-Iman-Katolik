@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/login.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -8,14 +9,13 @@ import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MongoDatabase.connect();
-  // await MongoDatabase.showUser();
+  await MongoDatabase.showUser();
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _MyAppState();
   }
 }
@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('Aplikasi Gereja'),
         ),
+        body: Login(),
       ),
     );
   }

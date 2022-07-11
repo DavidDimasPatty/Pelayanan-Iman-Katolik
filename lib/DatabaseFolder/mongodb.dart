@@ -10,16 +10,12 @@ class MongoDatabase {
     db = await Db.create(MONGO_CONN_URL);
     await db.open();
     inspect(db);
-    userCollection = db.collection(USER_COLLECTION);
-    var cob = await userCollection.find().toList();
-    print(cob);
-    //print(userCollection);
-    inspect(userCollection);
   }
 
   static showUser() async {
-    var coll = db.collection('user');
-    await coll();
-    print(coll);
+    userCollection = db.collection(USER_COLLECTION);
+    var cob = await userCollection.find().toList();
+    print(cob);
+    print(cob[0]['name']);
   }
 }
