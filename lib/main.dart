@@ -10,32 +10,35 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MongoDatabase.connect();
   await MongoDatabase.showUser();
-  runApp(MyApp());
+  runApp(MaterialApp(
+    title: 'Navigation Basics',
+    home: Login(),
+  ));
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _MyAppState();
-  }
-}
+// class MyApp extends StatefulWidget {
+//   @override
+//   State<StatefulWidget> createState() {
+//     return MyAppState(Login());
+//   }
+// }
 
 /////////////////////////////////////////////
 //////////////////////////////////////////////
-class _MyAppState extends State<MyApp> {
-  @override
-  Widget build(BuildContext context) {
-    void printLog() {
-      print('Button Pressed');
-    }
+// class MyAppState extends State<MyApp> {
+//   final Function page;
 
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Aplikasi Gereja'),
-        ),
-        body: Login(),
-      ),
-    );
-  }
-}
+//   MyAppState(this.page);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: Scaffold(
+//         appBar: AppBar(
+//           title: Text('Aplikasi Gereja'),
+//         ),
+//         body: page(),
+//       ),
+//     );
+//   }
+// }
