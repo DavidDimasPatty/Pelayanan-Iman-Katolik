@@ -12,10 +12,17 @@ class MongoDatabase {
     inspect(db);
   }
 
-  static showUser() async {
+  static findUser(email, password) async {
     userCollection = db.collection(USER_COLLECTION);
-    var cob = await userCollection.find().toList();
-    print(cob);
-    print(cob[0]['name']);
+    var conn = await userCollection
+        .find({'email': email, 'password': password}).toList();
+    try {
+      print(conn[0]);
+      if (conn[0]['id'] != "") {
+        return conn;
+      }
+    } catch (e) {
+      return "failed";
+    }
   }
 }

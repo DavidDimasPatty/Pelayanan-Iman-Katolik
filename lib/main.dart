@@ -9,7 +9,7 @@ import 'package:pelayanan_iman_katolik/login.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await MongoDatabase.connect();
-  await MongoDatabase.showUser();
+  //await MongoDatabase.showUser();
   runApp(MaterialApp(
     title: 'Navigation Basics',
     home: Login(),

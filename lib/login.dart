@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/singup.dart';
+import 'DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/homePage.dart';
 
 class Login extends StatelessWidget {
-  const Login({super.key});
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = new TextEditingController();
+    TextEditingController passwordController = new TextEditingController();
     return Scaffold(
         appBar: AppBar(
           title: const Text('Login'),
@@ -25,6 +28,7 @@ class Login extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextField(
+                controller: emailController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Masukan email anda',
@@ -34,6 +38,7 @@ class Login extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextField(
+                controller: passwordController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Masukan password anda',
@@ -51,7 +56,28 @@ class Login extends StatelessWidget {
                       child: Text("Log In"),
                       textColor: Colors.white,
                       color: Colors.blueAccent,
-                      onPressed: () {}),
+                      onPressed: () async {
+                        var ret = await MongoDatabase.findUser(
+                            emailController.text, passwordController.text);
+                        //print("hasil: " + ret);
+                        if (ret != "failed") {
+                          //Navigator.popUntil(context, ModalRoute.withName('/'));
+                          // Navigator.pop(context,
+                          //     true); // It worked for me instead of above line
+                          print(ret);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    HomePage(ret[0]['name'], ret[0]['email'])),
+                          );
+
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => HomePage()),
+                          // );
+                        } else {}
+                      }),
                   RaisedButton(
                     child: Text("Sign Up"),
                     textColor: Colors.white,
