@@ -21,30 +21,43 @@ class jadwalMisa {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text("Jadwal Misa Tersedia"),
-              content: Column(children: <Widget>[
-                for (var i in detailMisa)
-                  Column(
-                    children: <Widget>[
-                      Row(
-                        children: [
-                          Text('Jadwal'),
-                          Text(i['jadwal']),
-                          Text(i['KapasitasJadwal']),
-                          RaisedButton(
-                              child: Text('Daftar'),
-                              textColor: Colors.white,
-                              color: Colors.blueAccent,
-                              onPressed: () {})
+              alignment: Alignment.center,
+              title: Text("Jadwal Tersedia"),
+              content: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    for (var i in detailMisa)
+                      Column(
+                        children: <Widget>[
+                          Row(
+                            children: [
+                              Text('Jadwal'),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4),
+                              ),
+                              Text(i['jadwal']),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4),
+                              ),
+                              Text(i['KapasitasJadwal']),
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 4),
+                              ),
+                              RaisedButton(
+                                  child: Text('Daftar'),
+                                  textColor: Colors.white,
+                                  color: Colors.blueAccent,
+                                  onPressed: () {})
+                            ],
+                          )
                         ],
                       )
-                    ],
-                  )
-              ]),
+                  ]),
               actions: <Widget>[
                 // usually buttons at the bottom of the dialog
-                new RaisedButton(
-                  child: Text("close"),
+                RaisedButton(
+                  child: Text("Close"),
                   textColor: Colors.white,
                   color: Colors.blueAccent,
                   onPressed: () {

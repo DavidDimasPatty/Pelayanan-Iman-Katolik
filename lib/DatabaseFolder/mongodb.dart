@@ -39,8 +39,8 @@ class MongoDatabase {
   }
 
   static jadwalGereja(idGereja) async {
-    var gerejaCollection = db.collection(JADWAL_GEREJA_COLLECTION);
-    var conn = await gerejaCollection.find({'id': idGereja}).toList();
+    var jadwalCollection = db.collection(JADWAL_GEREJA_COLLECTION);
+    var conn = await jadwalCollection.find({'idGereja': idGereja}).toList();
     return conn;
   }
 }
