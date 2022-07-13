@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pelayanan_iman_katolik/login.dart';
 
 class Profile extends StatelessWidget {
   final name;
@@ -70,6 +71,17 @@ class Profile extends StatelessWidget {
               Text(" "),
             ],
           ),
+          RaisedButton(
+              child: Text("Log Out"),
+              textColor: Colors.white,
+              color: Colors.blueAccent,
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
+              })
         ],
       )),
     );

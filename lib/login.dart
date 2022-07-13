@@ -10,6 +10,7 @@ class Login extends StatelessWidget {
     TextEditingController passwordController = new TextEditingController();
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text('Login'),
         ),
         body: Column(
