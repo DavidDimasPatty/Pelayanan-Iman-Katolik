@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 
 class Misa extends StatelessWidget {
@@ -10,8 +11,6 @@ class Misa extends StatelessWidget {
 
   Future<List> callDb() async {
     daftarGereja = await MongoDatabase.findGereja();
-    print("tesssssssssssssss");
-    print(daftarGereja[0]['nama']);
     return daftarGereja;
   }
 
@@ -33,7 +32,7 @@ class Misa extends StatelessWidget {
         ],
       ),
       body: FutureBuilder<List>(
-          future: callDb().then((value) => daftarGereja = value),
+          future: callDb(),
           builder: (context, AsyncSnapshot snapshot) {
             try {
               return ListView(
@@ -46,25 +45,32 @@ class Misa extends StatelessWidget {
                   for (var i in daftarGereja)
                     InkWell(
                       borderRadius: new BorderRadius.circular(24),
-                      onTap: () => () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  detailDaftarMisa(names, emails, i['nama'])),
+                        );
+                      },
                       child: Column(children: <Widget>[
                         //Color(Colors.blue);
                         Text(
-                          i['nama'],
-                          style: TextStyle(color: Colors.red, fontSize: 12),
+                          'Nama Gereja: ' + i['nama'],
+                          style: TextStyle(color: Colors.black, fontSize: 12),
                           textAlign: TextAlign.left,
                         ),
                         Text(
-                          i['paroki'],
-                          style: TextStyle(color: Colors.red, fontSize: 12),
+                          'Paroki: ' + i['paroki'],
+                          style: TextStyle(color: Colors.black, fontSize: 12),
                         ),
                         Text(
-                          i['address'],
-                          style: TextStyle(color: Colors.red, fontSize: 12),
+                          'Alamat: ' + i['address'],
+                          style: TextStyle(color: Colors.black, fontSize: 12),
                         ),
                         Text(
-                          i['kapasitas'],
-                          style: TextStyle(color: Colors.red, fontSize: 12),
+                          'Kapasitas Tersedia: ' + i['kapasitas'],
+                          style: TextStyle(color: Colors.black, fontSize: 12),
                         ),
                         Padding(
                           padding:

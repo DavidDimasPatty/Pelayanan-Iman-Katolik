@@ -31,4 +31,16 @@ class MongoDatabase {
     var conn = await gerejaCollection.find().toList();
     return conn;
   }
+
+  static detailGereja(namaGereja) async {
+    var gerejaCollection = db.collection(GEREJA_COLLECTION);
+    var conn = await gerejaCollection.find({'nama': namaGereja}).toList();
+    return conn;
+  }
+
+  static jadwalGereja(idGereja) async {
+    var gerejaCollection = db.collection(JADWAL_GEREJA_COLLECTION);
+    var conn = await gerejaCollection.find({'id': idGereja}).toList();
+    return conn;
+  }
 }
