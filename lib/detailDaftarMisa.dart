@@ -117,7 +117,8 @@ class detailDaftarMisa extends StatelessWidget {
                             textColor: Colors.white,
                             color: Colors.blueAccent,
                             onPressed: () {
-                              jadwalMisa().showDialogBox(context);
+                              jadwalMisa(detailGereja[0]['id'])
+                                  .showDialogBox(context);
                             }),
                       ),
                     ],
