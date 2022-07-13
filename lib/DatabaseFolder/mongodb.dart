@@ -25,4 +25,10 @@ class MongoDatabase {
       return "failed";
     }
   }
+
+  static findGereja() async {
+    var gerejaCollection = db.collection(GEREJA_COLLECTION);
+    var conn = await gerejaCollection.find().toList();
+    return conn;
+  }
 }
