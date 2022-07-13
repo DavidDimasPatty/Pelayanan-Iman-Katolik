@@ -40,8 +40,6 @@ class Misa extends StatelessWidget {
                 padding: EdgeInsets.all(20.0),
                 children: <Widget>[
                   ///map////////
-                  ///
-
                   for (var i in daftarGereja)
                     InkWell(
                       borderRadius: new BorderRadius.circular(24),
@@ -53,30 +51,39 @@ class Misa extends StatelessWidget {
                                   detailDaftarMisa(names, emails, i['nama'])),
                         );
                       },
-                      child: Column(children: <Widget>[
-                        //Color(Colors.blue);
-                        Text(
-                          'Nama Gereja: ' + i['nama'],
-                          style: TextStyle(color: Colors.black, fontSize: 12),
-                          textAlign: TextAlign.left,
-                        ),
-                        Text(
-                          'Paroki: ' + i['paroki'],
-                          style: TextStyle(color: Colors.black, fontSize: 12),
-                        ),
-                        Text(
-                          'Alamat: ' + i['address'],
-                          style: TextStyle(color: Colors.black, fontSize: 12),
-                        ),
-                        Text(
-                          'Kapasitas Tersedia: ' + i['kapasitas'],
-                          style: TextStyle(color: Colors.black, fontSize: 12),
-                        ),
-                        Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                        ),
-                      ]),
+                      child: Container(
+                          margin: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.lightBlue,
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          ),
+                          child: Column(children: <Widget>[
+                            //Color(Colors.blue);
+
+                            Text(
+                              'Nama Gereja: ' + i['nama'],
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 12),
+                              textAlign: TextAlign.left,
+                            ),
+                            Text(
+                              'Paroki: ' + i['paroki'],
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 12),
+                            ),
+                            Text(
+                              'Alamat: ' + i['address'],
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 12),
+                            ),
+                            Text(
+                              'Kapasitas Tersedia: ' + i['kapasitas'],
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 12),
+                            ),
+                          ])),
                     ),
 
                   ///map////////

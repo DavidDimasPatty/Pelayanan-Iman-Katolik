@@ -25,7 +25,7 @@ class jadwalMisa {
               title: Text("Jadwal Tersedia"),
               content: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     for (var i in detailMisa)
                       Column(
@@ -55,15 +55,17 @@ class jadwalMisa {
                       )
                   ]),
               actions: <Widget>[
-                // usually buttons at the bottom of the dialog
-                RaisedButton(
-                  child: Text("Close"),
-                  textColor: Colors.white,
-                  color: Colors.blueAccent,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                )
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      RaisedButton(
+                          child: Text('Cancel'),
+                          textColor: Colors.white,
+                          color: Colors.blueAccent,
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          }), // button 1
+                    ])
               ]);
         });
   }
