@@ -23,7 +23,7 @@ class tiketSaya extends StatelessWidget {
   }
 
   Future<List> callInfoGereja(idGereja) async {
-    namaGereja = await MongoDatabase.jadwalMisaku(idGereja);
+    namaGereja = await MongoDatabase.cariGereja(idGereja);
     return namaGereja;
   }
 
@@ -73,14 +73,26 @@ class tiketSaya extends StatelessWidget {
                                   try {
                                     return Column(
                                       children: <Widget>[
+                                        Column(
+                                          children: <Widget>[
+                                            Text(
+                                                'Waktu: ' + tiket[0]['jadwal']),
+                                          ],
+                                        ),
                                         FutureBuilder<List>(
                                             future: callInfoGereja(
-                                                tiket['idGereja']),
+                                                tiket[0]['idGereja']),
                                             builder: (context,
                                                 AsyncSnapshot snapshot) {
                                               try {
                                                 return Column(
-                                                  children: <Widget>[],
+                                                  children: <Widget>[
+                                                    Text('Nama Gereja: ' +
+                                                        namaGereja[0]['nama']),
+                                                    Text('Alamat Gereja: ' +
+                                                        namaGereja[0]
+                                                            ['address'])
+                                                  ],
                                                 );
                                               } catch (e) {
                                                 print(e);

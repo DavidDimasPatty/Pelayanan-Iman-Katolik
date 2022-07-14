@@ -45,7 +45,6 @@ class MongoDatabase {
   }
 
   static jadwalku(idUser) async {
-    print(idUser);
     var jadwalCollection = db.collection(TIKET_COLLECTION);
     var conn = await jadwalCollection.find({'idUser': idUser}).toList();
     return conn;
@@ -58,6 +57,7 @@ class MongoDatabase {
   }
 
   static cariGereja(idGereja) async {
+    print(idGereja);
     var jadwalCollection = db.collection(GEREJA_COLLECTION);
     var conn = await jadwalCollection.find({'_id': idGereja}).toList();
     return conn;
