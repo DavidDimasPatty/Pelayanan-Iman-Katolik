@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
+import 'package:pelayanan_iman_katolik/tiketSaya.dart';
 import 'misa.dart';
 
 class HomePage extends StatelessWidget {
   var names;
   var emails;
+  var iduser;
 
-  HomePage(this.names, this.emails);
+  HomePage(this.names, this.emails, this.iduser);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +22,8 @@ class HomePage extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(names, emails)),
+                MaterialPageRoute(
+                    builder: (context) => Profile(names, emails, iduser)),
               );
             },
           ),
@@ -50,7 +53,7 @@ class HomePage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => Misa(names, emails)),
+                        builder: (context) => Misa(names, emails, iduser)),
                   );
                 }),
           ),
@@ -92,14 +95,15 @@ class HomePage extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_rounded,
                 color: Color.fromARGB(255, 0, 0, 0)),
-            label: "Profile",
+            label: "TiketKu",
           )
         ],
         onTap: (index) {
           if (index == 1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Profile(names, emails)),
+              MaterialPageRoute(
+                  builder: (context) => tiketSaya(names, emails, iduser)),
             );
           } else if (index == 0) {}
         },

@@ -5,8 +5,9 @@ import 'homePage.dart';
 class Profile extends StatelessWidget {
   final name;
   final email;
+  final idUser;
 
-  Profile(this.name, this.email);
+  Profile(this.name, this.email, this.idUser);
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +106,8 @@ class Profile extends StatelessWidget {
           } else if (index == 0) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => HomePage(name, email)),
+              MaterialPageRoute(
+                  builder: (context) => HomePage(name, email, idUser)),
             );
           }
         },

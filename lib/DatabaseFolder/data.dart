@@ -3,3 +3,4 @@ const MONGO_CONN_URL =
 const USER_COLLECTION = "user";
 const GEREJA_COLLECTION = "Gereja";
 const JADWAL_GEREJA_COLLECTION = "jadwalGereja";
+const TIKET_COLLECTION = "tiket";

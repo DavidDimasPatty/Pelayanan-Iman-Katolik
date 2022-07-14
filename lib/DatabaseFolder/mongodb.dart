@@ -43,4 +43,23 @@ class MongoDatabase {
     var conn = await jadwalCollection.find({'idGereja': idGereja}).toList();
     return conn;
   }
+
+  static jadwalku(idUser) async {
+    print(idUser);
+    var jadwalCollection = db.collection(TIKET_COLLECTION);
+    var conn = await jadwalCollection.find({'idUser': idUser}).toList();
+    return conn;
+  }
+
+  static jadwalMisaku(idMisa) async {
+    var jadwalCollection = db.collection(JADWAL_GEREJA_COLLECTION);
+    var conn = await jadwalCollection.find({'_id': idMisa}).toList();
+    return conn;
+  }
+
+  static cariGereja(idGereja) async {
+    var jadwalCollection = db.collection(GEREJA_COLLECTION);
+    var conn = await jadwalCollection.find({'_id': idGereja}).toList();
+    return conn;
+  }
 }

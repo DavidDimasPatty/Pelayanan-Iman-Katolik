@@ -7,7 +7,8 @@ class Misa extends StatelessWidget {
   var names;
   var emails;
   var daftarGereja;
-  Misa(this.names, this.emails);
+  final idUser;
+  Misa(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
     daftarGereja = await MongoDatabase.findGereja();
@@ -25,7 +26,8 @@ class Misa extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(names, emails)),
+                MaterialPageRoute(
+                    builder: (context) => Profile(names, emails, idUser)),
               );
             },
           ),
@@ -47,8 +49,8 @@ class Misa extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  detailDaftarMisa(names, emails, i['nama'])),
+                              builder: (context) => detailDaftarMisa(
+                                  names, emails, i['nama'], idUser)),
                         );
                       },
                       child: Container(

@@ -9,6 +9,7 @@ class detailDaftarMisa extends StatelessWidget {
   final email;
   final namaGereja;
   var detailGereja;
+  final idUser;
 
   Future<List> callDb() async {
     detailGereja = await MongoDatabase.detailGereja(namaGereja);
@@ -16,7 +17,7 @@ class detailDaftarMisa extends StatelessWidget {
     return detailGereja;
   }
 
-  detailDaftarMisa(this.name, this.email, this.namaGereja);
+  detailDaftarMisa(this.name, this.email, this.namaGereja, this.idUser);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,8 @@ class detailDaftarMisa extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(name, email)),
+                MaterialPageRoute(
+                    builder: (context) => Profile(name, email, idUser)),
               );
             },
           ),
