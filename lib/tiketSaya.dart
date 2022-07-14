@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
+import 'package:pelayanan_iman_katolik/tiketSayaDetail.dart';
 
 class tiketSaya extends StatelessWidget {
   var names;
@@ -57,7 +58,10 @@ class tiketSaya extends StatelessWidget {
                   for (var i in tiketGereja)
                     InkWell(
                       borderRadius: new BorderRadius.circular(24),
-                      onTap: () {},
+                      onTap: () {
+                        tiketSayaDetail(names, emails, idUser)
+                            .showDialogBox(context);
+                      },
                       child: Container(
                           margin: EdgeInsets.all(20),
                           decoration: BoxDecoration(
@@ -73,34 +77,35 @@ class tiketSaya extends StatelessWidget {
                                   try {
                                     return Column(
                                       children: <Widget>[
-                                        Column(
-                                          children: <Widget>[
-                                            Text(
-                                                'Waktu: ' + tiket[0]['jadwal']),
-                                          ],
-                                        ),
-                                        FutureBuilder<List>(
-                                            future: callInfoGereja(
-                                                tiket[0]['idGereja']),
-                                            builder: (context,
-                                                AsyncSnapshot snapshot) {
-                                              try {
-                                                return Column(
-                                                  children: <Widget>[
-                                                    Text('Nama Gereja: ' +
-                                                        namaGereja[0]['nama']),
-                                                    Text('Alamat Gereja: ' +
-                                                        namaGereja[0]
-                                                            ['address'])
-                                                  ],
-                                                );
-                                              } catch (e) {
-                                                print(e);
-                                                return Center(
-                                                    child:
-                                                        CircularProgressIndicator());
-                                              }
-                                            }),
+                                        for (var s in tiket)
+                                          Column(
+                                            children: <Widget>[
+                                              Text('Waktu: ' + s['jadwal']),
+                                              FutureBuilder<List>(
+                                                  future: callInfoGereja(
+                                                      s['idGereja']),
+                                                  builder: (context,
+                                                      AsyncSnapshot snapshot) {
+                                                    try {
+                                                      return Column(
+                                                        children: <Widget>[
+                                                          Text('Nama Gereja: ' +
+                                                              namaGereja[0]
+                                                                  ['nama']),
+                                                          Text('Alamat Gereja: ' +
+                                                              namaGereja[0]
+                                                                  ['address'])
+                                                        ],
+                                                      );
+                                                    } catch (e) {
+                                                      print(e);
+                                                      return Center(
+                                                          child:
+                                                              CircularProgressIndicator());
+                                                    }
+                                                  }),
+                                            ],
+                                          ),
                                       ],
                                     );
                                   } catch (e) {
