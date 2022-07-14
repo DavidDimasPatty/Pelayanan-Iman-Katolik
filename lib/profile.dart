@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
+import 'homePage.dart';
 
 class Profile extends StatelessWidget {
   final name;
@@ -84,6 +85,37 @@ class Profile extends StatelessWidget {
               })
         ],
       )),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: true,
+        unselectedItemColor: Colors.blue,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, color: Color.fromARGB(255, 0, 0, 0)),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_rounded,
+                color: Color.fromARGB(255, 0, 0, 0)),
+            label: "Profile",
+          ),
+        ],
+        onTap: (index) {
+          if (index == 1) {
+          } else if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => HomePage(name, email)),
+            );
+          }
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Increment',
+        child: new Icon(Icons.camera_alt_rounded),
+      ),
     );
   }
 }
