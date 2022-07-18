@@ -39,6 +39,9 @@ class Login extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               child: TextField(
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
                 controller: passwordController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),

@@ -61,4 +61,16 @@ class MongoDatabase {
     var conn = await jadwalCollection.find({'_id': idGereja}).toList();
     return conn;
   }
+
+  static addUser(nama, email, password) async {
+    userCollection = db.collection(USER_COLLECTION);
+    var hasil = "";
+    await userCollection.insertOne(
+        {'name': nama, 'email': email, 'password': password}).then((res) {
+      if (res) {
+        hasil = res;
+        return hasil;
+      }
+    });
+  }
 }
