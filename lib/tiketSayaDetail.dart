@@ -41,14 +41,13 @@ class tiketSayaDetail {
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    for (var i in tiketGereja)
-                      Column(
-                        children: <Widget>[
-                          Text('Waktu: ' + tiket[0]['jadwal']),
-                          Text('Nama Gereja: ' + namaGereja[0]['nama']),
-                          Text('Alamat Gereja: ' + namaGereja[0]['address']),
-                        ],
-                      )
+                    Column(
+                      children: <Widget>[
+                        Text('Waktu: ' + tiket[0]['jadwal']),
+                        Text('Nama Gereja: ' + namaGereja[0]['nama']),
+                        Text('Alamat Gereja: ' + namaGereja[0]['address']),
+                      ],
+                    )
                   ]),
               actions: <Widget>[
                 Row(
