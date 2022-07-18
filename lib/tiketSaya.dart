@@ -10,8 +10,8 @@ class tiketSaya extends StatelessWidget {
   var emails;
   var tiketGereja;
   var tiket;
-  var x = 0;
   var namaGereja;
+  var hasil;
   tiketSaya(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
@@ -21,13 +21,20 @@ class tiketSaya extends StatelessWidget {
 
   Future<List> callInfoMisa(idMisa) async {
     tiket = await MongoDatabase.jadwalMisaku(idMisa);
-    print("TIKETTTTTTTTTTTTTTT NIH: " + tiket.toString());
     return tiket;
   }
 
   Future<List> callInfoGereja(idGereja) async {
     namaGereja = await MongoDatabase.cariGereja(idGereja);
     return namaGereja;
+  }
+
+  Future<List> addChild(idMisa) async {
+    var temp;
+    tiket = await callInfoMisa(idMisa).then((value) => temp = value);
+    tiketGereja = await callInfoGereja(temp[0]['idGereja']);
+    hasil = [temp[0]['jadwal'], tiketGereja[0]['nama']];
+    return hasil;
   }
 
   @override
@@ -56,9 +63,7 @@ class tiketSaya extends StatelessWidget {
                 shrinkWrap: true,
                 padding: EdgeInsets.all(20.0),
                 children: <Widget>[
-                  ///map////////
-
-                  for (var i in tiketGereja)
+                  for (var i in snapshot.data)
                     InkWell(
                       borderRadius: new BorderRadius.circular(24),
                       onTap: () {
@@ -75,34 +80,13 @@ class tiketSaya extends StatelessWidget {
                           ),
                           child: Column(children: <Widget>[
                             FutureBuilder<List>(
-                                future: callInfoMisa(i['idMisa']),
+                                future: addChild(i['idMisa']),
                                 builder: (context, AsyncSnapshot snapshot) {
                                   try {
                                     return Column(
                                       children: <Widget>[
-                                        for (var s in tiket)
-                                          Column(
-                                            children: <Widget>[
-                                              FutureBuilder<List>(
-                                                  future: callInfoGereja(
-                                                      s['idGereja']),
-                                                  builder: (context,
-                                                      AsyncSnapshot snapshot) {
-                                                    try {
-                                                      return Column(
-                                                        children: <Widget>[
-                                                          Text(s['jadwal']),
-                                                        ],
-                                                      );
-                                                    } catch (e) {
-                                                      print(e);
-                                                      return Center(
-                                                          child:
-                                                              CircularProgressIndicator());
-                                                    }
-                                                  }),
-                                            ],
-                                          ),
+                                        Text(snapshot.data[0]),
+                                        Text(snapshot.data[1])
                                       ],
                                     );
                                   } catch (e) {
@@ -110,7 +94,7 @@ class tiketSaya extends StatelessWidget {
                                     return Center(
                                         child: CircularProgressIndicator());
                                   }
-                                }),
+                                })
                           ])),
                     ),
 

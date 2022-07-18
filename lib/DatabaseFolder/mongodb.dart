@@ -53,7 +53,6 @@ class MongoDatabase {
   static jadwalMisaku(idMisa) async {
     var jadwalCollection = db.collection(JADWAL_GEREJA_COLLECTION);
     var conn = await jadwalCollection.find({'_id': idMisa}).toList();
-    print(conn);
     return conn;
   }
 
