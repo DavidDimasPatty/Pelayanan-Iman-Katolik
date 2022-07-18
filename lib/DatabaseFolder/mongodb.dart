@@ -53,11 +53,11 @@ class MongoDatabase {
   static jadwalMisaku(idMisa) async {
     var jadwalCollection = db.collection(JADWAL_GEREJA_COLLECTION);
     var conn = await jadwalCollection.find({'_id': idMisa}).toList();
+    print(conn);
     return conn;
   }
 
   static cariGereja(idGereja) async {
-    print(idGereja);
     var jadwalCollection = db.collection(GEREJA_COLLECTION);
     var conn = await jadwalCollection.find({'_id': idGereja}).toList();
     return conn;

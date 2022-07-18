@@ -10,6 +10,7 @@ class tiketSaya extends StatelessWidget {
   var emails;
   var tiketGereja;
   var tiket;
+  var x = 0;
   var namaGereja;
   tiketSaya(this.names, this.emails, this.idUser);
 
@@ -20,6 +21,7 @@ class tiketSaya extends StatelessWidget {
 
   Future<List> callInfoMisa(idMisa) async {
     tiket = await MongoDatabase.jadwalMisaku(idMisa);
+    print("TIKETTTTTTTTTTTTTTT NIH: " + tiket.toString());
     return tiket;
   }
 
@@ -55,11 +57,12 @@ class tiketSaya extends StatelessWidget {
                 padding: EdgeInsets.all(20.0),
                 children: <Widget>[
                   ///map////////
+
                   for (var i in tiketGereja)
                     InkWell(
                       borderRadius: new BorderRadius.circular(24),
                       onTap: () {
-                        tiketSayaDetail(names, emails, idUser)
+                        tiketSayaDetail(names, emails, idUser, i['idMisa'])
                             .showDialogBox(context);
                       },
                       child: Container(
@@ -80,7 +83,6 @@ class tiketSaya extends StatelessWidget {
                                         for (var s in tiket)
                                           Column(
                                             children: <Widget>[
-                                              Text('Waktu: ' + s['jadwal']),
                                               FutureBuilder<List>(
                                                   future: callInfoGereja(
                                                       s['idGereja']),
@@ -89,12 +91,7 @@ class tiketSaya extends StatelessWidget {
                                                     try {
                                                       return Column(
                                                         children: <Widget>[
-                                                          Text('Nama Gereja: ' +
-                                                              namaGereja[0]
-                                                                  ['nama']),
-                                                          Text('Alamat Gereja: ' +
-                                                              namaGereja[0]
-                                                                  ['address'])
+                                                          Text(s['jadwal']),
                                                         ],
                                                       );
                                                     } catch (e) {
@@ -125,42 +122,6 @@ class tiketSaya extends StatelessWidget {
               return Center(child: CircularProgressIndicator());
             }
           }),
-      // body: ListView(
-      //   shrinkWrap: true,
-      //   padding: EdgeInsets.all(20.0),
-      //   children: <Widget>[
-      //     ///map////////
-      //     ///
-      //     ...daftarGereja((i) => <Widget>[
-      //           InkWell(
-      //             borderRadius: new BorderRadius.circular(24),
-      //             onTap: () => () {},
-      //             child: Column(children: <Widget>[
-      //               //Color(Colors.blue);
-      //               Text(
-      //                 i['nama'],
-      //                 style: TextStyle(color: Colors.red, fontSize: 12),
-      //                 textAlign: TextAlign.left,
-      //               ),
-      //               Text(
-      //                 i['address'],
-      //                 style: TextStyle(color: Colors.red, fontSize: 12),
-      //               ),
-      //               Text(
-      //                 i['paroki'],
-      //                 style: TextStyle(color: Colors.red, fontSize: 12),
-      //               ),
-      //               Text(
-      //                 i['kapasitas'],
-      //                 style: TextStyle(color: Colors.red, fontSize: 12),
-      //               ),
-      //             ]),
-      //           ),
-      //         ])
-
-      //     ///map////////
-      //   ],
-      // )
     );
   }
 }

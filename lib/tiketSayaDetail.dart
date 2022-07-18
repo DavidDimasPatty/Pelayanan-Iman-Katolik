@@ -10,7 +10,8 @@ class tiketSayaDetail {
   var tiketGereja;
   var tiket;
   var namaGereja;
-  tiketSayaDetail(this.names, this.emails, this.idUser);
+  var idMisa;
+  tiketSayaDetail(this.names, this.emails, this.idUser, this.idMisa);
 
   Future<List> callDb() async {
     tiketGereja = await MongoDatabase.jadwalku(idUser);
@@ -29,7 +30,7 @@ class tiketSayaDetail {
 
   void showDialogBox(BuildContext context) async {
     await callDb();
-    await callInfoMisa(tiketGereja[0]['idMisa']);
+    await callInfoMisa(idMisa);
     await callInfoGereja(tiket[0]['idGereja']);
     showDialog<void>(
         context: context,
