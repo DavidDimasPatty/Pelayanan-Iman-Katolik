@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
 import 'homePage.dart';
+import 'tiketSaya.dart';
 
 class Profile extends StatelessWidget {
   final name;
@@ -98,11 +99,16 @@ class Profile extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_rounded,
                 color: Color.fromARGB(255, 0, 0, 0)),
-            label: "Profile",
-          ),
+            label: "TiketKu",
+          )
         ],
         onTap: (index) {
           if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => tiketSaya(name, email, idUser)),
+            );
           } else if (index == 0) {
             Navigator.push(
               context,

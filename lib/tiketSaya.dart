@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
+import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetail.dart';
 
@@ -85,8 +86,9 @@ class tiketSaya extends StatelessWidget {
                                   try {
                                     return Column(
                                       children: <Widget>[
-                                        Text(snapshot.data[0]),
-                                        Text(snapshot.data[1])
+                                        Text("Jadwal : " + snapshot.data[0]),
+                                        Text(
+                                            "Nama Gereja : " + snapshot.data[1])
                                       ],
                                     );
                                   } catch (e) {
@@ -106,6 +108,37 @@ class tiketSaya extends StatelessWidget {
               return Center(child: CircularProgressIndicator());
             }
           }),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: true,
+        unselectedItemColor: Colors.blue,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, color: Color.fromARGB(255, 0, 0, 0)),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_rounded,
+                color: Color.fromARGB(255, 0, 0, 0)),
+            label: "TiketKu",
+          )
+        ],
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomePage(names, emails, idUser)),
+            );
+          } else if (index == 1) {}
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Increment',
+        child: new Icon(Icons.camera_alt_rounded),
+      ),
     );
   }
 }

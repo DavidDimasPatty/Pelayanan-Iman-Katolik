@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
+import 'tiketSaya.dart';
+import 'homePage.dart';
 
 class Misa extends StatelessWidget {
   var names;
@@ -96,42 +98,43 @@ class Misa extends StatelessWidget {
               return Center(child: CircularProgressIndicator());
             }
           }),
-      // body: ListView(
-      //   shrinkWrap: true,
-      //   padding: EdgeInsets.all(20.0),
-      //   children: <Widget>[
-      //     ///map////////
-      //     ///
-      //     ...daftarGereja((i) => <Widget>[
-      //           InkWell(
-      //             borderRadius: new BorderRadius.circular(24),
-      //             onTap: () => () {},
-      //             child: Column(children: <Widget>[
-      //               //Color(Colors.blue);
-      //               Text(
-      //                 i['nama'],
-      //                 style: TextStyle(color: Colors.red, fontSize: 12),
-      //                 textAlign: TextAlign.left,
-      //               ),
-      //               Text(
-      //                 i['address'],
-      //                 style: TextStyle(color: Colors.red, fontSize: 12),
-      //               ),
-      //               Text(
-      //                 i['paroki'],
-      //                 style: TextStyle(color: Colors.red, fontSize: 12),
-      //               ),
-      //               Text(
-      //                 i['kapasitas'],
-      //                 style: TextStyle(color: Colors.red, fontSize: 12),
-      //               ),
-      //             ]),
-      //           ),
-      //         ])
-
-      //     ///map////////
-      //   ],
-      // )
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        showUnselectedLabels: true,
+        unselectedItemColor: Colors.blue,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home, color: Color.fromARGB(255, 0, 0, 0)),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle_rounded,
+                color: Color.fromARGB(255, 0, 0, 0)),
+            label: "TiketKu",
+          )
+        ],
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => tiketSaya(names, emails, idUser)),
+            );
+          } else if (index == 0) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomePage(names, emails, idUser)),
+            );
+          }
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Increment',
+        child: new Icon(Icons.camera_alt_rounded),
+      ),
     );
   }
 }
