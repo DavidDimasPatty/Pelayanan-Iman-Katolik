@@ -2,6 +2,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/login.dart';
 
 class SignUp extends StatelessWidget {
   TextEditingController nameController = new TextEditingController();
@@ -15,9 +16,7 @@ class SignUp extends StatelessWidget {
             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
         .hasMatch(email);
     var nama = nameController.text;
-    bool namaValid = RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(nama);
+    bool namaValid = RegExp(r'^[a-z A-Z,.\-]+$').hasMatch(nama);
     if (namaValid == false) {
       nameController.text = "";
 
@@ -71,11 +70,41 @@ class SignUp extends StatelessWidget {
     if (emailValid == true &&
         namaValid == true &&
         passwordController.text == repasswordController.text) {
-      await MongoDatabase.addUser(nameController.text, emailController.text,
-              passwordController.text)
-          .then((res) {
-        print(res);
-      });
+      var add = await MongoDatabase.addUser(
+          nameController.text, emailController.text, passwordController.text);
+      print(add);
+      if (add == "nama") {
+        return showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Nama sudah digunakan'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      } else if (add == "email") {
+        return showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Email sudah digunakan'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      } else if (add == 'oke') {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Login()),
+        );
+      }
     }
   }
 
@@ -121,6 +150,9 @@ class SignUp extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: TextField(
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
               controller: passwordController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -132,6 +164,9 @@ class SignUp extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
             child: TextField(
               controller: repasswordController,
+              obscureText: true,
+              enableSuggestions: false,
+              autocorrect: false,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'ketik ulang password anda',

@@ -64,13 +64,35 @@ class MongoDatabase {
 
   static addUser(nama, email, password) async {
     userCollection = db.collection(USER_COLLECTION);
-    var hasil = "";
-    await userCollection.insertOne(
-        {'name': nama, 'email': email, 'password': password}).then((res) {
-      if (res) {
-        hasil = res;
-        return hasil;
+    var checkEmail;
+    var checkName;
+    await userCollection.find({'name': nama}).toList().then((res) async {
+          checkName = res;
+          checkEmail = await userCollection.find({'email': email}).toList();
+        });
+
+    print("checkemail: " + checkEmail.toString());
+    print("checknama: " + checkName.toString());
+    try {
+      if (checkName.length > 0) {
+        return "nama";
       }
-    });
+      if (checkEmail.length > 0) {
+        print("MASUKKKK");
+        return "email";
+      }
+      if (checkName.length == 0 && checkEmail.length == 0) {
+        var hasil = await userCollection
+            .insertOne({'name': nama, 'email': email, 'password': password});
+        if (!hasil.isSuccess) {
+          print('Error detected in record insertion');
+          return 'fail';
+        } else {
+          return 'oke';
+        }
+      }
+    } catch (e) {
+      return 'failed';
+    }
   }
 }
