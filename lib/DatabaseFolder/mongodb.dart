@@ -95,4 +95,17 @@ class MongoDatabase {
       return 'failed';
     }
   }
+
+  static daftarMisa(idMisa, idUser) async {
+    var tiketCollection = db.collection(TIKET_COLLECTION);
+
+    var hasil =
+        await tiketCollection.insertOne({'idMisa': idMisa, 'idUser': idUser});
+    if (!hasil.isSuccess) {
+      print('Error detected in record insertion');
+      return 'fail';
+    } else {
+      return 'oke';
+    }
+  }
 }

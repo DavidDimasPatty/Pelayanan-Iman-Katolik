@@ -5,14 +5,34 @@ import 'package:pelayanan_iman_katolik/profile.dart';
 
 class jadwalMisa {
   final idGereja;
+  final idUser;
   var detailMisa;
   var key = 0;
-  jadwalMisa(this.idGereja);
+  jadwalMisa(this.idGereja, this.idUser);
 
   Future<List> callDb() async {
     detailMisa = await MongoDatabase.jadwalGereja(idGereja);
     print(detailMisa);
     return detailMisa;
+  }
+
+  daftar(idMisa, idUser, context) async {
+    var daftarmisa = await MongoDatabase.daftarMisa(idMisa, idUser);
+
+    if (daftarmisa == 'oke') {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Berhasil mendaftar'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
   }
 
   void showDialogBox(BuildContext context) async {
@@ -48,7 +68,10 @@ class jadwalMisa {
                                   child: Text('Daftar'),
                                   textColor: Colors.white,
                                   color: Colors.blueAccent,
-                                  onPressed: () {})
+                                  onPressed: () async {
+                                    var res =
+                                        await daftar(i['_id'], idUser, context);
+                                  })
                             ],
                           )
                         ],
