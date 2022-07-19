@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
 import 'homePage.dart';
 import 'tiketSaya.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Profile extends StatelessWidget {
   final name;
@@ -74,6 +75,16 @@ class Profile extends StatelessWidget {
               Text(" "),
             ],
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          ),
+          RaisedButton(
+              child: Text("Change Profile Picture"),
+              textColor: Colors.white,
+              color: Colors.blueAccent,
+              onPressed: () async {
+                await ImagePicker().pickImage(source: ImageSource.gallery);
+              }),
           RaisedButton(
               child: Text("Log Out"),
               textColor: Colors.white,
