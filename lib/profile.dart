@@ -16,13 +16,13 @@ class Profile extends StatelessWidget {
   final idUser;
   var dataUser;
 
-  Future selectFile() async {
+  Future selectFile(context) async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) return;
     File file;
     final path = result.files.single.path;
     file = File(path!);
-    uploadFile(file);
+    uploadFile(file, context);
   }
 
   Future<List> callDb() async {
@@ -30,7 +30,7 @@ class Profile extends StatelessWidget {
     return dataUser;
   }
 
-  Future uploadFile(File file) async {
+  Future uploadFile(File file, context) async {
     if (file == null) return;
     DateTime now = new DateTime.now();
     DateTime date = new DateTime(
@@ -40,9 +40,15 @@ class Profile extends StatelessWidget {
     UploadTask? task = FirebaseApi.uploadFile(destination, file);
     final snapshot = await task!.whenComplete(() {});
     final urlDownload = await snapshot.ref.getDownloadURL();
-    await MongoDatabase.updateProfilePicture(idUser, urlDownload);
+    await MongoDatabase.updateProfilePicture(idUser, urlDownload).then((value) {
+      Navigator.pop(context);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Profile(name, email, idUser)),
+      );
+    });
 
-    print('Download-Link: $urlDownload');
+    //print('Download-Link: $urlDownload');
   }
 
   Profile(this.name, this.email, this.idUser);
@@ -140,7 +146,7 @@ class Profile extends StatelessWidget {
                         color: Colors.blueAccent,
                         onPressed: () async {
                           //await ImagePicker().pickImage(source: ImageSource.gallery);
-                          selectFile();
+                          selectFile(context);
                         }),
                     RaisedButton(
                         child: Text("Log Out"),
