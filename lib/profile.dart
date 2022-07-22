@@ -1,6 +1,8 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
 import 'DatabaseFolder/fireBase.dart';
 import 'homePage.dart';
@@ -25,10 +27,16 @@ class Profile extends StatelessWidget {
   Future uploadFile(File file) async {
     if (file == null) return;
     DateTime now = new DateTime.now();
-    DateTime date = new DateTime(now.year, now.month, now.day);
+    DateTime date = new DateTime(
+        now.year, now.month, now.day, now.hour, now.minute, now.second);
     final filename = date.toString();
     final destination = 'files/$filename';
-    FirebaseApi.uploadFile(destination, file);
+    UploadTask? task = FirebaseApi.uploadFile(destination, file);
+    final snapshot = await task!.whenComplete(() {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+    await MongoDatabase.updateProfilePicture(idUser, urlDownload);
+
+    print('Download-Link: $urlDownload');
   }
 
   Profile(this.name, this.email, this.idUser);

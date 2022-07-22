@@ -108,4 +108,15 @@ class MongoDatabase {
       return 'oke';
     }
   }
+
+  static updateProfilePicture(id, path) async {
+    userCollection = db.collection(USER_COLLECTION);
+    var conn = await userCollection.updateOne(
+        where.eq('_id', id), modify.set('picture', path));
+    if (conn.isSuccess) {
+      return "oke";
+    } else {
+      return "failed";
+    }
+  }
 }
