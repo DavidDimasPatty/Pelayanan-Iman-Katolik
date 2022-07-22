@@ -1,13 +1,35 @@
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
+import 'DatabaseFolder/fireBase.dart';
 import 'homePage.dart';
 import 'tiketSaya.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class Profile extends StatelessWidget {
   final name;
   final email;
   final idUser;
+
+  Future selectFile() async {
+    final result = await FilePicker.platform.pickFiles(allowMultiple: false);
+    if (result == null) return;
+    File file;
+    final path = result.files.single.path;
+    file = File(path!);
+    uploadFile(file);
+  }
+
+  Future uploadFile(File file) async {
+    if (file == null) return;
+    DateTime now = new DateTime.now();
+    DateTime date = new DateTime(now.year, now.month, now.day);
+    final filename = date.toString();
+    final destination = 'files/$filename';
+    FirebaseApi.uploadFile(destination, file);
+  }
 
   Profile(this.name, this.email, this.idUser);
 
@@ -83,7 +105,8 @@ class Profile extends StatelessWidget {
               textColor: Colors.white,
               color: Colors.blueAccent,
               onPressed: () async {
-                await ImagePicker().pickImage(source: ImageSource.gallery);
+                //await ImagePicker().pickImage(source: ImageSource.gallery);
+                selectFile();
               }),
           RaisedButton(
               child: Text("Log Out"),

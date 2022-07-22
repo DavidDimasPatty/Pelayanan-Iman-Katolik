@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "418851050053",
+    "project_id": "pelayananimankatolik",
+    "storage_bucket": "pelayananimankatolik.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:418851050053:android:cf1d0b0bb363984a3d892c",
+        "android_client_info": {
+          "package_name": "com.example.pelayanan_iman_katolik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "418851050053-5bo7ouitkbv0k0dp3rtpqf43ft280m3d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB02lQFJVvFA8KlL2RUGqR-tueboDsqKY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "418851050053-5bo7ouitkbv0k0dp3rtpqf43ft280m3d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
