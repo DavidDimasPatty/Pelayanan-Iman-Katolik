@@ -146,7 +146,7 @@ class Profile extends StatelessWidget {
                         color: Colors.blueAccent,
                         onPressed: () async {
                           //await ImagePicker().pickImage(source: ImageSource.gallery);
-                          selectFile(context);
+                          await selectFile(context);
                         }),
                     RaisedButton(
                         child: Text("Log Out"),

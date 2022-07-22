@@ -15,6 +15,9 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text('Welcome ' + names + ","),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.account_circle_rounded),
@@ -83,31 +86,45 @@ class HomePage extends StatelessWidget {
           ),
         ],
       )),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        showUnselectedLabels: true,
-        unselectedItemColor: Colors.blue,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Color.fromARGB(255, 0, 0, 0)),
-            label: "Home",
+      bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            boxShadow: [
+              BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle_rounded,
-                color: Color.fromARGB(255, 0, 0, 0)),
-            label: "TiketKu",
-          )
-        ],
-        onTap: (index) {
-          if (index == 1) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => tiketSaya(names, emails, iduser)),
-            );
-          } else if (index == 0) {}
-        },
-      ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
+            ),
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              showUnselectedLabels: true,
+              unselectedItemColor: Colors.blue,
+              items: <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home, color: Color.fromARGB(255, 0, 0, 0)),
+                  label: "Home",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle_rounded,
+                      color: Color.fromARGB(255, 0, 0, 0)),
+                  label: "TiketKu",
+                )
+              ],
+              onTap: (index) {
+                if (index == 1) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => tiketSaya(names, emails, iduser)),
+                  );
+                } else if (index == 0) {}
+              },
+            ),
+          )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: new FloatingActionButton(
         onPressed: () {},
