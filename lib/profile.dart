@@ -14,6 +14,7 @@ class Profile extends StatelessWidget {
   final name;
   final email;
   final idUser;
+  var dataUser;
 
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
@@ -22,6 +23,11 @@ class Profile extends StatelessWidget {
     final path = result.files.single.path;
     file = File(path!);
     uploadFile(file);
+  }
+
+  Future<List> callDb() async {
+    dataUser = await MongoDatabase.getDataUser(idUser);
+    return dataUser;
   }
 
   Future uploadFile(File file) async {
@@ -51,81 +57,107 @@ class Profile extends StatelessWidget {
       body: Center(
           child: Column(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          ),
-          CircleAvatar(
-            backgroundImage: AssetImage(''),
-            backgroundColor: Colors.greenAccent,
-            radius: 120,
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          ),
-          Text(
-            'User Information',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-          ),
-          Row(
-            children: <Widget>[
-              Text("Nama: "),
-              Text(name),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-          ),
-          Row(
-            children: <Widget>[
-              Text("Email: "),
-              Text(email),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-          ),
-          Row(
-            children: <Widget>[
-              Text("Address: "),
-              Text(" "),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-          ),
-          Row(
-            children: <Widget>[
-              Text("Phone Number: "),
-              Text(" "),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-          ),
-          RaisedButton(
-              child: Text("Change Profile Picture"),
-              textColor: Colors.white,
-              color: Colors.blueAccent,
-              onPressed: () async {
-                //await ImagePicker().pickImage(source: ImageSource.gallery);
-                selectFile();
-              }),
-          RaisedButton(
-              child: Text("Log Out"),
-              textColor: Colors.white,
-              color: Colors.blueAccent,
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                );
+          FutureBuilder<List>(
+              future: callDb(),
+              builder: (context, AsyncSnapshot snapshot) {
+                try {
+                  return Column(children: <Widget>[
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                    ),
+                    if (snapshot.data[0]['picture'] == null)
+                      CircleAvatar(
+                        backgroundImage: AssetImage(''),
+                        backgroundColor: Colors.greenAccent,
+                        radius: 120,
+                      ),
+                    if (snapshot.data[0]['picture'] != null)
+                      CircleAvatar(
+                        backgroundImage:
+                            NetworkImage(snapshot.data[0]['picture']),
+                        backgroundColor: Colors.greenAccent,
+                        radius: 120,
+                      ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                    ),
+                    Text(
+                      'User Information',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text("Nama: "),
+                        Text(snapshot.data[0]['name']),
+                      ],
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text("Email: "),
+                        Text(snapshot.data[0]['email']),
+                      ],
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text("Address: "),
+                        Text(" "),
+                      ],
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Text("Phone Number: "),
+                        Text(" "),
+                      ],
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                    ),
+                    RaisedButton(
+                        child: Text("Change Profile Picture"),
+                        textColor: Colors.white,
+                        color: Colors.blueAccent,
+                        onPressed: () async {
+                          //await ImagePicker().pickImage(source: ImageSource.gallery);
+                          selectFile();
+                        }),
+                    RaisedButton(
+                        child: Text("Log Out"),
+                        textColor: Colors.white,
+                        color: Colors.blueAccent,
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => Login()),
+                          );
+                        })
+                  ]);
+                } catch (e) {
+                  print(e);
+                  return Center(child: CircularProgressIndicator());
+                }
               })
         ],
       )),

@@ -26,6 +26,18 @@ class MongoDatabase {
     }
   }
 
+  static getDataUser(id) async {
+    userCollection = db.collection(USER_COLLECTION);
+    var conn = await userCollection.find({'_id': id}).toList();
+    try {
+      if (conn[0]['id'] != "") {
+        return conn;
+      }
+    } catch (e) {
+      return "failed";
+    }
+  }
+
   static findGereja() async {
     var gerejaCollection = db.collection(GEREJA_COLLECTION);
     var conn = await gerejaCollection.find().toList();
