@@ -76,6 +76,14 @@ class HomePage extends StatelessWidget {
                                 emails,
                                 textAlign: TextAlign.center,
                               ),
+                              Text(
+                                'Paroki',
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                'Lingkungan',
+                                textAlign: TextAlign.center,
+                              ),
                             ],
                           )
                         ],
@@ -84,7 +92,6 @@ class HomePage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 12),
                       ),
                       Container(
-                        alignment: Alignment.bottomCenter,
                         height: 80,
                         decoration: BoxDecoration(
                           color: Colors.indigo[100],
@@ -94,7 +101,17 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                         child: Row(
-                          children: <Widget>[],
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              '        Jadwal Terdekat:',
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              'Gereja dan Tanggal',
+                              textAlign: TextAlign.center,
+                            )
+                          ],
                         ),
                       )
                     ],
