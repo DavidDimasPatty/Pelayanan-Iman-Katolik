@@ -38,6 +38,70 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           ),
+          Card(
+              elevation: 20,
+              color: Colors.lightBlue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: SizedBox(
+                  width: 300,
+                  height: 190,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 7),
+                          ),
+                          CircleAvatar(
+                            backgroundImage: NetworkImage(''),
+                            backgroundColor: Colors.greenAccent,
+                            radius: 35,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 5),
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Text(
+                                names,
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                emails,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                      ),
+                      Container(
+                        alignment: Alignment.bottomCenter,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          color: Colors.indigo[100],
+                          borderRadius: BorderRadius.vertical(
+                            bottom: Radius.circular(20),
+                            top: Radius.circular(0),
+                          ),
+                        ),
+                        child: Row(
+                          children: <Widget>[],
+                        ),
+                      )
+                    ],
+                  ))),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          ),
           Text(
             'Pilih Menu',
             style: TextStyle(
