@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
+import 'DatabaseFolder/mongodb.dart';
 import 'misa.dart';
 
 class HomePage extends StatelessWidget {
   var names;
   var emails;
   var iduser;
+  var dataUser;
+
+  Future callDb() async {
+    dataUser = await MongoDatabase.getDataUser(iduser);
+    return dataUser;
+  }
 
   HomePage(this.names, this.emails, this.iduser);
   @override
@@ -215,3 +222,13 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+// FutureBuilder<List>(
+//               future: callDb(),
+//               builder: (context, AsyncSnapshot snapshot) {
+//                 try {
+               
+//                 } catch (e) {
+//                   print(e);
+//                   return Center(child: CircularProgressIndicator());
+//                 }
+//               })
