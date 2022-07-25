@@ -177,19 +177,22 @@ class HomePage extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           ),
           Text(
-            'Pilih Menu',
+            'Pilihan Layanan Menu',
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
           ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+          ),
           Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox.fromSize(
-                size: Size(56, 56), // button width and height
+                size: Size(60, 60), // button width and height
                 child: ClipOval(
                   child: Material(
                     color: Colors.orange, // button color
@@ -199,7 +202,7 @@ class HomePage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.call), // icon
+                          Icon(Icons.settings_accessibility), // icon
                           Text(
                             "Komuni",
                             style: TextStyle(
@@ -218,7 +221,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 11),
               ),
               SizedBox.fromSize(
-                size: Size(56, 56), // button width and height
+                size: Size(60, 60), // button width and height
                 child: ClipOval(
                   child: Material(
                     color: Colors.orange, // button color
@@ -235,7 +238,7 @@ class HomePage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.call), // icon
+                          Icon(Icons.church), // icon
                           Text(
                             "Misa",
                             style: TextStyle(
@@ -254,7 +257,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 11),
               ),
               SizedBox.fromSize(
-                size: Size(56, 56), // button width and height
+                size: Size(60, 60), // button width and height
                 child: ClipOval(
                   child: Material(
                     color: Colors.orange, // button color
@@ -264,7 +267,7 @@ class HomePage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.call), // icon
+                          Icon(Icons.sign_language), // icon
                           Text(
                             "Baptis",
                             style: TextStyle(
@@ -280,44 +283,6 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: RaisedButton(
-                child: Text("Pendaftaran Misa"),
-                textColor: Colors.white,
-                color: Colors.blueAccent,
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Misa(names, emails, iduser)),
-                  );
-                }),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: RaisedButton(
-                child: Text("Pendaftaran Baptis"),
-                textColor: Colors.white,
-                color: Colors.blueAccent,
-                onPressed: () {}),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: RaisedButton(
-                child: Text("Pendaftaran Komuni"),
-                textColor: Colors.white,
-                color: Colors.blueAccent,
-                onPressed: () {}),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            child: RaisedButton(
-                child: Text("Pendaftaran Krisma"),
-                textColor: Colors.white,
-                color: Colors.blueAccent,
-                onPressed: () {}),
           ),
         ],
       )),
