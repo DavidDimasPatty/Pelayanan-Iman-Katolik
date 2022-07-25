@@ -131,4 +131,26 @@ class MongoDatabase {
       return "failed";
     }
   }
+
+  static jadwalTerakhir(idUser) async {
+    var jadwalgerejaCollection = db.collection(JADWAL_GEREJA_COLLECTION);
+    var gerejaCollection = db.collection(GEREJA_COLLECTION);
+    var jadwalCollection = db.collection(TIKET_COLLECTION);
+    var conn1 = await jadwalCollection
+        .find({'idUser': idUser})
+        .toList()
+        .then((data) async {
+          var conn2 = await jadwalgerejaCollection
+              .find({'_id': data[0]['idMisa']})
+              .toList()
+              .then((data2) async {
+                var conn3 = await gerejaCollection
+                    .find({'_id': data2[0]['idGereja']})
+                    .toList()
+                    .then((data3) {
+                      return data2;
+                    });
+              });
+        });
+  }
 }

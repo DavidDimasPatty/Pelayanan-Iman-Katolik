@@ -15,6 +15,15 @@ class HomePage extends StatelessWidget {
     return dataUser;
   }
 
+  Future<List> jadwalTerakhir() async {
+    var dataTerakhir = await MongoDatabase.jadwalku(iduser);
+    var jadwalTerakhir =
+        await MongoDatabase.jadwalMisaku(dataTerakhir[0]['idMisa']);
+    var gerejaTerakhir =
+        await MongoDatabase.cariGereja(jadwalTerakhir[0]['idGereja']);
+    return [gerejaTerakhir, jadwalTerakhir];
+  }
+
   HomePage(this.names, this.emails, this.iduser);
   @override
   Widget build(BuildContext context) {
@@ -114,6 +123,7 @@ class HomePage extends StatelessWidget {
                               ),
                               Container(
                                 height: 80,
+                                width: double.infinity,
                                 decoration: BoxDecoration(
                                   color: Colors.indigo[100],
                                   borderRadius: BorderRadius.vertical(
@@ -121,17 +131,37 @@ class HomePage extends StatelessWidget {
                                     top: Radius.circular(0),
                                   ),
                                 ),
-                                child: Row(
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 8),
+                                    ),
                                     Text(
                                       '        Jadwal Terdekat:',
                                       textAlign: TextAlign.center,
                                     ),
-                                    Text(
-                                      'Gereja dan Tanggal',
-                                      textAlign: TextAlign.center,
-                                    )
+                                    FutureBuilder<List>(
+                                        future: jadwalTerakhir(),
+                                        builder:
+                                            (context, AsyncSnapshot snapshot) {
+                                          try {
+                                            return Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Text(snapshot.data[0][0]
+                                                      ['nama']),
+                                                  Text(snapshot.data[1][0]
+                                                      ['jadwal'])
+                                                ]);
+                                          } catch (e) {
+                                            return Center(
+                                                child:
+                                                    CircularProgressIndicator());
+                                          }
+                                        })
                                   ],
                                 ),
                               )
