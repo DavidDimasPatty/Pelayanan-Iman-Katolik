@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
   var iduser;
   var dataUser;
 
-  Future callDb() async {
+  Future<List> callDb() async {
     dataUser = await MongoDatabase.getDataUser(iduser);
     return dataUser;
   }
@@ -45,84 +45,103 @@ class HomePage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           ),
-          Card(
-              elevation: 20,
-              color: Colors.lightBlue,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: SizedBox(
-                  width: 300,
-                  height: 190,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 7),
-                          ),
-                          CircleAvatar(
-                            backgroundImage: NetworkImage(''),
-                            backgroundColor: Colors.greenAccent,
-                            radius: 35,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 5),
-                          ),
-                          Column(
+          FutureBuilder<List>(
+              future: callDb(),
+              builder: (context, AsyncSnapshot snapshot) {
+                try {
+                  return Card(
+                      elevation: 20,
+                      color: Colors.lightBlue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: SizedBox(
+                          width: 300,
+                          height: 190,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              Text(
-                                names,
-                                textAlign: TextAlign.center,
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 7),
+                                  ),
+                                  if (snapshot.data[0]['picture'] == null)
+                                    CircleAvatar(
+                                      backgroundImage: AssetImage(''),
+                                      backgroundColor: Colors.greenAccent,
+                                      radius: 35,
+                                    ),
+                                  if (snapshot.data[0]['picture'] != null)
+                                    CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                          snapshot.data[0]['picture']),
+                                      backgroundColor: Colors.greenAccent,
+                                      radius: 35,
+                                    ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 5),
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      Text(
+                                        names,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        emails,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        'Paroki',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        'Lingkungan',
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  )
+                                ],
                               ),
-                              Text(
-                                emails,
-                                textAlign: TextAlign.center,
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 12),
                               ),
-                              Text(
-                                'Paroki',
-                                textAlign: TextAlign.center,
-                              ),
-                              Text(
-                                'Lingkungan',
-                                textAlign: TextAlign.center,
-                              ),
+                              Container(
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  color: Colors.indigo[100],
+                                  borderRadius: BorderRadius.vertical(
+                                    bottom: Radius.circular(20),
+                                    top: Radius.circular(0),
+                                  ),
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      '        Jadwal Terdekat:',
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    Text(
+                                      'Gereja dan Tanggal',
+                                      textAlign: TextAlign.center,
+                                    )
+                                  ],
+                                ),
+                              )
                             ],
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                      ),
-                      Container(
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: Colors.indigo[100],
-                          borderRadius: BorderRadius.vertical(
-                            bottom: Radius.circular(20),
-                            top: Radius.circular(0),
-                          ),
-                        ),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              '        Jadwal Terdekat:',
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              'Gereja dan Tanggal',
-                              textAlign: TextAlign.center,
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ))),
+                          )));
+                } catch (e) {
+                  print(e);
+                  return Center(child: CircularProgressIndicator());
+                }
+              }),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           ),
@@ -222,13 +241,3 @@ class HomePage extends StatelessWidget {
     );
   }
 }
-// FutureBuilder<List>(
-//               future: callDb(),
-//               builder: (context, AsyncSnapshot snapshot) {
-//                 try {
-               
-//                 } catch (e) {
-//                   print(e);
-//                   return Center(child: CircularProgressIndicator());
-//                 }
-//               })
