@@ -1,7 +1,9 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
 import 'DatabaseFolder/mongodb.dart';
+import 'ItemCard.dart';
 import 'misa.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,6 +11,8 @@ class HomePage extends StatelessWidget {
   var emails;
   var iduser;
   var dataUser;
+  int _currentIndex = 0;
+  List<int> cardList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   Future<List> callDb() async {
     dataUser = await MongoDatabase.getDataUser(iduser);
@@ -195,7 +199,7 @@ class HomePage extends StatelessWidget {
                 size: Size(60, 60), // button width and height
                 child: ClipOval(
                   child: Material(
-                    color: Colors.orange, // button color
+                    color: Colors.lightBlueAccent, // button color
                     child: InkWell(
                       splashColor: Colors.green, // splash color
                       onTap: () {}, // button pressed
@@ -260,7 +264,7 @@ class HomePage extends StatelessWidget {
                 size: Size(60, 60), // button width and height
                 child: ClipOval(
                   child: Material(
-                    color: Colors.orange, // button color
+                    color: Colors.greenAccent, // button color
                     child: InkWell(
                       splashColor: Colors.green, // splash color
                       onTap: () {}, // button pressed
@@ -283,6 +287,27 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          ),
+          Container(
+            child: Center(
+              child: CarouselSlider(
+                options: CarouselOptions(
+                  autoPlay: true,
+                  autoPlayInterval: Duration(seconds: 3),
+                  autoPlayAnimationDuration: Duration(milliseconds: 800),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  pauseAutoPlayOnTouch: true,
+                  enlargeCenterPage: true,
+                  viewportFraction: 0.8,
+                ),
+                items: cardList.map((item) {
+                  return ItemCard(title: item.toString());
+                }).toList(),
+              ),
+            ),
           ),
         ],
       )),
