@@ -147,15 +147,16 @@ class HomePage extends StatelessWidget {
                                         builder:
                                             (context, AsyncSnapshot snapshot) {
                                           try {
-                                            return Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Text(snapshot.data[0][0]
-                                                      ['nama']),
-                                                  Text(snapshot.data[1][0]
-                                                      ['jadwal'])
-                                                ]);
+                                            return Column(children: <Widget>[
+                                              Text(
+                                                snapshot.data[0][0]['nama'],
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              Text(
+                                                snapshot.data[1][0]['jadwal'],
+                                                textAlign: TextAlign.center,
+                                              )
+                                            ]);
                                           } catch (e) {
                                             return Center(
                                                 child:
@@ -182,6 +183,103 @@ class HomePage extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox.fromSize(
+                size: Size(56, 56), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.orange, // button color
+                    child: InkWell(
+                      splashColor: Colors.green, // splash color
+                      onTap: () {}, // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.call), // icon
+                          Text(
+                            "Komuni",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ), // text
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 11),
+              ),
+              SizedBox.fromSize(
+                size: Size(56, 56), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.orange, // button color
+                    child: InkWell(
+                      splashColor: Colors.green, // splash color
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Misa(names, emails, iduser)),
+                        );
+                      }, // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.call), // icon
+                          Text(
+                            "Misa",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ), // text
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 11),
+              ),
+              SizedBox.fromSize(
+                size: Size(56, 56), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.orange, // button color
+                    child: InkWell(
+                      splashColor: Colors.green, // splash color
+                      onTap: () {}, // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.call), // icon
+                          Text(
+                            "Baptis",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ), // text
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
