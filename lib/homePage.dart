@@ -1,10 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
 import 'DatabaseFolder/mongodb.dart';
 import 'ItemCard.dart';
 import 'misa.dart';
+
+Future<void> openCamera() async {
+  //fuction openCamera();
+  final pickedImage = await ImagePicker().getImage(source: ImageSource.camera);
+}
 
 class HomePage extends StatelessWidget {
   var names;
@@ -357,7 +363,9 @@ class HomePage extends StatelessWidget {
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: new FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          openCamera();
+        },
         tooltip: 'Increment',
         child: new Icon(Icons.camera_alt_rounded),
       ),
