@@ -5,15 +5,14 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
-  final String title;
+  final String images;
 
-  const ItemCard({Key? key, required this.title}) : super(key: key);
+  const ItemCard({Key? key, required this.images}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
-      height: MediaQuery.of(context).size.height * 0.6,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color:
@@ -22,9 +21,29 @@ class ItemCard extends StatelessWidget {
           BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 2),
         ],
       ),
-      child: Center(
-        child: Text(title),
-      ),
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8.0),
+                topRight: Radius.circular(8.0),
+              ),
+              child: Image.network(images,
+                  // width: 300,
+                  height: 130,
+                  fit: BoxFit.fill),
+            ),
+            ListTile(
+                title: Text(
+              'Gereja Pembukaan Misa Natal',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+            )),
+          ]),
     );
   }
 }
