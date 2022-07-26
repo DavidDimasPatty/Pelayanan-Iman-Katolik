@@ -21,29 +21,31 @@ class ItemCard extends StatelessWidget {
           BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 2),
         ],
       ),
-      child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8.0),
-                topRight: Radius.circular(8.0),
+      child: SingleChildScrollView(
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  topRight: Radius.circular(8.0),
+                ),
+                child: Image.network(images,
+                    // width: 300,
+                    height: 170,
+                    fit: BoxFit.fill),
               ),
-              child: Image.network(images,
-                  // width: 300,
-                  height: 130,
-                  fit: BoxFit.fill),
-            ),
-            ListTile(
-                title: Text(
-              'Gereja Pembukaan Misa Natal',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
-          ]),
+              ListTile(
+                  title: Text(
+                'Gereja Pembukaan Misa Natal',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              )),
+            ]),
+      ),
     );
   }
 }
