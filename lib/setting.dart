@@ -28,7 +28,11 @@ class Settings extends StatelessWidget {
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
         title: const Text('Profile'),
-        actions: <Widget>[],
+        actions: <Widget>[
+          ListView(
+            children: <Widget>[],
+          )
+        ],
       ),
       body: Center(child: Column(children: <Widget>[])),
       bottomNavigationBar: Container(
