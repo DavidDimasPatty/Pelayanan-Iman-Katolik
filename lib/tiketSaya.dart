@@ -3,6 +3,7 @@ import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
+import 'package:pelayanan_iman_katolik/setting.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetail.dart';
 
 class tiketSaya extends StatelessWidget {
@@ -54,6 +55,16 @@ class tiketSaya extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => Profile(names, emails, idUser)),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Settings(names, emails, idUser)),
               );
             },
           ),

@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
+import 'package:pelayanan_iman_katolik/setting.dart';
 import 'DatabaseFolder/fireBase.dart';
 import 'homePage.dart';
 import 'tiketSaya.dart';
@@ -61,7 +62,22 @@ class Profile extends StatelessWidget {
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
         title: const Text('Profile'),
-        actions: <Widget>[],
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.account_circle_rounded),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Settings(name, email, idUser)),
+              );
+            },
+          ),
+        ],
       ),
       body: Center(
           child: Column(

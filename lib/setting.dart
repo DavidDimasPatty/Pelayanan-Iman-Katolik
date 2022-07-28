@@ -4,6 +4,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
+import 'package:pelayanan_iman_katolik/profile.dart';
 import 'DatabaseFolder/fireBase.dart';
 import 'homePage.dart';
 import 'tiketSaya.dart';
@@ -24,14 +25,25 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Settings'),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        title: const Text('Profile'),
         actions: <Widget>[
-          ListView(
-            children: <Widget>[],
-          )
+          IconButton(
+            icon: const Icon(Icons.account_circle_rounded),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Profile(name, email, idUser)),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {},
+          ),
         ],
       ),
       body: Center(child: Column(children: <Widget>[])),

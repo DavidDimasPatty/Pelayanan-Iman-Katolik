@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/jadwalMisa.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
+import 'package:pelayanan_iman_katolik/setting.dart';
 import 'tiketSaya.dart';
 import 'homePage.dart';
 
@@ -37,6 +38,16 @@ class detailDaftarMisa extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => Profile(name, email, idUser)),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Settings(name, email, idUser)),
               );
             },
           ),
