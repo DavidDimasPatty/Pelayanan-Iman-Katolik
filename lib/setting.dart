@@ -46,7 +46,43 @@ class Settings extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(child: Column(children: <Widget>[])),
+      body: Center(
+          child: Column(children: <Widget>[
+        ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.all(20.0),
+          children: <Widget>[
+            InkWell(
+              borderRadius: new BorderRadius.circular(24),
+              onTap: () {},
+              child: Container(
+                  margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.lightBlue,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Column(children: <Widget>[Text('Ganti Password')])),
+            ),
+            InkWell(
+              borderRadius: new BorderRadius.circular(24),
+              onTap: () {},
+              child: Container(
+                  margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.lightBlue,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Column(children: <Widget>[Text('Notification')])),
+            ),
+
+            ///map////////
+          ],
+        )
+      ])),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
