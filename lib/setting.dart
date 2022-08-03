@@ -78,6 +78,32 @@ class Settings extends StatelessWidget {
                   ),
                   child: Column(children: <Widget>[Text('Notification')])),
             ),
+            InkWell(
+              borderRadius: new BorderRadius.circular(24),
+              onTap: () {},
+              child: Container(
+                  margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.lightBlue,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Column(children: <Widget>[Text('Privacy & Safety')])),
+            ),
+            InkWell(
+              borderRadius: new BorderRadius.circular(24),
+              onTap: () {},
+              child: Container(
+                  margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.lightBlue,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Column(children: <Widget>[Text('Log Out')])),
+            ),
 
             ///map////////
           ],
