@@ -12,10 +12,6 @@ class termsCondition extends StatelessWidget {
   final idUser;
   termsCondition(this.name, this.email, this.idUser);
   @override
-  TextEditingController passLamaController = new TextEditingController();
-  TextEditingController passBaruController = new TextEditingController();
-  TextEditingController passUlBaruController = new TextEditingController();
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -40,8 +36,18 @@ class termsCondition extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: <Widget>[],
+      body: ListView(
+        children: <Widget>[
+          Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+          Text(
+            'Terms and Conditions',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          )
+        ],
       ),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(

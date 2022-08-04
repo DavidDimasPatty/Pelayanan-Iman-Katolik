@@ -40,8 +40,108 @@ class aboutus extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: <Widget>[],
+      body: ListView(
+        children: <Widget>[
+          Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+          Text(
+            'Aplikasi Pelayanan Iman Katolik',
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+          Text(
+            'Aplikasi Pelayanan Iman Katolik adalah aplikasi yang membantu umat katolik agar lebih dimudahkan' +
+                ' dalam beribadah. Aplikasi ini telah didukung oleh banyak gereja di Indonesia yang semuanya telah ' +
+                ' didaftarkan oleh Persatuan gereja di Indonesia',
+            style: TextStyle(
+              fontSize: 12,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+          Text(
+            'Aplikasi ini telah terdaftar di KEMENKOMINFO pada 10 September 2022, Aplikasi ini ' +
+                'dibuat pada tanggal 20 Juli 2022 Oleh Mahasiswa Universitas Katolik Parahyangan angkatan 2018' +
+                ' David Dimas Patty, untuk memenuhi Topik Skripsi Pelayanan Iman Katolik',
+            style: TextStyle(
+              fontSize: 12,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+          Text(
+            'Profile Pengembang',
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+          Center(
+            child: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  'https://firebasestorage.googleapis.com/v0/b/pelayananimankatolik.appspot.com/o/foto%20david.jpg?alt=media&token=6e39382d-46b5-407a-a94b-19cb273ad9d9'),
+              backgroundColor: Colors.greenAccent,
+              radius: 80,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text("Nama: "),
+              Text("David Dimas Patty"),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text("Email: "),
+              Text("daviddimas80@gmail.com"),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text("Universitas: "),
+              Text("Universitas Katolik Parahyangan"),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text("Jurusan: "),
+              Text("Teknik Informatika"),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text("NPM: "),
+              Text("6181801040"),
+            ],
+          ),
+        ],
       ),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
