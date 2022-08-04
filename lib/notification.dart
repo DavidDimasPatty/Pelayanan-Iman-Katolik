@@ -6,16 +6,27 @@ import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
 
-class notification extends StatelessWidget {
+class notification extends StatefulWidget {
   final name;
   final email;
   final idUser;
   notification(this.name, this.email, this.idUser);
   @override
-  TextEditingController passLamaController = new TextEditingController();
-  TextEditingController passBaruController = new TextEditingController();
-  TextEditingController passUlBaruController = new TextEditingController();
+  _notifClass createState() => _notifClass(this.name, this.email, this.idUser);
+}
 
+class _notifClass extends State<notification> {
+  final name;
+  final email;
+  final idUser;
+
+  _notifClass(this.name, this.email, this.idUser);
+  bool switchh = false;
+  void isSwitch() {
+    switchh = true;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +52,82 @@ class notification extends StatelessWidget {
         ],
       ),
       body: Column(
-        children: <Widget>[],
+        children: <Widget>[
+          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+          Row(
+            children: <Widget>[
+              Padding(padding: EdgeInsets.symmetric(horizontal: 6)),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Pengingat Gereja',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.symmetric(vertical: 3)),
+                    Text(
+                      'Jika dimatikan tidak akan mendapatkan notifikasi gereja dimulai 1 jam sebelumnya',
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    )
+                  ],
+                ),
+              ),
+              Switch(
+                value: switchh,
+                onChanged: (value) {
+                  setState(() {
+                    switchh = value;
+                  });
+                },
+                activeTrackColor: Colors.lightGreenAccent,
+                activeColor: Colors.green,
+              ),
+            ],
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+          Row(
+            children: <Widget>[
+              Padding(padding: EdgeInsets.symmetric(horizontal: 6)),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Misa di Gereja Terdekat',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.symmetric(vertical: 3)),
+                    Text(
+                      'Pemberitahuan Misa di Gereja Terdekat',
+                      style: TextStyle(fontSize: 12, color: Colors.grey),
+                    )
+                  ],
+                ),
+              ),
+              Switch(
+                value: switchh,
+                onChanged: (value) {
+                  setState(() {
+                    switchh = value;
+                  });
+                },
+                activeTrackColor: Colors.lightGreenAccent,
+                activeColor: Colors.green,
+              ),
+            ],
+          )
+        ],
       ),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
