@@ -3,8 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/aboutus.dart';
+import 'package:pelayanan_iman_katolik/customerService.dart';
+import 'package:pelayanan_iman_katolik/gantiPasword.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
+import 'package:pelayanan_iman_katolik/notification.dart';
+import 'package:pelayanan_iman_katolik/privacySafety.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
+import 'package:pelayanan_iman_katolik/termsCondition.dart';
 import 'DatabaseFolder/fireBase.dart';
 import 'homePage.dart';
 import 'tiketSaya.dart';
@@ -54,7 +60,14 @@ class Settings extends StatelessWidget {
           children: <Widget>[
             InkWell(
               borderRadius: new BorderRadius.circular(24),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          gantiPassword(this.name, this.email, this.idUser)),
+                );
+              },
               child: Container(
                   margin: EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -67,7 +80,13 @@ class Settings extends StatelessWidget {
             ),
             InkWell(
               borderRadius: new BorderRadius.circular(24),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            notification(this.name, this.email, this.idUser)));
+              },
               child: Container(
                   margin: EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -80,7 +99,13 @@ class Settings extends StatelessWidget {
             ),
             InkWell(
               borderRadius: new BorderRadius.circular(24),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            privacySafety(this.name, this.email, this.idUser)));
+              },
               child: Container(
                   margin: EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -93,7 +118,13 @@ class Settings extends StatelessWidget {
             ),
             InkWell(
               borderRadius: new BorderRadius.circular(24),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => termsCondition(
+                            this.name, this.email, this.idUser)));
+              },
               child: Container(
                   margin: EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -107,7 +138,46 @@ class Settings extends StatelessWidget {
             ),
             InkWell(
               borderRadius: new BorderRadius.circular(24),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            aboutus(this.name, this.email, this.idUser)));
+              },
+              child: Container(
+                  margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.lightBlue,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Column(children: <Widget>[Text('About Us')])),
+            ),
+            InkWell(
+              borderRadius: new BorderRadius.circular(24),
               onTap: () {},
+              child: Container(
+                  margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.lightBlue,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: Column(
+                      children: <Widget>[Text('Give Rating and Review')])),
+            ),
+            InkWell(
+              borderRadius: new BorderRadius.circular(24),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => customerService(
+                            this.name, this.email, this.idUser)));
+              },
               child: Container(
                   margin: EdgeInsets.all(20),
                   decoration: BoxDecoration(
