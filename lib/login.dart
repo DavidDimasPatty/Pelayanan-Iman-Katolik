@@ -69,7 +69,7 @@ class Login extends StatelessWidget {
                         child: FadeAnimation(
                           1.6,
                           Container(
-                            margin: EdgeInsets.only(top: 50),
+                            margin: EdgeInsets.only(top: 85),
                             child: Center(
                               child: Text(
                                 'Halo, Umat Katolik!',
