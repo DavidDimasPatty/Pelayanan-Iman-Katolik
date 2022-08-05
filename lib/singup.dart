@@ -110,11 +110,8 @@ class SignUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sign Up'),
-      ),
-      body: Column(
+    return Material(
+      child: Column(
         children: <Widget>[
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
