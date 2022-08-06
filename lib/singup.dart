@@ -130,7 +130,7 @@ class SignUp extends StatelessWidget {
               controller: nameController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                hintText: 'Masukan nama lengkap anda',
+                hintText: 'Nama lengkap',
               ),
             ),
           ),
