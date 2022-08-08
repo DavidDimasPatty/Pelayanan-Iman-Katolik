@@ -58,154 +58,295 @@ class Settings extends StatelessWidget {
           shrinkWrap: true,
           padding: EdgeInsets.all(20.0),
           children: <Widget>[
-            InkWell(
-              borderRadius: new BorderRadius.circular(24),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          gantiPassword(this.name, this.email, this.idUser)),
-                );
-              },
-              child: Container(
-                  margin: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.lightBlue,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Column(children: <Widget>[Text('Ganti Password')])),
-            ),
-            InkWell(
-              borderRadius: new BorderRadius.circular(24),
-              onTap: () {
-                Navigator.push(
+            RaisedButton(
+                onPressed: () {
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            notification(this.name, this.email, this.idUser)));
-              },
-              child: Container(
-                  margin: EdgeInsets.all(20),
+                            gantiPassword(this.name, this.email, this.idUser)),
+                  );
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                elevation: 10.0,
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.lightBlue,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.topLeft,
+                        colors: [
+                          Colors.blueAccent,
+                          Colors.lightBlue,
+                        ]),
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
-                  child: Column(children: <Widget>[Text('Notification')])),
-            ),
-            InkWell(
-              borderRadius: new BorderRadius.circular(24),
-              onTap: () {
-                Navigator.push(
+                  child: Container(
+                    constraints: BoxConstraints(
+                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Ganti Password",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                )),
+            Padding(padding: EdgeInsets.symmetric(vertical: 14)),
+            RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => notification(
+                              this.name, this.email, this.idUser)));
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                elevation: 10.0,
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.topLeft,
+                        colors: [
+                          Colors.blueAccent,
+                          Colors.lightBlue,
+                        ]),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Container(
+                    constraints: BoxConstraints(
+                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Notification",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                )),
+            Padding(padding: EdgeInsets.symmetric(vertical: 14)),
+            RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => privacySafety(
+                              this.name, this.email, this.idUser)));
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                elevation: 10.0,
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.topLeft,
+                        colors: [
+                          Colors.blueAccent,
+                          Colors.lightBlue,
+                        ]),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Container(
+                    constraints: BoxConstraints(
+                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Privacy & Safety",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                )),
+            Padding(padding: EdgeInsets.symmetric(vertical: 14)),
+            RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => termsCondition(
+                              this.name, this.email, this.idUser)));
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                elevation: 10.0,
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.topLeft,
+                        colors: [
+                          Colors.blueAccent,
+                          Colors.lightBlue,
+                        ]),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Container(
+                    constraints: BoxConstraints(
+                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Terms & Conditions",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                )),
+            Padding(padding: EdgeInsets.symmetric(vertical: 14)),
+            RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              aboutus(this.name, this.email, this.idUser)));
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                elevation: 10.0,
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.topLeft,
+                        colors: [
+                          Colors.blueAccent,
+                          Colors.lightBlue,
+                        ]),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Container(
+                    constraints: BoxConstraints(
+                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "About Us",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                )),
+            Padding(padding: EdgeInsets.symmetric(vertical: 14)),
+            RaisedButton(
+                onPressed: () {},
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                elevation: 10.0,
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.topLeft,
+                        colors: [
+                          Colors.blueAccent,
+                          Colors.lightBlue,
+                        ]),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Container(
+                    constraints: BoxConstraints(
+                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Giver Rating and Review",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                )),
+            Padding(padding: EdgeInsets.symmetric(vertical: 14)),
+            RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => customerService(
+                              this.name, this.email, this.idUser)));
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                elevation: 10.0,
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.topLeft,
+                        colors: [
+                          Colors.blueAccent,
+                          Colors.lightBlue,
+                        ]),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Container(
+                    constraints: BoxConstraints(
+                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Customer Service",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                )),
+            Padding(padding: EdgeInsets.symmetric(vertical: 14)),
+            RaisedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            privacySafety(this.name, this.email, this.idUser)));
-              },
-              child: Container(
-                  margin: EdgeInsets.all(20),
+                    MaterialPageRoute(builder: (context) => Login()),
+                  );
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                elevation: 10.0,
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
                   decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.lightBlue,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.topLeft,
+                        colors: [
+                          Colors.blueAccent,
+                          Colors.lightBlue,
+                        ]),
+                    borderRadius: BorderRadius.circular(30.0),
                   ),
-                  child: Column(children: <Widget>[Text('Privacy & Safety')])),
-            ),
-            InkWell(
-              borderRadius: new BorderRadius.circular(24),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => termsCondition(
-                            this.name, this.email, this.idUser)));
-              },
-              child: Container(
-                  margin: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.lightBlue,
+                  child: Container(
+                    constraints: BoxConstraints(
+                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Log Out",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w300),
                     ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  child:
-                      Column(children: <Widget>[Text('Terms & Conditions')])),
-            ),
-            InkWell(
-              borderRadius: new BorderRadius.circular(24),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            aboutus(this.name, this.email, this.idUser)));
-              },
-              child: Container(
-                  margin: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.lightBlue,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Column(children: <Widget>[Text('About Us')])),
-            ),
-            InkWell(
-              borderRadius: new BorderRadius.circular(24),
-              onTap: () {},
-              child: Container(
-                  margin: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.lightBlue,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Column(
-                      children: <Widget>[Text('Give Rating and Review')])),
-            ),
-            InkWell(
-              borderRadius: new BorderRadius.circular(24),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => customerService(
-                            this.name, this.email, this.idUser)));
-              },
-              child: Container(
-                  margin: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.lightBlue,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Column(children: <Widget>[Text('Customer Service')])),
-            ),
-            InkWell(
-              borderRadius: new BorderRadius.circular(24),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                );
-              },
-              child: Container(
-                  margin: EdgeInsets.all(20),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.lightBlue,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: Column(children: <Widget>[Text('Log Out')])),
-            ),
+                )),
 
             ///map////////
           ],
