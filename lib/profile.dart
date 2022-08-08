@@ -167,17 +167,6 @@ class Profile extends StatelessWidget {
                           //await ImagePicker().pickImage(source: ImageSource.gallery);
                           await selectFile(context);
                         }),
-                    RaisedButton(
-                        child: Text("Log Out"),
-                        textColor: Colors.white,
-                        color: Colors.blueAccent,
-                        onPressed: () {
-                          Navigator.pop(context);
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => Login()),
-                          );
-                        })
                   ]);
                 } catch (e) {
                   print(e);

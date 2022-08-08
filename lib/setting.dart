@@ -190,7 +190,12 @@ class Settings extends StatelessWidget {
             ),
             InkWell(
               borderRadius: new BorderRadius.circular(24),
-              onTap: () {},
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
+              },
               child: Container(
                   margin: EdgeInsets.all(20),
                   decoration: BoxDecoration(
