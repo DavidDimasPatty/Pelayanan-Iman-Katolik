@@ -40,8 +40,114 @@ class customerService extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: <Widget>[],
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+        child: Column(
+          children: <Widget>[
+            Text(
+              "Contact Us By:",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            Padding(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15)),
+            Column(
+              children: <Widget>[
+                Row(children: <Widget>[
+                  SizedBox.fromSize(
+                    size: Size(60, 60), // button width and height
+                    child: ClipOval(
+                      child: Material(
+                        color: Colors.green, // button color
+                        child: InkWell(
+                          splashColor: Colors.green, // splash color
+                          onTap: () {}, // button pressed
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.whatsapp_sharp), // icon
+                              Text(
+                                "Whats App",
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ), // text
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+                  Text('+62 81-24525-241')
+                ]),
+                Padding(padding: EdgeInsets.symmetric(vertical: 20)),
+                Row(children: <Widget>[
+                  SizedBox.fromSize(
+                    size: Size(60, 60), // button width and height
+                    child: ClipOval(
+                      child: Material(
+                        color: Colors.white, // button color
+                        child: InkWell(
+                          splashColor: Colors.green, // splash color
+                          onTap: () {}, // button pressed
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.email), // icon
+                              Text(
+                                "Email",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ), // text
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+                  Text('adminPelayananIman@gmail.com')
+                ]),
+                Padding(padding: EdgeInsets.symmetric(vertical: 20)),
+                Row(children: <Widget>[
+                  SizedBox.fromSize(
+                    size: Size(60, 60), // button width and height
+                    child: ClipOval(
+                      child: Material(
+                        color: Colors.blue, // button color
+                        child: InkWell(
+                          splashColor: Colors.green, // splash color
+                          onTap: () {}, // button pressed
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(Icons.facebook), // icon
+                              Text(
+                                "Facebook",
+                                style: TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ), // text
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
+                  Text('Pelayanan Iman Katolik')
+                ])
+              ],
+            )
+          ],
+        ),
       ),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
