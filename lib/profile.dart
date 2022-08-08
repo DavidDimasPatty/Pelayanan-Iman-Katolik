@@ -16,6 +16,7 @@ class Profile extends StatelessWidget {
   final email;
   final idUser;
   var dataUser;
+  var totalGereja;
 
   Future selectFile(context) async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
@@ -29,6 +30,11 @@ class Profile extends StatelessWidget {
   Future<List> callDb() async {
     dataUser = await MongoDatabase.getDataUser(idUser);
     return dataUser;
+  }
+
+  Future countTotalGereja() async {
+    totalGereja = await MongoDatabase.totalGereja(idUser);
+    return totalGereja;
   }
 
   Future uploadFile(File file, context) async {
@@ -150,6 +156,10 @@ class Profile extends StatelessWidget {
                                           height: 10.0,
                                         ),
                                         Card(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(30.0),
+                                          ),
                                           margin: EdgeInsets.symmetric(
                                               horizontal: 20.0, vertical: 5.0),
                                           clipBehavior: Clip.antiAlias,
@@ -165,11 +175,11 @@ class Profile extends StatelessWidget {
                                                   child: Column(
                                                     children: <Widget>[
                                                       Text(
-                                                        "Total ke Gereja",
+                                                        "Kunjungan Gereja Terdaftar :",
                                                         style: TextStyle(
                                                           color:
                                                               Colors.redAccent,
-                                                          fontSize: 22.0,
+                                                          fontSize: 20.0,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                         ),
@@ -177,14 +187,31 @@ class Profile extends StatelessWidget {
                                                       SizedBox(
                                                         height: 5.0,
                                                       ),
-                                                      Text(
-                                                        "5200",
-                                                        style: TextStyle(
-                                                          fontSize: 20.0,
-                                                          color:
-                                                              Colors.pinkAccent,
-                                                        ),
-                                                      )
+                                                      FutureBuilder(
+                                                          future:
+                                                              countTotalGereja(),
+                                                          builder: (context,
+                                                              AsyncSnapshot
+                                                                  snapshot) {
+                                                            try {
+                                                              return Text(
+                                                                snapshot.data
+                                                                    .toString(),
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize:
+                                                                      20.0,
+                                                                  color: Colors
+                                                                      .pinkAccent,
+                                                                ),
+                                                              );
+                                                            } catch (e) {
+                                                              print(e);
+                                                              return Center(
+                                                                  child:
+                                                                      CircularProgressIndicator());
+                                                            }
+                                                          })
                                                     ],
                                                   ),
                                                 ),

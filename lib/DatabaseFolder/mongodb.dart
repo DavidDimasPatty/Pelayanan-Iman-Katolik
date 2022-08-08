@@ -38,6 +38,13 @@ class MongoDatabase {
     }
   }
 
+  static totalGereja(id) async {
+    var jadwalCollection = db.collection(TIKET_COLLECTION);
+    var conn = await jadwalCollection.find({'idUser': id}).length;
+
+    return conn;
+  }
+
   static findGereja() async {
     var gerejaCollection = db.collection(GEREJA_COLLECTION);
     var conn = await gerejaCollection.find().toList();
