@@ -405,8 +405,7 @@ class Profile extends StatelessWidget {
                   label: "Home",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle_rounded,
-                      color: Color.fromARGB(255, 0, 0, 0)),
+                  icon: Icon(Icons.token, color: Color.fromARGB(255, 0, 0, 0)),
                   label: "TiketKu",
                 )
               ],
