@@ -139,6 +139,33 @@ class MongoDatabase {
     }
   }
 
+  static findPassword(email, pass) async {
+    userCollection = db.collection(USER_COLLECTION);
+    var conn =
+        await userCollection.find({'email': email, 'password': pass}).toList();
+    try {
+      print(conn[0]['_id']);
+      if (conn[0]['_id'] == null) {
+        return "not";
+      } else {
+        return "found";
+      }
+    } catch (e) {
+      return "failed";
+    }
+  }
+
+  static updatePassword(id, pass) async {
+    userCollection = db.collection(USER_COLLECTION);
+    var conn = await userCollection.updateOne(
+        where.eq('_id', id), modify.set('password', pass));
+    if (conn.isSuccess) {
+      return "oke";
+    } else {
+      return "failed";
+    }
+  }
+
   static jadwalTerakhir(idUser) async {
     var jadwalgerejaCollection = db.collection(JADWAL_GEREJA_COLLECTION);
     var gerejaCollection = db.collection(GEREJA_COLLECTION);
