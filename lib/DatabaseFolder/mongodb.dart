@@ -166,6 +166,28 @@ class MongoDatabase {
     }
   }
 
+  static updateNotifPg(id, notifPg) async {
+    userCollection = db.collection(USER_COLLECTION);
+    var conn = await userCollection.updateOne(
+        where.eq('_id', id), modify.set('notifPG', notifPg));
+    if (conn.isSuccess) {
+      return "oke";
+    } else {
+      return "failed";
+    }
+  }
+
+  static updateNotifGd(id, notifGd) async {
+    userCollection = db.collection(USER_COLLECTION);
+    var conn = await userCollection.updateOne(
+        where.eq('_id', id), modify.set('notifGD', notifGd));
+    if (conn.isSuccess) {
+      return "oke";
+    } else {
+      return "failed";
+    }
+  }
+
   static jadwalTerakhir(idUser) async {
     var jadwalgerejaCollection = db.collection(JADWAL_GEREJA_COLLECTION);
     var gerejaCollection = db.collection(GEREJA_COLLECTION);

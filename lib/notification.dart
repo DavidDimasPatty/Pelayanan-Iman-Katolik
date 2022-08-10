@@ -1,10 +1,12 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
+
+import 'DatabaseFolder/mongodb.dart';
 
 class notification extends StatefulWidget {
   final name;
@@ -19,11 +21,29 @@ class _notifClass extends State<notification> {
   final name;
   final email;
   final idUser;
-
+  var checknotif;
   _notifClass(this.name, this.email, this.idUser);
-  bool switchh = false;
+  bool switch1 = false;
   void isSwitch() {
-    switchh = true;
+    switch1 = true;
+  }
+
+  bool switch2 = false;
+  void isSwitch2() {
+    switch2 = true;
+  }
+
+  Future<List> callDb() async {
+    checknotif = await MongoDatabase.getDataUser(idUser);
+    return checknotif;
+  }
+
+  void updateNotifPg(notifPg) async {
+    await MongoDatabase.updateNotifPg(idUser, notifPg);
+  }
+
+  void updateNotifGd(notifGD) async {
+    await MongoDatabase.updateNotifGd(idUser, notifGD);
   }
 
   @override
@@ -51,84 +71,100 @@ class _notifClass extends State<notification> {
           ),
         ],
       ),
-      body: Column(
-        children: <Widget>[
-          Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-          Row(
-            children: <Widget>[
-              Padding(padding: EdgeInsets.symmetric(horizontal: 6)),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Pengingat Gereja',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+      body: FutureBuilder<List>(
+          future: callDb(),
+          builder: (context, AsyncSnapshot snapshot) {
+            try {
+              switch1 = snapshot.data[0]['notifPG'];
+              switch2 = snapshot.data[0]['notifGD'];
+
+              return Column(
+                children: <Widget>[
+                  Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                  Row(
+                    children: <Widget>[
+                      Padding(padding: EdgeInsets.symmetric(horizontal: 6)),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Pengingat Gereja',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Padding(padding: EdgeInsets.symmetric(vertical: 3)),
+                            Text(
+                              'Jika dimatikan tidak akan mendapatkan notifikasi gereja dimulai 1 jam sebelumnya',
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.grey),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(padding: EdgeInsets.symmetric(vertical: 3)),
-                    Text(
-                      'Jika dimatikan tidak akan mendapatkan notifikasi gereja dimulai 1 jam sebelumnya',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    )
-                  ],
-                ),
-              ),
-              Switch(
-                value: switchh,
-                onChanged: (value) {
-                  setState(() {
-                    switchh = value;
-                  });
-                },
-                activeTrackColor: Colors.lightGreenAccent,
-                activeColor: Colors.green,
-              ),
-            ],
-          ),
-          Padding(padding: EdgeInsets.symmetric(vertical: 8)),
-          Row(
-            children: <Widget>[
-              Padding(padding: EdgeInsets.symmetric(horizontal: 6)),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'Misa di Gereja Terdekat',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
+                      Switch(
+                        value: switch1,
+                        onChanged: (value) {
+                          setState(() async {
+                            switch1 = value;
+                            updateNotifPg(switch1);
+                          });
+                        },
+                        activeTrackColor: Colors.lightGreenAccent,
+                        activeColor: Colors.green,
                       ),
-                    ),
-                    Padding(padding: EdgeInsets.symmetric(vertical: 3)),
-                    Text(
-                      'Pemberitahuan Misa di Gereja Terdekat',
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    )
-                  ],
-                ),
-              ),
-              Switch(
-                value: switchh,
-                onChanged: (value) {
-                  setState(() {
-                    switchh = value;
-                  });
-                },
-                activeTrackColor: Colors.lightGreenAccent,
-                activeColor: Colors.green,
-              ),
-            ],
-          )
-        ],
-      ),
+                    ],
+                  ),
+                  Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+                  Row(
+                    children: <Widget>[
+                      Padding(padding: EdgeInsets.symmetric(horizontal: 6)),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Misa di Gereja Terdekat',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Padding(padding: EdgeInsets.symmetric(vertical: 3)),
+                            Text(
+                              'Pemberitahuan Misa di Gereja Terdekat',
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.grey),
+                            )
+                          ],
+                        ),
+                      ),
+                      Switch(
+                        value: switch2,
+                        onChanged: (value) {
+                          setState(() async {
+                            updateNotifGd(switch2);
+                            switch2 = value;
+                          });
+                        },
+                        activeTrackColor: Colors.lightGreenAccent,
+                        activeColor: Colors.green,
+                      ),
+                    ],
+                  )
+                ],
+              );
+            } catch (e) {
+              print(e);
+              return Center(child: CircularProgressIndicator());
+            }
+          }),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
