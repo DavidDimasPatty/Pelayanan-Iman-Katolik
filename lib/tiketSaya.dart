@@ -88,6 +88,13 @@ class tiketSaya extends StatelessWidget {
                       child: Container(
                           margin: EdgeInsets.all(20),
                           decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.topLeft,
+                                colors: [
+                                  Colors.blueAccent,
+                                  Colors.lightBlue,
+                                ]),
                             border: Border.all(
                               color: Colors.lightBlue,
                             ),
@@ -100,9 +107,20 @@ class tiketSaya extends StatelessWidget {
                                   try {
                                     return Column(
                                       children: <Widget>[
-                                        Text("Jadwal : " + snapshot.data[0]),
                                         Text(
-                                            "Nama Gereja : " + snapshot.data[1])
+                                          "Jadwal : " + snapshot.data[0],
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 26.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                        Text(
+                                          "Nama Gereja : " + snapshot.data[1],
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.w300),
+                                        )
                                       ],
                                     );
                                   } catch (e) {
