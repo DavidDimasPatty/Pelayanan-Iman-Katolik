@@ -36,8 +36,13 @@ class tiketSayaDetail {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
               alignment: Alignment.center,
-              title: Text("Detail Jadwal"),
+              title: Text(
+                "Detail Jadwal",
+                textAlign: TextAlign.center,
+              ),
               content: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
