@@ -41,6 +41,8 @@ class jadwalMisa {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
               alignment: Alignment.center,
               title: Text("Jadwal Tersedia"),
               content: Column(
