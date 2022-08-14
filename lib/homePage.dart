@@ -126,18 +126,34 @@ class HomePage extends StatelessWidget {
                                       Text(
                                         names,
                                         textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 22.0,
+                                            fontWeight: FontWeight.w300),
                                       ),
                                       Text(
                                         emails,
                                         textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w300),
                                       ),
                                       Text(
                                         'Paroki',
                                         textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w300),
                                       ),
                                       Text(
                                         'Lingkungan',
                                         textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w300),
                                       ),
                                     ],
                                   )
@@ -161,11 +177,15 @@ class HomePage extends StatelessWidget {
                                   children: <Widget>[
                                     Padding(
                                       padding:
-                                          EdgeInsets.symmetric(vertical: 8),
+                                          EdgeInsets.symmetric(vertical: 4),
                                     ),
                                     Text(
-                                      '        Jadwal Terdekat:',
+                                      'Jadwal Terdekat:',
                                       textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.w300),
                                     ),
                                     FutureBuilder<List>(
                                         future: jadwalTerakhir(),
@@ -176,10 +196,20 @@ class HomePage extends StatelessWidget {
                                               Text(
                                                 snapshot.data[0][0]['nama'],
                                                 textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15.0,
+                                                    fontWeight:
+                                                        FontWeight.w300),
                                               ),
                                               Text(
                                                 snapshot.data[1][0]['jadwal'],
                                                 textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15.0,
+                                                    fontWeight:
+                                                        FontWeight.w300),
                                               )
                                             ]);
                                           } catch (e) {
