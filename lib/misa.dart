@@ -72,6 +72,13 @@ class Misa extends StatelessWidget {
                       child: Container(
                           margin: EdgeInsets.all(20),
                           decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.topLeft,
+                                colors: [
+                                  Colors.blueGrey,
+                                  Colors.lightBlue,
+                                ]),
                             border: Border.all(
                               color: Colors.lightBlue,
                             ),
@@ -81,25 +88,27 @@ class Misa extends StatelessWidget {
                             //Color(Colors.blue);
 
                             Text(
-                              'Nama Gereja: ' + i['nama'],
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                              i['nama'],
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 26.0,
+                                  fontWeight: FontWeight.w300),
                               textAlign: TextAlign.left,
                             ),
                             Text(
                               'Paroki: ' + i['paroki'],
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                                  TextStyle(color: Colors.white, fontSize: 12),
                             ),
                             Text(
                               'Alamat: ' + i['address'],
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                                  TextStyle(color: Colors.white, fontSize: 12),
                             ),
                             Text(
                               'Kapasitas Tersedia: ' + i['kapasitas'],
                               style:
-                                  TextStyle(color: Colors.black, fontSize: 12),
+                                  TextStyle(color: Colors.white, fontSize: 12),
                             ),
                           ])),
                     ),
