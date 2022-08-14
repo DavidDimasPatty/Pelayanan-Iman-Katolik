@@ -71,74 +71,232 @@ class detailDaftarMisa extends StatelessWidget {
                         padding:
                             EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                       ),
-                      CircleAvatar(
-                        backgroundImage: AssetImage(''),
-                        backgroundColor: Colors.greenAccent,
-                        radius: 120,
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Colors.blueAccent,
+                                      Colors.lightBlue,
+                                    ]),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    offset: Offset(0.0, 1.0), //(x,y)
+                                    blurRadius: 6.0,
+                                  ),
+                                ],
+                              ),
+                              child: Container(
+                                width: 350.0,
+                                height: 350.0,
+                                child: Center(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      if (snapshot.data[0]['picture'] == null)
+                                        CircleAvatar(
+                                          backgroundImage: AssetImage(''),
+                                          backgroundColor: Colors.greenAccent,
+                                          radius: 80.0,
+                                        ),
+                                      if (snapshot.data[0]['picture'] != null)
+                                        CircleAvatar(
+                                          backgroundImage: NetworkImage(
+                                              snapshot.data[0]['picture']),
+                                          backgroundColor: Colors.greenAccent,
+                                          radius: 80.0,
+                                        ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Text(
+                                        snapshot.data[0]['nama'],
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 24.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      SizedBox(
+                                        height: 10.0,
+                                      ),
+                                      Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(30.0),
+                                        ),
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 20.0, vertical: 5.0),
+                                        clipBehavior: Clip.antiAlias,
+                                        color: Colors.white,
+                                        elevation: 20.0,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 7.0, vertical: 22.0),
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          "Paroki: ",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                        Text(
+                                                          detailGereja[0]
+                                                                  ['paroki']
+                                                              as String,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8.0,
+                                                    ),
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          "Alamat Gereja: ",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                        Text(
+                                                          detailGereja[0]
+                                                              ['address'],
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8.0,
+                                                    ),
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          "Kapasitas: ",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                        Text(
+                                                          detailGereja[0]
+                                                              ['kapasitas'],
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ))),
+                      SizedBox(
+                        height: 20.0,
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                      ),
-                      Text(
-                        'Gereja Information',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text("Nama Gereja: "),
-                          Text(detailGereja[0]['nama'] as String),
-                        ],
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text("Paroki: "),
-                          Text(detailGereja[0]['paroki'] as String),
-                        ],
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text("Alamat Gereja: "),
-                          Text(detailGereja[0]['address']),
-                        ],
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text("Kapasitas: "),
-                          Text(detailGereja[0]['kapasitas']),
-                        ],
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                        child: RaisedButton(
-                            child: Text("Daftar Misa"),
-                            textColor: Colors.white,
-                            color: Colors.blueAccent,
-                            onPressed: () {
-                              jadwalMisa(detailGereja[0]['_id'], idUser)
-                                  .showDialogBox(context);
-                            }),
-                      ),
+                      RaisedButton(
+                          onPressed: () async {
+                            jadwalMisa(detailGereja[0]['_id'], idUser)
+                                .showDialogBox(context);
+                          },
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(80.0)),
+                          elevation: 0.0,
+                          padding: EdgeInsets.all(0.0),
+                          child: Ink(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.topRight,
+                                  end: Alignment.topLeft,
+                                  colors: [
+                                    Colors.blueAccent,
+                                    Colors.lightBlue,
+                                  ]),
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            child: Container(
+                              constraints: BoxConstraints(
+                                  maxWidth: 300.0, minHeight: 50.0),
+                              alignment: Alignment.center,
+                              child: Text(
+                                "Daftar Misa",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 26.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ),
+                          )),
                     ],
                   )),
 
