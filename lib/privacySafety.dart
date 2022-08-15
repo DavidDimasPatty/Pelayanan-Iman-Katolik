@@ -1,21 +1,33 @@
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:pelayanan_iman_katolik/homePage.dart';
+import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/aboutus.dart';
+import 'package:pelayanan_iman_katolik/customerService.dart';
+import 'package:pelayanan_iman_katolik/gantiPasword.dart';
+import 'package:pelayanan_iman_katolik/login.dart';
+import 'package:pelayanan_iman_katolik/notification.dart';
+import 'package:pelayanan_iman_katolik/privacySafety.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
-import 'package:pelayanan_iman_katolik/tiketSaya.dart';
+import 'package:pelayanan_iman_katolik/termsCondition.dart';
+import 'DatabaseFolder/fireBase.dart';
+import 'homePage.dart';
+import 'tiketSaya.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class privacySafety extends StatelessWidget {
   final name;
   final email;
   final idUser;
-  privacySafety(this.name, this.email, this.idUser);
-  @override
-  TextEditingController passLamaController = new TextEditingController();
-  TextEditingController passBaruController = new TextEditingController();
-  TextEditingController passUlBaruController = new TextEditingController();
+  var dataUser;
 
+  //print('Download-Link: $urlDownload');
+
+  privacySafety(this.name, this.email, this.idUser);
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -40,9 +52,91 @@ class privacySafety extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: <Widget>[],
-      ),
+      body: Center(
+          child: Column(children: <Widget>[
+        ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.all(20.0),
+          children: <Widget>[
+            RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            gantiPassword(this.name, this.email, this.idUser)),
+                  );
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                elevation: 10.0,
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.topLeft,
+                        colors: [
+                          Colors.blueAccent,
+                          Colors.lightBlue,
+                        ]),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Container(
+                    constraints: BoxConstraints(
+                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Ganti Password",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                )),
+            Padding(padding: EdgeInsets.symmetric(vertical: 14)),
+            RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => notification(
+                              this.name, this.email, this.idUser)));
+                },
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(80.0)),
+                elevation: 10.0,
+                padding: EdgeInsets.all(0.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.topLeft,
+                        colors: [
+                          Colors.blueAccent,
+                          Colors.lightBlue,
+                        ]),
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  child: Container(
+                    constraints: BoxConstraints(
+                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Notification",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 26.0,
+                          fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                )),
+
+            ///map////////
+          ],
+        )
+      ])),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
