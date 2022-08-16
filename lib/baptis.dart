@@ -25,7 +25,7 @@ class Baptis extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        title: Text('Pendaftaran Misa'),
+        title: Text('Pendaftaran Baptis'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.account_circle_rounded),
