@@ -1,6 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pelayanan_iman_katolik/baptis.dart';
+import 'package:pelayanan_iman_katolik/komuni.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
@@ -253,7 +255,14 @@ class HomePage extends StatelessWidget {
                     color: Colors.lightBlueAccent, // button color
                     child: InkWell(
                       splashColor: Colors.green, // splash color
-                      onTap: () {}, // button pressed
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Komuni(names, emails, iduser)),
+                        );
+                      }, // button pressed
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -318,7 +327,14 @@ class HomePage extends StatelessWidget {
                     color: Colors.greenAccent, // button color
                     child: InkWell(
                       splashColor: Colors.green, // splash color
-                      onTap: () {}, // button pressed
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Baptis(names, emails, iduser)),
+                        );
+                      }, // button pressed
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
