@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/detailDaftarKomuni.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
@@ -65,11 +66,12 @@ class Komuni extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => detailDaftarMisa(
+                              builder: (context) => detailDaftarKomuni(
                                   names,
                                   emails,
                                   i['GerejaKomuni'][0]['nama'],
-                                  idUser)),
+                                  idUser,
+                                  i['GerejaKomuni'][0]['_id'])),
                         );
                       },
                       child: Container(
