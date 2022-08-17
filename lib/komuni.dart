@@ -14,7 +14,7 @@ class Komuni extends StatelessWidget {
   Komuni(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
-    daftarGereja = await MongoDatabase.findGereja();
+    daftarGereja = await MongoDatabase.findGerejaKomuni();
     return daftarGereja;
   }
 
@@ -66,7 +66,10 @@ class Komuni extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) => detailDaftarMisa(
-                                  names, emails, i['nama'], idUser)),
+                                  names,
+                                  emails,
+                                  i['GerejaKomuni'][0]['nama'],
+                                  idUser)),
                         );
                       },
                       child: Container(
@@ -88,7 +91,7 @@ class Komuni extends StatelessWidget {
                             //Color(Colors.blue);
 
                             Text(
-                              i['nama'],
+                              i['GerejaKomuni'][0]['nama'],
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 26.0,
@@ -96,17 +99,18 @@ class Komuni extends StatelessWidget {
                               textAlign: TextAlign.left,
                             ),
                             Text(
-                              'Paroki: ' + i['paroki'],
+                              'Paroki: ' + i['GerejaKomuni'][0]['paroki'],
                               style:
                                   TextStyle(color: Colors.white, fontSize: 12),
                             ),
                             Text(
-                              'Alamat: ' + i['address'],
+                              'Alamat: ' + i['GerejaKomuni'][0]['address'],
                               style:
                                   TextStyle(color: Colors.white, fontSize: 12),
                             ),
                             Text(
-                              'Kapasitas Tersedia: ' + i['kapasitas'],
+                              'Kapasitas Tersedia: ' +
+                                  i['GerejaKomuni'][0]['kapasitas'],
                               style:
                                   TextStyle(color: Colors.white, fontSize: 12),
                             ),

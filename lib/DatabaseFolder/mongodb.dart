@@ -51,6 +51,36 @@ class MongoDatabase {
     return conn;
   }
 
+  static findGerejaKomuni() async {
+    var gerejaKomuniCollection = db.collection(KOMUNI_COLLECTION);
+    final pipeline = AggregationPipelineBuilder()
+        .addStage(Lookup(
+            from: 'Gereja',
+            localField: 'idGereja',
+            foreignField: '_id',
+            as: 'GerejaKomuni'))
+        .build();
+    var conn =
+        await gerejaKomuniCollection.aggregateToStream(pipeline).toList();
+    print(conn);
+    return conn;
+  }
+
+  static findGerejaBaptis() async {
+    var gerejaKomuniCollection = db.collection(BAPTIS_COLLECTION);
+    final pipeline = AggregationPipelineBuilder()
+        .addStage(Lookup(
+            from: 'Gereja',
+            localField: 'idGereja',
+            foreignField: '_id',
+            as: 'GerejaBaptis'))
+        .build();
+    var conn =
+        await gerejaKomuniCollection.aggregateToStream(pipeline).toList();
+    print(conn);
+    return conn;
+  }
+
   static detailGereja(namaGereja) async {
     var gerejaCollection = db.collection(GEREJA_COLLECTION);
     var conn = await gerejaCollection.find({'nama': namaGereja}).toList();
