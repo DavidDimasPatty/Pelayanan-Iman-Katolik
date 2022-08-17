@@ -95,7 +95,7 @@ class detailDaftarBaptis extends StatelessWidget {
                               ),
                               child: Container(
                                 width: 350.0,
-                                height: 350.0,
+                                height: 450.0,
                                 child: Center(
                                   child: Column(
                                     crossAxisAlignment:
@@ -243,6 +243,81 @@ class detailDaftarBaptis extends StatelessWidget {
                                                           detailGereja[0][
                                                                   'GerejaBaptis']
                                                               [0]['kapasitas'],
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8.0,
+                                                    ),
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          "Tanggal Pembukaan: ",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                        Text(
+                                                          detailGereja[0][
+                                                                  'GerejaBaptis']
+                                                              [0]['jadwalBuka'],
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8.0,
+                                                    ),
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          "Tanggal Penutupan: ",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                        Text(
+                                                          detailGereja[0][
+                                                                  'GerejaBaptis']
+                                                              [
+                                                              0]['jadwalTutup'],
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,
