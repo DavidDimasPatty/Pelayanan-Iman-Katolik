@@ -4,6 +4,7 @@ import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/jadwalMisa.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
+import 'confirmKomuni.dart';
 import 'tiketSaya.dart';
 import 'homePage.dart';
 
@@ -344,7 +345,8 @@ class detailDaftarKomuni extends StatelessWidget {
                       ),
                       RaisedButton(
                           onPressed: () async {
-                            jadwalMisa(detailGereja[0]['_id'], idUser)
+                            confirmKomuni(detailGereja[0]['nama'], idUser,
+                                    detailGereja[0]['GerejaKomuni'][0]['_id'])
                                 .showDialogBox(context);
                           },
                           shape: RoundedRectangleBorder(

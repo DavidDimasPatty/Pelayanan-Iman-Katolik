@@ -192,6 +192,32 @@ class MongoDatabase {
     }
   }
 
+  static daftarKomuni(idKomuni, idUser) async {
+    var daftarKomuniCollection = db.collection(USER_KOMUNI_COLLECTION);
+
+    var hasil = await daftarKomuniCollection
+        .insertOne({'idKomuni': idKomuni, 'idUser': idUser});
+    if (!hasil.isSuccess) {
+      print('Error detected in record insertion');
+      return 'fail';
+    } else {
+      return 'oke';
+    }
+  }
+
+  static daftarBaptis(idBaptis, idUser) async {
+    var daftarBaptisCollection = db.collection(USER_BAPTIS_COLLECTION);
+
+    var hasil = await daftarBaptisCollection
+        .insertOne({'idBaptis': idBaptis, 'idUser': idUser});
+    if (!hasil.isSuccess) {
+      print('Error detected in record insertion');
+      return 'fail';
+    } else {
+      return 'oke';
+    }
+  }
+
   static updateProfilePicture(id, path) async {
     userCollection = db.collection(USER_COLLECTION);
     var conn = await userCollection.updateOne(

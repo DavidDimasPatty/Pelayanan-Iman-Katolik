@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/confirmBaptis.dart';
 import 'package:pelayanan_iman_katolik/jadwalMisa.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
@@ -344,7 +345,8 @@ class detailDaftarBaptis extends StatelessWidget {
                       ),
                       RaisedButton(
                           onPressed: () async {
-                            jadwalMisa(detailGereja[0]['_id'], idUser)
+                            confirmBaptis(snapshot.data[0]['nama'], idUser,
+                                    detailGereja[0]['GerejaBaptis'][0]['_id'])
                                 .showDialogBox(context);
                           },
                           shape: RoundedRectangleBorder(
