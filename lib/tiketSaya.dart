@@ -14,11 +14,24 @@ class tiketSaya extends StatelessWidget {
   var tiket;
   var namaGereja;
   var hasil;
+  var baptisUser;
+  var komuniUser;
+
   tiketSaya(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
     tiketGereja = await MongoDatabase.jadwalku(idUser);
     return tiketGereja;
+  }
+
+  Future<List> callDbBaptisDaftar() async {
+    baptisUser = await MongoDatabase.baptisTerdaftar(idUser);
+    return baptisUser;
+  }
+
+  Future<List> callDbKomuniDaftar() async {
+    komuniUser = await MongoDatabase.komuniTerdaftar(idUser);
+    return komuniUser;
   }
 
   Future<List> callInfoMisa(idMisa) async {
@@ -157,7 +170,7 @@ class tiketSaya extends StatelessWidget {
                 style: TextStyle(color: Colors.black, fontSize: 26.0),
               )),
           FutureBuilder<List>(
-              future: callDb(),
+              future: callDbBaptisDaftar(),
               builder: (context, AsyncSnapshot snapshot) {
                 try {
                   return ListView(
@@ -166,12 +179,13 @@ class tiketSaya extends StatelessWidget {
                     children: <Widget>[
                       for (var i in snapshot.data)
                         InkWell(
-                          borderRadius: new BorderRadius.circular(24),
-                          onTap: () {
-                            tiketSayaDetail(names, emails, idUser, i['idMisa'])
-                                .showDialogBox(context);
-                          },
-                          child: Container(
+                            borderRadius: new BorderRadius.circular(24),
+                            onTap: () {
+                              tiketSayaDetail(
+                                      names, emails, idUser, i['idMisa'])
+                                  .showDialogBox(context);
+                            },
+                            child: Container(
                               margin: EdgeInsets.all(20),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
@@ -187,38 +201,44 @@ class tiketSaya extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                               ),
-                              child: Column(children: <Widget>[
-                                FutureBuilder<List>(
-                                    future: addChild(i['idMisa']),
-                                    builder: (context, AsyncSnapshot snapshot) {
-                                      try {
-                                        return Column(
-                                          children: <Widget>[
-                                            Text(
-                                              "Jadwal : " + snapshot.data[0],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 26.0,
-                                                  fontWeight: FontWeight.w300),
-                                            ),
-                                            Text(
-                                              "Nama Gereja : " +
-                                                  snapshot.data[1],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.w300),
-                                            )
-                                          ],
-                                        );
-                                      } catch (e) {
-                                        print(e);
-                                        return Center(
-                                            child: CircularProgressIndicator());
-                                      }
-                                    })
-                              ])),
-                        ),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    "Jadwal : " +
+                                        snapshot.data[0]['UserBaptis'][0]
+                                            ['jadwalBuka'] +
+                                        " s/d " +
+                                        snapshot.data[0]['UserBaptis'][0]
+                                            ['jadwalTutup'],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  FutureBuilder<List>(
+                                      future: callInfoGereja(snapshot.data[0]
+                                          ['UserBaptis'][0]['idGereja']),
+                                      builder:
+                                          (context, AsyncSnapshot snapshot) {
+                                        try {
+                                          return Text(
+                                            "Nama Gereja : " +
+                                                snapshot.data[0]['nama'],
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.w300),
+                                          );
+                                        } catch (e) {
+                                          print(e);
+                                          return Center(
+                                              child:
+                                                  CircularProgressIndicator());
+                                        }
+                                      })
+                                ],
+                              ),
+                            )),
 
                       ///map////////
                     ],
@@ -235,7 +255,7 @@ class tiketSaya extends StatelessWidget {
                 style: TextStyle(color: Colors.black, fontSize: 26.0),
               )),
           FutureBuilder<List>(
-              future: callDb(),
+              future: callDbKomuniDaftar(),
               builder: (context, AsyncSnapshot snapshot) {
                 try {
                   return ListView(
@@ -244,12 +264,13 @@ class tiketSaya extends StatelessWidget {
                     children: <Widget>[
                       for (var i in snapshot.data)
                         InkWell(
-                          borderRadius: new BorderRadius.circular(24),
-                          onTap: () {
-                            tiketSayaDetail(names, emails, idUser, i['idMisa'])
-                                .showDialogBox(context);
-                          },
-                          child: Container(
+                            borderRadius: new BorderRadius.circular(24),
+                            onTap: () {
+                              tiketSayaDetail(
+                                      names, emails, idUser, i['idMisa'])
+                                  .showDialogBox(context);
+                            },
+                            child: Container(
                               margin: EdgeInsets.all(20),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
@@ -265,38 +286,44 @@ class tiketSaya extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                               ),
-                              child: Column(children: <Widget>[
-                                FutureBuilder<List>(
-                                    future: addChild(i['idMisa']),
-                                    builder: (context, AsyncSnapshot snapshot) {
-                                      try {
-                                        return Column(
-                                          children: <Widget>[
-                                            Text(
-                                              "Jadwal : " + snapshot.data[0],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 26.0,
-                                                  fontWeight: FontWeight.w300),
-                                            ),
-                                            Text(
-                                              "Nama Gereja : " +
-                                                  snapshot.data[1],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.w300),
-                                            )
-                                          ],
-                                        );
-                                      } catch (e) {
-                                        print(e);
-                                        return Center(
-                                            child: CircularProgressIndicator());
-                                      }
-                                    })
-                              ])),
-                        ),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    "Jadwal : " +
+                                        snapshot.data[0]['UserKomuni'][0]
+                                            ['jadwalBuka'] +
+                                        " s/d " +
+                                        snapshot.data[0]['UserKomuni'][0]
+                                            ['jadwalTutup'],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  FutureBuilder<List>(
+                                      future: callInfoGereja(snapshot.data[0]
+                                          ['UserKomuni'][0]['idGereja']),
+                                      builder:
+                                          (context, AsyncSnapshot snapshot) {
+                                        try {
+                                          return Text(
+                                            "Nama Gereja : " +
+                                                snapshot.data[0]['nama'],
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.w300),
+                                          );
+                                        } catch (e) {
+                                          print(e);
+                                          return Center(
+                                              child:
+                                                  CircularProgressIndicator());
+                                        }
+                                      })
+                                ],
+                              ),
+                            )),
 
                       ///map////////
                     ],
