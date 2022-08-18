@@ -173,6 +173,19 @@ class MongoDatabase {
     return conn;
   }
 
+  static jadwalBaptis(idBaptis) async {
+    var jadwalCollection = db.collection(BAPTIS_COLLECTION);
+    var conn = await jadwalCollection.find({'_id': idBaptis}).toList();
+    return conn;
+  }
+
+  static jadwalKomuni(idKomuni) async {
+    print(idKomuni);
+    var jadwalCollection = db.collection(KOMUNI_COLLECTION);
+    var conn = await jadwalCollection.find({'_id': idKomuni}).toList();
+    return conn;
+  }
+
   static cariGereja(idGereja) async {
     var jadwalCollection = db.collection(GEREJA_COLLECTION);
     var conn = await jadwalCollection.find({'_id': idGereja}).toList();

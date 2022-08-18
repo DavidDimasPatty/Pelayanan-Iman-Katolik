@@ -5,6 +5,8 @@ import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetail.dart';
+import 'package:pelayanan_iman_katolik/tiketSayaDetailBaptis.dart';
+import 'package:pelayanan_iman_katolik/tiketSayaDetailKomuni.dart';
 
 class tiketSaya extends StatelessWidget {
   var names;
@@ -181,8 +183,13 @@ class tiketSaya extends StatelessWidget {
                         InkWell(
                             borderRadius: new BorderRadius.circular(24),
                             onTap: () {
-                              tiketSayaDetail(
-                                      names, emails, idUser, i['idMisa'])
+                              tiketSayaDetailBaptis(
+                                      names,
+                                      emails,
+                                      idUser,
+                                      snapshot.data[0]['UserBaptis'][0]['_id'],
+                                      snapshot.data[0]['UserBaptis'][0]
+                                          ['idGereja'])
                                   .showDialogBox(context);
                             },
                             child: Container(
@@ -266,8 +273,13 @@ class tiketSaya extends StatelessWidget {
                         InkWell(
                             borderRadius: new BorderRadius.circular(24),
                             onTap: () {
-                              tiketSayaDetail(
-                                      names, emails, idUser, i['idMisa'])
+                              tiketSayaDetailKomuni(
+                                      names,
+                                      emails,
+                                      idUser,
+                                      snapshot.data[0]['UserKomuni'][0]['_id'],
+                                      snapshot.data[0]['UserKomuni'][0]
+                                          ['idGereja'])
                                   .showDialogBox(context);
                             },
                             child: Container(
