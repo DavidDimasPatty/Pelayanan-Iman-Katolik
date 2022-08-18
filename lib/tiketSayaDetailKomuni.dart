@@ -36,7 +36,7 @@ class tiketSayaDetailKomuni {
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
               alignment: Alignment.center,
               title: Text(
-                "Detail Jadwal",
+                "Detail Jadwal Komuni",
                 textAlign: TextAlign.center,
               ),
               content: Column(
