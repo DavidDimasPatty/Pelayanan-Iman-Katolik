@@ -106,8 +106,8 @@ class history extends StatelessWidget {
                         InkWell(
                           borderRadius: new BorderRadius.circular(24),
                           onTap: () {
-                            tiketSayaDetail(names, emails, idUser, i['idMisa'])
-                                .showDialogBox(context);
+                            // tiketSayaDetail(names, emails, idUser, i['idMisa'])
+                            //     .showDialogBox(context);
                           },
                           child: Container(
                               margin: EdgeInsets.all(20),

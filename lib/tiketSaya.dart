@@ -105,7 +105,8 @@ class tiketSaya extends StatelessWidget {
                         InkWell(
                           borderRadius: new BorderRadius.circular(24),
                           onTap: () {
-                            tiketSayaDetail(names, emails, idUser, i['idMisa'])
+                            tiketSayaDetail(names, emails, idUser, i['idMisa'],
+                                    i['_id'])
                                 .showDialogBox(context);
                           },
                           child: Container(

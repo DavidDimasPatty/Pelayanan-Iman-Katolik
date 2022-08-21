@@ -346,6 +346,17 @@ class MongoDatabase {
     }
   }
 
+  static cancelDaftar(idTiket) async {
+    var tiket = db.collection(TIKET_COLLECTION);
+    var conn = await tiket.updateOne(
+        where.eq('_id', idTiket), modify.set('status', "-1"));
+    if (conn.isSuccess) {
+      return "oke";
+    } else {
+      return "failed";
+    }
+  }
+
   static updateNotifPg(id, notifPg) async {
     userCollection = db.collection(USER_COLLECTION);
     var conn = await userCollection.updateOne(
