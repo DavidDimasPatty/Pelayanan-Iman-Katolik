@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
+import 'package:pelayanan_iman_katolik/historyDetail.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
@@ -106,8 +107,8 @@ class history extends StatelessWidget {
                         InkWell(
                           borderRadius: new BorderRadius.circular(24),
                           onTap: () {
-                            // tiketSayaDetail(names, emails, idUser, i['idMisa'])
-                            //     .showDialogBox(context);
+                            historyDetail(names, emails, idUser, i['idMisa'])
+                                .showDialogBox(context);
                           },
                           child: Container(
                               margin: EdgeInsets.all(20),
