@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
+import 'package:pelayanan_iman_katolik/tiketSaya.dart';
 
 class tiketSayaDetailKomuni {
   var names;
@@ -12,11 +13,13 @@ class tiketSayaDetailKomuni {
   var namaGereja;
   var idKomuni;
   var idGereja;
-  tiketSayaDetailKomuni(
-      this.names, this.emails, this.idUser, this.idKomuni, this.idGereja);
+  var idUserKomuni;
+  var cancelKomuni;
+  tiketSayaDetailKomuni(this.names, this.emails, this.idUser, this.idKomuni,
+      this.idGereja, this.idUserKomuni);
 
-  Future<List> callInfoKomuni(idKomuni) async {
-    tiket = await MongoDatabase.jadwalKomuni(idKomuni);
+  Future<List> callInfoBaptis(idBaptis) async {
+    tiket = await MongoDatabase.jadwalKomuni(idBaptis);
     return tiket;
   }
 
@@ -25,8 +28,51 @@ class tiketSayaDetailKomuni {
     return namaGereja;
   }
 
+  cancelDaftar(idMisa, context) async {
+    cancelKomuni = await MongoDatabase.cancelDaftarKomuni(idMisa);
+    if (cancelKomuni == 'oke') {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Berhasil Membatalkan'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => tiketSaya(names, emails, idUser)),
+              ),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  _getCloseButton(context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          alignment: FractionalOffset.topRight,
+          child: GestureDetector(
+            child: Icon(
+              Icons.clear,
+              color: Colors.blue,
+            ),
+            onTap: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
   void showDialogBox(BuildContext context) async {
-    await callInfoKomuni(idKomuni);
+    await callInfoBaptis(idKomuni);
     await callInfoGereja(idGereja);
     showDialog<void>(
         context: context,
@@ -35,16 +81,20 @@ class tiketSayaDetailKomuni {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
               alignment: Alignment.center,
-              title: Text(
-                "Detail Jadwal Komuni",
-                textAlign: TextAlign.center,
-              ),
               content: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Column(
                       children: <Widget>[
+                        _getCloseButton(context),
+                        Text(
+                          "Detail Jadwal",
+                          style: TextStyle(
+                              color: Colors.blueAccent,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.w300),
+                        ),
                         Text('Waktu: ' +
                             tiket[0]['jadwalBuka'] +
                             " s/d " +
@@ -59,11 +109,11 @@ class tiketSayaDetailKomuni {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RaisedButton(
-                          child: Text('Cancel'),
+                          child: Text('Batalkan Mendaftar'),
                           textColor: Colors.white,
                           color: Colors.blueAccent,
-                          onPressed: () {
-                            Navigator.of(context).pop();
+                          onPressed: () async {
+                            await cancelDaftar(idUserKomuni, context);
                           }), // button 1
                     ])
               ]);

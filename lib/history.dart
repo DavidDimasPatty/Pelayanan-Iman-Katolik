@@ -6,9 +6,11 @@ import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
+import 'package:pelayanan_iman_katolik/tiketSayaBaptisHistory.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetail.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailBaptis.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailKomuni.dart';
+import 'package:pelayanan_iman_katolik/tiketSayaKomuniHistory.dart';
 
 class history extends StatelessWidget {
   var names;
@@ -185,7 +187,7 @@ class history extends StatelessWidget {
                         InkWell(
                             borderRadius: new BorderRadius.circular(24),
                             onTap: () {
-                              tiketSayaDetailBaptis(
+                              tiketSayaBaptisHistory(
                                       names,
                                       emails,
                                       idUser,
@@ -275,7 +277,7 @@ class history extends StatelessWidget {
                         InkWell(
                             borderRadius: new BorderRadius.circular(24),
                             onTap: () {
-                              tiketSayaDetailKomuni(
+                              tiketSayaKomuniHistory(
                                       names,
                                       emails,
                                       idUser,

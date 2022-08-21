@@ -190,7 +190,8 @@ class tiketSaya extends StatelessWidget {
                                       idUser,
                                       snapshot.data[0]['UserBaptis'][0]['_id'],
                                       snapshot.data[0]['UserBaptis'][0]
-                                          ['idGereja'])
+                                          ['idGereja'],
+                                      snapshot.data[0]['_id'])
                                   .showDialogBox(context);
                             },
                             child: Container(
@@ -275,13 +276,13 @@ class tiketSaya extends StatelessWidget {
                             borderRadius: new BorderRadius.circular(24),
                             onTap: () {
                               tiketSayaDetailKomuni(
-                                      names,
-                                      emails,
-                                      idUser,
-                                      snapshot.data[0]['UserKomuni'][0]['_id'],
-                                      snapshot.data[0]['UserKomuni'][0]
-                                          ['idGereja'])
-                                  .showDialogBox(context);
+                                names,
+                                emails,
+                                idUser,
+                                snapshot.data[0]['UserKomuni'][0]['_id'],
+                                snapshot.data[0]['UserKomuni'][0]['idGereja'],
+                                snapshot.data[0]['_id'],
+                              ).showDialogBox(context);
                             },
                             child: Container(
                               margin: EdgeInsets.all(20),
