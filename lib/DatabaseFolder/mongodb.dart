@@ -147,7 +147,7 @@ class MongoDatabase {
         .addStage(Match(where.eq('idUser', idUser).map['\$query']))
         .build();
     var conn = await userBaptisCollection.aggregateToStream(pipeline).toList();
-    print(conn);
+
     return conn;
   }
 
@@ -232,6 +232,7 @@ class MongoDatabase {
   static cariGereja(idGereja) async {
     var jadwalCollection = db.collection(GEREJA_COLLECTION);
     var conn = await jadwalCollection.find({'_id': idGereja}).toList();
+    print(conn);
     return conn;
   }
 

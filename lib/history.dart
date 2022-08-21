@@ -227,8 +227,8 @@ class history extends StatelessWidget {
                                         fontWeight: FontWeight.w300),
                                   ),
                                   FutureBuilder<List>(
-                                      future: callInfoGereja(snapshot.data[0]
-                                          ['UserBaptis'][0]['idGereja']),
+                                      future: callInfoGereja(
+                                          i['UserBaptis'][0]['idGereja']),
                                       builder:
                                           (context, AsyncSnapshot snapshot) {
                                         try {
@@ -317,14 +317,15 @@ class history extends StatelessWidget {
                                         fontWeight: FontWeight.w300),
                                   ),
                                   FutureBuilder<List>(
-                                      future: callInfoGereja(snapshot.data[0]
-                                          ['UserKomuni'][0]['idGereja']),
+                                      future: callInfoGereja(
+                                          i['UserKomuni'][0]['idGereja']),
                                       builder:
                                           (context, AsyncSnapshot snapshot) {
                                         try {
                                           return Text(
                                             "Nama Gereja : " +
-                                                snapshot.data[0]['nama'],
+                                                snapshot.data[0]['nama']
+                                                    .toString(),
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15.0,

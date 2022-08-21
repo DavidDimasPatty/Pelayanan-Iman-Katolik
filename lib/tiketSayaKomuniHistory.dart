@@ -10,13 +10,13 @@ class tiketSayaKomuniHistory {
   var tiketGereja;
   var tiket;
   var namaGereja;
-  var idBaptis;
+  var idKomuni;
   var idGereja;
   tiketSayaKomuniHistory(
-      this.names, this.emails, this.idUser, this.idBaptis, this.idGereja);
+      this.names, this.emails, this.idUser, this.idKomuni, this.idGereja);
 
-  Future<List> callInfoBaptis(idBaptis) async {
-    tiket = await MongoDatabase.jadwalBaptis(idBaptis);
+  Future<List> callInfoKomuni(idKomuni) async {
+    tiket = await MongoDatabase.jadwalKomuni(idKomuni);
     return tiket;
   }
 
@@ -26,7 +26,7 @@ class tiketSayaKomuniHistory {
   }
 
   void showDialogBox(BuildContext context) async {
-    await callInfoBaptis(idBaptis);
+    await callInfoKomuni(idKomuni);
     await callInfoGereja(idGereja);
     showDialog<void>(
         context: context,
@@ -36,7 +36,7 @@ class tiketSayaKomuniHistory {
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
               alignment: Alignment.center,
               title: Text(
-                "Detail Jadwal Baptis",
+                "Detail Jadwal Komuni",
                 textAlign: TextAlign.center,
               ),
               content: Column(
