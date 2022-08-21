@@ -108,7 +108,8 @@ class MongoDatabase {
               foreignField: '_id',
               as: 'UserBaptis'),
         )
-        .addStage(Match(where.eq('idUser', idUser).map['\$query']))
+        .addStage(
+            Match(where.eq('idUser', idUser).eq('status', '0').map['\$query']))
         .build();
     var conn = await userBaptisCollection.aggregateToStream(pipeline).toList();
     print(conn);
@@ -116,6 +117,41 @@ class MongoDatabase {
   }
 
   static komuniTerdaftar(idUser) async {
+    var userBaptisCollection = db.collection(USER_KOMUNI_COLLECTION);
+    final pipeline = AggregationPipelineBuilder()
+        .addStage(
+          Lookup(
+              from: 'komuni',
+              localField: 'idKomuni',
+              foreignField: '_id',
+              as: 'UserKomuni'),
+        )
+        .addStage(
+            Match(where.eq('idUser', idUser).eq('status', '0').map['\$query']))
+        .build();
+    var conn = await userBaptisCollection.aggregateToStream(pipeline).toList();
+    print(conn);
+    return conn;
+  }
+
+  static baptisHistory(idUser) async {
+    var userBaptisCollection = db.collection(USER_BAPTIS_COLLECTION);
+    final pipeline = AggregationPipelineBuilder()
+        .addStage(
+          Lookup(
+              from: 'baptis',
+              localField: 'idBaptis',
+              foreignField: '_id',
+              as: 'UserBaptis'),
+        )
+        .addStage(Match(where.eq('idUser', idUser).map['\$query']))
+        .build();
+    var conn = await userBaptisCollection.aggregateToStream(pipeline).toList();
+    print(conn);
+    return conn;
+  }
+
+  static komuniHistory(idUser) async {
     var userBaptisCollection = db.collection(USER_KOMUNI_COLLECTION);
     final pipeline = AggregationPipelineBuilder()
         .addStage(
@@ -162,6 +198,13 @@ class MongoDatabase {
   }
 
   static jadwalku(idUser) async {
+    var jadwalCollection = db.collection(TIKET_COLLECTION);
+    var conn =
+        await jadwalCollection.find({'idUser': idUser, 'status': "0"}).toList();
+    return conn;
+  }
+
+  static jadwalHistory(idUser) async {
     var jadwalCollection = db.collection(TIKET_COLLECTION);
     var conn = await jadwalCollection.find({'idUser': idUser}).toList();
     return conn;
@@ -229,8 +272,8 @@ class MongoDatabase {
   static daftarMisa(idMisa, idUser) async {
     var tiketCollection = db.collection(TIKET_COLLECTION);
 
-    var hasil =
-        await tiketCollection.insertOne({'idMisa': idMisa, 'idUser': idUser});
+    var hasil = await tiketCollection
+        .insertOne({'idMisa': idMisa, 'idUser': idUser, 'status': "0"});
     if (!hasil.isSuccess) {
       print('Error detected in record insertion');
       return 'fail';
@@ -243,7 +286,7 @@ class MongoDatabase {
     var daftarKomuniCollection = db.collection(USER_KOMUNI_COLLECTION);
 
     var hasil = await daftarKomuniCollection
-        .insertOne({'idKomuni': idKomuni, 'idUser': idUser});
+        .insertOne({'idKomuni': idKomuni, 'idUser': idUser, 'status': "0"});
     if (!hasil.isSuccess) {
       print('Error detected in record insertion');
       return 'fail';
@@ -256,7 +299,7 @@ class MongoDatabase {
     var daftarBaptisCollection = db.collection(USER_BAPTIS_COLLECTION);
 
     var hasil = await daftarBaptisCollection
-        .insertOne({'idBaptis': idBaptis, 'idUser': idUser});
+        .insertOne({'idBaptis': idBaptis, 'idUser': idUser, 'status': "0"});
     if (!hasil.isSuccess) {
       print('Error detected in record insertion');
       return 'fail';

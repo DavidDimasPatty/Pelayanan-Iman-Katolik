@@ -23,17 +23,17 @@ class history extends StatelessWidget {
   history(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
-    tiketGereja = await MongoDatabase.jadwalku(idUser);
+    tiketGereja = await MongoDatabase.jadwalHistory(idUser);
     return tiketGereja;
   }
 
   Future<List> callDbBaptisDaftar() async {
-    baptisUser = await MongoDatabase.baptisTerdaftar(idUser);
+    baptisUser = await MongoDatabase.baptisHistory(idUser);
     return baptisUser;
   }
 
   Future<List> callDbKomuniDaftar() async {
-    komuniUser = await MongoDatabase.komuniTerdaftar(idUser);
+    komuniUser = await MongoDatabase.komuniHistory(idUser);
     return komuniUser;
   }
 
