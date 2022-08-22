@@ -157,7 +157,16 @@ class history extends StatelessWidget {
                                         return Center(
                                             child: CircularProgressIndicator());
                                       }
-                                    })
+                                    }),
+                                Text(
+                                  i['status'] == "0"
+                                      ? ' Status : Belum Hadir'
+                                      : ' Status : Dibatalkan',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w300),
+                                ),
                               ])),
                         ),
 
@@ -246,7 +255,16 @@ class history extends StatelessWidget {
                                               child:
                                                   CircularProgressIndicator());
                                         }
-                                      })
+                                      }),
+                                  Text(
+                                    i['status'] == "0"
+                                        ? ' Status : Belum Hadir'
+                                        : ' Status : Dibatalkan',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
                                 ],
                               ),
                             )),
@@ -337,7 +355,16 @@ class history extends StatelessWidget {
                                               child:
                                                   CircularProgressIndicator());
                                         }
-                                      })
+                                      }),
+                                  Text(
+                                    i['status'] == "0"
+                                        ? ' Status : Belum Hadir'
+                                        : ' Status : Dibatalkan',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
                                 ],
                               ),
                             )),
