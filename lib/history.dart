@@ -161,7 +161,9 @@ class history extends StatelessWidget {
                                 Text(
                                   i['status'] == "0"
                                       ? ' Status : Belum Hadir'
-                                      : ' Status : Dibatalkan',
+                                      : i['status'] == "-1"
+                                          ? ' Status : Dibatalkan'
+                                          : ' Status : Sudah Dihadiri',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 16.0,
@@ -259,7 +261,9 @@ class history extends StatelessWidget {
                                   Text(
                                     i['status'] == "0"
                                         ? ' Status : Belum Hadir'
-                                        : ' Status : Dibatalkan',
+                                        : i['status'] == "-1"
+                                            ? ' Status : Dibatalkan'
+                                            : ' Status : Sudah Dihadiri',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,
@@ -359,7 +363,9 @@ class history extends StatelessWidget {
                                   Text(
                                     i['status'] == "0"
                                         ? ' Status : Belum Hadir'
-                                        : ' Status : Dibatalkan',
+                                        : i['status'] == "-1"
+                                            ? ' Status : Dibatalkan'
+                                            : ' Status : Sudah Dihadiri',
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,
