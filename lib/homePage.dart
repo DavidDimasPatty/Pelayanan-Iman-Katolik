@@ -99,130 +99,152 @@ class HomePage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 7),
-                                  ),
-                                  if (snapshot.data[0]['picture'] == null)
-                                    CircleAvatar(
-                                      backgroundImage: AssetImage(''),
-                                      backgroundColor: Colors.greenAccent,
-                                      radius: 35,
-                                    ),
-                                  if (snapshot.data[0]['picture'] != null)
-                                    CircleAvatar(
-                                      backgroundImage: NetworkImage(
-                                          snapshot.data[0]['picture']),
-                                      backgroundColor: Colors.greenAccent,
-                                      radius: 35,
-                                    ),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 5),
-                                  ),
-                                  Column(
-                                    children: <Widget>[
-                                      Text(
-                                        names,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 22.0,
-                                            fontWeight: FontWeight.w300),
-                                      ),
-                                      Text(
-                                        emails,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w300),
-                                      ),
-                                      Text(
-                                        'Paroki',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w300),
-                                      ),
-                                      Text(
-                                        'Lingkungan',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w300),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(vertical: 12),
-                              ),
-                              Container(
-                                height: 80,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: Colors.indigo[100],
-                                  borderRadius: BorderRadius.vertical(
-                                    bottom: Radius.circular(20),
-                                    top: Radius.circular(0),
-                                  ),
-                                ),
-                                child: Column(
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Profile(names, emails, iduser)),
+                                  );
+                                },
+                                child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: <Widget>[
                                     Padding(
                                       padding:
-                                          EdgeInsets.symmetric(vertical: 4),
+                                          EdgeInsets.symmetric(horizontal: 4),
                                     ),
-                                    Text(
-                                      'Jadwal Terdekat:',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.w300),
+                                    if (snapshot.data[0]['picture'] == null)
+                                      CircleAvatar(
+                                        backgroundImage: AssetImage(''),
+                                        backgroundColor: Colors.greenAccent,
+                                        radius: 35,
+                                      ),
+                                    if (snapshot.data[0]['picture'] != null)
+                                      CircleAvatar(
+                                        backgroundImage: NetworkImage(
+                                            snapshot.data[0]['picture']),
+                                        backgroundColor: Colors.greenAccent,
+                                        radius: 35,
+                                      ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 5),
                                     ),
-                                    FutureBuilder<List>(
-                                        future: jadwalTerakhir(),
-                                        builder:
-                                            (context, AsyncSnapshot snapshot) {
-                                          try {
-                                            return Column(children: <Widget>[
-                                              Text(
-                                                snapshot.data[0][0]['nama'],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              ),
-                                              Text(
-                                                snapshot.data[1][0]['jadwal'],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              )
-                                            ]);
-                                          } catch (e) {
-                                            return Center(
-                                                child:
-                                                    CircularProgressIndicator());
-                                          }
-                                        })
+                                    Column(
+                                      children: <Widget>[
+                                        Text(
+                                          names,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 22.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                        Text(
+                                          emails,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                        Text(
+                                          'Paroki',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                        Text(
+                                          'Lingkungan',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                      ],
+                                    )
                                   ],
                                 ),
-                              )
+                              ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 7),
+                              ),
+                              GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              tiketSaya(names, emails, iduser)),
+                                    );
+                                  },
+                                  child: Container(
+                                    height: 80,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      color: Colors.indigo[100],
+                                      borderRadius: BorderRadius.vertical(
+                                        bottom: Radius.circular(20),
+                                        top: Radius.circular(0),
+                                      ),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding:
+                                              EdgeInsets.symmetric(vertical: 4),
+                                        ),
+                                        Text(
+                                          'Jadwal Terdekat:',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                        FutureBuilder<List>(
+                                            future: jadwalTerakhir(),
+                                            builder: (context,
+                                                AsyncSnapshot snapshot) {
+                                              try {
+                                                return Column(children: <
+                                                    Widget>[
+                                                  Text(
+                                                    snapshot.data[0][0]['nama'],
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 15.0,
+                                                        fontWeight:
+                                                            FontWeight.w300),
+                                                  ),
+                                                  Text(
+                                                    snapshot.data[1][0]
+                                                        ['jadwal'],
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontSize: 15.0,
+                                                        fontWeight:
+                                                            FontWeight.w300),
+                                                  )
+                                                ]);
+                                              } catch (e) {
+                                                return Center(
+                                                    child:
+                                                        CircularProgressIndicator());
+                                              }
+                                            })
+                                      ],
+                                    ),
+                                  )),
                             ],
                           )));
                 } catch (e) {
