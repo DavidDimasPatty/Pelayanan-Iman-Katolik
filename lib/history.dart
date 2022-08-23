@@ -409,7 +409,7 @@ class history extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.token, color: Color.fromARGB(255, 0, 0, 0)),
-                  label: "TiketKu",
+                  label: "Jadwalku",
                 )
               ],
               onTap: (index) {
