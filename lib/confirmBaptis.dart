@@ -57,10 +57,11 @@ class confirmBaptis {
                               detailGereja[0]['nama'] +
                               "\n" +
                               "Pada Tanggal " +
-                              detailGereja[0]['GerejaBaptis'][0]['jadwalBuka'] +
+                              detailGereja[0]['GerejaBaptis'][0]['jadwalBuka']
+                                  .toString() +
                               "- " +
-                              detailGereja[0]['GerejaBaptis'][0]
-                                  ['jadwalTutup'] +
+                              detailGereja[0]['GerejaBaptis'][0]['jadwalTutup']
+                                  .toString() +
                               " ?")
                         ],
                       )
