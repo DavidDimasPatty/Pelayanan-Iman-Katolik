@@ -41,6 +41,8 @@ class jadwalMisa {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+              scrollable: true,
+              insetPadding: EdgeInsets.all(0),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
               alignment: Alignment.center,
@@ -54,7 +56,7 @@ class jadwalMisa {
                         children: <Widget>[
                           Row(
                             children: [
-                              Text('Jadwal : '),
+                              Text('Jadwal :'),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 2),
                               ),
