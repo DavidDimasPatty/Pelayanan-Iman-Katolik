@@ -54,7 +54,7 @@ class history extends StatelessWidget {
     var temp;
     tiket = await callInfoMisa(idMisa).then((value) => temp = value);
     tiketGereja = await callInfoGereja(temp[0]['idGereja']);
-    hasil = [temp[0]['jadwal'], tiketGereja[0]['nama']];
+    hasil = [temp[0]['jadwal'].toString(), tiketGereja[0]['nama']];
     return hasil;
   }
 
@@ -228,10 +228,12 @@ class history extends StatelessWidget {
                                   Text(
                                     "Jadwal : " +
                                         snapshot.data[0]['UserBaptis'][0]
-                                            ['jadwalBuka'] +
+                                                ['jadwalBuka']
+                                            .toString() +
                                         " s/d " +
                                         snapshot.data[0]['UserBaptis'][0]
-                                            ['jadwalTutup'],
+                                                ['jadwalTutup']
+                                            .toString(),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,
@@ -329,10 +331,12 @@ class history extends StatelessWidget {
                                   Text(
                                     "Jadwal : " +
                                         snapshot.data[0]['UserKomuni'][0]
-                                            ['jadwalBuka'] +
+                                                ['jadwalBuka']
+                                            .toString() +
                                         " s/d " +
                                         snapshot.data[0]['UserKomuni'][0]
-                                            ['jadwalTutup'],
+                                                ['jadwalTutup']
+                                            .toString(),
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,

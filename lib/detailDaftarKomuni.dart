@@ -279,8 +279,10 @@ class detailDaftarKomuni extends StatelessWidget {
                                                         ),
                                                         Text(
                                                           detailGereja[0][
-                                                                  'GerejaKomuni']
-                                                              [0]['jadwalBuka'],
+                                                                      'GerejaKomuni']
+                                                                  [
+                                                                  0]['jadwalBuka']
+                                                              .toString(),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -316,9 +318,10 @@ class detailDaftarKomuni extends StatelessWidget {
                                                         ),
                                                         Text(
                                                           detailGereja[0][
-                                                                  'GerejaKomuni']
-                                                              [
-                                                              0]['jadwalTutup'],
+                                                                      'GerejaKomuni'][0]
+                                                                  [
+                                                                  'jadwalTutup']
+                                                              .toString(),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,

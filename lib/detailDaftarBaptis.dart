@@ -279,8 +279,10 @@ class detailDaftarBaptis extends StatelessWidget {
                                                         ),
                                                         Text(
                                                           detailGereja[0][
-                                                                  'GerejaBaptis']
-                                                              [0]['jadwalBuka'],
+                                                                      'GerejaBaptis']
+                                                                  [
+                                                                  0]['jadwalBuka']
+                                                              .toString(),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -316,9 +318,10 @@ class detailDaftarBaptis extends StatelessWidget {
                                                         ),
                                                         Text(
                                                           detailGereja[0][
-                                                                  'GerejaBaptis']
-                                                              [
-                                                              0]['jadwalTutup'],
+                                                                      'GerejaBaptis'][0]
+                                                                  [
+                                                                  'jadwalTutup']
+                                                              .toString(),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,

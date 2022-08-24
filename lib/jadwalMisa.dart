@@ -58,7 +58,7 @@ class jadwalMisa {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 4),
                               ),
-                              Text(i['jadwal']),
+                              Text(i['jadwal'].toString()),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 4),
                               ),
