@@ -54,11 +54,11 @@ class jadwalMisa {
                         children: <Widget>[
                           Row(
                             children: [
-                              Text('Jadwal'),
+                              Text('Jadwal : '),
                               Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 4),
+                                padding: EdgeInsets.symmetric(horizontal: 2),
                               ),
-                              Text(i['jadwal'].toString()),
+                              Text(i['jadwal'].toString().substring(0, 19)),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 4),
                               ),

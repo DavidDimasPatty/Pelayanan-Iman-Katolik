@@ -228,7 +228,8 @@ class HomePage extends StatelessWidget {
                                                   Text(
                                                     snapshot.data[1][0]
                                                             ['jadwal']
-                                                        .toString(),
+                                                        .toString()
+                                                        .substring(0, 19),
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                         color: Colors.black,

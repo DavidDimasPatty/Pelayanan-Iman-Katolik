@@ -49,7 +49,8 @@ class historyDetail {
                   children: <Widget>[
                     Column(
                       children: <Widget>[
-                        Text('Waktu: ' + tiket[0]['jadwal']),
+                        Text('Waktu: ' +
+                            tiket[0]['jadwal'].toString().substring(0, 19)),
                         Text('Nama Gereja: ' + namaGereja[0]['nama']),
                         Text('Alamat Gereja: ' + namaGereja[0]['address']),
                       ],

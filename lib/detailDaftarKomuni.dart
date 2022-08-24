@@ -282,7 +282,8 @@ class detailDaftarKomuni extends StatelessWidget {
                                                                       'GerejaKomuni']
                                                                   [
                                                                   0]['jadwalBuka']
-                                                              .toString(),
+                                                              .toString()
+                                                              .substring(0, 19),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -321,7 +322,8 @@ class detailDaftarKomuni extends StatelessWidget {
                                                                       'GerejaKomuni'][0]
                                                                   [
                                                                   'jadwalTutup']
-                                                              .toString(),
+                                                              .toString()
+                                                              .substring(0, 19),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,

@@ -282,7 +282,8 @@ class detailDaftarBaptis extends StatelessWidget {
                                                                       'GerejaBaptis']
                                                                   [
                                                                   0]['jadwalBuka']
-                                                              .toString(),
+                                                              .toString()
+                                                              .substring(0, 19),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -321,7 +322,8 @@ class detailDaftarBaptis extends StatelessWidget {
                                                                       'GerejaBaptis'][0]
                                                                   [
                                                                   'jadwalTutup']
-                                                              .toString(),
+                                                              .toString()
+                                                              .substring(0, 19),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,

@@ -46,9 +46,11 @@ class tiketSayaBaptisHistory {
                     Column(
                       children: <Widget>[
                         Text('Waktu: ' +
-                            tiket[0]['jadwalBuka'] +
+                            tiket[0]['jadwalBuka'].toString().substring(0, 19) +
                             " s/d " +
-                            tiket[0]['jadwalTutup']),
+                            tiket[0]['jadwalTutup']
+                                .toString()
+                                .substring(0, 19)),
                         Text('Nama Gereja: ' + namaGereja[0]['nama']),
                         Text('Alamat Gereja: ' + namaGereja[0]['address']),
                       ],
