@@ -228,7 +228,7 @@ class detailDaftarMisa extends StatelessWidget {
                                                               .center,
                                                       children: <Widget>[
                                                         Text(
-                                                          "Kapasitas: ",
+                                                          "Latar Belakang Gereja: ",
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,
@@ -239,7 +239,7 @@ class detailDaftarMisa extends StatelessWidget {
                                                         ),
                                                         Text(
                                                           detailGereja[0]
-                                                              ['kapasitas'],
+                                                              ['deskripsi'],
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,
