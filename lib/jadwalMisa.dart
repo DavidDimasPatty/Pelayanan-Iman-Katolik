@@ -16,8 +16,8 @@ class jadwalMisa {
     return detailMisa;
   }
 
-  daftar(idMisa, idUser, context) async {
-    var daftarmisa = await MongoDatabase.daftarMisa(idMisa, idUser);
+  daftar(idMisa, idUser, context, kapasitas) async {
+    var daftarmisa = await MongoDatabase.daftarMisa(idMisa, idUser, kapasitas);
 
     if (daftarmisa == 'oke') {
       return showDialog<String>(
@@ -64,7 +64,7 @@ class jadwalMisa {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 4),
                               ),
-                              Text(i['KapasitasJadwal']),
+                              Text(i['KapasitasJadwal'].toString()),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 4),
                               ),
@@ -73,8 +73,8 @@ class jadwalMisa {
                                   textColor: Colors.white,
                                   color: Colors.blueAccent,
                                   onPressed: () async {
-                                    var res =
-                                        await daftar(i['_id'], idUser, context);
+                                    var res = await daftar(i['_id'], idUser,
+                                        context, i['KapasitasJadwal']);
                                   })
                             ],
                           )

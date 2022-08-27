@@ -112,7 +112,7 @@ class Baptis extends StatelessWidget {
                             ),
                             Text(
                               'Kapasitas Tersedia: ' +
-                                  i['GerejaBaptis'][0]['kapasitas'],
+                                  i['GerejaBaptis'][0]['kapasitas'].toString(),
                               style:
                                   TextStyle(color: Colors.white, fontSize: 12),
                             ),

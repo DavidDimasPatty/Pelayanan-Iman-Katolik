@@ -270,11 +270,14 @@ class MongoDatabase {
     }
   }
 
-  static daftarMisa(idMisa, idUser) async {
+  static daftarMisa(idMisa, idUser, kapasitas) async {
     var tiketCollection = db.collection(TIKET_COLLECTION);
-
+    var jadwalCollection = db.collection(JADWAL_GEREJA_COLLECTION);
     var hasil = await tiketCollection
         .insertOne({'idMisa': idMisa, 'idUser': idUser, 'status': "0"});
+    var update = await jadwalCollection.updateOne(
+        where.eq('_id', idMisa), modify.set('KapasitasJadwal', kapasitas - 1));
+
     if (!hasil.isSuccess) {
       print('Error detected in record insertion');
       return 'fail';
@@ -283,11 +286,15 @@ class MongoDatabase {
     }
   }
 
-  static daftarKomuni(idKomuni, idUser) async {
+  static daftarKomuni(idKomuni, idUser, kapasitas) async {
     var daftarKomuniCollection = db.collection(USER_KOMUNI_COLLECTION);
-
+    var komuniCollection = db.collection(KOMUNI_COLLECTION);
     var hasil = await daftarKomuniCollection
         .insertOne({'idKomuni': idKomuni, 'idUser': idUser, 'status': "0"});
+
+    var update = await komuniCollection.updateOne(
+        where.eq('_id', idKomuni), modify.set('kapasitas', kapasitas - 1));
+
     if (!hasil.isSuccess) {
       print('Error detected in record insertion');
       return 'fail';
@@ -296,11 +303,15 @@ class MongoDatabase {
     }
   }
 
-  static daftarBaptis(idBaptis, idUser) async {
+  static daftarBaptis(idBaptis, idUser, kapasitas) async {
     var daftarBaptisCollection = db.collection(USER_BAPTIS_COLLECTION);
-
+    var baptisCollection = db.collection(BAPTIS_COLLECTION);
     var hasil = await daftarBaptisCollection
         .insertOne({'idBaptis': idBaptis, 'idUser': idUser, 'status': "0"});
+
+    var update = await baptisCollection.updateOne(
+        where.eq('_id', idBaptis), modify.set('kapasitas', kapasitas - 1));
+
     if (!hasil.isSuccess) {
       print('Error detected in record insertion');
       return 'fail';

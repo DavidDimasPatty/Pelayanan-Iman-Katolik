@@ -242,8 +242,10 @@ class detailDaftarBaptis extends StatelessWidget {
                                                         ),
                                                         Text(
                                                           detailGereja[0][
-                                                                  'GerejaBaptis']
-                                                              [0]['kapasitas'],
+                                                                      'GerejaBaptis']
+                                                                  [
+                                                                  0]['kapasitas']
+                                                              .toString(),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,

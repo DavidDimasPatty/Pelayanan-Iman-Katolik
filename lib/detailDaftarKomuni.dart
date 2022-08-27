@@ -242,8 +242,10 @@ class detailDaftarKomuni extends StatelessWidget {
                                                         ),
                                                         Text(
                                                           detailGereja[0][
-                                                                  'GerejaKomuni']
-                                                              [0]['kapasitas'],
+                                                                      'GerejaKomuni']
+                                                                  [
+                                                                  0]['kapasitas']
+                                                              .toString(),
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.black,

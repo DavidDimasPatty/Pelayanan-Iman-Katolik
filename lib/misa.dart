@@ -105,11 +105,6 @@ class Misa extends StatelessWidget {
                               style:
                                   TextStyle(color: Colors.white, fontSize: 12),
                             ),
-                            Text(
-                              'Kapasitas Tersedia: ' + i['kapasitas'],
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
                           ])),
                     ),
 

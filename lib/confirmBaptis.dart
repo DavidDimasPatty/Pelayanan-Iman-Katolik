@@ -17,8 +17,9 @@ class confirmBaptis {
     return detailGereja;
   }
 
-  daftar(idBaptis, idUser, context) async {
-    var daftarmisa = await MongoDatabase.daftarBaptis(idBaptis, idUser);
+  daftar(idBaptis, idUser, kapasitas, context) async {
+    var daftarmisa =
+        await MongoDatabase.daftarBaptis(idBaptis, idUser, kapasitas);
 
     if (daftarmisa == 'oke') {
       return showDialog<String>(
@@ -77,7 +78,11 @@ class confirmBaptis {
                           textColor: Colors.white,
                           color: Colors.blueAccent,
                           onPressed: () async {
-                            await daftar(idBaptis, idUser, context);
+                            await daftar(
+                                idBaptis,
+                                idUser,
+                                detailGereja[0]['GerejaBaptis'][0]['kapasitas'],
+                                context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
                       RaisedButton(

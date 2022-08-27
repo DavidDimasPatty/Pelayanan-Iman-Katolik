@@ -112,7 +112,7 @@ class Komuni extends StatelessWidget {
                             ),
                             Text(
                               'Kapasitas Tersedia: ' +
-                                  i['GerejaKomuni'][0]['kapasitas'],
+                                  i['GerejaKomuni'][0]['kapasitas'].toString(),
                               style:
                                   TextStyle(color: Colors.white, fontSize: 12),
                             ),
