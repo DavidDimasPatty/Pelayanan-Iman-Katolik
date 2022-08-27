@@ -43,6 +43,7 @@ dependencies:
   carousel_slider: ^4.1.1
   simple_animations: ^4.2.0
   google_fonts: ^3.0.1
+  map_launcher: ^2.1.1
 
 dev_dependencies:
   flutter_test:

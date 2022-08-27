@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:map_launcher/map_launcher.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/confirmBaptis.dart';
@@ -20,6 +21,13 @@ class detailDaftarBaptis extends StatelessWidget {
     detailGereja = await MongoDatabase.detailGerejaBaptis(namaGereja);
     print(detailGereja);
     return detailGereja;
+  }
+
+  showDirectionWithFirstMap(coordinates) async {
+    final List<AvailableMap> availableMaps = await MapLauncher.installedMaps;
+    await availableMaps.first.showDirections(
+      destination: coordinates,
+    );
   }
 
   detailDaftarBaptis(
@@ -347,6 +355,43 @@ class detailDaftarBaptis extends StatelessWidget {
                                   ),
                                 ),
                               ))),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                      RaisedButton(
+                          onPressed: () async {
+                            showDirectionWithFirstMap(Coords(
+                                detailGereja[0]['lat'],
+                                detailGereja[0]['lng']));
+                          },
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(80.0)),
+                          elevation: 0.0,
+                          padding: EdgeInsets.all(0.0),
+                          child: Ink(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.topRight,
+                                  end: Alignment.topLeft,
+                                  colors: [
+                                    Colors.blueAccent,
+                                    Colors.lightBlue,
+                                  ]),
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            child: Container(
+                              constraints: BoxConstraints(
+                                  maxWidth: 300.0, minHeight: 50.0),
+                              alignment: Alignment.center,
+                              child: Text(
+                                "Lokasi Gereja",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 26.0,
+                                    fontWeight: FontWeight.w300),
+                              ),
+                            ),
+                          )),
                       SizedBox(
                         height: 20.0,
                       ),
