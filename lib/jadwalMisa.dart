@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 
 class jadwalMisa {
   final idGereja;
   final idUser;
   var detailMisa;
+  var names;
+  var emails;
+  var name;
   var key = 0;
-  jadwalMisa(this.idGereja, this.idUser);
+  jadwalMisa(this.idGereja, this.idUser, this.names, this.emails, this.name);
 
   Future<List> callDb() async {
     detailMisa = await MongoDatabase.jadwalGereja(idGereja);
@@ -26,7 +30,12 @@ class jadwalMisa {
           title: const Text('Berhasil mendaftar'),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
+              onPressed: () => Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        detailDaftarMisa(names, emails, name, idUser)),
+              ),
               child: const Text('OK'),
             ),
           ],

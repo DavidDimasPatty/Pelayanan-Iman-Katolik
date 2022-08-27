@@ -352,8 +352,13 @@ class detailDaftarBaptis extends StatelessWidget {
                       ),
                       RaisedButton(
                           onPressed: () async {
-                            confirmBaptis(snapshot.data[0]['nama'], idUser,
-                                    detailGereja[0]['GerejaBaptis'][0]['_id'])
+                            confirmBaptis(
+                                    snapshot.data[0]['nama'],
+                                    idUser,
+                                    detailGereja[0]['GerejaBaptis'][0]['_id'],
+                                    this.name,
+                                    this.email,
+                                    this.namaGereja)
                                 .showDialogBox(context);
                           },
                           shape: RoundedRectangleBorder(

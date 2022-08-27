@@ -352,9 +352,14 @@ class detailDaftarKomuni extends StatelessWidget {
                       ),
                       RaisedButton(
                           onPressed: () async {
-                            confirmKomuni(detailGereja[0]['nama'], idUser,
-                                    detailGereja[0]['GerejaKomuni'][0]['_id'])
-                                .showDialogBox(context);
+                            confirmKomuni(
+                              detailGereja[0]['nama'],
+                              idUser,
+                              detailGereja[0]['GerejaKomuni'][0]['_id'],
+                              this.name,
+                              this.email,
+                              this.namaGereja,
+                            ).showDialogBox(context);
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(80.0)),

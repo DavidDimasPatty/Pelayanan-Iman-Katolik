@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/detailDaftarBaptis.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 
 class confirmBaptis {
@@ -8,8 +9,12 @@ class confirmBaptis {
   final idUser;
   final idBaptis;
   var detailGereja;
+  final name;
+  final email;
+  final namaGereja;
   var key = 0;
-  confirmBaptis(this.idGereja, this.idUser, this.idBaptis);
+  confirmBaptis(this.idGereja, this.idUser, this.idBaptis, this.name,
+      this.email, this.namaGereja);
 
   Future<List> callDb() async {
     detailGereja = await MongoDatabase.detailGerejaBaptis(idGereja);
@@ -28,7 +33,12 @@ class confirmBaptis {
           title: const Text('Berhasil mendaftar'),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
+              onPressed: () => Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => detailDaftarBaptis(
+                        name, email, namaGereja, idUser, idGereja)),
+              ),
               child: const Text('OK'),
             ),
           ],

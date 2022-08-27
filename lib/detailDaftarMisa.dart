@@ -266,7 +266,8 @@ class detailDaftarMisa extends StatelessWidget {
                       ),
                       RaisedButton(
                           onPressed: () async {
-                            jadwalMisa(detailGereja[0]['_id'], idUser)
+                            jadwalMisa(detailGereja[0]['_id'], idUser,
+                                    this.name, this.email, this.namaGereja)
                                 .showDialogBox(context);
                           },
                           shape: RoundedRectangleBorder(
