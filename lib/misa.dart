@@ -1,3 +1,4 @@
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
@@ -73,8 +74,12 @@ class _Misa extends State<Misa> {
   }
 
   TextEditingController editingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    editingController.addListener(() async {
+      await filterSearchResults(editingController.text);
+    });
     return Scaffold(
       appBar: AppBar(
         shape: RoundedRectangleBorder(
@@ -105,22 +110,31 @@ class _Misa extends State<Misa> {
         ],
       ),
       body: ListView(children: [
-        Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-        TextField(
-          onChanged: (value) {
-            filterSearchResults(value);
+        Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+        AnimSearchBar(
+          width: 400,
+          textController: editingController,
+          onSuffixTap: () {
+            setState(() {
+              editingController.clear();
+            });
           },
-          controller: editingController,
-          decoration: InputDecoration(
-              labelText: "Search",
-              hintText: "Search",
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(25.0)))),
         ),
+        // TextField(
+        //   onChanged: (value) {
+        //     filterSearchResults(value);
+        //   },
+        //   controller: editingController,
+        //   decoration: InputDecoration(
+        //       labelText: "Search",
+        //       hintText: "Search",
+        //       prefixIcon: Icon(Icons.search),
+        //       border: OutlineInputBorder(
+        //           borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+        // ),
         ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(10.0),
           children: <Widget>[
             ///map////////
             for (var i in daftarGereja)
