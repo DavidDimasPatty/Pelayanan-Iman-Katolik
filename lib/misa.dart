@@ -98,33 +98,25 @@ class _Misa extends State<Misa> {
         ],
       ),
       body: ListView(children: [
-        Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-        AnimSearchBar(
-          width: 400,
-          textController: editingController,
-          onSuffixTap: () {
-            setState(() {
-              editingController.clear();
-            });
-          },
-        ),
-        // TextField(
-        //   onChanged: (value) {
-        //     filterSearchResults(value);
-        //   },
-        //   controller: editingController,
-        //   decoration: InputDecoration(
-        //       labelText: "Search",
-        //       hintText: "Search",
-        //       prefixIcon: Icon(Icons.search),
-        //       border: OutlineInputBorder(
-        //           borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-        // ),
         ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.all(10.0),
+          padding: EdgeInsets.only(right: 15, left: 15),
           children: <Widget>[
             ///map////////
+            Padding(
+              padding: EdgeInsets.only(right: 10, left: 10),
+              child: AnimSearchBar(
+                width: 400,
+                rtl: true,
+                helpText: 'Cari Gereja',
+                textController: editingController,
+                onSuffixTap: () {
+                  setState(() {
+                    editingController.clear();
+                  });
+                },
+              ),
+            ),
             for (var i in daftarGereja)
               InkWell(
                 borderRadius: new BorderRadius.circular(24),
@@ -137,7 +129,7 @@ class _Misa extends State<Misa> {
                   );
                 },
                 child: Container(
-                    margin: EdgeInsets.all(20),
+                    margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                           begin: Alignment.topRight,
