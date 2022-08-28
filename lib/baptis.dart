@@ -7,18 +7,75 @@ import 'package:pelayanan_iman_katolik/setting.dart';
 import 'tiketSaya.dart';
 import 'homePage.dart';
 
-class Baptis extends StatelessWidget {
+class Baptis extends StatefulWidget {
   var names;
   var emails;
-  var daftarGereja;
   final idUser;
   Baptis(this.names, this.emails, this.idUser);
+  @override
+  _Baptis createState() => _Baptis(this.names, this.emails, this.idUser);
+}
+
+class _Baptis extends State<Baptis> {
+  var names;
+  var emails;
+  List daftarGereja = [];
+
+  List dummyTemp = [];
+  final idUser;
+  _Baptis(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
-    daftarGereja = await MongoDatabase.findGerejaBaptis();
-    return daftarGereja;
+    return await MongoDatabase.findGerejaBaptis();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    callDb().then((result) {
+      setState(() {
+        daftarGereja = result;
+        dummyTemp = result;
+      });
+    });
+  }
+
+  filterSearchResults(String query) {
+    setState(() {
+      callDb().then((result) {
+        setState(() {
+          dummyTemp = result;
+        });
+      });
+    });
+    if (query.isNotEmpty) {
+      List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
+      for (var item in dummyTemp) {
+        if (item['GerejaBaptis'][0]['nama']
+            .toLowerCase()
+            .contains(query.toLowerCase())) {
+          listOMaps.add(item);
+        }
+      }
+      setState(() {
+        daftarGereja.clear();
+        daftarGereja.addAll(listOMaps);
+      });
+      return daftarGereja;
+    } else {
+      setState(() {
+        daftarGereja.clear();
+        callDb().then((result) {
+          setState(() {
+            daftarGereja = result;
+            dummyTemp = result;
+          });
+        });
+      });
+    }
+  }
+
+  TextEditingController editingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,83 +107,86 @@ class Baptis extends StatelessWidget {
           ),
         ],
       ),
-      body: FutureBuilder<List>(
-          future: callDb(),
-          builder: (context, AsyncSnapshot snapshot) {
-            try {
-              return ListView(
-                shrinkWrap: true,
-                padding: EdgeInsets.all(20.0),
-                children: <Widget>[
-                  ///map////////
-                  for (var i in daftarGereja)
-                    InkWell(
-                      borderRadius: new BorderRadius.circular(24),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => detailDaftarBaptis(
-                                  names,
-                                  emails,
-                                  i['GerejaBaptis'][0]['nama'],
-                                  idUser,
-                                  i['GerejaBaptis'][0]['_id'])),
-                        );
-                      },
-                      child: Container(
-                          margin: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.topLeft,
-                                colors: [
-                                  Colors.blueGrey,
-                                  Colors.lightBlue,
-                                ]),
-                            border: Border.all(
-                              color: Colors.lightBlue,
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: Column(children: <Widget>[
-                            //Color(Colors.blue);
-
-                            Text(
-                              i['GerejaBaptis'][0]['nama'],
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 26.0,
-                                  fontWeight: FontWeight.w300),
-                              textAlign: TextAlign.left,
-                            ),
-                            Text(
-                              'Paroki: ' + i['GerejaBaptis'][0]['paroki'],
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                            Text(
-                              'Alamat: ' + i['GerejaBaptis'][0]['address'],
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                            Text(
-                              'Kapasitas Tersedia: ' +
-                                  i['GerejaBaptis'][0]['kapasitas'].toString(),
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                          ])),
+      body: ListView(children: [
+        Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+        TextField(
+          onChanged: (value) {
+            filterSearchResults(value);
+          },
+          controller: editingController,
+          decoration: InputDecoration(
+              labelText: "Search",
+              hintText: "Search",
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+        ),
+        ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.all(20.0),
+          children: <Widget>[
+            ///map////////
+            for (var i in daftarGereja)
+              InkWell(
+                borderRadius: new BorderRadius.circular(24),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => detailDaftarBaptis(
+                            names,
+                            emails,
+                            i['GerejaBaptis'][0]['nama'],
+                            idUser,
+                            i['GerejaBaptis'][0]['_id'])),
+                  );
+                },
+                child: Container(
+                    margin: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.topLeft,
+                          colors: [
+                            Colors.blueGrey,
+                            Colors.lightBlue,
+                          ]),
+                      border: Border.all(
+                        color: Colors.lightBlue,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
+                    child: Column(children: <Widget>[
+                      //Color(Colors.blue);
 
-                  ///map////////
-                ],
-              );
-            } catch (e) {
-              print(e);
-              return Center(child: CircularProgressIndicator());
-            }
-          }),
+                      Text(
+                        i['GerejaBaptis'][0]['nama'],
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 26.0,
+                            fontWeight: FontWeight.w300),
+                        textAlign: TextAlign.left,
+                      ),
+                      Text(
+                        'Paroki: ' + i['GerejaBaptis'][0]['paroki'],
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                      Text(
+                        'Alamat: ' + i['GerejaBaptis'][0]['address'],
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                      Text(
+                        'Kapasitas Tersedia: ' +
+                            i['GerejaBaptis'][0]['kapasitas'].toString(),
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ])),
+              ),
+
+            ///map////////
+          ],
+        ),
+      ]),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
