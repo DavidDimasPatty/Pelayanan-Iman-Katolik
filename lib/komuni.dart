@@ -1,3 +1,4 @@
+import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarKomuni.dart';
@@ -34,20 +35,13 @@ class _Komuni extends State<Komuni> {
     super.initState();
     callDb().then((result) {
       setState(() {
-        daftarGereja = result;
-        dummyTemp = result;
+        daftarGereja.addAll(result);
+        dummyTemp.addAll(result);
       });
     });
   }
 
   filterSearchResults(String query) {
-    setState(() {
-      callDb().then((result) {
-        setState(() {
-          dummyTemp = result;
-        });
-      });
-    });
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
       for (var item in dummyTemp) {
@@ -65,12 +59,7 @@ class _Komuni extends State<Komuni> {
     } else {
       setState(() {
         daftarGereja.clear();
-        callDb().then((result) {
-          setState(() {
-            daftarGereja = result;
-            dummyTemp = result;
-          });
-        });
+        daftarGereja.addAll(dummyTemp);
       });
     }
   }
@@ -78,6 +67,9 @@ class _Komuni extends State<Komuni> {
   TextEditingController editingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    editingController.addListener(() async {
+      await filterSearchResults(editingController.text);
+    });
     return Scaffold(
       appBar: AppBar(
         shape: RoundedRectangleBorder(
@@ -108,23 +100,26 @@ class _Komuni extends State<Komuni> {
         ],
       ),
       body: ListView(children: [
-        Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-        TextField(
-          onChanged: (value) {
-            filterSearchResults(value);
-          },
-          controller: editingController,
-          decoration: InputDecoration(
-              labelText: "Search",
-              hintText: "Search",
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(25.0)))),
-        ),
         ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.all(20.0),
+          padding: EdgeInsets.only(right: 15, left: 15),
           children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 10, left: 10),
+              child: AnimSearchBar(
+                autoFocus: false,
+                width: 400,
+                rtl: true,
+                helpText: 'Cari Gereja',
+                textController: editingController,
+                onSuffixTap: () {
+                  setState(() {
+                    editingController.clear();
+                  });
+                },
+              ),
+            ),
+
             ///map////////
             for (var i in daftarGereja)
               InkWell(
@@ -142,7 +137,7 @@ class _Komuni extends State<Komuni> {
                   );
                 },
                 child: Container(
-                    margin: EdgeInsets.all(20),
+                    margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                           begin: Alignment.topRight,
