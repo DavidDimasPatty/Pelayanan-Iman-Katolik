@@ -6,18 +6,73 @@ import 'package:pelayanan_iman_katolik/setting.dart';
 import 'tiketSaya.dart';
 import 'homePage.dart';
 
-class Misa extends StatelessWidget {
+class Misa extends StatefulWidget {
   var names;
   var emails;
-  var daftarGereja;
   final idUser;
   Misa(this.names, this.emails, this.idUser);
+  @override
+  _Misa createState() => _Misa(this.names, this.emails, this.idUser);
+}
+
+class _Misa extends State<Misa> {
+  var names;
+  var emails;
+  List daftarGereja = [];
+
+  List dummyTemp = [];
+  final idUser;
+  _Misa(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
-    daftarGereja = await MongoDatabase.findGereja();
-    return daftarGereja;
+    return await MongoDatabase.findGereja();
   }
 
+  @override
+  void initState() {
+    super.initState();
+    callDb().then((result) {
+      setState(() {
+        daftarGereja = result;
+        dummyTemp = result;
+      });
+    });
+  }
+
+  filterSearchResults(String query) {
+    setState(() {
+      callDb().then((result) {
+        setState(() {
+          dummyTemp = result;
+        });
+      });
+    });
+    if (query.isNotEmpty) {
+      List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
+      for (var item in dummyTemp) {
+        if (item['nama'].toLowerCase().contains(query.toLowerCase())) {
+          listOMaps.add(item);
+        }
+      }
+      setState(() {
+        daftarGereja.clear();
+        daftarGereja.addAll(listOMaps);
+      });
+      return daftarGereja;
+    } else {
+      setState(() {
+        daftarGereja.clear();
+        callDb().then((result) {
+          setState(() {
+            daftarGereja = result;
+            dummyTemp = result;
+          });
+        });
+      });
+    }
+  }
+
+  TextEditingController editingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,73 +104,77 @@ class Misa extends StatelessWidget {
           ),
         ],
       ),
-      body: FutureBuilder<List>(
-          future: callDb(),
-          builder: (context, AsyncSnapshot snapshot) {
-            try {
-              return ListView(
-                shrinkWrap: true,
-                padding: EdgeInsets.all(20.0),
-                children: <Widget>[
-                  ///map////////
-                  for (var i in daftarGereja)
-                    InkWell(
-                      borderRadius: new BorderRadius.circular(24),
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => detailDaftarMisa(
-                                  names, emails, i['nama'], idUser)),
-                        );
-                      },
-                      child: Container(
-                          margin: EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.topLeft,
-                                colors: [
-                                  Colors.blueGrey,
-                                  Colors.lightBlue,
-                                ]),
-                            border: Border.all(
-                              color: Colors.lightBlue,
-                            ),
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                          ),
-                          child: Column(children: <Widget>[
-                            //Color(Colors.blue);
-
-                            Text(
-                              i['nama'],
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 26.0,
-                                  fontWeight: FontWeight.w300),
-                              textAlign: TextAlign.left,
-                            ),
-                            Text(
-                              'Paroki: ' + i['paroki'],
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                            Text(
-                              'Alamat: ' + i['address'],
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 12),
-                            ),
-                          ])),
+      body: ListView(children: [
+        Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+        TextField(
+          onChanged: (value) {
+            filterSearchResults(value);
+          },
+          controller: editingController,
+          decoration: InputDecoration(
+              labelText: "Search",
+              hintText: "Search",
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(25.0)))),
+        ),
+        ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.all(20.0),
+          children: <Widget>[
+            ///map////////
+            for (var i in daftarGereja)
+              InkWell(
+                borderRadius: new BorderRadius.circular(24),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            detailDaftarMisa(names, emails, i['nama'], idUser)),
+                  );
+                },
+                child: Container(
+                    margin: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.topLeft,
+                          colors: [
+                            Colors.blueGrey,
+                            Colors.lightBlue,
+                          ]),
+                      border: Border.all(
+                        color: Colors.lightBlue,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
                     ),
+                    child: Column(children: <Widget>[
+                      //Color(Colors.blue);
 
-                  ///map////////
-                ],
-              );
-            } catch (e) {
-              print(e);
-              return Center(child: CircularProgressIndicator());
-            }
-          }),
+                      Text(
+                        i['nama'],
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 26.0,
+                            fontWeight: FontWeight.w300),
+                        textAlign: TextAlign.left,
+                      ),
+                      Text(
+                        'Paroki: ' + i['paroki'],
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                      Text(
+                        'Alamat: ' + i['address'],
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ])),
+              ),
+
+            ///map////////
+          ],
+        )
+      ]),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
