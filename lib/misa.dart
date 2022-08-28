@@ -34,20 +34,13 @@ class _Misa extends State<Misa> {
     super.initState();
     callDb().then((result) {
       setState(() {
-        daftarGereja = result;
-        dummyTemp = result;
+        daftarGereja.addAll(result);
+        dummyTemp.addAll(result);
       });
     });
   }
 
   filterSearchResults(String query) {
-    setState(() {
-      callDb().then((result) {
-        setState(() {
-          dummyTemp = result;
-        });
-      });
-    });
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
       for (var item in dummyTemp) {
@@ -63,12 +56,7 @@ class _Misa extends State<Misa> {
     } else {
       setState(() {
         daftarGereja.clear();
-        callDb().then((result) {
-          setState(() {
-            daftarGereja = result;
-            dummyTemp = result;
-          });
-        });
+        daftarGereja.addAll(dummyTemp);
       });
     }
   }
