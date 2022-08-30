@@ -158,7 +158,7 @@ class ForgetPassword extends StatelessWidget {
                             child: Text(
                               "Back to Sign In",
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 17,
                                 color: Colors.lightBlue,
                                 decoration: TextDecoration.underline,
                               ),
