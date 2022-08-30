@@ -2,6 +2,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/FadeAnimation.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
 
 class SignUp extends StatelessWidget {
@@ -120,6 +121,7 @@ class SignUp extends StatelessWidget {
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
               elevation: 0,
             ),
@@ -127,10 +129,12 @@ class SignUp extends StatelessWidget {
               children: [
                 Container(
                   padding: EdgeInsets.only(left: 35, top: 30),
-                  child: Text(
-                    'Create\nAccount',
-                    style: TextStyle(color: Colors.white, fontSize: 33),
-                  ),
+                  child: FadeAnimation(
+                      1.8,
+                      Text(
+                        'Create\nAccount',
+                        style: TextStyle(color: Colors.white, fontSize: 33),
+                      )),
                 ),
                 SingleChildScrollView(
                   child: Container(
@@ -143,105 +147,129 @@ class SignUp extends StatelessWidget {
                           margin: EdgeInsets.only(left: 35, right: 35),
                           child: Column(
                             children: [
-                              TextField(
-                                controller: nameController,
-                                style: TextStyle(color: Colors.white),
-                                decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    hintText: "Name",
-                                    hintStyle: TextStyle(color: Colors.white),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
-                              ),
+                              FadeAnimation(
+                                  1.8,
+                                  TextField(
+                                    controller: nameController,
+                                    style: TextStyle(color: Colors.white),
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        hintText: "Name",
+                                        hintStyle:
+                                            TextStyle(color: Colors.white),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        )),
+                                  )),
                               SizedBox(
                                 height: 15,
                               ),
-                              TextField(
-                                controller: emailController,
-                                style: TextStyle(color: Colors.white),
-                                decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    hintText: "Email",
-                                    hintStyle: TextStyle(color: Colors.white),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
-                              ),
+                              FadeAnimation(
+                                  1.8,
+                                  TextField(
+                                    controller: emailController,
+                                    style: TextStyle(color: Colors.white),
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        hintText: "Email",
+                                        hintStyle:
+                                            TextStyle(color: Colors.white),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        )),
+                                  )),
                               SizedBox(
                                 height: 15,
                               ),
-                              TextField(
-                                controller: passwordController,
-                                style: TextStyle(color: Colors.white),
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    hintText: "Password",
-                                    hintStyle: TextStyle(color: Colors.white),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
-                              ),
+                              FadeAnimation(
+                                  1.8,
+                                  TextField(
+                                    controller: passwordController,
+                                    style: TextStyle(color: Colors.white),
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        hintText: "Password",
+                                        hintStyle:
+                                            TextStyle(color: Colors.white),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        )),
+                                  )),
                               SizedBox(
                                 height: 15,
                               ),
-                              TextField(
-                                controller: repasswordController,
-                                style: TextStyle(color: Colors.white),
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                      borderSide: BorderSide(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    hintText: "Retype Password",
-                                    hintStyle: TextStyle(color: Colors.white),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    )),
-                              ),
+                              FadeAnimation(
+                                  1.8,
+                                  TextField(
+                                    controller: repasswordController,
+                                    style: TextStyle(color: Colors.white),
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                        enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        hintText: "Retype Password",
+                                        hintStyle:
+                                            TextStyle(color: Colors.white),
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        )),
+                                  )),
                               SizedBox(
                                 height: 40,
                               ),
@@ -249,25 +277,29 @@ class SignUp extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    'Sign Up',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 27,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  CircleAvatar(
-                                    radius: 30,
-                                    backgroundColor: Color(0xff4c505b),
-                                    child: IconButton(
-                                        color: Colors.white,
-                                        onPressed: () async {
-                                          checkSignUp(context);
-                                        },
-                                        icon: Icon(
-                                          Icons.arrow_forward,
-                                        )),
-                                  )
+                                  FadeAnimation(
+                                      1.8,
+                                      Text(
+                                        'Sign Up',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 27,
+                                            fontWeight: FontWeight.w700),
+                                      )),
+                                  FadeAnimation(
+                                      1.8,
+                                      CircleAvatar(
+                                        radius: 30,
+                                        backgroundColor: Color(0xff4c505b),
+                                        child: IconButton(
+                                            color: Colors.white,
+                                            onPressed: () async {
+                                              checkSignUp(context);
+                                            },
+                                            icon: Icon(
+                                              Icons.arrow_forward,
+                                            )),
+                                      ))
                                 ],
                               ),
                               SizedBox(
@@ -285,14 +317,17 @@ class SignUp extends StatelessWidget {
                                             builder: (context) => Login()),
                                       );
                                     },
-                                    child: Text(
-                                      'Sign In',
-                                      textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          color: Colors.white,
-                                          fontSize: 18),
-                                    ),
+                                    child: FadeAnimation(
+                                        1.8,
+                                        Text(
+                                          'Sign In',
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              color: Colors.white,
+                                              fontSize: 18),
+                                        )),
                                     style: ButtonStyle(),
                                   ),
                                 ],
@@ -305,87 +340,6 @@ class SignUp extends StatelessWidget {
                   ),
                 ),
               ],
-            )
-            //   return Material(
-            //     child: Column(
-            //       children: <Widget>[
-            //         Padding(
-            //           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            //         ),
-            //         Text(
-            //           'Sign Up',
-            //           style: TextStyle(
-            //             fontSize: 15,
-            //             fontWeight: FontWeight.bold,
-            //           ),
-            //           textAlign: TextAlign.center,
-            //         ),
-            //         Padding(
-            //           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            //           child: TextField(
-            //             controller: nameController,
-            //             decoration: InputDecoration(
-            //               border: OutlineInputBorder(),
-            //               hintText: 'Nama lengkap',
-            //             ),
-            //           ),
-            //         ),
-            //         Padding(
-            //           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            //           child: TextField(
-            //             controller: emailController,
-            //             decoration: InputDecoration(
-            //               border: OutlineInputBorder(),
-            //               hintText: 'Masukan email anda',
-            //             ),
-            //           ),
-            //         ),
-            //         Padding(
-            //           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            //           child: TextField(
-            //             obscureText: true,
-            //             enableSuggestions: false,
-            //             autocorrect: false,
-            //             controller: passwordController,
-            //             decoration: InputDecoration(
-            //               border: OutlineInputBorder(),
-            //               hintText: 'Masukan password anda',
-            //             ),
-            //           ),
-            //         ),
-            //         Padding(
-            //           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            //           child: TextField(
-            //             controller: repasswordController,
-            //             obscureText: true,
-            //             enableSuggestions: false,
-            //             autocorrect: false,
-            //             decoration: InputDecoration(
-            //               border: OutlineInputBorder(),
-            //               hintText: 'ketik ulang password anda',
-            //             ),
-            //           ),
-            //         ),
-            //         Padding(
-            //           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-            //           child: ButtonBar(
-            //             alignment: MainAxisAlignment.center,
-            //             buttonPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            //             children: [
-            //               RaisedButton(
-            //                   child: Text("Create Account"),
-            //                   textColor: Colors.white,
-            //                   color: Colors.blueAccent,
-            //                   onPressed: () async {
-            //                     checkSignUp(context);
-            //                   }),
-            //             ],
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   );
-            // }
-            ));
+            )));
   }
 }

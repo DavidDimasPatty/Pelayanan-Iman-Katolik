@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/FadeAnimation.dart';
-import 'package:pelayanan_iman_katolik/forgetPassword.dart';
+import 'package:pelayanan_iman_katolik/login.dart';
 import 'package:pelayanan_iman_katolik/singup.dart';
 import 'DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Login extends StatelessWidget {
+class ForgetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController emailController = new TextEditingController();
@@ -66,30 +66,11 @@ class Login extends StatelessWidget {
                                           'https://firebasestorage.googleapis.com/v0/b/pelayananimankatolik.appspot.com/o/clock.png?alt=media&token=d1a161d5-ca29-4d5c-9a4d-e8a02f26cb09'))),
                             )),
                       ),
-                      Positioned(
-                        child: FadeAnimation(
-                          1.6,
-                          Container(
-                            margin: EdgeInsets.only(top: 85),
-                            child: Center(
-                              child: Text(
-                                'Halo, Umat Katolik!',
-                                style: GoogleFonts.davidLibre(
-                                  textStyle: TextStyle(
-                                      fontSize: 30,
-                                      color: Colors.white,
-                                      letterSpacing: .5),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
                     ],
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(30.0),
+                  padding: EdgeInsets.symmetric(horizontal: 40),
                   child: Column(
                     children: <Widget>[
                       FadeAnimation(
@@ -109,33 +90,15 @@ class Login extends StatelessWidget {
                               children: <Widget>[
                                 Container(
                                   padding: EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom:
-                                              BorderSide(color: Colors.grey))),
                                   child: TextField(
                                     controller: emailController,
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: "Email or Phone number",
+                                        hintText: "Email",
                                         hintStyle:
                                             TextStyle(color: Colors.grey[400])),
                                   ),
                                 ),
-                                Container(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: TextField(
-                                    obscureText: true,
-                                    enableSuggestions: false,
-                                    autocorrect: false,
-                                    controller: passwordController,
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Password",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey[400])),
-                                  ),
-                                )
                               ],
                             ),
                           )),
@@ -149,7 +112,7 @@ class Login extends StatelessWidget {
                             child: RaisedButton(
                                 textColor: Colors.white,
                                 color: Colors.lightBlue,
-                                child: Text("Login"),
+                                child: Text("Send Email"),
                                 shape: new RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(30.0),
                                 ),
@@ -189,12 +152,13 @@ class Login extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SignUp()),
+                                    builder: (context) => Login()),
                               );
                             },
                             child: Text(
-                              "Sign Up",
+                              "Back to Sign In",
                               style: TextStyle(
+                                fontSize: 20,
                                 color: Colors.lightBlue,
                                 decoration: TextDecoration.underline,
                               ),
@@ -203,20 +167,6 @@ class Login extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      FadeAnimation(
-                          1.5,
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ForgetPassword()),
-                                );
-                              },
-                              child: Text(
-                                "Forgot Password?",
-                                style: TextStyle(color: Colors.lightBlue),
-                              ))),
                     ],
                   ),
                 )
@@ -226,95 +176,3 @@ class Login extends StatelessWidget {
         ));
   }
 }
-//     return Material(
-//         child: ListView(
-//       children: <Widget>[
-//         Column(
-//           children: <Widget>[
-//             Padding(
-//               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-//             ),
-//             Text(
-//               'Selamat Datang Iman Katolik',
-//               style: TextStyle(
-//                 fontSize: 15,
-//                 fontWeight: FontWeight.bold,
-//               ),
-//               textAlign: TextAlign.center,
-//             ),
-//             Padding(
-//               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-//               child: TextField(
-//                 controller: emailController,
-//                 decoration: InputDecoration(
-//                   border: OutlineInputBorder(),
-//                   hintText: 'Masukan email anda',
-//                 ),
-//               ),
-//             ),
-//             Padding(
-//               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-//               child: TextField(
-//                 obscureText: true,
-//                 enableSuggestions: false,
-//                 autocorrect: false,
-//                 controller: passwordController,
-//                 decoration: InputDecoration(
-//                   border: OutlineInputBorder(),
-//                   hintText: 'Masukan password anda',
-//                 ),
-//               ),
-//             ),
-//             Padding(
-//               padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-//               child: ButtonBar(
-//                 alignment: MainAxisAlignment.center,
-//                 buttonPadding:
-//                     EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-//                 children: [
-//                   RaisedButton(
-//                       child: Text("Log In"),
-//                       textColor: Colors.white,
-//                       color: Colors.blueAccent,
-//                       onPressed: () async {
-//                         var ret = await MongoDatabase.findUser(
-//                             emailController.text, passwordController.text);
-//                         //print("hasil: " + ret);
-//                         if (ret != "failed") {
-//                           //Navigator.popUntil(context, ModalRoute.withName('/'));
-//                           // Navigator.pop(context,
-//                           //     true); // It worked for me instead of above line
-//                           print(ret);
-//                           Navigator.pushReplacement(
-//                             context,
-//                             MaterialPageRoute(
-//                                 builder: (context) => HomePage(ret[0]['name'],
-//                                     ret[0]['email'], ret[0]['_id'])),
-//                           );
-
-//                           // Navigator.push(
-//                           //   context,
-//                           //   MaterialPageRoute(builder: (context) => HomePage()),
-//                           // );
-//                         } else {}
-//                       }),
-//                   RaisedButton(
-//                     child: Text("Sign Up"),
-//                     textColor: Colors.white,
-//                     color: Colors.blueAccent,
-//                     onPressed: () {
-//                       Navigator.push(
-//                         context,
-//                         MaterialPageRoute(builder: (context) => SignUp()),
-//                       );
-//                     },
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ],
-//         )
-//       ],
-//     ));
-//   }
-// }
