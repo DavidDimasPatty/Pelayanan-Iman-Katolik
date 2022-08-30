@@ -5,12 +5,62 @@ import 'package:pelayanan_iman_katolik/singup.dart';
 import 'DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 
 class ForgetPassword extends StatelessWidget {
+  TextEditingController emailController = new TextEditingController();
+  send_mail() async {
+    String username = dotenv.env['email'].toString();
+    String password = dotenv.env['password'].toString();
+
+    final smtpServer = gmail(username, password);
+
+    final message = Message()
+      ..from =
+          Address("PelayananImanKatolik@gmail.com", 'Pelayanan Iman Katolik')
+      ..recipients.add(emailController.text.toString())
+      //..ccRecipients.addAll(['destCc1@example.com', 'destCc2@example.com'])
+      //..bccRecipients.add(Address('bccAddress@example.com'))
+      ..subject = 'Test Dart Mailer library :: 😀 :: ${DateTime.now()}'
+      ..text = 'This is the plain text.\nThis is line 2 of the text part.'
+      ..html = "<h1>Test</h1>\n<p>Hey! Here's some HTML content</p>";
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Message sent: ' + sendReport.toString());
+    } on MailerException catch (e) {
+      print('Message not sent.');
+      for (var p in e.problems) {
+        print('Problem: ${p.code}: ${p.msg}');
+      }
+    }
+
+    // final equivalentMessage = Message()
+    //   ..from = Address(username, 'Your name 😀')
+    //   ..recipients.add(Address('destination@example.com'))
+    //   ..ccRecipients
+    //       .addAll([Address('destCc1@example.com'), 'destCc2@example.com'])
+    //   ..bccRecipients.add('bccAddress@example.com')
+    //   ..subject = 'Test Dart Mailer library :: 😀 :: ${DateTime.now()}'
+    //   ..text = 'This is the plain text.\nThis is line 2 of the text part.'
+    //   ..html =
+    //       '<h1>Test</h1>\n<p>Hey! Here is some HTML content</p><img src="cid:myimg@3.141"/>';
+
+    // final sendReport2 = await send(equivalentMessage, smtpServer);
+
+    var connection = PersistentConnection(smtpServer);
+
+    await connection.send(message);
+
+    // await connection.send(equivalentMessage);
+
+    await connection.close();
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = new TextEditingController();
-    TextEditingController passwordController = new TextEditingController();
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -117,29 +167,7 @@ class ForgetPassword extends StatelessWidget {
                                   borderRadius: new BorderRadius.circular(30.0),
                                 ),
                                 onPressed: () async {
-                                  var ret = await MongoDatabase.findUser(
-                                      emailController.text,
-                                      passwordController.text);
-                                  //print("hasil: " + ret);
-                                  if (ret != "failed") {
-                                    //Navigator.popUntil(context, ModalRoute.withName('/'));
-                                    // Navigator.pop(context,
-                                    //     true); // It worked for me instead of above line
-                                    print(ret);
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => HomePage(
-                                              ret[0]['name'],
-                                              ret[0]['email'],
-                                              ret[0]['_id'])),
-                                    );
-
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(builder: (context) => HomePage()),
-                                    // );
-                                  } else {}
+                                  send_mail();
                                 }),
                           )),
                       SizedBox(
