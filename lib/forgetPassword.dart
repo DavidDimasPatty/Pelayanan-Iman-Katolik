@@ -16,7 +16,10 @@ class ForgetPassword extends StatelessWidget {
   Future send(context) async {
     final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
     final response = await http.post(url,
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'origin': 'http://localhost'
+        },
         body: jsonEncode({
           'service_id': dotenv.env['service_id'].toString(),
           'template_id': dotenv.env['template_id'].toString(),
