@@ -13,20 +13,37 @@ import 'package:http/http.dart' as http;
 class ForgetPassword extends StatelessWidget {
   TextEditingController emailController = new TextEditingController();
 
-  send() async {
+  Future send(context) async {
     final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
     final response = await http.post(url,
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
-          'service_id': dotenv.env['service_id'],
-          'template_id': dotenv.env['template_id'],
-          'user_id': dotenv.env['user_id'],
+          'service_id': dotenv.env['service_id'].toString(),
+          'template_id': dotenv.env['template_id'].toString(),
+          'user_id': dotenv.env['user_id'].toString(),
           'template_params': {
-            'user_name': emailController.text,
-            'user_email': emailController.text,
+            'user_name': emailController.text.toString(),
+            'user_email': emailController.text.toString(),
             'user_subject': 'Lupa Password',
           }
         }));
+
+    emailController.clear();
+    return showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('Silahkan Check Email Anda'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Login()),
+            ),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -140,7 +157,7 @@ class ForgetPassword extends StatelessWidget {
                                   borderRadius: new BorderRadius.circular(30.0),
                                 ),
                                 onPressed: () async {
-                                  await send();
+                                  await send(context);
                                 }),
                           )),
                       SizedBox(
