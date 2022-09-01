@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/FadeAnimation.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
@@ -6,14 +8,32 @@ import 'DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:http/http.dart' as http;
 
 class ForgetPassword extends StatelessWidget {
   TextEditingController emailController = new TextEditingController();
 
-  Future<void> send() async {}
+  send() async {
+    final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+    final response = await http.post(url,
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'service_id': dotenv.env['service_id'],
+          'template_id': dotenv.env['template_id'],
+          'user_id': dotenv.env['user_id'],
+          'template_params': {
+            'user_name': emailController.text,
+            'user_email': emailController.text,
+            'user_subject': 'Lupa Password',
+          }
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {
+    print(dotenv.env['service_id']);
+    print(dotenv.env['template_id']);
+    print(dotenv.env['user_id']);
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
