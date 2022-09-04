@@ -47,6 +47,7 @@ dependencies:
   anim_search_bar: ^2.0.2
   flutter_dotenv: ^5.0.2
   http: ^0.13.5
+  fluttertoast: ^8.0.9
   
 dev_dependencies:
   flutter_test:

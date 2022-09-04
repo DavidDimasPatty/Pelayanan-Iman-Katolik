@@ -5,6 +5,7 @@ import 'package:pelayanan_iman_katolik/singup.dart';
 import 'DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -176,7 +177,18 @@ class Login extends StatelessWidget {
                                     //   context,
                                     //   MaterialPageRoute(builder: (context) => HomePage()),
                                     // );
-                                  } else {}
+                                  } else {
+                                    Fluttertoast.showToast(
+                                        msg: "Email dan Password Salah",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIosWeb: 2,
+                                        backgroundColor: Colors.red,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0);
+                                    emailController.clear();
+                                    passwordController.clear();
+                                  }
                                 }),
                           )),
                       SizedBox(
