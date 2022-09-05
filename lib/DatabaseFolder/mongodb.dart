@@ -256,8 +256,16 @@ class MongoDatabase {
         return "email";
       }
       if (checkName.length == 0 && checkEmail.length == 0) {
-        var hasil = await userCollection
-            .insertOne({'name': nama, 'email': email, 'password': password});
+        var hasil = await userCollection.insertOne({
+          'name': nama,
+          'email': email,
+          'password': password,
+          'picture': "",
+          "banned": 0,
+          "notifGD": false,
+          "notifPG": false,
+          "tanggalDaftar": DateTime.now()
+        });
         if (!hasil.isSuccess) {
           print('Error detected in record insertion');
           return 'fail';

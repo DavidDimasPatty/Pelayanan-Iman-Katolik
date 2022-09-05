@@ -46,9 +46,7 @@ class SignUp extends StatelessWidget {
             fontSize: 16.0);
         emailController.clear();
         passwordController.clear();
-      }
-
-      if (passwordController.text != repasswordController.text) {
+      } else if (passwordController.text != repasswordController.text) {
         passwordController.text = "";
         repasswordController.text = "";
         Fluttertoast.showToast(
@@ -59,10 +57,8 @@ class SignUp extends StatelessWidget {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
-        emailController.clear();
         passwordController.clear();
-      }
-      if (emailValid == false) {
+      } else if (emailValid == false) {
         print("masuk");
         emailController.text = "";
         Fluttertoast.showToast(
@@ -75,15 +71,13 @@ class SignUp extends StatelessWidget {
             fontSize: 16.0);
         emailController.clear();
         passwordController.clear();
-      }
-
-      if (emailValid == true &&
+      } else if (emailValid == true &&
           namaValid == true &&
           passwordController.text == repasswordController.text) {
         var add = await MongoDatabase.addUser(
             nameController.text, emailController.text, passwordController.text);
 
-        if (add == nameController.text) {
+        if (add == "nama") {
           nameController.text = "";
           Fluttertoast.showToast(
               msg: "Nama Sudah Digunakan",
@@ -95,7 +89,7 @@ class SignUp extends StatelessWidget {
               fontSize: 16.0);
           emailController.clear();
           passwordController.clear();
-        } else if (add == emailController.text) {
+        } else if (add == "email") {
           emailController.text = "";
           Fluttertoast.showToast(
               msg: "Email Sudah Digunakan",
