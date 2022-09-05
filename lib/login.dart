@@ -155,31 +155,11 @@ class Login extends StatelessWidget {
                                   borderRadius: new BorderRadius.circular(30.0),
                                 ),
                                 onPressed: () async {
-                                  var ret = await MongoDatabase.findUser(
-                                      emailController.text,
-                                      passwordController.text);
-                                  //print("hasil: " + ret);
-                                  if (ret != "failed") {
-                                    //Navigator.popUntil(context, ModalRoute.withName('/'));
-                                    // Navigator.pop(context,
-                                    //     true); // It worked for me instead of above line
-                                    print(ret);
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => HomePage(
-                                              ret[0]['name'],
-                                              ret[0]['email'],
-                                              ret[0]['_id'])),
-                                    );
-
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(builder: (context) => HomePage()),
-                                    // );
-                                  } else {
+                                  if (emailController.text == "" ||
+                                      passwordController.text == "") {
                                     Fluttertoast.showToast(
-                                        msg: "Email dan Password Salah",
+                                        msg:
+                                            "Email atau Password Tidak Boleh Kosong",
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.CENTER,
                                         timeInSecForIosWeb: 2,
@@ -188,6 +168,33 @@ class Login extends StatelessWidget {
                                         fontSize: 16.0);
                                     emailController.clear();
                                     passwordController.clear();
+                                  } else {
+                                    var ret = await MongoDatabase.findUser(
+                                        emailController.text,
+                                        passwordController.text);
+
+                                    if (ret != "failed") {
+                                      print(ret);
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => HomePage(
+                                                ret[0]['name'],
+                                                ret[0]['email'],
+                                                ret[0]['_id'])),
+                                      );
+                                    } else {
+                                      Fluttertoast.showToast(
+                                          msg: "Email dan Password Salah",
+                                          toastLength: Toast.LENGTH_SHORT,
+                                          gravity: ToastGravity.CENTER,
+                                          timeInSecForIosWeb: 2,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0);
+                                      emailController.clear();
+                                      passwordController.clear();
+                                    }
                                   }
                                 }),
                           )),
