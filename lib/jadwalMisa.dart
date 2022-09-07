@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
@@ -24,21 +25,20 @@ class jadwalMisa {
     var daftarmisa = await MongoDatabase.daftarMisa(idMisa, idUser, kapasitas);
 
     if (daftarmisa == 'oke') {
-      return showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Berhasil mendaftar'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        detailDaftarMisa(names, emails, name, idUser)),
-              ),
-              child: const Text('OK'),
-            ),
-          ],
+      Fluttertoast.showToast(
+              msg: "Berhasil Mendaftar",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 2,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0)
+          .then(
+        (value) => Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  detailDaftarMisa(names, emails, name, idUser)),
         ),
       );
     }
