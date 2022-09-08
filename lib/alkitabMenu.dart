@@ -8,12 +8,20 @@ import 'package:pelayanan_iman_katolik/setting.dart';
 import 'tiketSaya.dart';
 import 'homePage.dart';
 
-class Alkitab extends StatelessWidget {
+class Alkitab extends StatefulWidget {
   var names;
   var emails;
   final idUser;
   Alkitab(this.names, this.emails, this.idUser);
+  _Alkitab createState() => _Alkitab(this.names, this.emails, this.idUser);
+}
 
+class _Alkitab extends State<Alkitab> {
+  bool _folded = true;
+  var names;
+  var emails;
+  final idUser;
+  _Alkitab(this.names, this.emails, this.idUser);
   Future<List> callDb() async {
     return await MongoDatabase.findGerejaKomuni();
   }
@@ -54,7 +62,44 @@ class Alkitab extends StatelessWidget {
         ListView(
           shrinkWrap: true,
           padding: EdgeInsets.only(right: 15, left: 15),
-          children: <Widget>[],
+          children: [
+            AnimatedContainer(
+                duration: Duration(milliseconds: 400),
+                width: _folded ? 56 : 200,
+                height: 56,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(32),
+                    color: Colors.white,
+                    boxShadow: kElevationToShadow[6]),
+                child: Row(children: [
+                  Expanded(
+                      child: Container(
+                    padding: EdgeInsets.only(left: 16),
+                    child: _folded
+                        ? TextField(
+                            decoration: InputDecoration(
+                                hintText: 'Injil', border: InputBorder.none),
+                          )
+                        : null,
+                  )),
+                  AnimatedContainer(
+                      duration: Duration(milliseconds: 400),
+                      child: InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _folded = !_folded;
+                          });
+                        },
+                      ))
+                ]))
+          ],
         ),
       ]),
       bottomNavigationBar: Container(
