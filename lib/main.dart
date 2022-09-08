@@ -20,31 +20,3 @@ void main() async {
     home: Login(),
   ));
 }
-
-
-//     return MyAppState(Login());
-//   }
-// }
-
-/////////////////////////////////////////////
-//////////////////////////////////////////////
-// class MyAppState extends State<MyApp> {
-//   final Function page;
-
-//   MyAppState(this.page);
-
-// class MyApp extends StatefulWidget {
-//   @override
-//   State<StatefulWidget> createState() {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text('Aplikasi Gereja'),
-//         ),
-//         body: page(),
-//       ),
-//     );
-//   }
-// }

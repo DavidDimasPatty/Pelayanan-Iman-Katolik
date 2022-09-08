@@ -20,6 +20,8 @@ class MongoDatabase {
       print(conn[0]);
       if (conn[0]['id'] != "") {
         return conn;
+      } else {
+        return "failed";
       }
     } catch (e) {
       return "failed";
