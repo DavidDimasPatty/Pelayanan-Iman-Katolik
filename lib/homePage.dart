@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pelayanan_iman_katolik/alkitabMenu.dart';
 import 'package:pelayanan_iman_katolik/baptis.dart';
 import 'package:pelayanan_iman_katolik/komuni.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
@@ -365,6 +366,42 @@ class HomePage extends StatelessWidget {
                           Icon(Icons.sign_language), // icon
                           Text(
                             "Baptis",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ), // text
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 11),
+              ),
+              SizedBox.fromSize(
+                size: Size(60, 60), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.brown, // button color
+                    child: InkWell(
+                      splashColor: Colors.green, // splash color
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Alkitab(names, emails, iduser)),
+                        );
+                      }, // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.book), // icon
+                          Text(
+                            "Alkitab",
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
