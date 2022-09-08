@@ -18,6 +18,7 @@ class Alkitab extends StatefulWidget {
 
 class _Alkitab extends State<Alkitab> {
   bool _folded = true;
+
   var names;
   var emails;
   final idUser;
@@ -58,50 +59,55 @@ class _Alkitab extends State<Alkitab> {
           ),
         ],
       ),
-      body: ListView(children: [
-        ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.only(right: 15, left: 15),
-          children: [
+      body: Padding(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 400),
+          width: _folded ? 56 : 200,
+          height: _folded ? 56 : 180,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(32),
+              color: Colors.white,
+              boxShadow: kElevationToShadow[6]),
+          child: Row(children: [
+            Expanded(
+                child: Container(
+              padding: EdgeInsets.only(left: 16),
+              child: _folded
+                  ? null
+                  : Column(
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(hintText: 'Cari Injil'),
+                        ),
+                        TextField(
+                          decoration: InputDecoration(hintText: 'Ayat Mulai'),
+                        ),
+                        TextField(
+                          decoration: InputDecoration(hintText: 'Ayat Akhir'),
+                        ),
+                      ],
+                    ),
+            )),
             AnimatedContainer(
                 duration: Duration(milliseconds: 400),
-                width: _folded ? 56 : 200,
-                height: 56,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(32),
-                    color: Colors.white,
-                    boxShadow: kElevationToShadow[6]),
-                child: Row(children: [
-                  Expanded(
-                      child: Container(
-                    padding: EdgeInsets.only(left: 16),
-                    child: _folded
-                        ? TextField(
-                            decoration: InputDecoration(
-                                hintText: 'Injil', border: InputBorder.none),
-                          )
-                        : null,
-                  )),
-                  AnimatedContainer(
-                      duration: Duration(milliseconds: 400),
-                      child: InkWell(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Icon(
-                            Icons.search,
-                            color: Colors.blue[900],
-                          ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _folded = !_folded;
-                          });
-                        },
-                      ))
-                ]))
-          ],
+                child: InkWell(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Icon(
+                      Icons.search,
+                      color: Colors.blue[900],
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      _folded = !_folded;
+                    });
+                  },
+                ))
+          ]),
         ),
-      ]),
+      ),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
