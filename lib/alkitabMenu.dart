@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
@@ -7,25 +9,43 @@ import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
 import 'tiketSaya.dart';
 import 'homePage.dart';
+import 'package:http/http.dart' as http;
 
 class Alkitab extends StatefulWidget {
   var names;
   var emails;
   final idUser;
+
   Alkitab(this.names, this.emails, this.idUser);
   _Alkitab createState() => _Alkitab(this.names, this.emails, this.idUser);
 }
 
 class _Alkitab extends State<Alkitab> {
   bool _folded = true;
+  var textAlkitab;
+  Future loadAlkitab() async {
+    final url = Uri.parse(
+        "https://api-alkitab.herokuapp.com/v2/passage/Kejadian/1?ver=tb");
+    final response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'origin': 'http://localhost'
+      },
+    ).then((value) => textAlkitab = value);
+    print(textAlkitab);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadAlkitab();
+  }
 
   var names;
   var emails;
   final idUser;
   _Alkitab(this.names, this.emails, this.idUser);
-  Future<List> callDb() async {
-    return await MongoDatabase.findGerejaKomuni();
-  }
 
   TextEditingController editingController = TextEditingController();
   @override
