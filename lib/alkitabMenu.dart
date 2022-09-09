@@ -24,22 +24,23 @@ class _Alkitab extends State<Alkitab> {
   bool _folded = true;
   var textAlkitab;
   Future loadAlkitab() async {
-    final url = Uri.parse(
-        "https://api-alkitab.herokuapp.com/v2/passage/Kejadian/1?ver=tb");
-    final response = await http.post(
+    final url =
+        Uri.parse("https://api-alkitab.herokuapp.com/v3/passage/Yoh/1?ver=tb");
+    var response = await http.get(
       url,
-      headers: {
-        'Content-Type': 'application/json',
-        'origin': 'http://localhost'
-      },
-    ).then((value) => textAlkitab = value);
-    print(textAlkitab);
+    );
+    return response;
   }
 
   @override
   void initState() {
     super.initState();
-    loadAlkitab();
+    loadAlkitab().then((response) {
+      var jsonResponse = jsonDecode(response.body);
+      print(jsonResponse);
+
+      setState(() {});
+    });
   }
 
   var names;
