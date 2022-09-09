@@ -22,10 +22,10 @@ class Alkitab extends StatefulWidget {
 
 class _Alkitab extends State<Alkitab> {
   bool _folded = true;
-  var textAlkitab;
+  Map<String, dynamic> textAlkitab = new Map<String, dynamic>();
   Future loadAlkitab() async {
-    final url =
-        Uri.parse("https://api-alkitab.herokuapp.com/v3/passage/Yoh/1?ver=tb");
+    final url = Uri.parse(
+        "https://api-alkitab.herokuapp.com/v3/passage/Kejadian/1?ver=tb");
     var response = await http.get(
       url,
     );
@@ -36,10 +36,13 @@ class _Alkitab extends State<Alkitab> {
   void initState() {
     super.initState();
     loadAlkitab().then((response) {
-      var jsonResponse = jsonDecode(response.body);
-      print(jsonResponse);
+      Map<String, dynamic> jsonResponse =
+          new Map<String, dynamic>.from(json.decode(response.body));
 
-      setState(() {});
+      setState(() {
+        textAlkitab.addAll(jsonResponse);
+        print(textAlkitab);
+      });
     });
   }
 
@@ -80,55 +83,61 @@ class _Alkitab extends State<Alkitab> {
           ),
         ],
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: 400),
-          width: _folded ? 56 : 200,
-          height: _folded ? 56 : 180,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(32),
-              color: Colors.white,
-              boxShadow: kElevationToShadow[6]),
-          child: Row(children: [
-            Expanded(
-                child: Container(
-              padding: EdgeInsets.only(left: 16),
-              child: _folded
-                  ? null
-                  : Column(
-                      children: [
-                        TextField(
-                          decoration: InputDecoration(hintText: 'Cari Injil'),
-                        ),
-                        TextField(
-                          decoration: InputDecoration(hintText: 'Ayat Mulai'),
-                        ),
-                        TextField(
-                          decoration: InputDecoration(hintText: 'Ayat Akhir'),
-                        ),
-                      ],
+      body: ListView(children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 400),
+            width: _folded ? 56 : 200,
+            height: _folded ? 56 : 180,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                color: Colors.white,
+                boxShadow: kElevationToShadow[6]),
+            child: Row(children: [
+              Expanded(
+                  child: Container(
+                padding: EdgeInsets.only(left: 16),
+                child: _folded
+                    ? null
+                    : Column(
+                        children: [
+                          TextField(
+                            decoration: InputDecoration(hintText: 'Cari Injil'),
+                          ),
+                          TextField(
+                            decoration: InputDecoration(hintText: 'Ayat Mulai'),
+                          ),
+                          TextField(
+                            decoration: InputDecoration(hintText: 'Ayat Akhir'),
+                          ),
+                        ],
+                      ),
+              )),
+              AnimatedContainer(
+                  duration: Duration(milliseconds: 400),
+                  child: InkWell(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Icon(
+                        Icons.search,
+                        color: Colors.blue[900],
+                      ),
                     ),
-            )),
-            AnimatedContainer(
-                duration: Duration(milliseconds: 400),
-                child: InkWell(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.blue[900],
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      _folded = !_folded;
-                    });
-                  },
-                ))
-          ]),
+                    onTap: () {
+                      setState(() {
+                        _folded = !_folded;
+                      });
+                    },
+                  ))
+            ]),
+          ),
         ),
-      ),
+        for (var i in textAlkitab['verses'])
+          Column(
+            children: [Text(i['content'].toString())],
+          )
+      ]),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
