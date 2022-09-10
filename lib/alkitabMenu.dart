@@ -85,7 +85,7 @@ class _Alkitab extends State<Alkitab> {
           ),
         ],
       ),
-      body: ListView(children: [
+      body: ListView(padding: EdgeInsets.symmetric(horizontal: 20), children: [
         Padding(
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: GestureDetector(
@@ -107,7 +107,7 @@ class _Alkitab extends State<Alkitab> {
                       child: Container(
                     padding: EdgeInsets.only(left: 16),
                     child: _folded
-                        ? null
+                        ? Text("Cari Ayat Alkitab")
                         : Column(
                             children: [
                               TextField(
@@ -159,6 +159,8 @@ class _Alkitab extends State<Alkitab> {
             )),
         for (int i = 0; i < size; i++)
           Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(textAlkitab[0]['verses'][i]['verse'].toString() +
                   "" +
