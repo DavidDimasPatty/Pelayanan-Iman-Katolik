@@ -162,7 +162,7 @@ class _Alkitab extends State<Alkitab> {
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 400),
                 width: _folded ? 56 : 200,
-                height: _folded ? 56 : 200,
+                height: _folded ? 56 : 220,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(32),
                     color: Colors.white,
@@ -197,6 +197,7 @@ class _Alkitab extends State<Alkitab> {
                                 onChanged: (String? newValue) {
                                   setState(() {
                                     bab.clear();
+                                    dropdownverse = 1;
                                     dropdownbab = 1;
                                     int sizebab = judulAlkitab[0]
                                                 ['passage_list']
@@ -205,7 +206,7 @@ class _Alkitab extends State<Alkitab> {
                                     for (int i = 0; i < sizebab; i++) {
                                       bab.add(i + 1);
                                     }
-                                    ddalkitab = !ddalkitab;
+                                    ddalkitab = true;
                                     dropdownvalue = newValue!;
                                   });
                                 },
@@ -293,7 +294,10 @@ class _Alkitab extends State<Alkitab> {
                                     _folded = !_folded;
                                   });
                                 },
-                              )
+                              ),
+                              SizedBox(
+                                height: 15.0,
+                              ),
                             ],
                           ),
                   )),
