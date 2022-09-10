@@ -25,16 +25,19 @@ class Alkitab extends StatefulWidget {
 class _Alkitab extends State<Alkitab> {
   bool ddalkitab = false;
   bool ddbab = false;
-
+  bool isLoading = false;
   var dropdownvalue = "Kejadian";
   var dropdownbab = 1;
+  var dropdownverse = 1;
 
   bool _folded = true;
   int size = 0;
   List<Map<String, dynamic>> textAlkitab = <Map<String, dynamic>>[];
   List<Map<String, dynamic>> judulAlkitab = <Map<String, dynamic>>[];
+  List<Map<String, dynamic>> verseAlkitab = <Map<String, dynamic>>[];
   List<String> book = [];
   List<int> bab = [];
+  List<int> verse = [];
   Future loadAlkitab() async {
     final url = Uri.parse(
         "https://api-alkitab.herokuapp.com/v3/passage/Kejadian/1?ver=tb");
@@ -50,6 +53,34 @@ class _Alkitab extends State<Alkitab> {
       url,
     );
     return response;
+  }
+
+  Future loadVerse() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final url = Uri.parse("https://api-alkitab.herokuapp.com/v2/passage/" +
+        dropdownvalue +
+        "/" +
+        (int.parse(dropdownbab.toString()) - 1).toString() +
+        "?ver=tb");
+    var response = await http.get(
+      url,
+    );
+    Map<String, dynamic> jsonResponse =
+        new Map<String, dynamic>.from(json.decode(response.body));
+
+    verseAlkitab.add(jsonResponse);
+    var sizeAll = verseAlkitab[0]['verses'].length;
+    setState(() {
+      isLoading = false;
+      for (int i = 0; i < sizeAll; i++) {
+        verse.add(i + 1);
+      }
+    });
+
+    print(verse);
   }
 
   @override
@@ -174,7 +205,7 @@ class _Alkitab extends State<Alkitab> {
                                     for (int i = 0; i < sizebab; i++) {
                                       bab.add(i + 1);
                                     }
-                                    ddalkitab = true;
+                                    ddalkitab = !ddalkitab;
                                     dropdownvalue = newValue!;
                                   });
                                 },
@@ -198,85 +229,47 @@ class _Alkitab extends State<Alkitab> {
                                 onChanged: ddalkitab
                                     ? (int? newValue) {
                                         setState(() {
+                                          ddbab = true;
+                                          verse.clear();
+
+                                          loadVerse();
+
                                           dropdownbab = newValue!;
                                         });
                                       }
                                     : null,
                               ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 20.0,
-                                  ),
-                                  SizedBox(
-                                    width: 80.0,
-                                    child: DropdownButton(
-                                      isExpanded: true,
-                                      // Initial Value
-
-                                      // Down Arrow Icon
-                                      // icon: const Icon(Icons.keyboard_arrow_down),
-
-                                      // Array list of items
-                                      items: null,
-                                      // items: judulAlkitab['passage_list']
-                                      //         ['book_name']
-                                      //     .map((String items) {
-                                      //   return DropdownMenuItem(
-                                      //     value: items,
-                                      //     child: Text(items),
-                                      //   );
-                                      // }).toList(),
-                                      // After selecting the desired option,it will
-                                      // change button value to selected value
-                                      onChanged: ddbab
-                                          ? (String? newValue) {
-                                              setState(() {
-                                                dropdownvalue = newValue!;
-                                              });
-                                            }
-                                          : null,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 40.0,
-                                  ),
-                                  SizedBox(
-                                    width: 80.0,
-                                    child: DropdownButton(
-                                      isExpanded: true,
-                                      // Initial Value
-                                      // value: dropdownvalue,
-
-                                      // Down Arrow Icon
-                                      // icon: const Icon(Icons.keyboard_arrow_down),
-
-                                      // Array list of items
-                                      items: null,
-                                      // items: judulAlkitab['passage_list']
-                                      //         ['book_name']
-                                      //     .map((String items) {
-                                      //   return DropdownMenuItem(
-                                      //     value: items,
-                                      //     child: Text(items),
-                                      //   );
-                                      // }).toList(),
-                                      // After selecting the desired option,it will
-                                      // change button value to selected value
-                                      onChanged: ddbab
-                                          ? (String? newValue) {
-                                              setState(() {
-                                                dropdownvalue = newValue!;
-                                              });
-                                            }
-                                          : null,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10.0,
-                                  ),
-                                ],
+                              SizedBox(
+                                height: 10.0,
                               ),
+                              isLoading
+                                  ? Center(child: CircularProgressIndicator())
+                                  : DropdownButton(
+                                      // Initial Value
+                                      value: dropdownverse,
+                                      // Down Arrow Icon
+                                      icon:
+                                          const Icon(Icons.keyboard_arrow_down),
+
+                                      // Array list of items
+
+                                      items: verse.map((int items) {
+                                        return DropdownMenuItem(
+                                          value: items,
+                                          child: Text(items.toString()),
+                                        );
+                                      }).toList(),
+                                      // }).toList(),
+                                      // After selecting the desired option,it will
+                                      // change button value to selected value
+                                      onChanged: ddbab
+                                          ? (int? newValue) {
+                                              setState(() {
+                                                dropdownverse = newValue!;
+                                              });
+                                            }
+                                          : null,
+                                    ),
                               SizedBox(
                                 height: 15.0,
                               ),
