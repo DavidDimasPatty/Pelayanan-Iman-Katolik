@@ -87,61 +87,83 @@ class _Alkitab extends State<Alkitab> {
       ),
       body: ListView(children: [
         Padding(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 100),
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 400),
-            width: _folded ? 56 : 200,
-            height: _folded ? 56 : 180,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(32),
-                color: Colors.white,
-                boxShadow: kElevationToShadow[6]),
-            child: Row(children: [
-              Expanded(
-                  child: Container(
-                padding: EdgeInsets.only(left: 16),
-                child: _folded
-                    ? null
-                    : Column(
-                        children: [
-                          TextField(
-                            decoration: InputDecoration(hintText: 'Cari Injil'),
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _folded = !_folded;
+                });
+              },
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 400),
+                width: _folded ? 56 : 200,
+                height: _folded ? 56 : 110,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(32),
+                    color: Colors.white,
+                    boxShadow: kElevationToShadow[6]),
+                child: Row(children: [
+                  Expanded(
+                      child: Container(
+                    padding: EdgeInsets.only(left: 16),
+                    child: _folded
+                        ? null
+                        : Column(
+                            children: [
+                              TextField(
+                                decoration:
+                                    InputDecoration(hintText: 'Cari Injil'),
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 100.0,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                          hintText: 'Ayat Mulai'),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 20.0,
+                                  ),
+                                  SizedBox(
+                                    width: 100.0,
+                                    child: TextField(
+                                      decoration: InputDecoration(
+                                          hintText: 'Ayat Akhir'),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
                           ),
-                          SizedBox(
-                            width: 100.0,
-                            child: TextField(
-                              decoration:
-                                  InputDecoration(hintText: 'Ayat Mulai'),
-                            ),
+                  )),
+                  AnimatedContainer(
+                      duration: Duration(milliseconds: 400),
+                      child: InkWell(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.blue[900],
                           ),
-                          TextField(
-                            decoration: InputDecoration(hintText: 'Ayat Akhir'),
-                          ),
-                        ],
-                      ),
-              )),
-              AnimatedContainer(
-                  duration: Duration(milliseconds: 400),
-                  child: InkWell(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Icon(
-                        Icons.search,
-                        color: Colors.blue[900],
-                      ),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        _folded = !_folded;
-                      });
-                    },
-                  ))
-            ]),
-          ),
-        ),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _folded = !_folded;
+                          });
+                        },
+                      ))
+                ]),
+              ),
+            )),
         for (int i = 0; i < size; i++)
           Column(
-            children: [Text(textAlkitab[0]['verses'][i]['content'])],
+            children: [
+              Text(textAlkitab[0]['verses'][i]['verse'].toString() +
+                  "" +
+                  textAlkitab[0]['verses'][i]['content'])
+            ],
           )
       ]),
       bottomNavigationBar: Container(
