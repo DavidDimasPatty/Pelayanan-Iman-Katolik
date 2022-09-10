@@ -22,7 +22,8 @@ class Alkitab extends StatefulWidget {
 
 class _Alkitab extends State<Alkitab> {
   bool _folded = true;
-  Map<String, dynamic> textAlkitab = new Map<String, dynamic>();
+  int size = 0;
+  List<Map<String, dynamic>> textAlkitab = <Map<String, dynamic>>[];
   Future loadAlkitab() async {
     final url = Uri.parse(
         "https://api-alkitab.herokuapp.com/v3/passage/Kejadian/1?ver=tb");
@@ -40,8 +41,9 @@ class _Alkitab extends State<Alkitab> {
           new Map<String, dynamic>.from(json.decode(response.body));
 
       setState(() {
-        textAlkitab.addAll(jsonResponse);
-        print(textAlkitab);
+        textAlkitab.add(jsonResponse);
+        print(textAlkitab[0]);
+        size = textAlkitab[0]['verses'].length;
       });
     });
   }
@@ -105,8 +107,12 @@ class _Alkitab extends State<Alkitab> {
                           TextField(
                             decoration: InputDecoration(hintText: 'Cari Injil'),
                           ),
-                          TextField(
-                            decoration: InputDecoration(hintText: 'Ayat Mulai'),
+                          SizedBox(
+                            width: 100.0,
+                            child: TextField(
+                              decoration:
+                                  InputDecoration(hintText: 'Ayat Mulai'),
+                            ),
                           ),
                           TextField(
                             decoration: InputDecoration(hintText: 'Ayat Akhir'),
@@ -133,9 +139,9 @@ class _Alkitab extends State<Alkitab> {
             ]),
           ),
         ),
-        for (var i in textAlkitab['verses'])
+        for (int i = 0; i < size; i++)
           Column(
-            children: [Text(i['content'].toString())],
+            children: [Text(textAlkitab[0]['verses'][i]['content'])],
           )
       ]),
       bottomNavigationBar: Container(
