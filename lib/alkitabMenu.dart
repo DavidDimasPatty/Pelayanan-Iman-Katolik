@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:anim_search_bar/anim_search_bar.dart';
@@ -22,77 +23,18 @@ class Alkitab extends StatefulWidget {
 }
 
 class _Alkitab extends State<Alkitab> {
+  bool ddalkitab = false;
+  bool ddbab = false;
+
   var dropdownvalue = "Kejadian";
-  var injil = [
-    "Kejadian",
-    "Keluaran",
-    "Imamat",
-    "Bilangan",
-    "Ulangan",
-    "Yosua",
-    "Hakim-Hakim",
-    "Rut",
-    "1 Samuel",
-    "2 Samuel",
-    "1 Raja-Raja",
-    "2 Raja-Raja",
-    "1 Tawarikh",
-    "2 Tawarikh",
-    "Ezra",
-    "Nehemia",
-    "Ester",
-    "Ayub",
-    "Mazmur",
-    "Amsal",
-    "Pengkhotbah",
-    "Kidung Agung",
-    "Yesaya",
-    "Yeremia",
-    "Ratapan",
-    "Yehezkiel",
-    "Daniel",
-    "Hosea",
-    "Yoel",
-    "Amos",
-    "Obaja",
-    "Yunus",
-    "Mikha",
-    "Nahum",
-    "Habakuk",
-    "Zefanya",
-    "Hagai",
-    "Maleakhi",
-    "Matius",
-    "Markus",
-    "Lukas",
-    "Yohanes",
-    "Kisah Para Rasul",
-    "Roma",
-    "1 Korintus",
-    "2 Korintus",
-    "Galatia",
-    "Efesus",
-    "Filipi",
-    "Kolose",
-    "1 Tesalonika",
-    "2 Tesalonika",
-    "1 Timotius",
-    "2 Timotius",
-    "Titus",
-    "Filemon",
-    "Ibrani",
-    "Yakobus",
-    "1 Petrus",
-    "2 Petrus",
-    "1 Yohanes",
-    "2 Yohanes",
-    "3 Yohanes",
-    "Yudas",
-    "Wahyu",
-  ];
+  var dropdownbab = 1;
+
   bool _folded = true;
   int size = 0;
   List<Map<String, dynamic>> textAlkitab = <Map<String, dynamic>>[];
+  List<Map<String, dynamic>> judulAlkitab = <Map<String, dynamic>>[];
+  List<String> book = [];
+  List<int> bab = [];
   Future loadAlkitab() async {
     final url = Uri.parse(
         "https://api-alkitab.herokuapp.com/v3/passage/Kejadian/1?ver=tb");
@@ -102,9 +44,32 @@ class _Alkitab extends State<Alkitab> {
     return response;
   }
 
+  Future loadBab() async {
+    final url = Uri.parse("https://api-alkitab.herokuapp.com/v2/passage/list");
+    var response = await http.get(
+      url,
+    );
+    return response;
+  }
+
   @override
   void initState() {
     super.initState();
+    loadBab().then((response) {
+      Map<String, dynamic> jsonResponse =
+          new Map<String, dynamic>.from(json.decode(response.body));
+
+      setState(() {
+        judulAlkitab.add(jsonResponse);
+        var sizeAll = judulAlkitab[0]['passage_list'].length;
+        print(sizeAll);
+        for (int i = 0; i < sizeAll; i++) {
+          book.add(judulAlkitab[0]['passage_list'][i]['book_name']);
+        }
+        print(book);
+      });
+    });
+
     loadAlkitab().then((response) {
       Map<String, dynamic> jsonResponse =
           new Map<String, dynamic>.from(json.decode(response.body));
@@ -189,7 +154,8 @@ class _Alkitab extends State<Alkitab> {
                                 icon: const Icon(Icons.keyboard_arrow_down),
 
                                 // Array list of items
-                                items: injil.map((String items) {
+                                // items: null,
+                                items: book.map((String items) {
                                   return DropdownMenuItem(
                                     value: items,
                                     child: Text(items),
@@ -199,31 +165,43 @@ class _Alkitab extends State<Alkitab> {
                                 // change button value to selected value
                                 onChanged: (String? newValue) {
                                   setState(() {
+                                    bab.clear();
+                                    dropdownbab = 1;
+                                    int sizebab = judulAlkitab[0]
+                                                ['passage_list']
+                                            [book.indexOf(newValue.toString())]
+                                        ['total_chapter'];
+                                    for (int i = 0; i < sizebab; i++) {
+                                      bab.add(i + 1);
+                                    }
+                                    ddalkitab = true;
                                     dropdownvalue = newValue!;
                                   });
                                 },
                               ),
                               DropdownButton(
                                 // Initial Value
-                                value: dropdownvalue,
+                                value: dropdownbab,
 
                                 // Down Arrow Icon
                                 icon: const Icon(Icons.keyboard_arrow_down),
 
                                 // Array list of items
-                                items: injil.map((String items) {
+                                items: bab.map((int items) {
                                   return DropdownMenuItem(
                                     value: items,
-                                    child: Text(items),
+                                    child: Text(items.toString()),
                                   );
                                 }).toList(),
                                 // After selecting the desired option,it will
                                 // change button value to selected value
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    dropdownvalue = newValue!;
-                                  });
-                                },
+                                onChanged: ddalkitab
+                                    ? (int? newValue) {
+                                        setState(() {
+                                          dropdownbab = newValue!;
+                                        });
+                                      }
+                                    : null,
                               ),
                               Row(
                                 children: [
@@ -235,25 +213,29 @@ class _Alkitab extends State<Alkitab> {
                                     child: DropdownButton(
                                       isExpanded: true,
                                       // Initial Value
-                                      value: dropdownvalue,
 
                                       // Down Arrow Icon
                                       // icon: const Icon(Icons.keyboard_arrow_down),
 
                                       // Array list of items
-                                      items: injil.map((String items) {
-                                        return DropdownMenuItem(
-                                          value: items,
-                                          child: Text(items),
-                                        );
-                                      }).toList(),
+                                      items: null,
+                                      // items: judulAlkitab['passage_list']
+                                      //         ['book_name']
+                                      //     .map((String items) {
+                                      //   return DropdownMenuItem(
+                                      //     value: items,
+                                      //     child: Text(items),
+                                      //   );
+                                      // }).toList(),
                                       // After selecting the desired option,it will
                                       // change button value to selected value
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                          dropdownvalue = newValue!;
-                                        });
-                                      },
+                                      onChanged: ddbab
+                                          ? (String? newValue) {
+                                              setState(() {
+                                                dropdownvalue = newValue!;
+                                              });
+                                            }
+                                          : null,
                                     ),
                                   ),
                                   SizedBox(
@@ -264,25 +246,30 @@ class _Alkitab extends State<Alkitab> {
                                     child: DropdownButton(
                                       isExpanded: true,
                                       // Initial Value
-                                      value: dropdownvalue,
+                                      // value: dropdownvalue,
 
                                       // Down Arrow Icon
                                       // icon: const Icon(Icons.keyboard_arrow_down),
 
                                       // Array list of items
-                                      items: injil.map((String items) {
-                                        return DropdownMenuItem(
-                                          value: items,
-                                          child: Text(items),
-                                        );
-                                      }).toList(),
+                                      items: null,
+                                      // items: judulAlkitab['passage_list']
+                                      //         ['book_name']
+                                      //     .map((String items) {
+                                      //   return DropdownMenuItem(
+                                      //     value: items,
+                                      //     child: Text(items),
+                                      //   );
+                                      // }).toList(),
                                       // After selecting the desired option,it will
                                       // change button value to selected value
-                                      onChanged: (String? newValue) {
-                                        setState(() {
-                                          dropdownvalue = newValue!;
-                                        });
-                                      },
+                                      onChanged: ddbab
+                                          ? (String? newValue) {
+                                              setState(() {
+                                                dropdownvalue = newValue!;
+                                              });
+                                            }
+                                          : null,
                                     ),
                                   ),
                                   SizedBox(
