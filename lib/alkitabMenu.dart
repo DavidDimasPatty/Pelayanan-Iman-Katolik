@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,74 @@ class Alkitab extends StatefulWidget {
 }
 
 class _Alkitab extends State<Alkitab> {
+  var dropdownvalue = "Kejadian";
+  var injil = [
+    "Kejadian",
+    "Keluaran",
+    "Imamat",
+    "Bilangan",
+    "Ulangan",
+    "Yosua",
+    "Hakim-Hakim",
+    "Rut",
+    "1 Samuel",
+    "2 Samuel",
+    "1 Raja-Raja",
+    "2 Raja-Raja",
+    "1 Tawarikh",
+    "2 Tawarikh",
+    "Ezra",
+    "Nehemia",
+    "Ester",
+    "Ayub",
+    "Mazmur",
+    "Amsal",
+    "Pengkhotbah",
+    "Kidung Agung",
+    "Yesaya",
+    "Yeremia",
+    "Ratapan",
+    "Yehezkiel",
+    "Daniel",
+    "Hosea",
+    "Yoel",
+    "Amos",
+    "Obaja",
+    "Yunus",
+    "Mikha",
+    "Nahum",
+    "Habakuk",
+    "Zefanya",
+    "Hagai",
+    "Maleakhi",
+    "Matius",
+    "Markus",
+    "Lukas",
+    "Yohanes",
+    "Kisah Para Rasul",
+    "Roma",
+    "1 Korintus",
+    "2 Korintus",
+    "Galatia",
+    "Efesus",
+    "Filipi",
+    "Kolose",
+    "1 Tesalonika",
+    "2 Tesalonika",
+    "1 Timotius",
+    "2 Timotius",
+    "Titus",
+    "Filemon",
+    "Ibrani",
+    "Yakobus",
+    "1 Petrus",
+    "2 Petrus",
+    "1 Yohanes",
+    "2 Yohanes",
+    "3 Yohanes",
+    "Yudas",
+    "Wahyu",
+  ];
   bool _folded = true;
   int size = 0;
   List<Map<String, dynamic>> textAlkitab = <Map<String, dynamic>>[];
@@ -97,7 +166,7 @@ class _Alkitab extends State<Alkitab> {
               child: AnimatedContainer(
                 duration: Duration(milliseconds: 400),
                 width: _folded ? 56 : 200,
-                height: _folded ? 56 : 110,
+                height: _folded ? 56 : 200,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(32),
                     color: Colors.white,
@@ -109,31 +178,141 @@ class _Alkitab extends State<Alkitab> {
                     child: _folded
                         ? Text("Cari Ayat Alkitab")
                         : Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              TextField(
-                                decoration:
-                                    InputDecoration(hintText: 'Cari Injil'),
+                              DropdownButton(
+                                // Initial Value
+                                value: dropdownvalue,
+
+                                // Down Arrow Icon
+                                icon: const Icon(Icons.keyboard_arrow_down),
+
+                                // Array list of items
+                                items: injil.map((String items) {
+                                  return DropdownMenuItem(
+                                    value: items,
+                                    child: Text(items),
+                                  );
+                                }).toList(),
+                                // After selecting the desired option,it will
+                                // change button value to selected value
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownvalue = newValue!;
+                                  });
+                                },
+                              ),
+                              DropdownButton(
+                                // Initial Value
+                                value: dropdownvalue,
+
+                                // Down Arrow Icon
+                                icon: const Icon(Icons.keyboard_arrow_down),
+
+                                // Array list of items
+                                items: injil.map((String items) {
+                                  return DropdownMenuItem(
+                                    value: items,
+                                    child: Text(items),
+                                  );
+                                }).toList(),
+                                // After selecting the desired option,it will
+                                // change button value to selected value
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    dropdownvalue = newValue!;
+                                  });
+                                },
                               ),
                               Row(
                                 children: [
                                   SizedBox(
-                                    width: 100.0,
-                                    child: TextField(
-                                      decoration: InputDecoration(
-                                          hintText: 'Ayat Mulai'),
-                                    ),
-                                  ),
-                                  SizedBox(
                                     width: 20.0,
                                   ),
                                   SizedBox(
-                                    width: 100.0,
-                                    child: TextField(
-                                      decoration: InputDecoration(
-                                          hintText: 'Ayat Akhir'),
+                                    width: 80.0,
+                                    child: DropdownButton(
+                                      isExpanded: true,
+                                      // Initial Value
+                                      value: dropdownvalue,
+
+                                      // Down Arrow Icon
+                                      // icon: const Icon(Icons.keyboard_arrow_down),
+
+                                      // Array list of items
+                                      items: injil.map((String items) {
+                                        return DropdownMenuItem(
+                                          value: items,
+                                          child: Text(items),
+                                        );
+                                      }).toList(),
+                                      // After selecting the desired option,it will
+                                      // change button value to selected value
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          dropdownvalue = newValue!;
+                                        });
+                                      },
                                     ),
                                   ),
+                                  SizedBox(
+                                    width: 40.0,
+                                  ),
+                                  SizedBox(
+                                    width: 80.0,
+                                    child: DropdownButton(
+                                      isExpanded: true,
+                                      // Initial Value
+                                      value: dropdownvalue,
+
+                                      // Down Arrow Icon
+                                      // icon: const Icon(Icons.keyboard_arrow_down),
+
+                                      // Array list of items
+                                      items: injil.map((String items) {
+                                        return DropdownMenuItem(
+                                          value: items,
+                                          child: Text(items),
+                                        );
+                                      }).toList(),
+                                      // After selecting the desired option,it will
+                                      // change button value to selected value
+                                      onChanged: (String? newValue) {
+                                        setState(() {
+                                          dropdownvalue = newValue!;
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
                                 ],
+                              ),
+                              SizedBox(
+                                height: 15.0,
+                              ),
+                              InkWell(
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.blueAccent,
+                                      borderRadius: BorderRadius.circular(32),
+                                      boxShadow: kElevationToShadow[6]),
+                                  child: Center(
+                                    child: Text(
+                                      "Cari",
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  width: 40,
+                                  height: 30,
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    _folded = !_folded;
+                                  });
+                                },
                               )
                             ],
                           ),
@@ -162,11 +341,19 @@ class _Alkitab extends State<Alkitab> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(textAlkitab[0]['verses'][i]['verse'].toString() +
-                  "" +
-                  textAlkitab[0]['verses'][i]['content'])
+              Text(
+                textAlkitab[0]['verses'][i]['verse'].toString(),
+                style: TextStyle(
+                  fontSize: 13,
+                  fontFeatures: [
+                    FontFeature.enable('sups'),
+                  ],
+                ),
+              ),
+              Text("   " + textAlkitab[0]['verses'][i]['content'])
             ],
-          )
+          ),
+        Padding(padding: EdgeInsets.symmetric(vertical: 20))
       ]),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
