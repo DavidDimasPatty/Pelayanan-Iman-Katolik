@@ -64,7 +64,7 @@ class _Alkitab extends State<Alkitab> {
     final url = Uri.parse("https://api-alkitab.herokuapp.com/v2/passage/" +
         dropdownvalue +
         "/" +
-        (int.parse(dropdownbab.toString()) - 1).toString() +
+        (int.parse(dropdownbab.toString())).toString() +
         "?ver=tb");
     var response = await http.get(
       url,
@@ -72,15 +72,14 @@ class _Alkitab extends State<Alkitab> {
     Map<String, dynamic> jsonResponse =
         new Map<String, dynamic>.from(json.decode(response.body));
 
-    verseAlkitab.add(jsonResponse);
-    size = verseAlkitab[0]['verses'].length;
     setState(() {
-      isLoadingText = false;
       textAlkitab.clear();
       textAlkitab.add(jsonResponse);
+      size = textAlkitab[0]['verses'].length;
+      isLoadingText = false;
+      print(textAlkitab[0]);
     });
-
-    print(verse);
+    print(size);
   }
 
   Future loadVerse() async {
@@ -360,7 +359,7 @@ class _Alkitab extends State<Alkitab> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  for (int i = 0; i < size - 1; i++)
+                  for (int i = 0; i < size; i++)
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
