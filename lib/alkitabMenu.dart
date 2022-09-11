@@ -73,7 +73,7 @@ class _Alkitab extends State<Alkitab> {
         new Map<String, dynamic>.from(json.decode(response.body));
 
     verseAlkitab.add(jsonResponse);
-    var sizeAll = verseAlkitab[0]['verses'].length;
+    size = verseAlkitab[0]['verses'].length;
     setState(() {
       isLoadingText = false;
       textAlkitab.clear();
@@ -360,7 +360,7 @@ class _Alkitab extends State<Alkitab> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  for (int i = 0; i < size; i++)
+                  for (int i = 0; i < size - 1; i++)
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
