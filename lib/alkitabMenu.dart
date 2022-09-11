@@ -26,6 +26,7 @@ class _Alkitab extends State<Alkitab> {
   bool ddalkitab = false;
   bool ddbab = false;
   bool isLoading = false;
+  bool isLoadingText = false;
   var dropdownvalue = "Kejadian";
   var dropdownbab = 1;
   var dropdownverse = 1;
@@ -53,6 +54,33 @@ class _Alkitab extends State<Alkitab> {
       url,
     );
     return response;
+  }
+
+  Future loadSearch() async {
+    setState(() {
+      isLoadingText = true;
+    });
+
+    final url = Uri.parse("https://api-alkitab.herokuapp.com/v2/passage/" +
+        dropdownvalue +
+        "/" +
+        (int.parse(dropdownbab.toString()) - 1).toString() +
+        "?ver=tb");
+    var response = await http.get(
+      url,
+    );
+    Map<String, dynamic> jsonResponse =
+        new Map<String, dynamic>.from(json.decode(response.body));
+
+    verseAlkitab.add(jsonResponse);
+    var sizeAll = verseAlkitab[0]['verses'].length;
+    setState(() {
+      isLoadingText = false;
+      textAlkitab.clear();
+      textAlkitab.add(jsonResponse);
+    });
+
+    print(verse);
   }
 
   Future loadVerse() async {
@@ -86,6 +114,9 @@ class _Alkitab extends State<Alkitab> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      isLoadingText = true;
+    });
     loadBab().then((response) {
       Map<String, dynamic> jsonResponse =
           new Map<String, dynamic>.from(json.decode(response.body));
@@ -107,6 +138,7 @@ class _Alkitab extends State<Alkitab> {
 
       setState(() {
         textAlkitab.add(jsonResponse);
+        isLoadingText = false;
         print(textAlkitab[0]);
         size = textAlkitab[0]['verses'].length;
       });
@@ -207,6 +239,7 @@ class _Alkitab extends State<Alkitab> {
                                       bab.add(i + 1);
                                     }
                                     ddalkitab = true;
+                                    ddbab = false;
                                     dropdownvalue = newValue!;
                                   });
                                 },
@@ -232,7 +265,7 @@ class _Alkitab extends State<Alkitab> {
                                         setState(() {
                                           ddbab = true;
                                           verse.clear();
-
+                                          ddbab = true;
                                           loadVerse();
 
                                           dropdownbab = newValue!;
@@ -289,7 +322,8 @@ class _Alkitab extends State<Alkitab> {
                                   width: 40,
                                   height: 30,
                                 ),
-                                onTap: () {
+                                onTap: () async {
+                                  await loadSearch();
                                   setState(() {
                                     _folded = !_folded;
                                   });
@@ -320,23 +354,31 @@ class _Alkitab extends State<Alkitab> {
                 ]),
               ),
             )),
-        for (int i = 0; i < size; i++)
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                textAlkitab[0]['verses'][i]['verse'].toString(),
-                style: TextStyle(
-                  fontSize: 13,
-                  fontFeatures: [
-                    FontFeature.enable('sups'),
-                  ],
-                ),
+        isLoadingText
+            ? Center(child: CircularProgressIndicator())
+            : Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (int i = 0; i < size; i++)
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          textAlkitab[0]['verses'][i]['verse'].toString(),
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontFeatures: [
+                              FontFeature.enable('sups'),
+                            ],
+                          ),
+                        ),
+                        Text("   " + textAlkitab[0]['verses'][i]['content'])
+                      ],
+                    ),
+                ],
               ),
-              Text("   " + textAlkitab[0]['verses'][i]['content'])
-            ],
-          ),
         Padding(padding: EdgeInsets.symmetric(vertical: 20))
       ]),
       bottomNavigationBar: Container(
