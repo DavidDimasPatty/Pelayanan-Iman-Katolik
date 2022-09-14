@@ -89,6 +89,8 @@ class tiketSaya extends StatelessWidget {
         ],
       ),
       body: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.symmetric(horizontal: 10),
         children: <Widget>[
           Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
@@ -102,7 +104,7 @@ class tiketSaya extends StatelessWidget {
                 try {
                   return ListView(
                     shrinkWrap: true,
-                    padding: EdgeInsets.all(2.0),
+                    padding: EdgeInsets.all(7.0),
                     children: <Widget>[
                       for (var i in snapshot.data)
                         InkWell(
@@ -113,7 +115,7 @@ class tiketSaya extends StatelessWidget {
                                 .showDialogBox(context);
                           },
                           child: Container(
-                              margin: EdgeInsets.all(20),
+                              margin: EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                     begin: Alignment.topRight,
