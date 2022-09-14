@@ -260,7 +260,7 @@ class _Alkitab extends State<Alkitab> {
                                   DropdownButton(
                                     // Initial Value
                                     value: dropdownbab,
-
+                                    hint: Text("Bab Alkitab"),
                                     // Down Arrow Icon
                                     icon: const Icon(Icons.keyboard_arrow_down),
 
@@ -293,6 +293,7 @@ class _Alkitab extends State<Alkitab> {
                                       ? Center(
                                           child: CircularProgressIndicator())
                                       : DropdownButton(
+                                          hint: Text("Ayat Alkitab"),
                                           // Initial Value
                                           value: dropdownverse,
                                           // Down Arrow Icon
