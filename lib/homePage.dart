@@ -458,7 +458,7 @@ class HomePage extends StatelessWidget {
               unselectedItemColor: Colors.blue,
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home, color: Color.fromARGB(255, 0, 0, 0)),
+                  icon: Icon(Icons.home),
                   label: "Home",
                 ),
                 BottomNavigationBarItem(

@@ -379,7 +379,7 @@ class tiketSaya extends StatelessWidget {
                   label: "Home",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.token, color: Color.fromARGB(255, 0, 0, 0)),
+                  icon: Icon(Icons.token),
                   label: "Jadwalku",
                 )
               ],
