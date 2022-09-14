@@ -102,9 +102,7 @@ class tiketSaya extends StatelessWidget {
               future: callDb(),
               builder: (context, AsyncSnapshot snapshot) {
                 try {
-                  return ListView(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.all(7.0),
+                  return Column(
                     children: <Widget>[
                       for (var i in snapshot.data)
                         InkWell(
@@ -181,9 +179,7 @@ class tiketSaya extends StatelessWidget {
               future: callDbBaptisDaftar(),
               builder: (context, AsyncSnapshot snapshot) {
                 try {
-                  return ListView(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.all(2.0),
+                  return Column(
                     children: <Widget>[
                       for (var i in snapshot.data)
                         InkWell(
@@ -276,9 +272,7 @@ class tiketSaya extends StatelessWidget {
               future: callDbKomuniDaftar(),
               builder: (context, AsyncSnapshot snapshot) {
                 try {
-                  return ListView(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.all(2.0),
+                  return Column(
                     children: <Widget>[
                       for (var i in snapshot.data)
                         InkWell(
