@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 
 class ItemCard extends StatelessWidget {
   final String images;
+  final String captions;
 
-  const ItemCard({Key? key, required this.images}) : super(key: key);
+  const ItemCard({Key? key, required this.images, required this.captions})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class ItemCard extends StatelessWidget {
               ),
               ListTile(
                   title: Text(
-                'Gereja Pembukaan Misa Natal',
+                captions,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 12,

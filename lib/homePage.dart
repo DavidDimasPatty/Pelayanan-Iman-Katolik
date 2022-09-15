@@ -22,11 +22,19 @@ class HomePage extends StatelessWidget {
   var iduser;
   var dataUser;
   int _currentIndex = 0;
+  int indexCaption = -1;
   List<String> cardList = [
     'https://cdn1-production-images-kly.akamaized.net/rWhC9IleD8e64WhGw-uOuWBfEvI=/383x288/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/3652676/original/049623700_1638601766-AP21337638247495.jpg',
     'https://asset.kompas.com/crops/1ZoER_pFzpK32kBDeQrLiJlzPxI=/0x227:768x739/490x326/data/photo/2022/07/15/62d153c00ddd3.jpeg',
     'https://img.beritasatu.com/cache/beritasatu/320x220-2/1640103381.jpg',
     'https://assets.promediateknologi.com/crop/0x0:0x0/x/photo/2021/09/22/1506503095.jpg'
+  ];
+
+  List<String> caption = [
+    "Gereja Pembukaan",
+    "Umat Merayakan Hari Paskah",
+    "Tanggapan Gereja Mengenai Isu Sara",
+    "Tanggapan Umat Katolik Mengikuti Misa"
   ];
 
   Future<List> callDb() async {
@@ -432,7 +440,10 @@ class HomePage extends StatelessWidget {
                   viewportFraction: 0.8,
                 ),
                 items: cardList.map((item) {
-                  return ItemCard(images: item.toString());
+                  indexCaption++;
+                  return ItemCard(
+                      images: item.toString(),
+                      captions: caption[indexCaption].toString());
                 }).toList(),
               ),
             ),
