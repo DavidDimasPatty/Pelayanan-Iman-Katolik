@@ -169,7 +169,7 @@ class SignUp extends StatelessWidget {
                                             color: Colors.black,
                                           ),
                                         ),
-                                        hintText: "Name",
+                                        hintText: "Masukan Nama Lengkap",
                                         hintStyle:
                                             TextStyle(color: Colors.white),
                                         border: OutlineInputBorder(
@@ -200,7 +200,7 @@ class SignUp extends StatelessWidget {
                                             color: Colors.black,
                                           ),
                                         ),
-                                        hintText: "Email",
+                                        hintText: "Masukan Email Anda",
                                         hintStyle:
                                             TextStyle(color: Colors.white),
                                         border: OutlineInputBorder(
@@ -232,7 +232,7 @@ class SignUp extends StatelessWidget {
                                             color: Colors.black,
                                           ),
                                         ),
-                                        hintText: "Password",
+                                        hintText: "Masukan Password Anda",
                                         hintStyle:
                                             TextStyle(color: Colors.white),
                                         border: OutlineInputBorder(
@@ -264,7 +264,7 @@ class SignUp extends StatelessWidget {
                                             color: Colors.black,
                                           ),
                                         ),
-                                        hintText: "Retype Password",
+                                        hintText: "Ketik Kembali Password",
                                         hintStyle:
                                             TextStyle(color: Colors.white),
                                         border: OutlineInputBorder(
