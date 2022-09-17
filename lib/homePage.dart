@@ -5,8 +5,11 @@ import 'package:pelayanan_iman_katolik/alkitabMenu.dart';
 import 'package:pelayanan_iman_katolik/baptis.dart';
 import 'package:pelayanan_iman_katolik/komuni.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
+import 'package:pelayanan_iman_katolik/sakramen.dart';
+import 'package:pelayanan_iman_katolik/sakramentali.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
+import 'package:pelayanan_iman_katolik/umum.dart';
 import 'DatabaseFolder/mongodb.dart';
 import 'ItemCard.dart';
 import 'misa.dart';
@@ -282,7 +285,7 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox.fromSize(
-                size: Size(60, 60), // button width and height
+                size: Size(75, 75), // button width and height
                 child: ClipOval(
                   child: Material(
                     color: Colors.lightBlueAccent, // button color
@@ -293,15 +296,15 @@ class HomePage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  Komuni(names, emails, iduser)),
+                                  Sakramen(names, emails, iduser)),
                         );
                       }, // button pressed
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.settings_accessibility), // icon
+                          Icon(Icons.settings_accessibility, size: 30), // icon
                           Text(
-                            "Komuni",
+                            "Sakramen",
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -318,43 +321,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 11),
               ),
               SizedBox.fromSize(
-                size: Size(60, 60), // button width and height
-                child: ClipOval(
-                  child: Material(
-                    color: Colors.orange, // button color
-                    child: InkWell(
-                      splashColor: Colors.green, // splash color
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  Misa(names, emails, iduser)),
-                        );
-                      }, // button pressed
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(Icons.church), // icon
-                          Text(
-                            "Misa",
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ), // text
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 11),
-              ),
-              SizedBox.fromSize(
-                size: Size(60, 60), // button width and height
+                size: Size(75, 75), // button width and height
                 child: ClipOval(
                   child: Material(
                     color: Colors.greenAccent, // button color
@@ -365,15 +332,54 @@ class HomePage extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  Baptis(names, emails, iduser)),
+                                  Sakramentali(names, emails, iduser)),
                         );
                       }, // button pressed
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.sign_language), // icon
+                          Icon(Icons.sign_language, size: 30), // icon
                           Text(
-                            "Baptis",
+                            "Sakramentali",
+                            style: TextStyle(
+                              fontSize: 10.5,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            textAlign: TextAlign.center,
+                          ), // text
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 11),
+              ),
+              SizedBox.fromSize(
+                size: Size(75, 75), // button width and height
+                child: ClipOval(
+                  child: Material(
+                    color: Colors.orange, // button color
+                    child: InkWell(
+                      splashColor: Colors.green, // splash color
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Umum(names, emails, iduser)),
+                        );
+                      }, // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.church,
+                            size: 30,
+                          ), // icon
+                          Text(
+                            "Umum",
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -390,7 +396,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 11),
               ),
               SizedBox.fromSize(
-                size: Size(60, 60), // button width and height
+                size: Size(75, 75), // button width and height
                 child: ClipOval(
                   child: Material(
                     color: Colors.brown, // button color
@@ -407,7 +413,7 @@ class HomePage extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Icon(Icons.book), // icon
+                          Icon(Icons.book, size: 30), // icon
                           Text(
                             "Alkitab",
                             style: TextStyle(
