@@ -1,6 +1,6 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
-
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/baptis.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
@@ -8,16 +8,64 @@ import 'package:pelayanan_iman_katolik/komuni.dart';
 import 'package:pelayanan_iman_katolik/misa.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
+import 'package:intl/intl.dart';
 
-class FormulirPemberkatan extends StatelessWidget {
+class FormulirPemberkatan extends StatefulWidget {
   final name;
   final email;
   final idUser;
+
   FormulirPemberkatan(this.name, this.email, this.idUser);
   @override
+  _FormulirPemberkatan createState() =>
+      _FormulirPemberkatan(this.name, this.email, this.idUser);
+}
+
+class _FormulirPemberkatan extends State<FormulirPemberkatan> {
+  final name;
+  final email;
+  final idUser;
+  _FormulirPemberkatan(this.name, this.email, this.idUser);
+
+  @override
+  var jenisPemberkatan = ['Gedung', 'Rumah', 'Barang'];
+  String ddValue = "Gedung";
+  var dateValue;
   TextEditingController passLamaController = new TextEditingController();
   TextEditingController passBaruController = new TextEditingController();
   TextEditingController passUlBaruController = new TextEditingController();
+  String _selectedDate = '';
+  String _dateCount = '';
+  String _range = '';
+  String _rangeCount = '';
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    /// The argument value will return the changed date as [DateTime] when the
+    /// widget [SfDateRangeSelectionMode] set as single.
+    ///
+    /// The argument value will return the changed dates as [List<DateTime>]
+    /// when the widget [SfDateRangeSelectionMode] set as multiple.
+    ///
+    /// The argument value will return the changed range as [PickerDateRange]
+    /// when the widget [SfDateRangeSelectionMode] set as range.
+    ///
+    /// The argument value will return the changed ranges as
+    /// [List<PickerDateRange] when the widget [SfDateRangeSelectionMode] set as
+    /// multi range.
+    setState(() {
+      if (args.value is PickerDateRange) {
+        _range = '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} -'
+            // ignore: lines_longer_than_80_chars
+            ' ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
+      } else if (args.value is DateTime) {
+        _selectedDate = args.value.toString();
+      } else if (args.value is List<DateTime>) {
+        _dateCount = args.value.length.toString();
+      } else {
+        _rangeCount = args.value.length.toString();
+      }
+    });
+    print(_selectedDate);
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -211,7 +259,7 @@ class FormulirPemberkatan extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Alamat",
+                "Alamat Lengkap",
                 textAlign: TextAlign.left,
               ),
               Padding(
@@ -250,35 +298,57 @@ class FormulirPemberkatan extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
+                "Jenis Pemberkatan",
+                textAlign: TextAlign.left,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+              ),
+              DropdownButton(
+                // Initial Value
+                value: ddValue,
+                hint: Text("Pilih Jenis Pemberkatan"),
+                // Down Arrow Icon
+                icon: const Icon(Icons.keyboard_arrow_down),
+
+                // Array list of items
+                // items: null,
+                items: jenisPemberkatan.map((String items) {
+                  return DropdownMenuItem(
+                    value: items,
+                    child: Text(items),
+                  );
+                }).toList(),
+                // After selecting the desired option,it will
+                // change button value to selected value
+                onChanged: (String? newValue) {
+                  setState(() {
+                    ddValue = newValue!;
+                  });
+                },
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 11),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
                 "Tanggal",
                 textAlign: TextAlign.left,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 5),
               ),
-              TextField(
-                //controller: repasswordController,
-                style: TextStyle(color: Colors.black),
-
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                      ),
-                    ),
-                    hintText: "Masukan Notes",
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-              ),
+              SfDateRangePicker(
+                view: DateRangePickerView.month,
+                onSelectionChanged: _onSelectionChanged,
+                monthViewSettings:
+                    DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
+              )
             ],
           ),
           Padding(

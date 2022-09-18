@@ -7,6 +7,7 @@ import 'package:pelayanan_iman_katolik/formulirPemberkatan.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:pelayanan_iman_katolik/komuni.dart';
 import 'package:pelayanan_iman_katolik/misa.dart';
+import 'package:pelayanan_iman_katolik/pemberkatan.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
 
@@ -55,8 +56,7 @@ class Sakramentali extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        FormulirPemberkatan(name, email, idUser)),
+                    builder: (context) => Pemberkatan(name, email, idUser)),
               );
             },
             child: Container(
@@ -89,8 +89,7 @@ class Sakramentali extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        FormulirPemberkatan(name, email, idUser)),
+                    builder: (context) => Pemberkatan(name, email, idUser)),
               );
             },
             child: Container(
