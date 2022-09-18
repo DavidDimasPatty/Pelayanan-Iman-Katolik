@@ -22,7 +22,7 @@ class Umum extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sakramen'),
+        title: Text('Umum'),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
@@ -51,11 +51,11 @@ class Umum extends StatelessWidget {
           InkWell(
             borderRadius: new BorderRadius.circular(24),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Baptis(name, email, idUser)),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => Baptis(name, email, idUser)),
+              // );
             },
             child: Container(
                 margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
@@ -73,7 +73,7 @@ class Umum extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 child: Text(
-                  'Baptis',
+                  'Pendalaman Kitab Suci',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 26.0,
@@ -84,11 +84,11 @@ class Umum extends StatelessWidget {
           InkWell(
             borderRadius: new BorderRadius.circular(24),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Komuni(name, email, idUser)),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => Komuni(name, email, idUser)),
+              // );
             },
             child: Container(
                 margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
@@ -106,7 +106,7 @@ class Umum extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 child: Text(
-                  'Komuni',
+                  'Rekoleksi',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 26.0,
@@ -117,11 +117,11 @@ class Umum extends StatelessWidget {
           InkWell(
             borderRadius: new BorderRadius.circular(24),
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Misa(name, email, idUser)),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //       builder: (context) => Misa(name, email, idUser)),
+              // );
             },
             child: Container(
                 margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
@@ -139,7 +139,7 @@ class Umum extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 child: Text(
-                  'Misa',
+                  'Retret',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 26.0,
