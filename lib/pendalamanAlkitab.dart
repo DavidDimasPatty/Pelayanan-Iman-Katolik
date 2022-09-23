@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarBaptis.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
+import 'package:pelayanan_iman_katolik/detailDaftarPA.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
 import 'tiketSaya.dart';
@@ -124,16 +125,12 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
               InkWell(
                 borderRadius: new BorderRadius.circular(24),
                 onTap: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => detailDaftarBaptis(
-                  //           names,
-                  //           emails,
-                  //           i['GerejaBaptis'][0]['nama'],
-                  //           idUser,
-                  //           i['GerejaBaptis'][0]['_id'])),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            detailDaftarPA(names, emails, idUser, i['_id'])),
+                  );
                 },
                 child: Container(
                     margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),

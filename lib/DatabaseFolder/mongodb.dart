@@ -123,6 +123,23 @@ class MongoDatabase {
     return conn;
   }
 
+  static detailRekoleksi(idKegiatan) async {
+    print(idKegiatan);
+    var gerejaKegiatanCollection = db.collection(UMUM_COLLECTION);
+    final pipeline = AggregationPipelineBuilder()
+        .addStage(Lookup(
+            from: 'Gereja',
+            localField: 'idGereja',
+            foreignField: '_id',
+            as: 'GerejaKegiatan'))
+        .addStage(Match(where.eq('_id', idKegiatan).map['\$query']))
+        .build();
+    var conn =
+        await gerejaKegiatanCollection.aggregateToStream(pipeline).toList();
+    print(conn);
+    return conn;
+  }
+
   static baptisTerdaftar(idUser) async {
     var userBaptisCollection = db.collection(USER_BAPTIS_COLLECTION);
     final pipeline = AggregationPipelineBuilder()
