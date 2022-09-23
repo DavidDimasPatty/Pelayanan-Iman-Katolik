@@ -8,26 +8,26 @@ import 'package:pelayanan_iman_katolik/setting.dart';
 import 'tiketSaya.dart';
 import 'homePage.dart';
 
-class Rekoleksi extends StatefulWidget {
+class Retret extends StatefulWidget {
   var names;
   var emails;
   final idUser;
-  Rekoleksi(this.names, this.emails, this.idUser);
+  Retret(this.names, this.emails, this.idUser);
   @override
-  _Rekoleksi createState() => _Rekoleksi(this.names, this.emails, this.idUser);
+  _Retret createState() => _Retret(this.names, this.emails, this.idUser);
 }
 
-class _Rekoleksi extends State<Rekoleksi> {
+class _Retret extends State<Retret> {
   var names;
   var emails;
   List daftarKegiatan = [];
 
   List dummyTemp = [];
   final idUser;
-  _Rekoleksi(this.names, this.emails, this.idUser);
+  _Retret(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
-    return await MongoDatabase.findRekoleksi();
+    return await MongoDatabase.findRetret();
   }
 
   @override
@@ -73,7 +73,7 @@ class _Rekoleksi extends State<Rekoleksi> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        title: Text('Pendaftaran Rekoleksi'),
+        title: Text('Pendaftaran Retret'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.account_circle_rounded),

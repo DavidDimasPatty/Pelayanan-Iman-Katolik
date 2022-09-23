@@ -6,8 +6,10 @@ import 'package:pelayanan_iman_katolik/baptis.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:pelayanan_iman_katolik/komuni.dart';
 import 'package:pelayanan_iman_katolik/misa.dart';
+import 'package:pelayanan_iman_katolik/pendalamanAlkitab.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/rekoleksi.dart';
+import 'package:pelayanan_iman_katolik/retret.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
 
 class Umum extends StatelessWidget {
@@ -52,11 +54,12 @@ class Umum extends StatelessWidget {
           InkWell(
             borderRadius: new BorderRadius.circular(24),
             onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //       builder: (context) => Baptis(name, email, idUser)),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        PendalamanAlkitab(name, email, idUser)),
+              );
             },
             child: Container(
                 margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
@@ -121,7 +124,7 @@ class Umum extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => Rekoleksi(name, email, idUser)),
+                    builder: (context) => Retret(name, email, idUser)),
               );
             },
             child: Container(
