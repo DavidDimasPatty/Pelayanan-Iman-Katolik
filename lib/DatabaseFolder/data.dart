@@ -8,6 +8,7 @@ const GEREJA_COLLECTION = "Gereja";
 const JADWAL_GEREJA_COLLECTION = "jadwalGereja";
 const TIKET_COLLECTION = "tiket";
 const BAPTIS_COLLECTION = "baptis";
+const UMUM_COLLECTION = "umum";
 const KOMUNI_COLLECTION = "komuni";
 const USER_KOMUNI_COLLECTION = "userKomuni";
 const USER_BAPTIS_COLLECTION = "userBaptis";

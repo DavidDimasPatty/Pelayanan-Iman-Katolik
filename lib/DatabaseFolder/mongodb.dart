@@ -47,6 +47,14 @@ class MongoDatabase {
     return conn;
   }
 
+  static findRekoleksi() async {
+    var umumCollection = db.collection(UMUM_COLLECTION);
+    var conn =
+        await umumCollection.find({'jenisKegiatan': "Rekoleksi"}).toList();
+
+    return conn;
+  }
+
   static findGereja() async {
     var gerejaCollection = db.collection(GEREJA_COLLECTION);
     var conn = await gerejaCollection.find().toList();
