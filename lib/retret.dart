@@ -119,7 +119,6 @@ class _Retret extends State<Retret> {
               ),
             ),
 
-            ///map////////
             for (var i in daftarKegiatan)
               InkWell(
                 borderRadius: new BorderRadius.circular(24),
@@ -172,7 +171,7 @@ class _Retret extends State<Retret> {
                     ])),
               ),
 
-            ///map////////
+            /////////
           ],
         ),
       ]),

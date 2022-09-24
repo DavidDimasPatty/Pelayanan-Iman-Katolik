@@ -120,7 +120,7 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
               ),
             ),
 
-            ///map////////
+            /////////
             for (var i in daftarKegiatan)
               InkWell(
                 borderRadius: new BorderRadius.circular(24),
@@ -173,7 +173,7 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
                     ])),
               ),
 
-            ///map////////
+            /////////
           ],
         ),
       ]),

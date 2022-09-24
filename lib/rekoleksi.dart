@@ -119,7 +119,7 @@ class _Rekoleksi extends State<Rekoleksi> {
               ),
             ),
 
-            ///map////////
+            /////////
             for (var i in daftarKegiatan)
               InkWell(
                 borderRadius: new BorderRadius.circular(24),
@@ -172,7 +172,7 @@ class _Rekoleksi extends State<Rekoleksi> {
                     ])),
               ),
 
-            ///map////////
+            /////////
           ],
         ),
       ]),

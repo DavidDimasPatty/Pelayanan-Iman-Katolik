@@ -120,7 +120,7 @@ class _Komuni extends State<Komuni> {
               ),
             ),
 
-            ///map////////
+            /////////
             for (var i in daftarGereja)
               InkWell(
                 borderRadius: new BorderRadius.circular(24),
@@ -178,7 +178,7 @@ class _Komuni extends State<Komuni> {
                     ])),
               ),
 
-            ///map////////
+            /////////
           ],
         ),
       ]),
@@ -289,7 +289,7 @@ class _Komuni extends State<Komuni> {
 //                 shrinkWrap: true,
 //                 padding: EdgeInsets.all(20.0),
 //                 children: <Widget>[
-//                   ///map////////
+//                   /////////
 //                   for (var i in daftarGereja)
 //                     InkWell(
 //                       borderRadius: new BorderRadius.circular(24),
@@ -350,7 +350,7 @@ class _Komuni extends State<Komuni> {
 //                           ])),
 //                     ),
 
-//                   ///map////////
+//                   /////////
 //                 ],
 //               );
 //             } catch (e) {

@@ -133,7 +133,7 @@ class privacySafety extends StatelessWidget {
                   ),
                 )),
 
-            ///map////////
+            /////////
           ],
         )
       ])),

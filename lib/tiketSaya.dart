@@ -161,7 +161,7 @@ class tiketSaya extends StatelessWidget {
                               ])),
                         ),
 
-                      ///map////////
+                      /////////
                     ],
                   );
                 } catch (e) {
@@ -254,7 +254,7 @@ class tiketSaya extends StatelessWidget {
                               ),
                             )),
 
-                      ///map////////
+                      /////////
                     ],
                   );
                 } catch (e) {
@@ -346,7 +346,7 @@ class tiketSaya extends StatelessWidget {
                               ),
                             )),
 
-                      ///map////////
+                      /////////
                     ],
                   );
                 } catch (e) {

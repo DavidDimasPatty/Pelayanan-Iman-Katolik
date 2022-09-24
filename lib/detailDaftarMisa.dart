@@ -68,7 +68,7 @@ class detailDaftarMisa extends StatelessWidget {
                 shrinkWrap: true,
                 padding: EdgeInsets.all(20.0),
                 children: <Widget>[
-                  ///map////////
+                  /////////
                   ///
 
                   Center(
@@ -345,7 +345,7 @@ class detailDaftarMisa extends StatelessWidget {
                     ],
                   )),
 
-                  ///map////////
+                  /////////
                 ],
               );
             } catch (e) {

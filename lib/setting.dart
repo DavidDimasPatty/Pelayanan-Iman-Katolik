@@ -273,7 +273,7 @@ class Settings extends StatelessWidget {
                   ),
                 )),
 
-            ///map////////
+            /////////
           ],
         )
       ])),

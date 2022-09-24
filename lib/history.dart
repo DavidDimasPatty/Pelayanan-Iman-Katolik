@@ -175,7 +175,7 @@ class history extends StatelessWidget {
                               ])),
                         ),
 
-                      ///map////////
+                      /////////
                     ],
                   );
                 } catch (e) {
@@ -280,7 +280,7 @@ class history extends StatelessWidget {
                               ),
                             )),
 
-                      ///map////////
+                      /////////
                     ],
                   );
                 } catch (e) {
@@ -386,7 +386,7 @@ class history extends StatelessWidget {
                               ),
                             )),
 
-                      ///map////////
+                      /////////
                     ],
                   );
                 } catch (e) {

@@ -102,7 +102,7 @@ class _Misa extends State<Misa> {
           shrinkWrap: true,
           padding: EdgeInsets.only(right: 15, left: 15),
           children: <Widget>[
-            ///map////////
+            /////////
 
             Padding(
               padding: EdgeInsets.only(right: 10, left: 10),
@@ -167,7 +167,7 @@ class _Misa extends State<Misa> {
                     ])),
               ),
 
-            ///map////////
+            /////////
           ],
         )
       ]),

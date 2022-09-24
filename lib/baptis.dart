@@ -120,7 +120,7 @@ class _Baptis extends State<Baptis> {
               ),
             ),
 
-            ///map////////
+            /////////
             for (var i in daftarGereja)
               InkWell(
                 borderRadius: new BorderRadius.circular(24),
@@ -178,7 +178,7 @@ class _Baptis extends State<Baptis> {
                     ])),
               ),
 
-            ///map////////
+            /////////
           ],
         ),
       ]),

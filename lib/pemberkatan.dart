@@ -122,7 +122,7 @@ class _Pemberkatan extends State<Pemberkatan> {
               ),
             ),
 
-            ///map////////
+            /////////
             for (var i in daftarGereja)
               InkWell(
                 borderRadius: new BorderRadius.circular(24),
@@ -176,7 +176,7 @@ class _Pemberkatan extends State<Pemberkatan> {
                     ])),
               ),
 
-            ///map////////
+            /////////
           ],
         ),
       ]),
