@@ -353,6 +353,26 @@ class MongoDatabase {
     }
   }
 
+  static daftarKegiatan(idKegiatan, idUser, kapasitas) async {
+    var daftarUmumCollection = db.collection(USER_UMUM_COLLECTION);
+    var umumCollection = db.collection(UMUM_COLLECTION);
+    var hasil = await daftarUmumCollection.insertOne({
+      'idKegiatan': idKegiatan,
+      'idUser': idUser,
+      'tanggalDaftar': DateTime.now()
+    });
+
+    var update = await umumCollection.updateOne(
+        where.eq('_id', idKegiatan), modify.set('kapasitas', kapasitas - 1));
+
+    if (!hasil.isSuccess) {
+      print('Error detected in record insertion');
+      return 'fail';
+    } else {
+      return 'oke';
+    }
+  }
+
   static daftarBaptis(idBaptis, idUser, kapasitas) async {
     var daftarBaptisCollection = db.collection(USER_BAPTIS_COLLECTION);
     var baptisCollection = db.collection(BAPTIS_COLLECTION);

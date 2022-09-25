@@ -12,3 +12,4 @@ const UMUM_COLLECTION = "umum";
 const KOMUNI_COLLECTION = "komuni";
 const USER_KOMUNI_COLLECTION = "userKomuni";
 const USER_BAPTIS_COLLECTION = "userBaptis";
+const USER_UMUM_COLLECTION = "userUmum";

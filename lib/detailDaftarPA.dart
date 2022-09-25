@@ -3,6 +3,7 @@ import 'package:map_launcher/map_launcher.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/confirmBaptis.dart';
+import 'package:pelayanan_iman_katolik/confirmPA.dart';
 import 'package:pelayanan_iman_katolik/jadwalMisa.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
@@ -391,17 +392,10 @@ class detailDaftarPA extends StatelessWidget {
                         height: 20.0,
                       ),
                       RaisedButton(
-                          onPressed: ()
-                              // async
-                              {
-                            // confirmBaptis(
-                            //         snapshot.data[0]['nama'],
-                            //         idUser,
-                            //         detailGereja[0]['GerejaBaptis'][0]['_id'],
-                            //         this.name,
-                            //         this.email,
-                            //         this.namaGereja)
-                            //     .showDialogBox(context);
+                          onPressed: () async {
+                            confirmPA(idUser, detailGereja[0]['_id'], this.name,
+                                    this.email)
+                                .showDialogBox(context);
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(80.0)),
