@@ -249,7 +249,16 @@ class tiketSaya extends StatelessWidget {
                                               child:
                                                   CircularProgressIndicator());
                                         }
-                                      })
+                                      }),
+                                  Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 8),
+                                      child: Text(
+                                        "Kegiatan Terdaftar",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 26.0),
+                                      ))
                                 ],
                               ),
                             )),
