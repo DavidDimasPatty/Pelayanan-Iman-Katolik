@@ -254,7 +254,27 @@ class tiketSaya extends StatelessWidget {
                                       padding: EdgeInsets.symmetric(
                                           vertical: 10, horizontal: 8),
                                       child: Text(
-                                        "Kegiatan Terdaftar",
+                                        "Kegiatan Retret Terdaftar",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 26.0),
+                                      ))
+                                      ,
+                                  Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 8),
+                                      child: Text(
+                                        "Kegiatan Rekoleksi Terdaftar",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 26.0),
+                                      )),
+                                      ,
+                                  Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 8),
+                                      child: Text(
+                                        "Kegiatan Pendalaman Alkitab Terdaftar",
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 26.0),
