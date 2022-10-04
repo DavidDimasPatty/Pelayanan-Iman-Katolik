@@ -298,6 +298,84 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
+                "Paroki",
+                textAlign: TextAlign.left,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+              ),
+              TextField(
+                //controller: repasswordController,
+                style: TextStyle(color: Colors.black),
+
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.black,
+                      ),
+                    ),
+                    hintText: "Masukan Nama Paroki",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 11),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Lingkungan",
+                textAlign: TextAlign.left,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+              ),
+              TextField(
+                //controller: repasswordController,
+                style: TextStyle(color: Colors.black),
+
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.blue,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(
+                        color: Colors.black,
+                      ),
+                    ),
+                    hintText: "Masukan Nama Lingkungan",
+                    hintStyle: TextStyle(color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )),
+              ),
+            ],
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 11),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
                 "Jenis Pemberkatan",
                 textAlign: TextAlign.left,
               ),

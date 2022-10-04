@@ -258,8 +258,7 @@ class tiketSaya extends StatelessWidget {
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 26.0),
-                                      ))
-                                      ,
+                                      )),
                                   Padding(
                                       padding: EdgeInsets.symmetric(
                                           vertical: 10, horizontal: 8),
@@ -269,7 +268,6 @@ class tiketSaya extends StatelessWidget {
                                             color: Colors.black,
                                             fontSize: 26.0),
                                       )),
-                                      ,
                                   Padding(
                                       padding: EdgeInsets.symmetric(
                                           vertical: 10, horizontal: 8),
