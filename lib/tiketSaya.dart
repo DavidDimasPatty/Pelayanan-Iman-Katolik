@@ -26,6 +26,11 @@ class tiketSaya extends StatelessWidget {
     return tiketGereja;
   }
 
+  Future<List> callDbKegiatanDaftar() async {
+    baptisUser = await MongoDatabase.kegiatanTerdaftar(idUser);
+    return baptisUser;
+  }
+
   Future<List> callDbBaptisDaftar() async {
     baptisUser = await MongoDatabase.baptisTerdaftar(idUser);
     return baptisUser;
@@ -250,33 +255,6 @@ class tiketSaya extends StatelessWidget {
                                                   CircularProgressIndicator());
                                         }
                                       }),
-                                  Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 10, horizontal: 8),
-                                      child: Text(
-                                        "Kegiatan Retret Terdaftar",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 26.0),
-                                      )),
-                                  Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 10, horizontal: 8),
-                                      child: Text(
-                                        "Kegiatan Rekoleksi Terdaftar",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 26.0),
-                                      )),
-                                  Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 10, horizontal: 8),
-                                      child: Text(
-                                        "Kegiatan Pendalaman Alkitab Terdaftar",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 26.0),
-                                      ))
                                 ],
                               ),
                             )),
@@ -381,6 +359,12 @@ class tiketSaya extends StatelessWidget {
                   return Center(child: CircularProgressIndicator());
                 }
               }),
+          Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+              child: Text(
+                "Kegiatan Umum Terdaftar",
+                style: TextStyle(color: Colors.black, fontSize: 26.0),
+              )),
         ],
       ),
       bottomNavigationBar: Container(
