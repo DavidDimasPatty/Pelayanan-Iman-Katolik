@@ -136,7 +136,7 @@ class MongoDatabase {
         .build();
     var conn =
         await gerejaKegiatanCollection.aggregateToStream(pipeline).toList();
-    print(conn);
+
     return conn;
   }
 
@@ -154,7 +154,26 @@ class MongoDatabase {
             Match(where.eq('idUser', idUser).eq('status', '0').map['\$query']))
         .build();
     var conn = await userBaptisCollection.aggregateToStream(pipeline).toList();
-    print(conn);
+
+    return conn;
+  }
+
+  static kegiatanTerdaftar(idUser) async {
+    var userKegiatanCollection = db.collection(USER_UMUM_COLLECTION);
+    final pipeline = AggregationPipelineBuilder()
+        .addStage(
+          Lookup(
+              from: 'umum',
+              localField: 'idKegiatan',
+              foreignField: '_id',
+              as: 'UserKegiatan'),
+        )
+        .addStage(
+            Match(where.eq('idUser', idUser).eq('status', '0').map['\$query']))
+        .build();
+    var conn =
+        await userKegiatanCollection.aggregateToStream(pipeline).toList();
+
     return conn;
   }
 
@@ -172,7 +191,7 @@ class MongoDatabase {
             Match(where.eq('idUser', idUser).eq('status', '0').map['\$query']))
         .build();
     var conn = await userBaptisCollection.aggregateToStream(pipeline).toList();
-    print(conn);
+
     return conn;
   }
 
@@ -261,6 +280,12 @@ class MongoDatabase {
   static jadwalBaptis(idBaptis) async {
     var jadwalCollection = db.collection(BAPTIS_COLLECTION);
     var conn = await jadwalCollection.find({'_id': idBaptis}).toList();
+    return conn;
+  }
+
+  static jadwalKegiatan(idKegiatan) async {
+    var jadwalCollection = db.collection(UMUM_COLLECTION);
+    var conn = await jadwalCollection.find({'_id': idKegiatan}).toList();
     return conn;
   }
 
@@ -359,7 +384,8 @@ class MongoDatabase {
     var hasil = await daftarUmumCollection.insertOne({
       'idKegiatan': idKegiatan,
       'idUser': idUser,
-      'tanggalDaftar': DateTime.now()
+      'tanggalDaftar': DateTime.now(),
+      'status': "0"
     });
 
     var update = await umumCollection.updateOne(
@@ -452,6 +478,17 @@ class MongoDatabase {
 
   static cancelDaftarKomuni(idTiket) async {
     var tiket = db.collection(USER_KOMUNI_COLLECTION);
+    var conn = await tiket.updateOne(
+        where.eq('_id', idTiket), modify.set('status', "-1"));
+    if (conn.isSuccess) {
+      return "oke";
+    } else {
+      return "failed";
+    }
+  }
+
+  static cancelDaftarKegiatan(idTiket) async {
+    var tiket = db.collection(USER_UMUM_COLLECTION);
     var conn = await tiket.updateOne(
         where.eq('_id', idTiket), modify.set('status', "-1"));
     if (conn.isSuccess) {

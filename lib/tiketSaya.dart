@@ -6,6 +6,7 @@ import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetail.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailBaptis.dart';
+import 'package:pelayanan_iman_katolik/tiketSayaDetailKegiatan.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailKomuni.dart';
 
 class tiketSaya extends StatelessWidget {
@@ -17,6 +18,7 @@ class tiketSaya extends StatelessWidget {
   var namaGereja;
   var hasil;
   var baptisUser;
+  var kegiatanUser;
   var komuniUser;
 
   tiketSaya(this.names, this.emails, this.idUser);
@@ -27,8 +29,9 @@ class tiketSaya extends StatelessWidget {
   }
 
   Future<List> callDbKegiatanDaftar() async {
-    baptisUser = await MongoDatabase.kegiatanTerdaftar(idUser);
-    return baptisUser;
+    kegiatanUser = await MongoDatabase.kegiatanTerdaftar(idUser);
+    print(kegiatanUser);
+    return kegiatanUser;
   }
 
   Future<List> callDbBaptisDaftar() async {
@@ -365,6 +368,83 @@ class tiketSaya extends StatelessWidget {
                 "Kegiatan Umum Terdaftar",
                 style: TextStyle(color: Colors.black, fontSize: 26.0),
               )),
+          FutureBuilder<List>(
+              future: callDbKegiatanDaftar(),
+              builder: (context, AsyncSnapshot snapshot) {
+                try {
+                  return Column(
+                    children: <Widget>[
+                      for (var i in snapshot.data)
+                        InkWell(
+                            borderRadius: new BorderRadius.circular(24),
+                            onTap: () {
+                              tiketSayaDetailKegiatan(
+                                names,
+                                emails,
+                                idUser,
+                                snapshot.data[0]['_id'],
+                                snapshot.data[0]['UserKegiatan'][0]['_id'],
+                              ).showDialogBox(context);
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.topRight,
+                                    end: Alignment.topLeft,
+                                    colors: [
+                                      Colors.blueAccent,
+                                      Colors.lightBlue,
+                                    ]),
+                                border: Border.all(
+                                  color: Colors.lightBlue,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    "Jadwal : " +
+                                        snapshot.data[0]['UserKegiatan'][0]
+                                                ['tanggal']
+                                            .toString()
+                                            .substring(0, 19),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  Text(
+                                    "Nama Kegiatan : " +
+                                        snapshot.data[0]['UserKegiatan'][0]
+                                            ['namaKegiatan'],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  Text(
+                                    "Lokasi : " +
+                                        snapshot.data[0]['UserKegiatan'][0]
+                                            ['lokasi'],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                ],
+                              ),
+                            )),
+
+                      /////////
+                    ],
+                  );
+                } catch (e) {
+                  print(e);
+                  return Center(child: CircularProgressIndicator());
+                }
+              }),
         ],
       ),
       bottomNavigationBar: Container(
