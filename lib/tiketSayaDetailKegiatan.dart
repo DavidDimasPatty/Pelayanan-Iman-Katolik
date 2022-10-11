@@ -94,6 +94,7 @@ class tiketSayaDetailKegiatan {
                             tiket[0]['tanggal'].toString().substring(0, 19)),
                         Text('Lokasi: ' + tiket[0]['lokasi']),
                         Text('Nama Kegiatan: ' + tiket[0]['namaKegiatan']),
+                        Text('Tema Kegiatan: ' + tiket[0]['temaKegiatan']),
                       ],
                     )
                   ]),
