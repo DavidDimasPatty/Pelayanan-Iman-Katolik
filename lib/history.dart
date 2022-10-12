@@ -94,95 +94,95 @@ class history extends StatelessWidget {
       ),
       body: ListView(
         children: <Widget>[
-          Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-              child: Text(
-                "Misa yang Pernah Didaftar",
-                style: TextStyle(color: Colors.black, fontSize: 23.0),
-              )),
-          FutureBuilder<List>(
-              future: callDb(),
-              builder: (context, AsyncSnapshot snapshot) {
-                try {
-                  return ListView(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.all(2.0),
-                    children: <Widget>[
-                      for (var i in snapshot.data)
-                        InkWell(
-                          borderRadius: new BorderRadius.circular(24),
-                          onTap: () {
-                            historyDetail(names, emails, idUser, i['idMisa'])
-                                .showDialogBox(context);
-                          },
-                          child: Container(
-                              margin: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.topRight,
-                                    end: Alignment.topLeft,
-                                    colors: [
-                                      Colors.blueAccent,
-                                      Colors.lightBlue,
-                                    ]),
-                                border: Border.all(
-                                  color: Colors.lightBlue,
-                                ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Column(children: <Widget>[
-                                FutureBuilder<List>(
-                                    future: addChild(i['idMisa']),
-                                    builder: (context, AsyncSnapshot snapshot) {
-                                      try {
-                                        return Column(
-                                          children: <Widget>[
-                                            Text(
-                                              "Jadwal : " + snapshot.data[0],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 26.0,
-                                                  fontWeight: FontWeight.w300),
-                                            ),
-                                            Text(
-                                              "Nama Gereja : " +
-                                                  snapshot.data[1],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.w300),
-                                            )
-                                          ],
-                                        );
-                                      } catch (e) {
-                                        print(e);
-                                        return Center(
-                                            child: CircularProgressIndicator());
-                                      }
-                                    }),
-                                Text(
-                                  i['status'] == "0"
-                                      ? ' Status : Belum Hadir'
-                                      : i['status'] == "-1"
-                                          ? ' Status : Dibatalkan'
-                                          : ' Status : Sudah Dihadiri',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w300),
-                                ),
-                              ])),
-                        ),
+          // Padding(
+          //     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+          //     child: Text(
+          //       "Misa yang Pernah Didaftar",
+          //       style: TextStyle(color: Colors.black, fontSize: 23.0),
+          //     )),
+          // FutureBuilder<List>(
+          //     future: callDb(),
+          //     builder: (context, AsyncSnapshot snapshot) {
+          //       try {
+          //         return ListView(
+          //           shrinkWrap: true,
+          //           padding: EdgeInsets.all(2.0),
+          //           children: <Widget>[
+          //             for (var i in snapshot.data)
+          //               InkWell(
+          //                 borderRadius: new BorderRadius.circular(24),
+          //                 onTap: () {
+          //                   historyDetail(names, emails, idUser, i['idMisa'])
+          //                       .showDialogBox(context);
+          //                 },
+          //                 child: Container(
+          //                     margin: EdgeInsets.all(20),
+          //                     decoration: BoxDecoration(
+          //                       gradient: LinearGradient(
+          //                           begin: Alignment.topRight,
+          //                           end: Alignment.topLeft,
+          //                           colors: [
+          //                             Colors.blueAccent,
+          //                             Colors.lightBlue,
+          //                           ]),
+          //                       border: Border.all(
+          //                         color: Colors.lightBlue,
+          //                       ),
+          //                       borderRadius:
+          //                           BorderRadius.all(Radius.circular(10)),
+          //                     ),
+          //                     child: Column(children: <Widget>[
+          //                       FutureBuilder<List>(
+          //                           future: addChild(i['idMisa']),
+          //                           builder: (context, AsyncSnapshot snapshot) {
+          //                             try {
+          //                               return Column(
+          //                                 children: <Widget>[
+          //                                   Text(
+          //                                     "Jadwal : " + snapshot.data[0],
+          //                                     style: TextStyle(
+          //                                         color: Colors.white,
+          //                                         fontSize: 26.0,
+          //                                         fontWeight: FontWeight.w300),
+          //                                   ),
+          //                                   Text(
+          //                                     "Nama Gereja : " +
+          //                                         snapshot.data[1],
+          //                                     style: TextStyle(
+          //                                         color: Colors.white,
+          //                                         fontSize: 15.0,
+          //                                         fontWeight: FontWeight.w300),
+          //                                   )
+          //                                 ],
+          //                               );
+          //                             } catch (e) {
+          //                               print(e);
+          //                               return Center(
+          //                                   child: CircularProgressIndicator());
+          //                             }
+          //                           }),
+          //                       Text(
+          //                         i['status'] == "0"
+          //                             ? ' Status : Belum Hadir'
+          //                             : i['status'] == "-1"
+          //                                 ? ' Status : Dibatalkan'
+          //                                 : ' Status : Sudah Dihadiri',
+          //                         style: TextStyle(
+          //                             color: Colors.white,
+          //                             fontSize: 16.0,
+          //                             fontWeight: FontWeight.w300),
+          //                       ),
+          //                     ])),
+          //               ),
 
-                      /////////
-                    ],
-                  );
-                } catch (e) {
-                  print(e);
-                  return Center(child: CircularProgressIndicator());
-                }
-              }),
+          //             /////////
+          //           ],
+          //         );
+          //       } catch (e) {
+          //         print(e);
+          //         return Center(child: CircularProgressIndicator());
+          //       }
+          //     }),
           Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               child: Text(
