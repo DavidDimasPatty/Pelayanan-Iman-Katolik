@@ -114,39 +114,39 @@ class Sakramen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 )),
           ),
-          // InkWell(
-          //   borderRadius: new BorderRadius.circular(24),
-          //   onTap: () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //           builder: (context) => Misa(name, email, idUser)),
-          //     );
-          //   },
-          //   child: Container(
-          //       margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
-          //       decoration: BoxDecoration(
-          //         gradient: LinearGradient(
-          //             begin: Alignment.topRight,
-          //             end: Alignment.topLeft,
-          //             colors: [
-          //               Colors.blueGrey,
-          //               Colors.lightBlue,
-          //             ]),
-          //         border: Border.all(
-          //           color: Colors.lightBlue,
-          //         ),
-          //         borderRadius: BorderRadius.all(Radius.circular(10)),
-          //       ),
-          //       child: Text(
-          //         'Misa',
-          //         style: TextStyle(
-          //             color: Colors.white,
-          //             fontSize: 26.0,
-          //             fontWeight: FontWeight.w300),
-          //         textAlign: TextAlign.center,
-          //       )),
-          // ),
+          InkWell(
+            borderRadius: new BorderRadius.circular(24),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Misa(name, email, idUser)),
+              );
+            },
+            child: Container(
+                margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.topLeft,
+                      colors: [
+                        Colors.blueGrey,
+                        Colors.lightBlue,
+                      ]),
+                  border: Border.all(
+                    color: Colors.lightBlue,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: Text(
+                  'Karisma',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 26.0,
+                      fontWeight: FontWeight.w300),
+                  textAlign: TextAlign.center,
+                )),
+          ),
         ],
       ),
       bottomNavigationBar: Container(
