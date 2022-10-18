@@ -91,6 +91,21 @@ class MongoDatabase {
     return conn;
   }
 
+  static findGerejaKrisma() async {
+    var gerejaKrismaCollection = db.collection(KRISMA_COLLECTION);
+    final pipeline = AggregationPipelineBuilder()
+        .addStage(Lookup(
+            from: 'Gereja',
+            localField: 'idGereja',
+            foreignField: '_id',
+            as: 'GerejaKrisma'))
+        .build();
+    var conn =
+        await gerejaKrismaCollection.aggregateToStream(pipeline).toList();
+    print(conn);
+    return conn;
+  }
+
   static findGerejaBaptis() async {
     var gerejaKomuniCollection = db.collection(BAPTIS_COLLECTION);
     final pipeline = AggregationPipelineBuilder()
@@ -118,6 +133,23 @@ class MongoDatabase {
         .build();
     var conn =
         await gerejaBaptisCollection.aggregateToStream(pipeline).toList();
+    print(conn);
+    print(idGereja);
+    return conn;
+  }
+
+  static detailGerejaKrisma(idGereja) async {
+    var gerejaKrismaCollection = db.collection(GEREJA_COLLECTION);
+    final pipeline = AggregationPipelineBuilder()
+        .addStage(Lookup(
+            from: 'krisma',
+            localField: '_id',
+            foreignField: 'idGereja',
+            as: 'GerejaKrisma'))
+        .addStage(Match(where.eq('nama', idGereja).map['\$query']))
+        .build();
+    var conn =
+        await gerejaKrismaCollection.aggregateToStream(pipeline).toList();
     print(conn);
     print(idGereja);
     return conn;
@@ -154,6 +186,24 @@ class MongoDatabase {
             Match(where.eq('idUser', idUser).eq('status', '0').map['\$query']))
         .build();
     var conn = await userBaptisCollection.aggregateToStream(pipeline).toList();
+
+    return conn;
+  }
+
+  static krismaTerdaftar(idUser) async {
+    var userKrismaCollection = db.collection(USER_KRISMA_COLLECTION);
+    final pipeline = AggregationPipelineBuilder()
+        .addStage(
+          Lookup(
+              from: 'krisma',
+              localField: 'idKrisma',
+              foreignField: '_id',
+              as: 'UserKrisma'),
+        )
+        .addStage(
+            Match(where.eq('idUser', idUser).eq('status', '0').map['\$query']))
+        .build();
+    var conn = await userKrismaCollection.aggregateToStream(pipeline).toList();
 
     return conn;
   }
@@ -283,6 +333,12 @@ class MongoDatabase {
     return conn;
   }
 
+  static jadwalKrisma(idKrisma) async {
+    var jadwalCollection = db.collection(KRISMA_COLLECTION);
+    var conn = await jadwalCollection.find({'_id': idKrisma}).toList();
+    return conn;
+  }
+
   static jadwalKegiatan(idKegiatan) async {
     var jadwalCollection = db.collection(UMUM_COLLECTION);
     var conn = await jadwalCollection.find({'_id': idKegiatan}).toList();
@@ -369,6 +425,23 @@ class MongoDatabase {
 
     var update = await komuniCollection.updateOne(
         where.eq('_id', idKomuni), modify.set('kapasitas', kapasitas - 1));
+
+    if (!hasil.isSuccess) {
+      print('Error detected in record insertion');
+      return 'fail';
+    } else {
+      return 'oke';
+    }
+  }
+
+  static daftarKrisma(idKrisma, idUser, kapasitas) async {
+    var daftarKrismaCollection = db.collection(USER_KRISMA_COLLECTION);
+    var komuniCollection = db.collection(KRISMA_COLLECTION);
+    var hasil = await daftarKrismaCollection
+        .insertOne({'idKrisma': idKrisma, 'idUser': idUser, 'status': "0"});
+
+    var update = await komuniCollection.updateOne(
+        where.eq('_id', idKrisma), modify.set('kapasitas', kapasitas - 1));
 
     if (!hasil.isSuccess) {
       print('Error detected in record insertion');
@@ -467,6 +540,17 @@ class MongoDatabase {
 
   static cancelDaftarBaptis(idTiket) async {
     var tiket = db.collection(USER_BAPTIS_COLLECTION);
+    var conn = await tiket.updateOne(
+        where.eq('_id', idTiket), modify.set('status', "-1"));
+    if (conn.isSuccess) {
+      return "oke";
+    } else {
+      return "failed";
+    }
+  }
+
+  static cancelDaftarKrisma(idTiket) async {
+    var tiket = db.collection(USER_KRISMA_COLLECTION);
     var conn = await tiket.updateOne(
         where.eq('_id', idTiket), modify.set('status', "-1"));
     if (conn.isSuccess) {

@@ -8,6 +8,7 @@ import 'package:pelayanan_iman_katolik/tiketSayaDetail.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailBaptis.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailKegiatan.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailKomuni.dart';
+import 'package:pelayanan_iman_katolik/tiketSayaDetailKrisma.dart';
 
 class tiketSaya extends StatelessWidget {
   var names;
@@ -20,6 +21,7 @@ class tiketSaya extends StatelessWidget {
   var baptisUser;
   var kegiatanUser;
   var komuniUser;
+  var krismaUser;
 
   tiketSaya(this.names, this.emails, this.idUser);
 
@@ -37,6 +39,11 @@ class tiketSaya extends StatelessWidget {
   Future<List> callDbBaptisDaftar() async {
     baptisUser = await MongoDatabase.baptisTerdaftar(idUser);
     return baptisUser;
+  }
+
+  Future<List> callDbKrismaDaftar() async {
+    krismaUser = await MongoDatabase.krismaTerdaftar(idUser);
+    return krismaUser;
   }
 
   Future<List> callDbKomuniDaftar() async {
@@ -103,25 +110,31 @@ class tiketSaya extends StatelessWidget {
           Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               child: Text(
-                "Karisma",
+                "Krisma Terdaftar",
                 style: TextStyle(color: Colors.black, fontSize: 26.0),
               )),
           FutureBuilder<List>(
-              future: callDb(),
+              future: callDbKrismaDaftar(),
               builder: (context, AsyncSnapshot snapshot) {
                 try {
                   return Column(
                     children: <Widget>[
                       for (var i in snapshot.data)
                         InkWell(
-                          borderRadius: new BorderRadius.circular(24),
-                          onTap: () {
-                            tiketSayaDetail(names, emails, idUser, i['idMisa'],
-                                    i['_id'])
-                                .showDialogBox(context);
-                          },
-                          child: Container(
-                              margin: EdgeInsets.all(10),
+                            borderRadius: new BorderRadius.circular(24),
+                            onTap: () {
+                              tiketSayaDetailKrisma(
+                                      names,
+                                      emails,
+                                      idUser,
+                                      snapshot.data[0]['UserKrisma'][0]['_id'],
+                                      snapshot.data[0]['UserKrisma'][0]
+                                          ['idGereja'],
+                                      snapshot.data[0]['_id'])
+                                  .showDialogBox(context);
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(20),
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                     begin: Alignment.topRight,
@@ -136,38 +149,48 @@ class tiketSaya extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                               ),
-                              child: Column(children: <Widget>[
-                                FutureBuilder<List>(
-                                    future: addChild(i['idMisa']),
-                                    builder: (context, AsyncSnapshot snapshot) {
-                                      try {
-                                        return Column(
-                                          children: <Widget>[
-                                            Text(
-                                              "Jadwal : " + snapshot.data[0],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 26.0,
-                                                  fontWeight: FontWeight.w300),
-                                            ),
-                                            Text(
-                                              "Nama Gereja : " +
-                                                  snapshot.data[1],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.w300),
-                                            )
-                                          ],
-                                        );
-                                      } catch (e) {
-                                        print(e);
-                                        return Center(
-                                            child: CircularProgressIndicator());
-                                      }
-                                    })
-                              ])),
-                        ),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    "Jadwal : " +
+                                        snapshot.data[0]['UserKrisma'][0]
+                                                ['jadwalBuka']
+                                            .toString()
+                                            .substring(0, 19) +
+                                        " s/d " +
+                                        snapshot.data[0]['UserKrisma'][0]
+                                                ['jadwalTutup']
+                                            .toString()
+                                            .substring(0, 19),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  FutureBuilder<List>(
+                                      future: callInfoGereja(
+                                          i['UserKrisma'][0]['idGereja']),
+                                      builder:
+                                          (context, AsyncSnapshot snapshot) {
+                                        try {
+                                          return Text(
+                                            "Nama Gereja : " +
+                                                snapshot.data[0]['nama'],
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.w300),
+                                          );
+                                        } catch (e) {
+                                          print(e);
+                                          return Center(
+                                              child:
+                                                  CircularProgressIndicator());
+                                        }
+                                      }),
+                                ],
+                              ),
+                            )),
 
                       /////////
                     ],

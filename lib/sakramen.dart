@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/baptis.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:pelayanan_iman_katolik/komuni.dart';
+import 'package:pelayanan_iman_katolik/krisma.dart';
 import 'package:pelayanan_iman_katolik/misa.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
@@ -120,7 +121,7 @@ class Sakramen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => Misa(name, email, idUser)),
+                    builder: (context) => Krisma(name, email, idUser)),
               );
             },
             child: Container(
@@ -139,7 +140,7 @@ class Sakramen extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 child: Text(
-                  'Karisma',
+                  'Krisma',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 26.0,
