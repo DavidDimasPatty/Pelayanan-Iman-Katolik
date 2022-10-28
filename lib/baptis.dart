@@ -12,6 +12,7 @@ import 'homePage.dart';
 class Baptis extends StatefulWidget {
   var names;
   var emails;
+
   final idUser;
   Baptis(this.names, this.emails, this.idUser);
   @override
@@ -19,6 +20,7 @@ class Baptis extends StatefulWidget {
 }
 
 class _Baptis extends State<Baptis> {
+  var distance;
   var names;
   var emails;
   List daftarGereja = [];
@@ -43,7 +45,6 @@ class _Baptis extends State<Baptis> {
   }
 
   Future jarak(lat, lang) async {
-    var jarak = " ";
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     print(position.toString());
@@ -52,11 +53,11 @@ class _Baptis extends State<Baptis> {
     print(distanceInMeters.toString());
     if (distanceInMeters > 1000) {
       distanceInMeters = distanceInMeters / 1000;
-      jarak = distanceInMeters.toInt().toString() + " KM";
+      distance = distanceInMeters.toInt().toString() + " KM";
     } else {
-      jarak = distanceInMeters.toInt().toString() + " M";
+      distance = distanceInMeters.toInt().toString() + " M";
     }
-    return jarak;
+    return distance;
   }
 
   filterSearchResults(String query) {
@@ -200,7 +201,7 @@ class _Baptis extends State<Baptis> {
                             try {
                               return Column(children: <Widget>[
                                 Text(
-                                  snapshot.data.toString(),
+                                  snapshot.data,
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 )
