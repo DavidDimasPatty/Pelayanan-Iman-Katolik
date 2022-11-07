@@ -1,5 +1,6 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarKomuni.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
@@ -20,6 +21,7 @@ class Komuni extends StatefulWidget {
 class _Komuni extends State<Komuni> {
   var names;
   var emails;
+  var distance;
   List daftarGereja = [];
 
   List dummyTemp = [];
@@ -28,6 +30,22 @@ class _Komuni extends State<Komuni> {
 
   Future<List> callDb() async {
     return await MongoDatabase.findGerejaKomuni();
+  }
+
+  Future jarak(lat, lang) async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    print(position.toString());
+    double distanceInMeters = Geolocator.distanceBetween(
+        lat, lang, position.latitude, position.longitude);
+    print(distanceInMeters.toString());
+    if (distanceInMeters > 1000) {
+      distanceInMeters = distanceInMeters / 1000;
+      distance = distanceInMeters.toInt().toString() + " KM";
+    } else {
+      distance = distanceInMeters.toInt().toString() + " M";
+    }
+    return distance;
   }
 
   @override
@@ -175,6 +193,23 @@ class _Komuni extends State<Komuni> {
                             i['GerejaKomuni'][0]['kapasitas'].toString(),
                         style: TextStyle(color: Colors.white, fontSize: 12),
                       ),
+                      FutureBuilder(
+                          future: jarak(i['GerejaKomuni'][0]['lat'],
+                              i['GerejaKomuni'][0]['lng']),
+                          builder: (context, AsyncSnapshot snapshot) {
+                            try {
+                              return Column(children: <Widget>[
+                                Text(
+                                  snapshot.data,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                )
+                              ]);
+                            } catch (e) {
+                              print(e);
+                              return Center(child: CircularProgressIndicator());
+                            }
+                          }),
                     ])),
               ),
 
