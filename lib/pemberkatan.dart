@@ -1,5 +1,6 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarBaptis.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
@@ -22,6 +23,7 @@ class Pemberkatan extends StatefulWidget {
 class _Pemberkatan extends State<Pemberkatan> {
   var names;
   var emails;
+  var distance;
   List daftarGereja = [];
 
   List dummyTemp = [];
@@ -41,6 +43,22 @@ class _Pemberkatan extends State<Pemberkatan> {
         dummyTemp.addAll(result);
       });
     });
+  }
+
+  Future jarak(lat, lang) async {
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    print(position.toString());
+    double distanceInMeters = Geolocator.distanceBetween(
+        lat, lang, position.latitude, position.longitude);
+    print(distanceInMeters.toString());
+    if (distanceInMeters > 1000) {
+      distanceInMeters = distanceInMeters / 1000;
+      distance = distanceInMeters.toInt().toString() + " KM";
+    } else {
+      distance = distanceInMeters.toInt().toString() + " M";
+    }
+    return distance;
   }
 
   filterSearchResults(String query) {
@@ -169,10 +187,26 @@ class _Pemberkatan extends State<Pemberkatan> {
                         style: TextStyle(color: Colors.white, fontSize: 12),
                       ),
                       Text(
-                        'Kapasitas Tersedia: ' +
-                            i['GerejaBaptis'][0]['kapasitas'].toString(),
+                        'Kapasitas Tersedia: ' + i['kapasitas'].toString(),
                         style: TextStyle(color: Colors.white, fontSize: 12),
                       ),
+                      FutureBuilder(
+                          future: jarak(i['GerejaBaptis'][0]['lat'],
+                              i['GerejaBaptis'][0]['lng']),
+                          builder: (context, AsyncSnapshot snapshot) {
+                            try {
+                              return Column(children: <Widget>[
+                                Text(
+                                  snapshot.data,
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                )
+                              ]);
+                            } catch (e) {
+                              print(e);
+                              return Center(child: CircularProgressIndicator());
+                            }
+                          }),
                     ])),
               ),
 
