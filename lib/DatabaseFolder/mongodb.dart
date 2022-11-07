@@ -359,6 +359,30 @@ class MongoDatabase {
     return conn;
   }
 
+  static addPemberkatan(
+      nama, paroki, lingkungan, notelp, alamat, jenis, tanggal, note) async {
+    var pemberkatanCollection = db.collection(PEMBERKATAN_COLLECTION);
+    var checkEmail;
+
+    var hasil = await pemberkatanCollection.insertOne({
+      'namaLengkap': nama,
+      'paroki': paroki,
+      'lingkungan': lingkungan,
+      'notelp': notelp,
+      'alamat': alamat,
+      'jenis': jenis,
+      'tanggal': tanggal,
+      'note': note
+    });
+
+    if (!hasil.isSuccess) {
+      print('Error detected in record insertion');
+      return 'fail';
+    } else {
+      return 'oke';
+    }
+  }
+
   static addUser(nama, email, password) async {
     userCollection = db.collection(USER_COLLECTION);
     var checkEmail;

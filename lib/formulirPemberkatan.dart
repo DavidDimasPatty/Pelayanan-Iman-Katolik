@@ -1,5 +1,6 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/baptis.dart';
@@ -29,28 +30,20 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
 
   @override
   var jenisPemberkatan = ['Gedung', 'Rumah', 'Barang'];
+  var selectedJenis;
   String ddValue = "Gedung";
   var dateValue;
-  TextEditingController passLamaController = new TextEditingController();
-  TextEditingController passBaruController = new TextEditingController();
-  TextEditingController passUlBaruController = new TextEditingController();
+  TextEditingController namaController = new TextEditingController();
+  TextEditingController parokiController = new TextEditingController();
+  TextEditingController lingkunganController = new TextEditingController();
+  TextEditingController notelpController = new TextEditingController();
+  TextEditingController alamatController = new TextEditingController();
+  TextEditingController noteController = new TextEditingController();
   String _selectedDate = '';
   String _dateCount = '';
   String _range = '';
   String _rangeCount = '';
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
-    /// The argument value will return the changed date as [DateTime] when the
-    /// widget [SfDateRangeSelectionMode] set as single.
-    ///
-    /// The argument value will return the changed dates as [List<DateTime>]
-    /// when the widget [SfDateRangeSelectionMode] set as multiple.
-    ///
-    /// The argument value will return the changed range as [PickerDateRange]
-    /// when the widget [SfDateRangeSelectionMode] set as range.
-    ///
-    /// The argument value will return the changed ranges as
-    /// [List<PickerDateRange] when the widget [SfDateRangeSelectionMode] set as
-    /// multi range.
     setState(() {
       if (args.value is PickerDateRange) {
         _range = '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} -'
@@ -65,6 +58,18 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
       }
     });
     print(_selectedDate);
+  }
+
+  void submitForm(nama, paroki, lingkungan, notelp, alamat, jenis, tanggal,
+      note, context) async {
+    var add = await MongoDatabase.addPemberkatan(
+        nama, paroki, lingkungan, notelp, alamat, jenis, tanggal, note);
+    if (add == 'oke') {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage(name, email, idUser)),
+      );
+    }
   }
 
   Widget build(BuildContext context) {
@@ -110,9 +115,8 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
                 padding: EdgeInsets.symmetric(vertical: 5),
               ),
               TextField(
-                //controller: repasswordController,
+                controller: namaController,
                 style: TextStyle(color: Colors.black),
-
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -149,9 +153,8 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
                 padding: EdgeInsets.symmetric(vertical: 5),
               ),
               TextField(
-                //controller: repasswordController,
+                controller: parokiController,
                 style: TextStyle(color: Colors.black),
-
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -188,9 +191,8 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
                 padding: EdgeInsets.symmetric(vertical: 5),
               ),
               TextField(
-                //controller: repasswordController,
+                controller: lingkunganController,
                 style: TextStyle(color: Colors.black),
-
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -227,9 +229,8 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
                 padding: EdgeInsets.symmetric(vertical: 5),
               ),
               TextField(
-                //controller: repasswordController,
+                controller: notelpController,
                 style: TextStyle(color: Colors.black),
-
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -266,9 +267,8 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
                 padding: EdgeInsets.symmetric(vertical: 5),
               ),
               TextField(
-                //controller: repasswordController,
+                controller: alamatController,
                 style: TextStyle(color: Colors.black),
-
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
@@ -298,84 +298,6 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Paroki",
-                textAlign: TextAlign.left,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 5),
-              ),
-              TextField(
-                //controller: repasswordController,
-                style: TextStyle(color: Colors.black),
-
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                      ),
-                    ),
-                    hintText: "Masukan Nama Paroki",
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 11),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Lingkungan",
-                textAlign: TextAlign.left,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 5),
-              ),
-              TextField(
-                //controller: repasswordController,
-                style: TextStyle(color: Colors.black),
-
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                      ),
-                    ),
-                    hintText: "Masukan Nama Lingkungan",
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 11),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
                 "Jenis Pemberkatan",
                 textAlign: TextAlign.left,
               ),
@@ -389,8 +311,6 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
                 // Down Arrow Icon
                 icon: const Icon(Icons.keyboard_arrow_down),
 
-                // Array list of items
-                // items: null,
                 items: jenisPemberkatan.map((String items) {
                   return DropdownMenuItem(
                     value: items,
@@ -444,9 +364,8 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
                 padding: EdgeInsets.symmetric(vertical: 5),
               ),
               TextField(
-                //controller: repasswordController,
+                controller: noteController,
                 style: TextStyle(color: Colors.black),
-
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
