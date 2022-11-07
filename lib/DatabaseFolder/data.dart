@@ -15,4 +15,4 @@ const USER_KOMUNI_COLLECTION = "userKomuni";
 const USER_BAPTIS_COLLECTION = "userBaptis";
 const USER_UMUM_COLLECTION = "userUmum";
 const USER_KRISMA_COLLECTION = "userKrisma";
-const PEMBERKATAN_COLLECTION = "Pemberkatan";
+const PEMBERKATAN_COLLECTION = "pemberkatan";

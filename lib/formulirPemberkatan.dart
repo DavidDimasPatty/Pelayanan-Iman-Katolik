@@ -1,5 +1,6 @@
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter/material.dart';
@@ -65,10 +66,27 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
     var add = await MongoDatabase.addPemberkatan(
         nama, paroki, lingkungan, notelp, alamat, jenis, tanggal, note);
     if (add == 'oke') {
+      Fluttertoast.showToast(
+          msg: "Berhasil Mendaftar Pemberkatan",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => HomePage(name, email, idUser)),
       );
+    } else {
+      Fluttertoast.showToast(
+          msg: "Gagal Mendaftar Pemberkatan",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
   }
 
@@ -391,7 +409,18 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
             padding: EdgeInsets.symmetric(vertical: 11),
           ),
           RaisedButton(
-            onPressed: () {},
+            onPressed: () async {
+              submitForm(
+                  namaController.text,
+                  parokiController.text,
+                  lingkunganController.text,
+                  notelpController.text,
+                  alamatController.text,
+                  ddValue,
+                  _selectedDate,
+                  noteController.text,
+                  context);
+            },
             child: Text('Submit'),
           ),
           Padding(

@@ -371,7 +371,7 @@ class MongoDatabase {
       'notelp': notelp,
       'alamat': alamat,
       'jenis': jenis,
-      'tanggal': tanggal,
+      'tanggal': DateFromString(dateString: tanggal),
       'note': note
     });
 
