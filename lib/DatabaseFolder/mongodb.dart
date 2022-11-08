@@ -359,19 +359,20 @@ class MongoDatabase {
     return conn;
   }
 
-  static addPemberkatan(
-      nama, paroki, lingkungan, notelp, alamat, jenis, tanggal, note) async {
+  static addPemberkatan(idUser, nama, paroki, lingkungan, notelp, alamat, jenis,
+      tanggal, note) async {
     var pemberkatanCollection = db.collection(PEMBERKATAN_COLLECTION);
     var checkEmail;
 
     var hasil = await pemberkatanCollection.insertOne({
+      'idUser': idUser,
       'namaLengkap': nama,
       'paroki': paroki,
       'lingkungan': lingkungan,
       'notelp': notelp,
       'alamat': alamat,
       'jenis': jenis,
-      'tanggal': DateFromString(dateString: tanggal),
+      'tanggal': DateTime.parse(tanggal),
       'note': note
     });
 

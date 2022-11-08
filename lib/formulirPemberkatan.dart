@@ -64,7 +64,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
   void submitForm(nama, paroki, lingkungan, notelp, alamat, jenis, tanggal,
       note, context) async {
     var add = await MongoDatabase.addPemberkatan(
-        nama, paroki, lingkungan, notelp, alamat, jenis, tanggal, note);
+        idUser, nama, paroki, lingkungan, notelp, alamat, jenis, tanggal, note);
     if (add == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Mendaftar Pemberkatan",
