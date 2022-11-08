@@ -62,6 +62,13 @@ class MongoDatabase {
     return conn;
   }
 
+  static pemberkatanTerdaftar(idUser) async {
+    var pemberkatanCollection = db.collection(PEMBERKATAN_COLLECTION);
+    var conn = await pemberkatanCollection.find({'idUser': idUser}).toList();
+    print(conn);
+    return conn;
+  }
+
   static findPA() async {
     var umumCollection = db.collection(UMUM_COLLECTION);
     var conn = await umumCollection
@@ -373,7 +380,8 @@ class MongoDatabase {
       'alamat': alamat,
       'jenis': jenis,
       'tanggal': DateTime.parse(tanggal),
-      'note': note
+      'note': note,
+      'status': 0
     });
 
     if (!hasil.isSuccess) {

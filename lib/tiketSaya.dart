@@ -22,6 +22,7 @@ class tiketSaya extends StatelessWidget {
   var kegiatanUser;
   var komuniUser;
   var krismaUser;
+  var pemberkatanUser;
 
   tiketSaya(this.names, this.emails, this.idUser);
 
@@ -49,6 +50,11 @@ class tiketSaya extends StatelessWidget {
   Future<List> callDbKomuniDaftar() async {
     komuniUser = await MongoDatabase.komuniTerdaftar(idUser);
     return komuniUser;
+  }
+
+  Future<List> callDbPemberkatan() async {
+    pemberkatanUser = await MongoDatabase.pemberkatanTerdaftar(idUser);
+    return pemberkatanUser;
   }
 
   Future<List> callInfoMisa(idMisa) async {
@@ -460,6 +466,105 @@ class tiketSaya extends StatelessWidget {
                               ),
                             )),
 
+                      /////////
+                    ],
+                  );
+                } catch (e) {
+                  print(e);
+                  return Center(child: CircularProgressIndicator());
+                }
+              }),
+          Padding(
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+              child: Text(
+                "Pemberkatan Terdaftar",
+                style: TextStyle(color: Colors.black, fontSize: 26.0),
+              )),
+          FutureBuilder<List>(
+              future: callDbPemberkatan(),
+              builder: (context, AsyncSnapshot snapshot) {
+                try {
+                  return Column(
+                    children: <Widget>[
+                      for (var i in snapshot.data)
+                        InkWell(
+                            borderRadius: new BorderRadius.circular(24),
+                            onTap: () {
+                              // tiketSayaDetailKegiatan(
+                              //   names,
+                              //   emails,
+                              //   idUser,
+                              //   snapshot.data[0]['_id'],
+                              //   snapshot.data[0]['UserPemberkatan'][0]['_id'],
+                              // ).showDialogBox(context);
+                            },
+                            child: Container(
+                              margin: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.topRight,
+                                    end: Alignment.topLeft,
+                                    colors: [
+                                      Colors.blueAccent,
+                                      Colors.lightBlue,
+                                    ]),
+                                border: Border.all(
+                                  color: Colors.lightBlue,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    "Jadwal : " +
+                                        snapshot.data[0]['tanggal']
+                                            .toString()
+                                            .substring(0, 19),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  Text(
+                                    "Nama Kegiatan : Pemberkatan " +
+                                        snapshot.data[0]['jenis'],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  if (snapshot.data[0]['status'] == 0)
+                                    Text(
+                                      "Status : Menunggu",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                  if (snapshot.data[0]['status'] == 1)
+                                    Text(
+                                      "Status : Disetujui",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                  if (snapshot.data[0]['status'] == -1)
+                                    Text(
+                                      "Status : Ditolak",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                ],
+                              ),
+                            )),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                      ),
                       /////////
                     ],
                   );
