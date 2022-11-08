@@ -69,6 +69,14 @@ class MongoDatabase {
     return conn;
   }
 
+  static pemberkatanSpec(idPemberkatan) async {
+    var pemberkatanCollection = db.collection(PEMBERKATAN_COLLECTION);
+    var conn =
+        await pemberkatanCollection.find({'_id': idPemberkatan}).toList();
+    print(conn);
+    return conn;
+  }
+
   static findPA() async {
     var umumCollection = db.collection(UMUM_COLLECTION);
     var conn = await umumCollection
@@ -564,6 +572,17 @@ class MongoDatabase {
     var tiket = db.collection(TIKET_COLLECTION);
     var conn = await tiket.updateOne(
         where.eq('_id', idTiket), modify.set('status', "-1"));
+    if (conn.isSuccess) {
+      return "oke";
+    } else {
+      return "failed";
+    }
+  }
+
+  static cancelPemberkatan(idTiket) async {
+    var tiket = db.collection(PEMBERKATAN_COLLECTION);
+    var conn = await tiket.updateOne(
+        where.eq('_id', idTiket), modify.set('status', "-2"));
     if (conn.isSuccess) {
       return "oke";
     } else {

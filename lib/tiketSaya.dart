@@ -9,6 +9,7 @@ import 'package:pelayanan_iman_katolik/tiketSayaDetailBaptis.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailKegiatan.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailKomuni.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailKrisma.dart';
+import 'package:pelayanan_iman_katolik/tiketSayaDetailPemberkatan.dart';
 
 class tiketSaya extends StatelessWidget {
   var names;
@@ -490,13 +491,12 @@ class tiketSaya extends StatelessWidget {
                         InkWell(
                             borderRadius: new BorderRadius.circular(24),
                             onTap: () {
-                              // tiketSayaDetailKegiatan(
-                              //   names,
-                              //   emails,
-                              //   idUser,
-                              //   snapshot.data[0]['_id'],
-                              //   snapshot.data[0]['UserPemberkatan'][0]['_id'],
-                              // ).showDialogBox(context);
+                              tiketSayaDetailPemberkatan(
+                                names,
+                                emails,
+                                idUser,
+                                snapshot.data[0]['_id'],
+                              ).showDialogBox(context);
                             },
                             child: Container(
                               margin: EdgeInsets.all(20),
