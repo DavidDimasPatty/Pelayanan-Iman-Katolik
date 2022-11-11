@@ -178,6 +178,25 @@ class MongoDatabase {
     return conn;
   }
 
+  static countAllHistory(userId) async {
+    var userKrismaCollection = db.collection(USER_KRISMA_COLLECTION);
+    var userBaptisCollection = db.collection(USER_BAPTIS_COLLECTION);
+    var userKomuniCollection = db.collection(USER_KOMUNI_COLLECTION);
+    var userPemberkatanCollection = db.collection(PEMBERKATAN_COLLECTION);
+    var userKegiatanCollection = db.collection(USER_UMUM_COLLECTION);
+    var count = 0;
+
+    var countKr = await userKrismaCollection.find({'idUser': userId}).length;
+
+    var countB = await userBaptisCollection.find({'idUser': userId}).length;
+    var countKo = await userKomuniCollection.find({'idUser': userId}).length;
+    var countP =
+        await userPemberkatanCollection.find({'idUser': userId}).length;
+    var countKe = await userKegiatanCollection.find({'idUser': userId}).length;
+
+    return countKr + countB + countKo + countP + countKe;
+  }
+
   static detailRekoleksi(idKegiatan) async {
     print(idKegiatan);
     var gerejaKegiatanCollection = db.collection(UMUM_COLLECTION);

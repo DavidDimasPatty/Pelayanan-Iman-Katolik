@@ -34,7 +34,7 @@ class Profile extends StatelessWidget {
   }
 
   Future countTotalGereja() async {
-    totalGereja = await MongoDatabase.totalGereja(idUser);
+    totalGereja = await MongoDatabase.countAllHistory(idUser);
     return totalGereja;
   }
 
