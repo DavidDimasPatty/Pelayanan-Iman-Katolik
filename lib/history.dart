@@ -9,7 +9,10 @@ import 'package:pelayanan_iman_katolik/tiketSaya.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaBaptisHistory.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetail.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailBaptis.dart';
+import 'package:pelayanan_iman_katolik/tiketSayaDetailKegiatan.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailKomuni.dart';
+import 'package:pelayanan_iman_katolik/tiketSayaDetailKrisma.dart';
+import 'package:pelayanan_iman_katolik/tiketSayaDetailPemberkatan.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaKomuniHistory.dart';
 
 class history extends StatelessWidget {
@@ -48,6 +51,22 @@ class history extends StatelessWidget {
   Future<List> callInfoGereja(idGereja) async {
     namaGereja = await MongoDatabase.cariGereja(idGereja);
     return namaGereja;
+  }
+
+  Future<List> callDbKegiatanDaftar() async {
+    var kegiatanUser = await MongoDatabase.kegiatanTerdaftar(idUser);
+    print(kegiatanUser);
+    return kegiatanUser;
+  }
+
+  Future<List> callDbPemberkatan() async {
+    var pemberkatanUser = await MongoDatabase.pemberkatanTerdaftar(idUser);
+    return pemberkatanUser;
+  }
+
+  Future<List> callDbKrismaDaftar() async {
+    var krismaUser = await MongoDatabase.krismaTerdaftar(idUser);
+    return krismaUser;
   }
 
   Future<List> addChild(idMisa) async {
@@ -400,7 +419,7 @@ class history extends StatelessWidget {
                 style: TextStyle(color: Colors.black, fontSize: 23.0),
               )),
           FutureBuilder<List>(
-              future: callDbKomuniDaftar(),
+              future: callDbKrismaDaftar(),
               builder: (context, AsyncSnapshot snapshot) {
                 try {
                   return Column(
@@ -409,13 +428,14 @@ class history extends StatelessWidget {
                         InkWell(
                             borderRadius: new BorderRadius.circular(24),
                             onTap: () {
-                              tiketSayaKomuniHistory(
+                              tiketSayaDetailKrisma(
                                       names,
                                       emails,
                                       idUser,
-                                      snapshot.data[0]['UserKomuni'][0]['_id'],
-                                      snapshot.data[0]['UserKomuni'][0]
-                                          ['idGereja'])
+                                      snapshot.data[0]['UserKrisma'][0]['_id'],
+                                      snapshot.data[0]['UserKrisma'][0]
+                                          ['idGereja'],
+                                      snapshot.data[0]['_id'])
                                   .showDialogBox(context);
                             },
                             child: Container(
@@ -438,12 +458,12 @@ class history extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['UserKomuni'][0]
+                                        snapshot.data[0]['UserKrisma'][0]
                                                 ['jadwalBuka']
                                             .toString()
                                             .substring(0, 19) +
                                         " s/d " +
-                                        snapshot.data[0]['UserKomuni'][0]
+                                        snapshot.data[0]['UserKrisma'][0]
                                                 ['jadwalTutup']
                                             .toString()
                                             .substring(0, 19),
@@ -454,14 +474,13 @@ class history extends StatelessWidget {
                                   ),
                                   FutureBuilder<List>(
                                       future: callInfoGereja(
-                                          i['UserKomuni'][0]['idGereja']),
+                                          i['UserKrisma'][0]['idGereja']),
                                       builder:
                                           (context, AsyncSnapshot snapshot) {
                                         try {
                                           return Text(
                                             "Nama Gereja : " +
-                                                snapshot.data[0]['nama']
-                                                    .toString(),
+                                                snapshot.data[0]['nama'],
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15.0,
@@ -474,17 +493,6 @@ class history extends StatelessWidget {
                                                   CircularProgressIndicator());
                                         }
                                       }),
-                                  Text(
-                                    i['status'] == "0"
-                                        ? ' Status : Belum Hadir'
-                                        : i['status'] == "-1"
-                                            ? ' Status : Dibatalkan'
-                                            : ' Status : Sudah Dihadiri',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w300),
-                                  ),
                                 ],
                               ),
                             )),
@@ -497,7 +505,6 @@ class history extends StatelessWidget {
                   return Center(child: CircularProgressIndicator());
                 }
               }),
-
           Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               child: Text(
@@ -505,7 +512,7 @@ class history extends StatelessWidget {
                 style: TextStyle(color: Colors.black, fontSize: 23.0),
               )),
           FutureBuilder<List>(
-              future: callDbKomuniDaftar(),
+              future: callDbKegiatanDaftar(),
               builder: (context, AsyncSnapshot snapshot) {
                 try {
                   return Column(
@@ -514,14 +521,13 @@ class history extends StatelessWidget {
                         InkWell(
                             borderRadius: new BorderRadius.circular(24),
                             onTap: () {
-                              tiketSayaKomuniHistory(
-                                      names,
-                                      emails,
-                                      idUser,
-                                      snapshot.data[0]['UserKomuni'][0]['_id'],
-                                      snapshot.data[0]['UserKomuni'][0]
-                                          ['idGereja'])
-                                  .showDialogBox(context);
+                              tiketSayaDetailKegiatan(
+                                names,
+                                emails,
+                                idUser,
+                                snapshot.data[0]['_id'],
+                                snapshot.data[0]['UserKegiatan'][0]['_id'],
+                              ).showDialogBox(context);
                             },
                             child: Container(
                               margin: EdgeInsets.all(20),
@@ -543,13 +549,8 @@ class history extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['UserKomuni'][0]
-                                                ['jadwalBuka']
-                                            .toString()
-                                            .substring(0, 19) +
-                                        " s/d " +
-                                        snapshot.data[0]['UserKomuni'][0]
-                                                ['jadwalTutup']
+                                        snapshot.data[0]['UserKegiatan'][0]
+                                                ['tanggal']
                                             .toString()
                                             .substring(0, 19),
                                     style: TextStyle(
@@ -557,34 +558,19 @@ class history extends StatelessWidget {
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w300),
                                   ),
-                                  FutureBuilder<List>(
-                                      future: callInfoGereja(
-                                          i['UserKomuni'][0]['idGereja']),
-                                      builder:
-                                          (context, AsyncSnapshot snapshot) {
-                                        try {
-                                          return Text(
-                                            "Nama Gereja : " +
-                                                snapshot.data[0]['nama']
-                                                    .toString(),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.w300),
-                                          );
-                                        } catch (e) {
-                                          print(e);
-                                          return Center(
-                                              child:
-                                                  CircularProgressIndicator());
-                                        }
-                                      }),
                                   Text(
-                                    i['status'] == "0"
-                                        ? ' Status : Belum Hadir'
-                                        : i['status'] == "-1"
-                                            ? ' Status : Dibatalkan'
-                                            : ' Status : Sudah Dihadiri',
+                                    "Nama Kegiatan : " +
+                                        snapshot.data[0]['UserKegiatan'][0]
+                                            ['namaKegiatan'],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                  Text(
+                                    "Lokasi : " +
+                                        snapshot.data[0]['UserKegiatan'][0]
+                                            ['lokasi'],
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,
@@ -610,7 +596,7 @@ class history extends StatelessWidget {
                 style: TextStyle(color: Colors.black, fontSize: 23.0),
               )),
           FutureBuilder<List>(
-              future: callDbKomuniDaftar(),
+              future: callDbPemberkatan(),
               builder: (context, AsyncSnapshot snapshot) {
                 try {
                   return Column(
@@ -619,14 +605,12 @@ class history extends StatelessWidget {
                         InkWell(
                             borderRadius: new BorderRadius.circular(24),
                             onTap: () {
-                              tiketSayaKomuniHistory(
-                                      names,
-                                      emails,
-                                      idUser,
-                                      snapshot.data[0]['UserKomuni'][0]['_id'],
-                                      snapshot.data[0]['UserKomuni'][0]
-                                          ['idGereja'])
-                                  .showDialogBox(context);
+                              tiketSayaDetailPemberkatan(
+                                names,
+                                emails,
+                                idUser,
+                                snapshot.data[0]['_id'],
+                              ).showDialogBox(context);
                             },
                             child: Container(
                               margin: EdgeInsets.all(20),
@@ -648,13 +632,7 @@ class history extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['UserKomuni'][0]
-                                                ['jadwalBuka']
-                                            .toString()
-                                            .substring(0, 19) +
-                                        " s/d " +
-                                        snapshot.data[0]['UserKomuni'][0]
-                                                ['jadwalTutup']
+                                        snapshot.data[0]['tanggal']
                                             .toString()
                                             .substring(0, 19),
                                     style: TextStyle(
@@ -662,43 +640,45 @@ class history extends StatelessWidget {
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w300),
                                   ),
-                                  FutureBuilder<List>(
-                                      future: callInfoGereja(
-                                          i['UserKomuni'][0]['idGereja']),
-                                      builder:
-                                          (context, AsyncSnapshot snapshot) {
-                                        try {
-                                          return Text(
-                                            "Nama Gereja : " +
-                                                snapshot.data[0]['nama']
-                                                    .toString(),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.w300),
-                                          );
-                                        } catch (e) {
-                                          print(e);
-                                          return Center(
-                                              child:
-                                                  CircularProgressIndicator());
-                                        }
-                                      }),
                                   Text(
-                                    i['status'] == "0"
-                                        ? ' Status : Belum Hadir'
-                                        : i['status'] == "-1"
-                                            ? ' Status : Dibatalkan'
-                                            : ' Status : Sudah Dihadiri',
+                                    "Nama Kegiatan : Pemberkatan " +
+                                        snapshot.data[0]['jenis'],
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w300),
                                   ),
+                                  if (snapshot.data[0]['status'] == 0)
+                                    Text(
+                                      "Status : Menunggu",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                  if (snapshot.data[0]['status'] == 1)
+                                    Text(
+                                      "Status : Disetujui",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                  if (snapshot.data[0]['status'] == -1)
+                                    Text(
+                                      "Status : Ditolak",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
                                 ],
                               ),
                             )),
-
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                      ),
                       /////////
                     ],
                   );
