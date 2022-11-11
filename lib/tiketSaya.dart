@@ -134,10 +134,9 @@ class tiketSaya extends StatelessWidget {
                                       names,
                                       emails,
                                       idUser,
-                                      snapshot.data[0]['UserKrisma'][0]['_id'],
-                                      snapshot.data[0]['UserKrisma'][0]
-                                          ['idGereja'],
-                                      snapshot.data[0]['_id'])
+                                      i['UserKrisma'][0]['_id'],
+                                      i['UserKrisma'][0]['idGereja'],
+                                      i['_id'])
                                   .showDialogBox(context);
                             },
                             child: Container(
@@ -160,13 +159,11 @@ class tiketSaya extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['UserKrisma'][0]
-                                                ['jadwalBuka']
+                                        i['UserKrisma'][0]['jadwalBuka']
                                             .toString()
                                             .substring(0, 19) +
                                         " s/d " +
-                                        snapshot.data[0]['UserKrisma'][0]
-                                                ['jadwalTutup']
+                                        i['UserKrisma'][0]['jadwalTutup']
                                             .toString()
                                             .substring(0, 19),
                                     style: TextStyle(
@@ -227,10 +224,9 @@ class tiketSaya extends StatelessWidget {
                                       names,
                                       emails,
                                       idUser,
-                                      snapshot.data[0]['UserBaptis'][0]['_id'],
-                                      snapshot.data[0]['UserBaptis'][0]
-                                          ['idGereja'],
-                                      snapshot.data[0]['_id'])
+                                      i['UserBaptis'][0]['_id'],
+                                      i['UserBaptis'][0]['idGereja'],
+                                      i['_id'])
                                   .showDialogBox(context);
                             },
                             child: Container(
@@ -253,13 +249,11 @@ class tiketSaya extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['UserBaptis'][0]
-                                                ['jadwalBuka']
+                                        i['UserBaptis'][0]['jadwalBuka']
                                             .toString()
                                             .substring(0, 19) +
                                         " s/d " +
-                                        snapshot.data[0]['UserBaptis'][0]
-                                                ['jadwalTutup']
+                                        i['UserBaptis'][0]['jadwalTutup']
                                             .toString()
                                             .substring(0, 19),
                                     style: TextStyle(
@@ -320,9 +314,9 @@ class tiketSaya extends StatelessWidget {
                                 names,
                                 emails,
                                 idUser,
-                                snapshot.data[0]['UserKomuni'][0]['_id'],
-                                snapshot.data[0]['UserKomuni'][0]['idGereja'],
-                                snapshot.data[0]['_id'],
+                                i['UserKomuni'][0]['_id'],
+                                i['UserKomuni'][0]['idGereja'],
+                                i['_id'],
                               ).showDialogBox(context);
                             },
                             child: Container(
@@ -345,13 +339,11 @@ class tiketSaya extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['UserKomuni'][0]
-                                                ['jadwalBuka']
+                                        i['UserKomuni'][0]['jadwalBuka']
                                             .toString()
                                             .substring(0, 19) +
                                         " s/d " +
-                                        snapshot.data[0]['UserKomuni'][0]
-                                                ['jadwalTutup']
+                                        i['UserKomuni'][0]['jadwalTutup']
                                             .toString()
                                             .substring(0, 19),
                                     style: TextStyle(
@@ -412,8 +404,8 @@ class tiketSaya extends StatelessWidget {
                                 names,
                                 emails,
                                 idUser,
-                                snapshot.data[0]['_id'],
-                                snapshot.data[0]['UserKegiatan'][0]['_id'],
+                                i['_id'],
+                                i['UserKegiatan'][0]['_id'],
                               ).showDialogBox(context);
                             },
                             child: Container(
@@ -436,8 +428,7 @@ class tiketSaya extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['UserKegiatan'][0]
-                                                ['tanggal']
+                                        i['UserKegiatan'][0]['tanggal']
                                             .toString()
                                             .substring(0, 19),
                                     style: TextStyle(
@@ -447,8 +438,7 @@ class tiketSaya extends StatelessWidget {
                                   ),
                                   Text(
                                     "Nama Kegiatan : " +
-                                        snapshot.data[0]['UserKegiatan'][0]
-                                            ['namaKegiatan'],
+                                        i['UserKegiatan'][0]['namaKegiatan'],
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,
@@ -456,8 +446,7 @@ class tiketSaya extends StatelessWidget {
                                   ),
                                   Text(
                                     "Lokasi : " +
-                                        snapshot.data[0]['UserKegiatan'][0]
-                                            ['lokasi'],
+                                        i['UserKegiatan'][0]['lokasi'],
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,
@@ -495,7 +484,7 @@ class tiketSaya extends StatelessWidget {
                                 names,
                                 emails,
                                 idUser,
-                                snapshot.data[0]['_id'],
+                                i['_id'],
                               ).showDialogBox(context);
                             },
                             child: Container(
@@ -518,7 +507,7 @@ class tiketSaya extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['tanggal']
+                                        i['tanggal']
                                             .toString()
                                             .substring(0, 19),
                                     style: TextStyle(
@@ -527,14 +516,13 @@ class tiketSaya extends StatelessWidget {
                                         fontWeight: FontWeight.w300),
                                   ),
                                   Text(
-                                    "Nama Kegiatan : Pemberkatan " +
-                                        snapshot.data[0]['jenis'],
+                                    "Nama Kegiatan : Pemberkatan " + i['jenis'],
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w300),
                                   ),
-                                  if (snapshot.data[0]['status'] == 0)
+                                  if (i['status'] == 0)
                                     Text(
                                       "Status : Menunggu",
                                       style: TextStyle(
@@ -542,7 +530,7 @@ class tiketSaya extends StatelessWidget {
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w300),
                                     ),
-                                  if (snapshot.data[0]['status'] == 1)
+                                  if (i['status'] == 1)
                                     Text(
                                       "Status : Disetujui",
                                       style: TextStyle(
@@ -550,7 +538,7 @@ class tiketSaya extends StatelessWidget {
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w300),
                                     ),
-                                  if (snapshot.data[0]['status'] == -1)
+                                  if (i['status'] == -1)
                                     Text(
                                       "Status : Ditolak",
                                       style: TextStyle(

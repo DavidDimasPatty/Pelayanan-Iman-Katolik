@@ -54,18 +54,18 @@ class history extends StatelessWidget {
   }
 
   Future<List> callDbKegiatanDaftar() async {
-    var kegiatanUser = await MongoDatabase.kegiatanTerdaftar(idUser);
+    var kegiatanUser = await MongoDatabase.kegiatanHistory(idUser);
     print(kegiatanUser);
     return kegiatanUser;
   }
 
   Future<List> callDbPemberkatan() async {
-    var pemberkatanUser = await MongoDatabase.pemberkatanTerdaftar(idUser);
+    var pemberkatanUser = await MongoDatabase.pemberkatanHistory(idUser);
     return pemberkatanUser;
   }
 
   Future<List> callDbKrismaDaftar() async {
-    var krismaUser = await MongoDatabase.krismaTerdaftar(idUser);
+    var krismaUser = await MongoDatabase.krismaHistory(idUser);
     return krismaUser;
   }
 
@@ -115,95 +115,6 @@ class history extends StatelessWidget {
         shrinkWrap: true,
         padding: EdgeInsets.symmetric(horizontal: 10),
         children: <Widget>[
-          // Padding(
-          //     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-          //     child: Text(
-          //       "Misa yang Pernah Didaftar",
-          //       style: TextStyle(color: Colors.black, fontSize: 23.0),
-          //     )),
-          // FutureBuilder<List>(
-          //     future: callDb(),
-          //     builder: (context, AsyncSnapshot snapshot) {
-          //       try {
-          //         return ListView(
-          //           shrinkWrap: true,
-          //           padding: EdgeInsets.all(2.0),
-          //           children: <Widget>[
-          //             for (var i in snapshot.data)
-          //               InkWell(
-          //                 borderRadius: new BorderRadius.circular(24),
-          //                 onTap: () {
-          //                   historyDetail(names, emails, idUser, i['idMisa'])
-          //                       .showDialogBox(context);
-          //                 },
-          //                 child: Container(
-          //                     margin: EdgeInsets.all(20),
-          //                     decoration: BoxDecoration(
-          //                       gradient: LinearGradient(
-          //                           begin: Alignment.topRight,
-          //                           end: Alignment.topLeft,
-          //                           colors: [
-          //                             Colors.blueAccent,
-          //                             Colors.lightBlue,
-          //                           ]),
-          //                       border: Border.all(
-          //                         color: Colors.lightBlue,
-          //                       ),
-          //                       borderRadius:
-          //                           BorderRadius.all(Radius.circular(10)),
-          //                     ),
-          //                     child: Column(children: <Widget>[
-          //                       FutureBuilder<List>(
-          //                           future: addChild(i['idMisa']),
-          //                           builder: (context, AsyncSnapshot snapshot) {
-          //                             try {
-          //                               return Column(
-          //                                 children: <Widget>[
-          //                                   Text(
-          //                                     "Jadwal : " + snapshot.data[0],
-          //                                     style: TextStyle(
-          //                                         color: Colors.white,
-          //                                         fontSize: 26.0,
-          //                                         fontWeight: FontWeight.w300),
-          //                                   ),
-          //                                   Text(
-          //                                     "Nama Gereja : " +
-          //                                         snapshot.data[1],
-          //                                     style: TextStyle(
-          //                                         color: Colors.white,
-          //                                         fontSize: 15.0,
-          //                                         fontWeight: FontWeight.w300),
-          //                                   )
-          //                                 ],
-          //                               );
-          //                             } catch (e) {
-          //                               print(e);
-          //                               return Center(
-          //                                   child: CircularProgressIndicator());
-          //                             }
-          //                           }),
-          //                       Text(
-          //                         i['status'] == "0"
-          //                             ? ' Status : Belum Hadir'
-          //                             : i['status'] == "-1"
-          //                                 ? ' Status : Dibatalkan'
-          //                                 : ' Status : Sudah Dihadiri',
-          //                         style: TextStyle(
-          //                             color: Colors.white,
-          //                             fontSize: 16.0,
-          //                             fontWeight: FontWeight.w300),
-          //                       ),
-          //                     ])),
-          //               ),
-
-          //             /////////
-          //           ],
-          //         );
-          //       } catch (e) {
-          //         print(e);
-          //         return Center(child: CircularProgressIndicator());
-          //       }
-          //     }),
           Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               child: Text(
@@ -224,9 +135,8 @@ class history extends StatelessWidget {
                                       names,
                                       emails,
                                       idUser,
-                                      snapshot.data[0]['UserBaptis'][0]['_id'],
-                                      snapshot.data[0]['UserBaptis'][0]
-                                          ['idGereja'])
+                                      i['UserBaptis'][0]['_id'],
+                                      i['UserBaptis'][0]['idGereja'])
                                   .showDialogBox(context);
                             },
                             child: Container(
@@ -249,13 +159,11 @@ class history extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['UserBaptis'][0]
-                                                ['jadwalBuka']
+                                        i['UserBaptis'][0]['jadwalBuka']
                                             .toString()
                                             .substring(0, 19) +
                                         " s/d " +
-                                        snapshot.data[0]['UserBaptis'][0]
-                                                ['jadwalTutup']
+                                        i['UserBaptis'][0]['jadwalTutup']
                                             .toString()
                                             .substring(0, 19),
                                     style: TextStyle(
@@ -327,9 +235,8 @@ class history extends StatelessWidget {
                                       names,
                                       emails,
                                       idUser,
-                                      snapshot.data[0]['UserKomuni'][0]['_id'],
-                                      snapshot.data[0]['UserKomuni'][0]
-                                          ['idGereja'])
+                                      i['UserKomuni'][0]['_id'],
+                                      i['UserKomuni'][0]['idGereja'])
                                   .showDialogBox(context);
                             },
                             child: Container(
@@ -352,13 +259,11 @@ class history extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['UserKomuni'][0]
-                                                ['jadwalBuka']
+                                        i['UserKomuni'][0]['jadwalBuka']
                                             .toString()
                                             .substring(0, 19) +
                                         " s/d " +
-                                        snapshot.data[0]['UserKomuni'][0]
-                                                ['jadwalTutup']
+                                        i['UserKomuni'][0]['jadwalTutup']
                                             .toString()
                                             .substring(0, 19),
                                     style: TextStyle(
@@ -411,7 +316,6 @@ class history extends StatelessWidget {
                   return Center(child: CircularProgressIndicator());
                 }
               }),
-
           Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               child: Text(
@@ -432,10 +336,9 @@ class history extends StatelessWidget {
                                       names,
                                       emails,
                                       idUser,
-                                      snapshot.data[0]['UserKrisma'][0]['_id'],
-                                      snapshot.data[0]['UserKrisma'][0]
-                                          ['idGereja'],
-                                      snapshot.data[0]['_id'])
+                                      i['UserKrisma'][0]['_id'],
+                                      i['UserKrisma'][0]['idGereja'],
+                                      i['_id'])
                                   .showDialogBox(context);
                             },
                             child: Container(
@@ -458,13 +361,11 @@ class history extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['UserKrisma'][0]
-                                                ['jadwalBuka']
+                                        i['UserKrisma'][0]['jadwalBuka']
                                             .toString()
                                             .substring(0, 19) +
                                         " s/d " +
-                                        snapshot.data[0]['UserKrisma'][0]
-                                                ['jadwalTutup']
+                                        i['UserKrisma'][0]['jadwalTutup']
                                             .toString()
                                             .substring(0, 19),
                                     style: TextStyle(
@@ -525,8 +426,8 @@ class history extends StatelessWidget {
                                 names,
                                 emails,
                                 idUser,
-                                snapshot.data[0]['_id'],
-                                snapshot.data[0]['UserKegiatan'][0]['_id'],
+                                i['_id'],
+                                i['UserKegiatan'][0]['_id'],
                               ).showDialogBox(context);
                             },
                             child: Container(
@@ -549,8 +450,7 @@ class history extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['UserKegiatan'][0]
-                                                ['tanggal']
+                                        i['UserKegiatan'][0]['tanggal']
                                             .toString()
                                             .substring(0, 19),
                                     style: TextStyle(
@@ -560,8 +460,7 @@ class history extends StatelessWidget {
                                   ),
                                   Text(
                                     "Nama Kegiatan : " +
-                                        snapshot.data[0]['UserKegiatan'][0]
-                                            ['namaKegiatan'],
+                                        i['UserKegiatan'][0]['namaKegiatan'],
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,
@@ -569,8 +468,7 @@ class history extends StatelessWidget {
                                   ),
                                   Text(
                                     "Lokasi : " +
-                                        snapshot.data[0]['UserKegiatan'][0]
-                                            ['lokasi'],
+                                        i['UserKegiatan'][0]['lokasi'],
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,
@@ -588,7 +486,6 @@ class history extends StatelessWidget {
                   return Center(child: CircularProgressIndicator());
                 }
               }),
-
           Padding(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
               child: Text(
@@ -609,7 +506,7 @@ class history extends StatelessWidget {
                                 names,
                                 emails,
                                 idUser,
-                                snapshot.data[0]['_id'],
+                                i['_id'],
                               ).showDialogBox(context);
                             },
                             child: Container(
@@ -632,7 +529,7 @@ class history extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     "Jadwal : " +
-                                        snapshot.data[0]['tanggal']
+                                        i['tanggal']
                                             .toString()
                                             .substring(0, 19),
                                     style: TextStyle(
@@ -641,14 +538,13 @@ class history extends StatelessWidget {
                                         fontWeight: FontWeight.w300),
                                   ),
                                   Text(
-                                    "Nama Kegiatan : Pemberkatan " +
-                                        snapshot.data[0]['jenis'],
+                                    "Nama Kegiatan : Pemberkatan " + i['jenis'],
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.w300),
                                   ),
-                                  if (snapshot.data[0]['status'] == 0)
+                                  if (i['status'] == 0)
                                     Text(
                                       "Status : Menunggu",
                                       style: TextStyle(
@@ -656,7 +552,7 @@ class history extends StatelessWidget {
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w300),
                                     ),
-                                  if (snapshot.data[0]['status'] == 1)
+                                  if (i['status'] == 1)
                                     Text(
                                       "Status : Disetujui",
                                       style: TextStyle(
@@ -664,7 +560,7 @@ class history extends StatelessWidget {
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w300),
                                     ),
-                                  if (snapshot.data[0]['status'] == -1)
+                                  if (i['status'] == -1)
                                     Text(
                                       "Status : Ditolak",
                                       style: TextStyle(

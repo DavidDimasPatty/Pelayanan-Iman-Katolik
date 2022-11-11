@@ -64,6 +64,14 @@ class MongoDatabase {
 
   static pemberkatanTerdaftar(idUser) async {
     var pemberkatanCollection = db.collection(PEMBERKATAN_COLLECTION);
+    var conn = await pemberkatanCollection
+        .find({'idUser': idUser, 'status': 0}).toList();
+    print(conn);
+    return conn;
+  }
+
+  static pemberkatanHistory(idUser) async {
+    var pemberkatanCollection = db.collection(PEMBERKATAN_COLLECTION);
     var conn = await pemberkatanCollection.find({'idUser': idUser}).toList();
     print(conn);
     return conn;
@@ -223,6 +231,22 @@ class MongoDatabase {
     return conn;
   }
 
+  static krismaHistory(idUser) async {
+    var userKrismaCollection = db.collection(USER_KRISMA_COLLECTION);
+    final pipeline = AggregationPipelineBuilder()
+        .addStage(
+          Lookup(
+              from: 'krisma',
+              localField: 'idKrisma',
+              foreignField: '_id',
+              as: 'UserKrisma'),
+        )
+        .build();
+    var conn = await userKrismaCollection.aggregateToStream(pipeline).toList();
+
+    return conn;
+  }
+
   static kegiatanTerdaftar(idUser) async {
     var userKegiatanCollection = db.collection(USER_UMUM_COLLECTION);
     final pipeline = AggregationPipelineBuilder()
@@ -235,6 +259,23 @@ class MongoDatabase {
         )
         .addStage(
             Match(where.eq('idUser', idUser).eq('status', '0').map['\$query']))
+        .build();
+    var conn =
+        await userKegiatanCollection.aggregateToStream(pipeline).toList();
+
+    return conn;
+  }
+
+  static kegiatanHistory(idUser) async {
+    var userKegiatanCollection = db.collection(USER_UMUM_COLLECTION);
+    final pipeline = AggregationPipelineBuilder()
+        .addStage(
+          Lookup(
+              from: 'umum',
+              localField: 'idKegiatan',
+              foreignField: '_id',
+              as: 'UserKegiatan'),
+        )
         .build();
     var conn =
         await userKegiatanCollection.aggregateToStream(pipeline).toList();
