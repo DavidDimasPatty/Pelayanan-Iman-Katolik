@@ -93,6 +93,8 @@ class history extends StatelessWidget {
         ],
       ),
       body: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.symmetric(horizontal: 10),
         children: <Widget>[
           // Padding(
           //     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
@@ -193,9 +195,7 @@ class history extends StatelessWidget {
               future: callDbBaptisDaftar(),
               builder: (context, AsyncSnapshot snapshot) {
                 try {
-                  return ListView(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.all(2.0),
+                  return Column(
                     children: <Widget>[
                       for (var i in snapshot.data)
                         InkWell(
@@ -298,9 +298,7 @@ class history extends StatelessWidget {
               future: callDbKomuniDaftar(),
               builder: (context, AsyncSnapshot snapshot) {
                 try {
-                  return ListView(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.all(2.0),
+                  return Column(
                     children: <Widget>[
                       for (var i in snapshot.data)
                         InkWell(
