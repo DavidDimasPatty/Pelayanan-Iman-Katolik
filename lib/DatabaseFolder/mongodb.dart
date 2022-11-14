@@ -197,6 +197,40 @@ class MongoDatabase {
     return countKr + countB + countKo + countP + countKe;
   }
 
+  static latestJadwal(userId) async {
+    var userKrismaCollection = db.collection(USER_KRISMA_COLLECTION);
+    var userBaptisCollection = db.collection(USER_BAPTIS_COLLECTION);
+    var userKomuniCollection = db.collection(USER_KOMUNI_COLLECTION);
+    var userPemberkatanCollection = db.collection(PEMBERKATAN_COLLECTION);
+    var userKegiatanCollection = db.collection(USER_UMUM_COLLECTION);
+    var dateKri = userKrismaCollection
+        .find({'idUser': userId}).sort({"tanggalDaftar": -1}).limit(1);
+    var dateBap = userBaptisCollection
+        .find({'idUser': userId}).sort({"tanggalDaftar": -1}).limit(1);
+    var dateKom = userKomuniCollection
+        .find({'idUser': userId}).sort({"tanggalDaftar": -1}).limit(1);
+    var datePem = userPemberkatanCollection
+        .find({'idUser': userId}).sort({"tanggal": -1}).limit(1);
+    var dateKeg = userKegiatanCollection
+        .find({'idUser': userId}).sort({"tanggalDaftar": -1}).limit(1);
+
+    var latest = [];
+    latest.add(dateKri);
+    latest.add(dateBap);
+    latest.add(dateKom);
+    latest.add(datePem);
+    latest.add(dateKeg);
+
+    var ans = 0;
+    for (var i = 0; i < latest.length; i++) {
+      if (latest[i] > ans) {
+        ans = latest[i];
+      }
+    }
+
+    return ans;
+  }
+
   static detailRekoleksi(idKegiatan) async {
     print(idKegiatan);
     var gerejaKegiatanCollection = db.collection(UMUM_COLLECTION);
