@@ -198,36 +198,44 @@ class MongoDatabase {
   }
 
   static latestJadwal(userId) async {
+    print("masuk");
     var userKrismaCollection = db.collection(USER_KRISMA_COLLECTION);
     var userBaptisCollection = db.collection(USER_BAPTIS_COLLECTION);
     var userKomuniCollection = db.collection(USER_KOMUNI_COLLECTION);
     var userPemberkatanCollection = db.collection(PEMBERKATAN_COLLECTION);
     var userKegiatanCollection = db.collection(USER_UMUM_COLLECTION);
     var dateKri = userKrismaCollection
-        .find({'idUser': userId}).sort({"tanggalDaftar": -1}).limit(1);
+        .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
+        .toList();
     var dateBap = userBaptisCollection
-        .find({'idUser': userId}).sort({"tanggalDaftar": -1}).limit(1);
+        .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
+        .toList();
     var dateKom = userKomuniCollection
-        .find({'idUser': userId}).sort({"tanggalDaftar": -1}).limit(1);
+        .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
+        .toList();
     var datePem = userPemberkatanCollection
-        .find({'idUser': userId}).sort({"tanggal": -1}).limit(1);
+        .find(where.gt("idUser", userId).sortBy('tanggal').limit(1))
+        .toList();
     var dateKeg = userKegiatanCollection
-        .find({'idUser': userId}).sort({"tanggalDaftar": -1}).limit(1);
-
-    var latest = [];
-    latest.add(dateKri);
-    latest.add(dateBap);
-    latest.add(dateKom);
-    latest.add(datePem);
-    latest.add(dateKeg);
+        .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
+        .toList();
+    print("masuk2");
+    // print(dateKri.toString());
+    // var latest = [];
+    // latest.add(dateKri['idKrisma']);
+    // latest.add(dateBap);
+    // latest.add(dateKom);
+    // latest.add(datePem);
+    // latest.add(dateKeg);
+    // print(latest.length.toString());
 
     var ans = 0;
-    for (var i = 0; i < latest.length; i++) {
-      if (latest[i] > ans) {
-        ans = latest[i];
-      }
-    }
-
+    // for (var i = 0; i < latest.length; i++) {
+    //   if (latest[i] > ans) {
+    //     ans = latest[i];
+    //   }
+    // }
+    // print(ans.toString());
     return ans;
   }
 
