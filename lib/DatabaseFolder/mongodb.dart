@@ -220,14 +220,14 @@ class MongoDatabase {
         .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
         .toList();
     print("masuk2");
-    // print(dateKri.toString());
-    // var latest = [];
-    // latest.add(dateKri['idKrisma']);
-    // latest.add(dateBap);
-    // latest.add(dateKom);
-    // latest.add(datePem);
-    // latest.add(dateKeg);
-    // print(latest.length.toString());
+    print(dateKri.toString());
+    var latest = [];
+    latest.add(dateKri);
+    latest.add(dateBap);
+    latest.add(dateKom);
+    latest.add(datePem);
+    latest.add(dateKeg);
+    print(latest.length.toString());
 
     var ans = 0;
     // for (var i = 0; i < latest.length; i++) {
@@ -580,8 +580,12 @@ class MongoDatabase {
   static daftarKrisma(idKrisma, idUser, kapasitas) async {
     var daftarKrismaCollection = db.collection(USER_KRISMA_COLLECTION);
     var komuniCollection = db.collection(KRISMA_COLLECTION);
-    var hasil = await daftarKrismaCollection
-        .insertOne({'idKrisma': idKrisma, 'idUser': idUser, 'status': "0"});
+    var hasil = await daftarKrismaCollection.insertOne({
+      'idKrisma': idKrisma,
+      'idUser': idUser,
+      'status': "0",
+      'tanggalDaftar': DateTime.now()
+    });
 
     var update = await komuniCollection.updateOne(
         where.eq('_id', idKrisma), modify.set('kapasitas', kapasitas - 1));
