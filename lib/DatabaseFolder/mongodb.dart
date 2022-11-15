@@ -205,24 +205,54 @@ class MongoDatabase {
     var userPemberkatanCollection = db.collection(PEMBERKATAN_COLLECTION);
     var userKegiatanCollection = db.collection(USER_UMUM_COLLECTION);
     var dateKri = await userKrismaCollection
-        .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
+        .find(where.eq("idUser", userId).sortBy('tanggalDaftar').limit(1))
         .toList();
     var dateBap = await userBaptisCollection
-        .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
+        .find(where.eq("idUser", userId).sortBy('tanggalDaftar').limit(1))
         .toList();
     var dateKom = await userKomuniCollection
-        .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
+        .find(where.eq("idUser", userId).sortBy('tanggalDaftar').limit(1))
         .toList();
     var datePem = await userPemberkatanCollection
-        .find(where.gt("idUser", userId).sortBy('tanggal').limit(1))
+        .find(where.eq("idUser", userId).sortBy('tanggal').limit(1))
         .toList();
     var dateKeg = await userKegiatanCollection
-        .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
+        .find(where.eq("idUser", userId).sortBy('tanggalDaftar').limit(1))
         .toList();
 
-    var ans = 0;
-    print(dateKri);
+    var ans = DateTime.utc(1989, 11, 9);
 
+    if (ans.compareTo(DateTime.parse(dateKri[0]['tanggalDaftar'].toString())) <
+        0) {
+      ans = DateTime.parse(dateKri[0]['tanggalDaftar'].toString());
+      print(ans);
+    }
+
+    if (ans.compareTo(DateTime.parse(dateBap[0]['tanggalDaftar'].toString())) <
+        0) {
+      ans = DateTime.parse(dateBap[0]['tanggalDaftar'].toString());
+      print(ans);
+    }
+
+    if (ans.compareTo(DateTime.parse(dateKom[0]['tanggalDaftar'].toString())) <
+        0) {
+      ans = DateTime.parse(dateKom[0]['tanggalDaftar'].toString());
+      print(ans);
+    }
+
+    if (ans.compareTo(DateTime.parse(datePem[0]['tanggalDaftar'].toString())) <
+        0) {
+      ans = DateTime.parse(datePem[0]['tanggalDaftar'].toString());
+      print(ans);
+    }
+
+    if (ans.compareTo(DateTime.parse(dateKeg[0]['tanggalDaftar'].toString())) <
+        0) {
+      ans = DateTime.parse(dateKeg[0]['tanggalDaftar'].toString());
+      print(ans);
+    }
+
+    print(ans);
     return ans;
   }
 
