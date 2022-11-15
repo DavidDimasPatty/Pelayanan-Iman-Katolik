@@ -48,7 +48,7 @@ class HomePage extends StatelessWidget {
   Future<List> jadwalTerakhir() async {
     var dataTerakhir = await MongoDatabase.jadwalku(iduser);
     var tanggalTerakhir = await MongoDatabase.latestJadwal(iduser);
-    print(tanggalTerakhir.toString());
+    // print(tanggalTerakhir.toString());
     var jadwalTerakhir =
         await MongoDatabase.jadwalMisaku(dataTerakhir[0]['idMisa']);
     var gerejaTerakhir =

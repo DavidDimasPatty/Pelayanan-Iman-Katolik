@@ -204,38 +204,25 @@ class MongoDatabase {
     var userKomuniCollection = db.collection(USER_KOMUNI_COLLECTION);
     var userPemberkatanCollection = db.collection(PEMBERKATAN_COLLECTION);
     var userKegiatanCollection = db.collection(USER_UMUM_COLLECTION);
-    var dateKri = userKrismaCollection
+    var dateKri = await userKrismaCollection
         .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
         .toList();
-    var dateBap = userBaptisCollection
+    var dateBap = await userBaptisCollection
         .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
         .toList();
-    var dateKom = userKomuniCollection
+    var dateKom = await userKomuniCollection
         .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
         .toList();
-    var datePem = userPemberkatanCollection
+    var datePem = await userPemberkatanCollection
         .find(where.gt("idUser", userId).sortBy('tanggal').limit(1))
         .toList();
-    var dateKeg = userKegiatanCollection
+    var dateKeg = await userKegiatanCollection
         .find(where.gt("idUser", userId).sortBy('tanggalDaftar').limit(1))
         .toList();
-    print("masuk2");
-    print(dateKri.toString());
-    var latest = [];
-    latest.add(dateKri);
-    latest.add(dateBap);
-    latest.add(dateKom);
-    latest.add(datePem);
-    latest.add(dateKeg);
-    print(latest.length.toString());
 
     var ans = 0;
-    // for (var i = 0; i < latest.length; i++) {
-    //   if (latest[i] > ans) {
-    //     ans = latest[i];
-    //   }
-    // }
-    // print(ans.toString());
+    print(dateKri);
+
     return ans;
   }
 
@@ -472,7 +459,6 @@ class MongoDatabase {
   static cariGereja(idGereja) async {
     var jadwalCollection = db.collection(GEREJA_COLLECTION);
     var conn = await jadwalCollection.find({'_id': idGereja}).toList();
-    print(conn);
     return conn;
   }
 
