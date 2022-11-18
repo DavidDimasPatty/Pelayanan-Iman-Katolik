@@ -221,39 +221,44 @@ class MongoDatabase {
         .toList();
 
     var ans = DateTime.utc(1989, 11, 9);
+    var hasil = [];
 
     if (ans.compareTo(DateTime.parse(dateKri[0]['tanggalDaftar'].toString())) <
         0) {
       ans = DateTime.parse(dateKri[0]['tanggalDaftar'].toString());
+      hasil = dateKri;
       print(ans);
     }
 
     if (ans.compareTo(DateTime.parse(dateBap[0]['tanggalDaftar'].toString())) <
         0) {
       ans = DateTime.parse(dateBap[0]['tanggalDaftar'].toString());
+      hasil = dateBap;
       print(ans);
     }
 
     if (ans.compareTo(DateTime.parse(dateKom[0]['tanggalDaftar'].toString())) <
         0) {
       ans = DateTime.parse(dateKom[0]['tanggalDaftar'].toString());
+      hasil = dateKom;
       print(ans);
     }
 
     if (ans.compareTo(DateTime.parse(datePem[0]['tanggalDaftar'].toString())) <
         0) {
       ans = DateTime.parse(datePem[0]['tanggalDaftar'].toString());
+      hasil = datePem;
       print(ans);
     }
 
     if (ans.compareTo(DateTime.parse(dateKeg[0]['tanggalDaftar'].toString())) <
         0) {
       ans = DateTime.parse(dateKeg[0]['tanggalDaftar'].toString());
+      hasil = dateKeg;
       print(ans);
     }
 
-    print(ans);
-    return ans;
+    return hasil;
   }
 
   static detailRekoleksi(idKegiatan) async {

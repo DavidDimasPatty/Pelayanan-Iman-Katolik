@@ -50,9 +50,9 @@ class HomePage extends StatelessWidget {
     var tanggalTerakhir = await MongoDatabase.latestJadwal(iduser);
     // print(tanggalTerakhir.toString());
     var jadwalTerakhir =
-        await MongoDatabase.jadwalMisaku(dataTerakhir[0]['idMisa']);
+        await MongoDatabase.jadwalMisaku(tanggalTerakhir[0]['idMisa']);
     var gerejaTerakhir =
-        await MongoDatabase.cariGereja(jadwalTerakhir[0]['idGereja']);
+        await MongoDatabase.cariGereja(tanggalTerakhir[0]['idGereja']);
     return [gerejaTerakhir, jadwalTerakhir];
   }
 
