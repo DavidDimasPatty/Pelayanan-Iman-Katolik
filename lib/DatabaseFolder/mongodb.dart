@@ -498,7 +498,7 @@ class MongoDatabase {
   }
 
   static addPemberkatan(idUser, nama, paroki, lingkungan, notelp, alamat, jenis,
-      tanggal, note) async {
+      tanggal, idGereja, note) async {
     var pemberkatanCollection = db.collection(PEMBERKATAN_COLLECTION);
     var checkEmail;
 
@@ -512,6 +512,7 @@ class MongoDatabase {
       'jenis': jenis,
       'tanggal': DateTime.parse(tanggal),
       'note': note,
+      'idGereja': idGereja,
       'status': 0
     });
 

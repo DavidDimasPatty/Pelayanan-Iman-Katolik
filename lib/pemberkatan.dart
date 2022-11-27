@@ -148,8 +148,8 @@ class _Pemberkatan extends State<Pemberkatan> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            FormulirPemberkatan(names, emails, idUser)),
+                        builder: (context) => FormulirPemberkatan(names, emails,
+                            idUser, i['GerejaBaptis'][0]['_id'])),
                   );
                 },
                 child: Container(

@@ -16,18 +16,20 @@ class FormulirPemberkatan extends StatefulWidget {
   final name;
   final email;
   final idUser;
+  final idGereja;
 
-  FormulirPemberkatan(this.name, this.email, this.idUser);
+  FormulirPemberkatan(this.name, this.email, this.idUser, this.idGereja);
   @override
   _FormulirPemberkatan createState() =>
-      _FormulirPemberkatan(this.name, this.email, this.idUser);
+      _FormulirPemberkatan(this.name, this.email, this.idUser, this.idGereja);
 }
 
 class _FormulirPemberkatan extends State<FormulirPemberkatan> {
   final name;
   final email;
   final idUser;
-  _FormulirPemberkatan(this.name, this.email, this.idUser);
+  final idGereja;
+  _FormulirPemberkatan(this.name, this.email, this.idUser, this.idGereja);
 
   @override
   var jenisPemberkatan = ['Gedung', 'Rumah', 'Barang'];
@@ -63,8 +65,8 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
 
   void submitForm(nama, paroki, lingkungan, notelp, alamat, jenis, tanggal,
       note, context) async {
-    var add = await MongoDatabase.addPemberkatan(
-        idUser, nama, paroki, lingkungan, notelp, alamat, jenis, tanggal, note);
+    var add = await MongoDatabase.addPemberkatan(idUser, nama, paroki,
+        lingkungan, notelp, alamat, jenis, tanggal, idGereja, note);
     if (add == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Mendaftar Pemberkatan",
