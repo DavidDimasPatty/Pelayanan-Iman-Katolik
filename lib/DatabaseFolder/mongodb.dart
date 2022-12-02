@@ -644,8 +644,12 @@ class MongoDatabase {
   static daftarBaptis(idBaptis, idUser, kapasitas) async {
     var daftarBaptisCollection = db.collection(USER_BAPTIS_COLLECTION);
     var baptisCollection = db.collection(BAPTIS_COLLECTION);
-    var hasil = await daftarBaptisCollection
-        .insertOne({'idBaptis': idBaptis, 'idUser': idUser, 'status': 0});
+    var hasil = await daftarBaptisCollection.insertOne({
+      'idBaptis': idBaptis,
+      'idUser': idUser,
+      "tanggalDaftar": DateTime.now(),
+      'status': 0
+    });
 
     var update = await baptisCollection.updateOne(
         where.eq('_id', idBaptis), modify.set('kapasitas', kapasitas - 1));
