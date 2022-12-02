@@ -289,7 +289,7 @@ class MongoDatabase {
               as: 'UserBaptis'),
         )
         .addStage(
-            Match(where.eq('idUser', idUser).eq('status', '0').map['\$query']))
+            Match(where.eq('idUser', idUser).eq('status', 0).map['\$query']))
         .build();
     var conn = await userBaptisCollection.aggregateToStream(pipeline).toList();
 
@@ -307,7 +307,7 @@ class MongoDatabase {
               as: 'UserKrisma'),
         )
         .addStage(
-            Match(where.eq('idUser', idUser).eq('status', '0').map['\$query']))
+            Match(where.eq('idUser', idUser).eq('status', 0).map['\$query']))
         .build();
     var conn = await userKrismaCollection.aggregateToStream(pipeline).toList();
 
@@ -341,7 +341,7 @@ class MongoDatabase {
               as: 'UserKegiatan'),
         )
         .addStage(
-            Match(where.eq('idUser', idUser).eq('status', '0').map['\$query']))
+            Match(where.eq('idUser', idUser).eq('status', 0).map['\$query']))
         .build();
     var conn =
         await userKegiatanCollection.aggregateToStream(pipeline).toList();
@@ -377,7 +377,7 @@ class MongoDatabase {
               as: 'UserKomuni'),
         )
         .addStage(
-            Match(where.eq('idUser', idUser).eq('status', '0').map['\$query']))
+            Match(where.eq('idUser', idUser).eq('status', 0).map['\$query']))
         .build();
     var conn = await userBaptisCollection.aggregateToStream(pipeline).toList();
 
@@ -570,7 +570,7 @@ class MongoDatabase {
     var tiketCollection = db.collection(TIKET_COLLECTION);
     var jadwalCollection = db.collection(JADWAL_GEREJA_COLLECTION);
     var hasil = await tiketCollection
-        .insertOne({'idMisa': idMisa, 'idUser': idUser, 'status': "0"});
+        .insertOne({'idMisa': idMisa, 'idUser': idUser, 'status': 0});
     var update = await jadwalCollection.updateOne(
         where.eq('_id', idMisa), modify.set('KapasitasJadwal', kapasitas - 1));
 
@@ -586,7 +586,7 @@ class MongoDatabase {
     var daftarKomuniCollection = db.collection(USER_KOMUNI_COLLECTION);
     var komuniCollection = db.collection(KOMUNI_COLLECTION);
     var hasil = await daftarKomuniCollection
-        .insertOne({'idKomuni': idKomuni, 'idUser': idUser, 'status': "0"});
+        .insertOne({'idKomuni': idKomuni, 'idUser': idUser, 'status': 0});
 
     var update = await komuniCollection.updateOne(
         where.eq('_id', idKomuni), modify.set('kapasitas', kapasitas - 1));
@@ -605,7 +605,7 @@ class MongoDatabase {
     var hasil = await daftarKrismaCollection.insertOne({
       'idKrisma': idKrisma,
       'idUser': idUser,
-      'status': "0",
+      'status': 0,
       'tanggalDaftar': DateTime.now()
     });
 
@@ -627,7 +627,7 @@ class MongoDatabase {
       'idKegiatan': idKegiatan,
       'idUser': idUser,
       'tanggalDaftar': DateTime.now(),
-      'status': "0"
+      'status': 0
     });
 
     var update = await umumCollection.updateOne(
@@ -645,7 +645,7 @@ class MongoDatabase {
     var daftarBaptisCollection = db.collection(USER_BAPTIS_COLLECTION);
     var baptisCollection = db.collection(BAPTIS_COLLECTION);
     var hasil = await daftarBaptisCollection
-        .insertOne({'idBaptis': idBaptis, 'idUser': idUser, 'status': "0"});
+        .insertOne({'idBaptis': idBaptis, 'idUser': idUser, 'status': 0});
 
     var update = await baptisCollection.updateOne(
         where.eq('_id', idBaptis), modify.set('kapasitas', kapasitas - 1));
