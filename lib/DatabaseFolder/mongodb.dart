@@ -49,15 +49,16 @@ class MongoDatabase {
 
   static findRekoleksi() async {
     var umumCollection = db.collection(UMUM_COLLECTION);
-    var conn =
-        await umumCollection.find({'jenisKegiatan': "Rekoleksi"}).toList();
+    var conn = await umumCollection
+        .find({'jenisKegiatan': "Rekoleksi", "status": 0}).toList();
 
     return conn;
   }
 
   static findRetret() async {
     var umumCollection = db.collection(UMUM_COLLECTION);
-    var conn = await umumCollection.find({'jenisKegiatan': "Retret"}).toList();
+    var conn = await umumCollection
+        .find({'jenisKegiatan': "Retret", "status": 0}).toList();
 
     return conn;
   }
@@ -88,7 +89,7 @@ class MongoDatabase {
   static findPA() async {
     var umumCollection = db.collection(UMUM_COLLECTION);
     var conn = await umumCollection
-        .find({'jenisKegiatan': "Pendalaman Alkitab"}).toList();
+        .find({'jenisKegiatan': "Pendalaman Alkitab", "status": 0}).toList();
 
     return conn;
   }
@@ -107,6 +108,7 @@ class MongoDatabase {
             localField: 'idGereja',
             foreignField: '_id',
             as: 'GerejaKomuni'))
+        .addStage(Match(where.eq('status', 0).map['\$query']))
         .build();
     var conn =
         await gerejaKomuniCollection.aggregateToStream(pipeline).toList();
@@ -122,6 +124,7 @@ class MongoDatabase {
             localField: 'idGereja',
             foreignField: '_id',
             as: 'GerejaKrisma'))
+        .addStage(Match(where.eq('status', 0).map['\$query']))
         .build();
     var conn =
         await gerejaKrismaCollection.aggregateToStream(pipeline).toList();
@@ -137,6 +140,7 @@ class MongoDatabase {
             localField: 'idGereja',
             foreignField: '_id',
             as: 'GerejaBaptis'))
+        .addStage(Match(where.eq('status', 0).map['\$query']))
         .build();
     var conn =
         await gerejaKomuniCollection.aggregateToStream(pipeline).toList();
