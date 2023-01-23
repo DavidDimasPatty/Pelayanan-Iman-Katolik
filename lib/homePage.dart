@@ -46,14 +46,15 @@ class HomePage extends StatelessWidget {
   }
 
   Future<List> jadwalTerakhir() async {
-    var dataTerakhir = await MongoDatabase.jadwalku(iduser);
+    //var dataTerakhir = await MongoDatabase.jadwalku(iduser);
     var tanggalTerakhir = await MongoDatabase.latestJadwal(iduser);
-    // print(tanggalTerakhir.toString());
-    var jadwalTerakhir =
-        await MongoDatabase.jadwalMisaku(tanggalTerakhir[0]['idMisa']);
+    // print("tanggal=" + tanggalTerakhir.toString());
+    // var jadwalTerakhir =
+    //     await MongoDatabase.jadwalMisaku(tanggalTerakhir[0]['idMisa']);
     var gerejaTerakhir =
         await MongoDatabase.cariGereja(tanggalTerakhir[0]['idGereja']);
-    return [gerejaTerakhir, jadwalTerakhir];
+    print(gerejaTerakhir);
+    return [tanggalTerakhir, gerejaTerakhir];
   }
 
   HomePage(this.names, this.emails, this.iduser);
@@ -230,27 +231,74 @@ class HomePage extends StatelessWidget {
                                               try {
                                                 return Column(children: <
                                                     Widget>[
-                                                  Text(
-                                                    snapshot.data[0][0]['nama'],
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.w300),
-                                                  ),
-                                                  Text(
-                                                    snapshot.data[1][0]
-                                                            ['jadwal']
-                                                        .toString()
-                                                        .substring(0, 19),
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.w300),
-                                                  )
+                                                  if (snapshot.data[0][0]
+                                                          ['idKrisma'] !=
+                                                      null)
+                                                    Text(
+                                                      'Krisma',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                    ),
+                                                  if (snapshot.data[0][0]
+                                                          ['idKomuni'] !=
+                                                      null)
+                                                    Text(
+                                                      'Komuni',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                    ),
+                                                  if (snapshot.data[0][0]
+                                                          ['idBaptis'] !=
+                                                      null)
+                                                    Text(
+                                                      'Baptis',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                    ),
+                                                  if (snapshot.data[0][0]
+                                                          ['idKegiatan'] !=
+                                                      null)
+                                                    Text(
+                                                      'Kegiatan Umum',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                    ),
+                                                  if (snapshot.data[0][0]
+                                                          ['tanggalDaftar'] !=
+                                                      null)
+                                                    Text(
+                                                      snapshot.data[0][0]
+                                                              ['tanggalDaftar']
+                                                          .toString()
+                                                          .substring(0, 19),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                    ),
                                                 ]);
                                               } catch (e) {
                                                 return Center(
