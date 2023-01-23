@@ -1,6 +1,8 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
+import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarBaptis.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarPA.dart';
@@ -29,7 +31,20 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
   _PendalamanAlkitab(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
-    return await MongoDatabase.findPA();
+    Messages msg = new Messages();
+    msg.addReceiver("agenPencarian");
+    msg.setContent([
+      ["cari PA"]
+    ]);
+    List k = [];
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    k = await AgenPage().receiverTampilan();
+
+    return k;
   }
 
   @override
@@ -62,6 +77,21 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
         daftarKegiatan.addAll(dummyTemp);
       });
     }
+  }
+
+  Future pullRefresh() async {
+    setState(() {
+      callDb().then((result) {
+        setState(() {
+          daftarKegiatan.clear();
+          dummyTemp.clear();
+          daftarKegiatan.addAll(result);
+          dummyTemp.addAll(result);
+          filterSearchResults(editingController.text);
+        });
+      });
+      ;
+    });
   }
 
   TextEditingController editingController = TextEditingController();
@@ -99,8 +129,9 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
           ),
         ],
       ),
-      body: ListView(children: [
-        ListView(
+      body: RefreshIndicator(
+        onRefresh: pullRefresh,
+        child: ListView(
           shrinkWrap: true,
           padding: EdgeInsets.only(right: 15, left: 15),
           children: <Widget>[
@@ -121,62 +152,78 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
             ),
 
             /////////
-            for (var i in daftarKegiatan)
-              InkWell(
-                borderRadius: new BorderRadius.circular(24),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            detailDaftarPA(names, emails, idUser, i['_id'])),
-                  );
-                },
-                child: Container(
-                    margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.topLeft,
-                          colors: [
-                            Colors.blueGrey,
-                            Colors.lightBlue,
-                          ]),
-                      border: Border.all(
-                        color: Colors.lightBlue,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Column(children: <Widget>[
-                      //Color(Colors.blue);
+            FutureBuilder(
+                future: callDb(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  try {
+                    return Column(children: [
+                      for (var i in daftarKegiatan)
+                        InkWell(
+                          borderRadius: new BorderRadius.circular(24),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => detailDaftarPA(
+                                      names, emails, idUser, i['_id'])),
+                            );
+                          },
+                          child: Container(
+                              margin: EdgeInsets.only(
+                                  right: 15, left: 15, bottom: 20),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.topRight,
+                                    end: Alignment.topLeft,
+                                    colors: [
+                                      Colors.blueGrey,
+                                      Colors.lightBlue,
+                                    ]),
+                                border: Border.all(
+                                  color: Colors.lightBlue,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Column(children: <Widget>[
+                                //Color(Colors.blue);
 
-                      Text(
-                        i['namaKegiatan'],
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 26.0,
-                            fontWeight: FontWeight.w300),
-                        textAlign: TextAlign.left,
-                      ),
-                      Text(
-                        'Tema Kegiatan: ' + i['temaKegiatan'],
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      Text(
-                        'Alamat: ' + i['lokasi'],
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      Text(
-                        'Kapasitas Tersedia: ' + i['kapasitas'].toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    ])),
-              ),
-
+                                Text(
+                                  i['namaKegiatan'],
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 26.0,
+                                      fontWeight: FontWeight.w300),
+                                  textAlign: TextAlign.left,
+                                ),
+                                Text(
+                                  'Tema Kegiatan: ' + i['temaKegiatan'],
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
+                                Text(
+                                  'Alamat: ' + i['lokasi'],
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
+                                Text(
+                                  'Kapasitas Tersedia: ' +
+                                      i['kapasitas'].toString(),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
+                              ])),
+                        ),
+                    ]);
+                  } catch (e) {
+                    print(e);
+                    return Center(child: CircularProgressIndicator());
+                  }
+                }),
             /////////
           ],
         ),
-      ]),
+      ),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(

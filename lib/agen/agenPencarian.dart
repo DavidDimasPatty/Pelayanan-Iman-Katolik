@@ -82,6 +82,42 @@ class AgenPencarian {
               await msg.send();
             });
           }
+
+          if (data[0][0] == "cari Rekoleksi") {
+            var umumCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
+            var conn = await umumCollection
+                .find({'jenisKegiatan': "Rekoleksi", "status": 0})
+                .toList()
+                .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
+
+          if (data[0][0] == "cari Retret") {
+            var umumCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
+            var conn = await umumCollection
+                .find({'jenisKegiatan': "Retret", "status": 0})
+                .toList()
+                .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
+
+          if (data[0][0] == "cari PA") {
+            var umumCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
+            var conn = await umumCollection
+                .find({'jenisKegiatan': "Pendalaman Alkitab", "status": 0})
+                .toList()
+                .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
         }
 
         if (data.runtimeType == List<List<dynamic>>) {
