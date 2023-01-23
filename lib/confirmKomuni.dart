@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
+import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarKomuni.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 
@@ -18,14 +20,39 @@ class confirmKomuni {
       this.email, this.namaGereja);
 
   Future<List> callDb() async {
-    detailGereja = await MongoDatabase.detailGerejaKomuni(idGereja);
-    print(detailGereja);
+    Messages msg = new Messages();
+    msg.addReceiver("agenPencarian");
+    msg.setContent([
+      ["cari Detail Komuni"],
+      [idKomuni]
+    ]);
+
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    detailGereja = await AgenPage().receiverTampilan();
+
     return detailGereja;
   }
 
   daftar(idKomuni, idUser, kapasitas, context) async {
-    var daftarmisa =
-        await MongoDatabase.daftarKomuni(idKomuni, idUser, kapasitas);
+    Messages msg = new Messages();
+    msg.addReceiver("agenPencarian");
+    msg.setContent([
+      ["enroll Komuni"],
+      [idKomuni],
+      [idUser],
+      [kapasitas]
+    ]);
+
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    var daftarmisa = await AgenPage().receiverTampilan();
 
     if (daftarmisa == 'oke') {
       Fluttertoast.showToast(
@@ -36,11 +63,11 @@ class confirmKomuni {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
-      Navigator.pushReplacement(
+      Navigator.pop(
         context,
         MaterialPageRoute(
             builder: (context) =>
-                detailDaftarKomuni(name, email, namaGereja, idUser, idGereja)),
+                detailDaftarKomuni(name, email, namaGereja, idUser, idKomuni)),
       );
     }
   }
@@ -55,28 +82,39 @@ class confirmKomuni {
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
               alignment: Alignment.center,
               title: Text("Konfirmasi Pendaftaran"),
-              content: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    for (var i in detailGereja)
-                      Column(
-                        children: <Widget>[
-                          Text("Konfirmasi Pendaftaran Komuni \n Pada Gereja " +
-                              detailGereja[0]['nama'] +
-                              "\n" +
-                              "Pada Tanggal " +
-                              detailGereja[0]['GerejaKomuni'][0]['jadwalBuka']
-                                  .toString()
-                                  .substring(0, 19) +
-                              " - " +
-                              detailGereja[0]['GerejaKomuni'][0]['jadwalTutup']
-                                  .toString()
-                                  .substring(0, 19) +
-                              " ?")
-                        ],
-                      )
-                  ]),
+              content: FutureBuilder<List>(
+                  future: callDb(),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    try {
+                      return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            for (var i in detailGereja)
+                              Column(
+                                children: <Widget>[
+                                  Text(
+                                      "Konfirmasi Pendaftaran Komuni \n Pada Gereja " +
+                                          detailGereja[0]['GerejaKomuni'][0]
+                                              ['nama'] +
+                                          "\n" +
+                                          "Pada Tanggal " +
+                                          detailGereja[0]['jadwalBuka']
+                                              .toString()
+                                              .substring(0, 19) +
+                                          " - " +
+                                          detailGereja[0]['jadwalTutup']
+                                              .toString()
+                                              .substring(0, 19) +
+                                          " ?")
+                                ],
+                              )
+                          ]);
+                    } catch (e) {
+                      print(e);
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  }),
               actions: <Widget>[
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -86,11 +124,8 @@ class confirmKomuni {
                           textColor: Colors.white,
                           color: Colors.blueAccent,
                           onPressed: () async {
-                            await daftar(
-                                idKomuni,
-                                idUser,
-                                detailGereja[0]['GerejaKomuni'][0]['kapasitas'],
-                                context);
+                            await daftar(idKomuni, idUser,
+                                detailGereja[0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
                       RaisedButton(

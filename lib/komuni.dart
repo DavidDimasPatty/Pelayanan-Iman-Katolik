@@ -187,7 +187,7 @@ class _Komuni extends State<Komuni> {
                                       emails,
                                       i['GerejaKomuni'][0]['nama'],
                                       idUser,
-                                      i['GerejaKomuni'][0]['_id'])),
+                                      i['_id'])),
                             );
                           },
                           child: Container(

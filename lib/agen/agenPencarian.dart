@@ -163,7 +163,6 @@ class AgenPencarian {
           }
 
           if (data[0][0] == "cari Detail Baptis") {
-            print("masuk detail");
             var gerejaBaptisCollection =
                 MongoDatabase.db.collection(BAPTIS_COLLECTION);
             final pipeline = AggregationPipelineBuilder()
@@ -182,7 +181,48 @@ class AgenPencarian {
               msg.setContent(result);
               await msg.send();
             });
-            ;
+          }
+
+          if (data[0][0] == "cari Detail Komuni") {
+            var gerejaBaptisCollection =
+                MongoDatabase.db.collection(KOMUNI_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaKomuni'))
+                .addStage(Match(where.eq('_id', data[1][0]).map['\$query']))
+                .build();
+            var conn = await gerejaBaptisCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
+          }
+
+          if (data[0][0] == "cari Detail Krisma") {
+            var gerejaBaptisCollection =
+                MongoDatabase.db.collection(KRISMA_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaKrisma'))
+                .addStage(Match(where.eq('_id', data[1][0]).map['\$query']))
+                .build();
+            var conn = await gerejaBaptisCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
           }
 
 /////cari jumlah
@@ -333,6 +373,63 @@ class AgenPencarian {
             }
           }
 
+          if (data[0][0] == "enroll Komuni") {
+            try {
+              var daftarKomuniCollection =
+                  MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+              var komuniCollection =
+                  MongoDatabase.db.collection(KOMUNI_COLLECTION);
+              var hasil = await daftarKomuniCollection.insertOne({
+                'idKomuni': data[1][0],
+                'idUser': data[2][0],
+                "tanggalDaftar": DateTime.now(),
+                'status': 0
+              });
+
+              var update = await komuniCollection
+                  .updateOne(where.eq('_id', data[1][0]),
+                      modify.set('kapasitas', data[3][0] - 1))
+                  .then((result) async {
+                msg.addReceiver("agenPage");
+                msg.setContent("oke");
+                await msg.send();
+              });
+            } catch (e) {
+              msg.addReceiver("agenPage");
+              msg.setContent("failed");
+              await msg.send();
+            }
+          }
+
+          if (data[0][0] == "enroll Krisma") {
+            try {
+              var daftarKrismaCollection =
+                  MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
+              var komuniCollection =
+                  MongoDatabase.db.collection(KRISMA_COLLECTION);
+              var hasil = await daftarKrismaCollection.insertOne({
+                'idKrisma': data[1][0],
+                'idUser': data[2][0],
+                'status': 0,
+                'tanggalDaftar': DateTime.now()
+              });
+
+              var update = await komuniCollection
+                  .updateOne(where.eq('_id', data[1][0]),
+                      modify.set('kapasitas', data[3][0] - 1))
+                  .then((result) async {
+                msg.addReceiver("agenPage");
+                msg.setContent("oke");
+                await msg.send();
+              });
+            } catch (e) {
+              msg.addReceiver("agenPage");
+              msg.setContent("failed");
+              await msg.send();
+            }
+          }
+
+/////////////
           /////////
         }
       } catch (e) {
