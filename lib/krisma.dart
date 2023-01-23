@@ -188,7 +188,7 @@ class _Krisma extends State<Krisma> {
                                       emails,
                                       i['GerejaKrisma'][0]['nama'],
                                       idUser,
-                                      i['GerejaKrisma'][0]['_id'])),
+                                      i['_id'])),
                             );
                           },
                           child: Container(
