@@ -17,8 +17,73 @@ class AgenPencarian {
     Messages msg = Messages();
 
     var data = msg.receive();
+
     action() async {
       try {
+        if (data.runtimeType == List<List<String>>) {
+          if (data[0][0] == "cari Baptis") {
+            var gerejaKomuniCollection =
+                MongoDatabase.db.collection(BAPTIS_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaBaptis'))
+                .addStage(Match(where.eq('status', 0).map['\$query']))
+                .build();
+            var conn = await gerejaKomuniCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
+          }
+          if (data[0][0] == "cari Komuni") {
+            var gerejaKomuniCollection =
+                MongoDatabase.db.collection(KOMUNI_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaKomuni'))
+                .addStage(Match(where.eq('status', 0).map['\$query']))
+                .build();
+            var conn = await gerejaKomuniCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
+          }
+
+          if (data[0][0] == "cari Krisma") {
+            var gerejaKrismaCollection =
+                MongoDatabase.db.collection(KRISMA_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaKrisma'))
+                .addStage(Match(where.eq('status', 0).map['\$query']))
+                .build();
+            var conn = await gerejaKrismaCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
+          }
+        }
+
         if (data.runtimeType == List<List<dynamic>>) {
           if (data[0][0] == "cari Profile") {
             var userKrismaCollection =
@@ -153,19 +218,6 @@ class AgenPencarian {
             });
           }
 
-          if (data[0][0] == "cari Baptis") {
-            var userBaptisCollection =
-                MongoDatabase.db.collection(BAPTIS_COLLECTION);
-            await userBaptisCollection
-                .find({'idGereja': data[1][0], 'status': 0})
-                .toList()
-                .then((result) async {
-                  msg.addReceiver("agenPage");
-                  msg.setContent(result);
-                  await msg.send();
-                });
-          }
-
           if (data[0][0] == "cari Baptis History") {
             var userBaptisCollection =
                 MongoDatabase.db.collection(BAPTIS_COLLECTION);
@@ -223,19 +275,6 @@ class AgenPencarian {
               msg.setContent(result);
               await msg.send();
             });
-          }
-
-          if (data[0][0] == "cari Komuni") {
-            var userBaptisCollection =
-                MongoDatabase.db.collection(KOMUNI_COLLECTION);
-            await userBaptisCollection
-                .find({'idGereja': data[1][0], 'status': 0})
-                .toList()
-                .then((result) async {
-                  msg.addReceiver("agenPage");
-                  msg.setContent(result);
-                  await msg.send();
-                });
           }
 
           if (data[0][0] == "cari Komuni History") {
