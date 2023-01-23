@@ -121,137 +121,45 @@ class AgenPencarian {
         }
 
         if (data.runtimeType == List<List<dynamic>>) {
-          if (data[0][0] == "cari Profile") {
+          if (data[0][0] == "cari tampilan Profile") {
             var userKrismaCollection =
-                MongoDatabase.db.collection(KRISMA_COLLECTION);
+                MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
             var userBaptisCollection =
-                MongoDatabase.db.collection(BAPTIS_COLLECTION);
+                MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
             var userKomuniCollection =
-                MongoDatabase.db.collection(KOMUNI_COLLECTION);
+                MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
             var userPemberkatanCollection =
                 MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
             var userKegiatanCollection =
-                MongoDatabase.db.collection(UMUM_COLLECTION);
+                MongoDatabase.db.collection(USER_UMUM_COLLECTION);
             var count = 0;
 
-            final pipeline = AggregationPipelineBuilder()
-                .addStage(Lookup(
-                    from: 'userBaptis',
-                    localField: '_id',
-                    foreignField: 'idBaptis',
-                    as: 'userBaptis'))
-                .addStage(
-                    Match(where.eq('idGereja', data[1][0]).map['\$query']))
-                .build();
+            var countKr =
+                await userKrismaCollection.find({'idUser': data[1][0]}).length;
+
             var countB =
-                await userBaptisCollection.aggregateToStream(pipeline).toList();
-
-            final pipeline2 = AggregationPipelineBuilder()
-                .addStage(Lookup(
-                    from: 'userKomuni',
-                    localField: '_id',
-                    foreignField: 'idKomuni',
-                    as: 'userKomuni'))
-                .addStage(
-                    Match(where.eq('idGereja', data[1][0]).map['\$query']))
-                .build();
-            var countKo = await userKomuniCollection
-                .aggregateToStream(pipeline2)
-                .toList();
-
-            final pipeline3 = AggregationPipelineBuilder()
-                .addStage(Lookup(
-                    from: 'userKrisma',
-                    localField: '_id',
-                    foreignField: 'idKrisma',
-                    as: 'userKrisma'))
-                .addStage(
-                    Match(where.eq('idGereja', data[1][0]).map['\$query']))
-                .build();
-            var countKr = await userKrismaCollection
-                .aggregateToStream(pipeline3)
-                .toList();
-
-            final pipeline4 = AggregationPipelineBuilder()
-                .addStage(Lookup(
-                    from: 'userUmum',
-                    localField: '_id',
-                    foreignField: 'idKegiatan',
-                    as: 'userKegiatan'))
-                .addStage(
-                    Match(where.eq('idGereja', data[1][0]).map['\$query']))
-                .build();
-            var countU = await userKegiatanCollection
-                .aggregateToStream(pipeline4)
-                .toList();
-
+                await userBaptisCollection.find({'idUser': data[1][0]}).length;
+            var countKo =
+                await userKomuniCollection.find({'idUser': data[1][0]}).length;
             var countP = await userPemberkatanCollection
-                .find({'idGereja': data[1][0]}).length;
+                .find({'idUser': data[1][0]}).length;
+            var countKe = await userKegiatanCollection
+                .find({'idUser': data[1][0]}).length;
 
-            var totalB = 0;
-            var totalKo = 0;
-            var totalKr = 0;
-            var totalU = 0;
-            for (var i = 0; i < countB.length; i++) {
-              if (countB[i]['userBaptis'] != null) {
-                for (var j = 0; j < countB[i]['userBaptis'].length; j++) {
-                  if (countB[i]['userBaptis'][j]['status'] != null) {
-                    totalB++;
-                  }
-                }
-              }
-            }
-
-            for (var i = 0; i < countKo.length; i++) {
-              if (countKo[i]['userKomuni'] != null) {
-                for (var j = 0; j < countKo[i]['userKomuni'].length; j++) {
-                  if (countKo[i]['userKomuni'][j]['status'] != null) {
-                    totalKo++;
-                  }
-                }
-              }
-            }
-
-            for (var i = 0; i < countKr.length; i++) {
-              if (countKr[i]['userKrisma'] != null) {
-                for (var j = 0; j < countKr[i]['userKrisma'].length; j++) {
-                  if (countKr[i]['userKrisma'][j]['status'] != null) {
-                    totalKr++;
-                  }
-                }
-              }
-            }
-
-            for (var i = 0; i < countU.length; i++) {
-              if (countU[i]['userKegiatan'] != null) {
-                for (var j = 0; j < countU[i]['userKegiatan'].length; j++) {
-                  if (countU[i]['userKegiatan'][j]['status'] != null) {
-                    totalU++;
-                  }
-                }
-              }
-            }
+            // return countKr + countB + countKo + countP + countKe;
 
             var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
-            final pipeline5 = AggregationPipelineBuilder()
-                .addStage(Lookup(
-                    from: 'Gereja',
-                    localField: 'idGereja',
-                    foreignField: '_id',
-                    as: 'userGereja'))
-                .addStage(Match(where.eq('_id', data[2][0]).map['\$query']))
-                .build();
             var conn = await userCollection
-                .aggregateToStream(pipeline5)
+                .find({'_id': data[1][0]})
                 .toList()
                 .then((result) async {
-              msg.addReceiver("agenPage");
-              msg.setContent([
-                [result],
-                [totalB + totalKo + countP + totalKr + totalU]
-              ]);
-              await msg.send();
-            });
+                  msg.addReceiver("agenPage");
+                  msg.setContent([
+                    [result],
+                    [countKr + countB + countKo + countP + countKe]
+                  ]);
+                  await msg.send();
+                });
           }
 
           if (data[0][0] == "cari Baptis History") {

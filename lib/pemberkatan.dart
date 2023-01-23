@@ -2,6 +2,8 @@ import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
+import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarBaptis.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
 import 'package:pelayanan_iman_katolik/formulirPemberkatan.dart';
@@ -31,7 +33,20 @@ class _Pemberkatan extends State<Pemberkatan> {
   _Pemberkatan(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
-    return await MongoDatabase.findGerejaBaptis();
+    Messages msg = new Messages();
+    msg.addReceiver("agenPencarian");
+    msg.setContent([
+      ["cari Baptis"]
+    ]);
+    List k = [];
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    k = await AgenPage().receiverTampilan();
+
+    return k;
   }
 
   @override
@@ -84,6 +99,21 @@ class _Pemberkatan extends State<Pemberkatan> {
     }
   }
 
+  Future pullRefresh() async {
+    setState(() {
+      callDb().then((result) {
+        setState(() {
+          daftarGereja.clear();
+          dummyTemp.clear();
+          daftarGereja.addAll(result);
+          dummyTemp.addAll(result);
+          filterSearchResults(editingController.text);
+        });
+      });
+      ;
+    });
+  }
+
   TextEditingController editingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -119,8 +149,9 @@ class _Pemberkatan extends State<Pemberkatan> {
           ),
         ],
       ),
-      body: ListView(children: [
-        ListView(
+      body: RefreshIndicator(
+        onRefresh: pullRefresh,
+        child: ListView(
           shrinkWrap: true,
           padding: EdgeInsets.only(right: 15, left: 15),
           children: <Widget>[
@@ -141,79 +172,100 @@ class _Pemberkatan extends State<Pemberkatan> {
             ),
 
             /////////
-            for (var i in daftarGereja)
-              InkWell(
-                borderRadius: new BorderRadius.circular(24),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => FormulirPemberkatan(names, emails,
-                            idUser, i['GerejaBaptis'][0]['_id'])),
-                  );
-                },
-                child: Container(
-                    margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.topLeft,
-                          colors: [
-                            Colors.blueGrey,
-                            Colors.lightBlue,
-                          ]),
-                      border: Border.all(
-                        color: Colors.lightBlue,
-                      ),
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    child: Column(children: <Widget>[
-                      //Color(Colors.blue);
+            FutureBuilder(
+                future: callDb(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  try {
+                    return Column(children: [
+                      for (var i in daftarGereja)
+                        InkWell(
+                          borderRadius: new BorderRadius.circular(24),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FormulirPemberkatan(
+                                      names,
+                                      emails,
+                                      idUser,
+                                      i['GerejaBaptis'][0]['_id'])),
+                            );
+                          },
+                          child: Container(
+                              margin: EdgeInsets.only(
+                                  right: 15, left: 15, bottom: 20),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.topRight,
+                                    end: Alignment.topLeft,
+                                    colors: [
+                                      Colors.blueGrey,
+                                      Colors.lightBlue,
+                                    ]),
+                                border: Border.all(
+                                  color: Colors.lightBlue,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Column(children: <Widget>[
+                                //Color(Colors.blue);
 
-                      Text(
-                        i['GerejaBaptis'][0]['nama'],
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 26.0,
-                            fontWeight: FontWeight.w300),
-                        textAlign: TextAlign.left,
-                      ),
-                      Text(
-                        'Paroki: ' + i['GerejaBaptis'][0]['paroki'],
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      Text(
-                        'Alamat: ' + i['GerejaBaptis'][0]['address'],
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      Text(
-                        'Kapasitas Tersedia: ' + i['kapasitas'].toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      FutureBuilder(
-                          future: jarak(i['GerejaBaptis'][0]['lat'],
-                              i['GerejaBaptis'][0]['lng']),
-                          builder: (context, AsyncSnapshot snapshot) {
-                            try {
-                              return Column(children: <Widget>[
                                 Text(
-                                  snapshot.data,
+                                  i['GerejaBaptis'][0]['nama'],
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 26.0,
+                                      fontWeight: FontWeight.w300),
+                                  textAlign: TextAlign.left,
+                                ),
+                                Text(
+                                  'Paroki: ' + i['GerejaBaptis'][0]['paroki'],
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
-                                )
-                              ]);
-                            } catch (e) {
-                              print(e);
-                              return Center(child: CircularProgressIndicator());
-                            }
-                          }),
-                    ])),
-              ),
-
+                                ),
+                                Text(
+                                  'Alamat: ' + i['GerejaBaptis'][0]['address'],
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
+                                Text(
+                                  'Kapasitas Tersedia: ' +
+                                      i['kapasitas'].toString(),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
+                                FutureBuilder(
+                                    future: jarak(i['GerejaBaptis'][0]['lat'],
+                                        i['GerejaBaptis'][0]['lng']),
+                                    builder: (context, AsyncSnapshot snapshot) {
+                                      try {
+                                        return Column(children: <Widget>[
+                                          Text(
+                                            snapshot.data,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12),
+                                          )
+                                        ]);
+                                      } catch (e) {
+                                        print(e);
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      }
+                                    }),
+                              ])),
+                        ),
+                    ]);
+                  } catch (e) {
+                    print(e);
+                    return Center(child: CircularProgressIndicator());
+                  }
+                }),
             /////////
           ],
         ),
-      ]),
+      ),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
