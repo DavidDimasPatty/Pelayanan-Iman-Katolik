@@ -38,8 +38,21 @@ class confirmBaptis {
   }
 
   daftar(idBaptis, idUser, kapasitas, context) async {
-    var daftarmisa =
-        await MongoDatabase.daftarBaptis(idBaptis, idUser, kapasitas);
+    Messages msg = new Messages();
+    msg.addReceiver("agenPencarian");
+    msg.setContent([
+      ["enroll Baptis"],
+      [idBaptis],
+      [idUser],
+      [kapasitas]
+    ]);
+
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    var daftarmisa = await AgenPage().receiverTampilan();
 
     if (daftarmisa == 'oke') {
       Fluttertoast.showToast(
@@ -50,7 +63,7 @@ class confirmBaptis {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
-      Navigator.pushReplacement(
+      Navigator.pop(
         context,
         MaterialPageRoute(
             builder: (context) =>
