@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
+import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarBaptis.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 
@@ -18,8 +20,20 @@ class confirmBaptis {
       this.email, this.namaGereja);
 
   Future<List> callDb() async {
-    detailGereja = await MongoDatabase.detailGerejaBaptis(idGereja);
-    print(detailGereja);
+    Messages msg = new Messages();
+    msg.addReceiver("agenPencarian");
+    msg.setContent([
+      ["cari Detail Baptis"],
+      [idBaptis]
+    ]);
+
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    detailGereja = await AgenPage().receiverTampilan();
+
     return detailGereja;
   }
 
@@ -40,7 +54,7 @@ class confirmBaptis {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                detailDaftarBaptis(name, email, namaGereja, idUser, idGereja)),
+                detailDaftarBaptis(name, email, namaGereja, idUser, idBaptis)),
       );
     }
   }
@@ -55,28 +69,39 @@ class confirmBaptis {
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
               alignment: Alignment.center,
               title: Text("Konfirmasi Pendaftaran"),
-              content: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    for (var i in detailGereja)
-                      Column(
-                        children: <Widget>[
-                          Text("Konfirmasi Pendaftaran Baptis \n Pada Gereja " +
-                              detailGereja[0]['nama'] +
-                              "\n" +
-                              "Pada Tanggal " +
-                              detailGereja[0]['GerejaBaptis'][0]['jadwalBuka']
-                                  .toString()
-                                  .substring(0, 19) +
-                              " - " +
-                              detailGereja[0]['GerejaBaptis'][0]['jadwalTutup']
-                                  .toString()
-                                  .substring(0, 19) +
-                              " ?")
-                        ],
-                      )
-                  ]),
+              content: FutureBuilder<List>(
+                  future: callDb(),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    try {
+                      return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            for (var i in detailGereja)
+                              Column(
+                                children: <Widget>[
+                                  Text(
+                                      "Konfirmasi Pendaftaran Baptis \n Pada Gereja " +
+                                          detailGereja[0]['GerejaBaptis'][0]
+                                              ['nama'] +
+                                          "\n" +
+                                          "Pada Tanggal " +
+                                          detailGereja[0]['jadwalBuka']
+                                              .toString()
+                                              .substring(0, 19) +
+                                          " - " +
+                                          detailGereja[0]['jadwalTutup']
+                                              .toString()
+                                              .substring(0, 19) +
+                                          " ?")
+                                ],
+                              )
+                          ]);
+                    } catch (e) {
+                      print(e);
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  }),
               actions: <Widget>[
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -86,11 +111,8 @@ class confirmBaptis {
                           textColor: Colors.white,
                           color: Colors.blueAccent,
                           onPressed: () async {
-                            await daftar(
-                                idBaptis,
-                                idUser,
-                                detailGereja[0]['GerejaBaptis'][0]['kapasitas'],
-                                context);
+                            await daftar(idBaptis, idUser,
+                                detailGereja[0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
                       RaisedButton(

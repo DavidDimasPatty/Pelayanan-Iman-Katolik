@@ -188,7 +188,7 @@ class _Baptis extends State<Baptis> {
                                       emails,
                                       i['GerejaBaptis'][0]['nama'],
                                       idUser,
-                                      i['GerejaBaptis'][0]['_id'])),
+                                      i['_id'])),
                             );
                           },
                           child: Container(
