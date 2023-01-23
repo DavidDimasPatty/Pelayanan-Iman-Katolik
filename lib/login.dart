@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/FadeAnimation.dart';
+import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
+import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/forgetPassword.dart';
 import 'package:pelayanan_iman_katolik/singup.dart';
 import 'DatabaseFolder/mongodb.dart';
@@ -8,6 +10,24 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class Login extends StatelessWidget {
+  login(id, password) async {
+    Messages msg = new Messages();
+    msg.addReceiver("agenPencarian");
+    msg.setContent([
+      ["cari user"],
+      [id],
+      [password]
+    ]);
+    var hasil;
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    hasil = await AgenPage().receiverTampilan();
+    return hasil;
+  }
+
   @override
   Widget build(BuildContext context) {
     TextEditingController emailController = new TextEditingController();
@@ -169,32 +189,48 @@ class Login extends StatelessWidget {
                                     emailController.clear();
                                     passwordController.clear();
                                   } else {
-                                    var ret = await MongoDatabase.findUser(
-                                        emailController.text,
-                                        passwordController.text);
-
-                                    if (ret != "failed") {
+                                    var ret = await login(emailController.text,
+                                            passwordController.text)
+                                        .then((ret) async {
+                                      print("work");
                                       print(ret);
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => HomePage(
-                                                ret[0]['name'],
-                                                ret[0]['email'],
-                                                ret[0]['_id'])),
-                                      );
-                                    } else {
-                                      Fluttertoast.showToast(
-                                          msg: "Email dan Password Salah",
-                                          toastLength: Toast.LENGTH_SHORT,
-                                          gravity: ToastGravity.CENTER,
-                                          timeInSecForIosWeb: 2,
-                                          backgroundColor: Colors.red,
-                                          textColor: Colors.white,
-                                          fontSize: 16.0);
-                                      emailController.clear();
-                                      passwordController.clear();
-                                    }
+                                      try {
+                                        if (ret.length > 0) {
+                                          print(ret[0]["_id"]);
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => HomePage(
+                                                      ret[0]['name'],
+                                                      ret[0]['email'],
+                                                      ret[0]['_id'],
+                                                    )),
+                                          );
+                                        } else {
+                                          Fluttertoast.showToast(
+                                              msg: "Email dan Password Salah",
+                                              toastLength: Toast.LENGTH_SHORT,
+                                              gravity: ToastGravity.CENTER,
+                                              timeInSecForIosWeb: 2,
+                                              backgroundColor: Colors.red,
+                                              textColor: Colors.white,
+                                              fontSize: 16.0);
+                                          emailController.clear();
+                                          passwordController.clear();
+                                        }
+                                      } catch (e) {
+                                        Fluttertoast.showToast(
+                                            msg: "Connection Problem",
+                                            toastLength: Toast.LENGTH_SHORT,
+                                            gravity: ToastGravity.CENTER,
+                                            timeInSecForIosWeb: 2,
+                                            backgroundColor: Colors.red,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0);
+                                        emailController.clear();
+                                        passwordController.clear();
+                                      }
+                                    });
                                   }
                                 }),
                           )),
