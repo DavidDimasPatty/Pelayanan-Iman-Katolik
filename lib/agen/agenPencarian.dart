@@ -225,6 +225,28 @@ class AgenPencarian {
             });
           }
 
+          if (data[0][0] == "cari Detail Kegiatan") {
+            print("udah masukk");
+            var gerejaKegiatanCollection =
+                MongoDatabase.db.collection(UMUM_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaKegiatan'))
+                .addStage(Match(where.eq('_id', data[1][0]).map['\$query']))
+                .build();
+            var conn = await gerejaKegiatanCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
+          }
+
 /////cari jumlah
           if (data[0][0] == "cari tampilan homepage") {
             var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
@@ -415,6 +437,33 @@ class AgenPencarian {
               });
 
               var update = await komuniCollection
+                  .updateOne(where.eq('_id', data[1][0]),
+                      modify.set('kapasitas', data[3][0] - 1))
+                  .then((result) async {
+                msg.addReceiver("agenPage");
+                msg.setContent("oke");
+                await msg.send();
+              });
+            } catch (e) {
+              msg.addReceiver("agenPage");
+              msg.setContent("failed");
+              await msg.send();
+            }
+          }
+
+          if (data[0][0] == "enroll Kegiatan") {
+            try {
+              var daftarUmumCollection =
+                  MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+              var umumCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
+              var hasil = await daftarUmumCollection.insertOne({
+                'idKegiatan': data[1][0],
+                'idUser': data[2][0],
+                'tanggalDaftar': DateTime.now(),
+                'status': 0
+              });
+
+              var update = await umumCollection
                   .updateOne(where.eq('_id', data[1][0]),
                       modify.set('kapasitas', data[3][0] - 1))
                   .then((result) async {

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
+import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarKomuni.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarRekoleksi.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
@@ -16,13 +18,39 @@ class confirmRekoleksi {
   confirmRekoleksi(this.idUser, this.idKegiatan, this.name, this.email);
 
   Future<List> callDb() async {
-    detailGereja = await MongoDatabase.detailRekoleksi(idKegiatan);
+    Messages msg = new Messages();
+    msg.addReceiver("agenPencarian");
+    msg.setContent([
+      ["cari Detail Kegiatan"],
+      [idKegiatan]
+    ]);
+    List k = [];
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    detailGereja = await AgenPage().receiverTampilan();
+
     return detailGereja;
   }
 
   daftar(idKegiatan, idUser, kapasitas, context) async {
-    var daftarmisa =
-        await MongoDatabase.daftarKegiatan(idKegiatan, idUser, kapasitas);
+    Messages msg = new Messages();
+    msg.addReceiver("agenPencarian");
+    msg.setContent([
+      ["enroll Kegiatan"],
+      [idKegiatan],
+      [idUser],
+      [kapasitas]
+    ]);
+
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    var daftarmisa = await AgenPage().receiverTampilan();
 
     if (daftarmisa == 'oke') {
       Fluttertoast.showToast(
@@ -33,7 +61,7 @@ class confirmRekoleksi {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
-      Navigator.pushReplacement(
+      Navigator.pop(
         context,
         MaterialPageRoute(
             builder: (context) =>
@@ -52,22 +80,31 @@ class confirmRekoleksi {
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
               alignment: Alignment.center,
               title: Text("Konfirmasi Pendaftaran"),
-              content: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    for (var i in detailGereja)
-                      Column(
-                        children: <Widget>[
-                          Text("Konfirmasi Pendaftaran Rekoleksi \n " +
-                              i['namaKegiatan'] +
-                              "\n" +
-                              "Pada Tanggal " +
-                              i['tanggal'].toString().substring(0, 19) +
-                              " ?")
-                        ],
-                      )
-                  ]),
+              content: FutureBuilder<List>(
+                  future: callDb(),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    try {
+                      return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            for (var i in detailGereja)
+                              Column(
+                                children: <Widget>[
+                                  Text("Konfirmasi Pendaftaran Rekoleksi \n " +
+                                      i['namaKegiatan'] +
+                                      "\n" +
+                                      "Pada Tanggal " +
+                                      i['tanggal'].toString().substring(0, 19) +
+                                      " ?")
+                                ],
+                              )
+                          ]);
+                    } catch (e) {
+                      print(e);
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  }),
               actions: <Widget>[
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,
