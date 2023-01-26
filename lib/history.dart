@@ -15,7 +15,17 @@ import 'package:pelayanan_iman_katolik/tiketSayaDetailKrisma.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaDetailPemberkatan.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaKomuniHistory.dart';
 
-class history extends StatelessWidget {
+class history extends StatefulWidget {
+  var names;
+  var emails;
+
+  final idUser;
+  history(this.names, this.emails, this.idUser);
+  @override
+  _history createState() => _history(this.names, this.emails, this.idUser);
+}
+
+class _history extends State<history> {
   var names;
   var idUser;
   var emails;
@@ -26,7 +36,7 @@ class history extends StatelessWidget {
   var baptisUser;
   var komuniUser;
 
-  history(this.names, this.emails, this.idUser);
+  _history(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
     tiketGereja = await MongoDatabase.jadwalHistory(idUser);
@@ -80,6 +90,12 @@ class history extends StatelessWidget {
     return hasil;
   }
 
+  Future pullRefresh() async {
+    setState(() {
+      callDb();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,299 +141,245 @@ class history extends StatelessWidget {
               future: callDbBaptisDaftar(),
               builder: (context, AsyncSnapshot snapshot) {
                 try {
-                  return Column(
-                    children: <Widget>[
-                      for (var i in snapshot.data)
-                        InkWell(
-                            borderRadius: new BorderRadius.circular(24),
-                            onTap: () {
-                              tiketSayaBaptisHistory(
-                                      names,
-                                      emails,
-                                      idUser,
-                                      i['UserBaptis'][0]['_id'],
-                                      i['UserBaptis'][0]['idGereja'])
-                                  .showDialogBox(context);
-                            },
-                            child: Container(
-                              margin: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.topRight,
-                                    end: Alignment.topLeft,
-                                    colors: [
-                                      Colors.blueAccent,
-                                      Colors.lightBlue,
-                                    ]),
-                                border: Border.all(
-                                  color: Colors.lightBlue,
+                  return Column(children: <Widget>[
+                    for (var i in snapshot.data)
+                      InkWell(
+                          borderRadius: new BorderRadius.circular(24),
+                          onTap: () {
+                            tiketSayaBaptisHistory(
+                                    names,
+                                    emails,
+                                    idUser,
+                                    i['UserBaptis'][0]['_id'],
+                                    i['UserBaptis'][0]['idGereja'])
+                                .showDialogBox(context);
+                          },
+                          child: Container(
+                            margin: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.topRight,
+                                  end: Alignment.topLeft,
+                                  colors: [
+                                    Colors.blueAccent,
+                                    Colors.lightBlue,
+                                  ]),
+                              border: Border.all(
+                                color: Colors.lightBlue,
+                              ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  "Jadwal : " +
+                                      i['UserBaptis'][0]['jadwalBuka']
+                                          .toString()
+                                          .substring(0, 19) +
+                                      " s/d " +
+                                      i['UserBaptis'][0]['jadwalTutup']
+                                          .toString()
+                                          .substring(0, 19),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w300),
                                 ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    "Jadwal : " +
-                                        i['UserBaptis'][0]['jadwalBuka']
-                                            .toString()
-                                            .substring(0, 19) +
-                                        " s/d " +
-                                        i['UserBaptis'][0]['jadwalTutup']
-                                            .toString()
-                                            .substring(0, 19),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                  FutureBuilder<List>(
-                                      future: callInfoGereja(
-                                          i['UserBaptis'][0]['idGereja']),
-                                      builder:
-                                          (context, AsyncSnapshot snapshot) {
-                                        try {
-                                          return Text(
-                                            "Nama Gereja : " +
-                                                snapshot.data[0]['nama'],
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.w300),
-                                          );
-                                        } catch (e) {
-                                          print(e);
-                                          return Center(
-                                              child:
-                                                  CircularProgressIndicator());
-                                        }
-                                      }),
-                                  Text(
-                                    i['status'] == "0"
-                                        ? ' Status : Belum Hadir'
-                                        : i['status'] == "-1"
-                                            ? ' Status : Dibatalkan'
-                                            : ' Status : Sudah Dihadiri',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                ],
-                              ),
-                            )),
-
-                      /////////
-                    ],
-                  );
-                } catch (e) {
-                  print(e);
-                  return Center(child: CircularProgressIndicator());
-                }
-              }),
-          Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-              child: Text(
-                "Komuni yang Pernah Didaftar",
-                style: TextStyle(color: Colors.black, fontSize: 23.0),
-              )),
-          FutureBuilder<List>(
-              future: callDbKomuniDaftar(),
-              builder: (context, AsyncSnapshot snapshot) {
-                try {
-                  return Column(
-                    children: <Widget>[
-                      for (var i in snapshot.data)
-                        InkWell(
-                            borderRadius: new BorderRadius.circular(24),
-                            onTap: () {
-                              tiketSayaKomuniHistory(
-                                      names,
-                                      emails,
-                                      idUser,
-                                      i['UserKomuni'][0]['_id'],
-                                      i['UserKomuni'][0]['idGereja'])
-                                  .showDialogBox(context);
-                            },
-                            child: Container(
-                              margin: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.topRight,
-                                    end: Alignment.topLeft,
-                                    colors: [
-                                      Colors.blueAccent,
-                                      Colors.lightBlue,
-                                    ]),
-                                border: Border.all(
-                                  color: Colors.lightBlue,
+                                FutureBuilder<List>(
+                                    future: callInfoGereja(
+                                        i['UserBaptis'][0]['idGereja']),
+                                    builder: (context, AsyncSnapshot snapshot) {
+                                      try {
+                                        return Text(
+                                          "Nama Gereja : " +
+                                              snapshot.data[0]['nama'],
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.w300),
+                                        );
+                                      } catch (e) {
+                                        print(e);
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      }
+                                    }),
+                                Text(
+                                  i['status'] == "0"
+                                      ? ' Status : Belum Hadir'
+                                      : i['status'] == "-1"
+                                          ? ' Status : Dibatalkan'
+                                          : ' Status : Sudah Dihadiri',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w300),
                                 ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    "Jadwal : " +
-                                        i['UserKomuni'][0]['jadwalBuka']
-                                            .toString()
-                                            .substring(0, 19) +
-                                        " s/d " +
-                                        i['UserKomuni'][0]['jadwalTutup']
-                                            .toString()
-                                            .substring(0, 19),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                  FutureBuilder<List>(
-                                      future: callInfoGereja(
-                                          i['UserKomuni'][0]['idGereja']),
-                                      builder:
-                                          (context, AsyncSnapshot snapshot) {
-                                        try {
-                                          return Text(
-                                            "Nama Gereja : " +
-                                                snapshot.data[0]['nama']
-                                                    .toString(),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.w300),
-                                          );
-                                        } catch (e) {
-                                          print(e);
-                                          return Center(
-                                              child:
-                                                  CircularProgressIndicator());
-                                        }
-                                      }),
-                                  Text(
-                                    i['status'] == "0"
-                                        ? ' Status : Belum Hadir'
-                                        : i['status'] == "-1"
-                                            ? ' Status : Dibatalkan'
-                                            : ' Status : Sudah Dihadiri',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                ],
-                              ),
-                            )),
+                              ],
+                            ),
+                          )),
 
-                      /////////
-                    ],
-                  );
-                } catch (e) {
-                  print(e);
-                  return Center(child: CircularProgressIndicator());
-                }
-              }),
-          Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-              child: Text(
-                "Krisma yang Pernah Didaftar",
-                style: TextStyle(color: Colors.black, fontSize: 23.0),
-              )),
-          FutureBuilder<List>(
-              future: callDbKrismaDaftar(),
-              builder: (context, AsyncSnapshot snapshot) {
-                try {
-                  return Column(
-                    children: <Widget>[
-                      for (var i in snapshot.data)
-                        InkWell(
-                            borderRadius: new BorderRadius.circular(24),
-                            onTap: () {
-                              tiketSayaDetailKrisma(
-                                      names,
-                                      emails,
-                                      idUser,
-                                      i['UserKrisma'][0]['_id'],
-                                      i['UserKrisma'][0]['idGereja'],
-                                      i['_id'])
-                                  .showDialogBox(context);
-                            },
-                            child: Container(
-                              margin: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.topRight,
-                                    end: Alignment.topLeft,
-                                    colors: [
-                                      Colors.blueAccent,
-                                      Colors.lightBlue,
-                                    ]),
-                                border: Border.all(
-                                  color: Colors.lightBlue,
+                    /////////
+
+                    Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                        child: Text(
+                          "Komuni yang Pernah Didaftar",
+                          style: TextStyle(color: Colors.black, fontSize: 23.0),
+                        )),
+                    Column(
+                      children: <Widget>[
+                        for (var i in snapshot.data)
+                          InkWell(
+                              borderRadius: new BorderRadius.circular(24),
+                              onTap: () {
+                                tiketSayaKomuniHistory(
+                                        names,
+                                        emails,
+                                        idUser,
+                                        i['UserKomuni'][0]['_id'],
+                                        i['UserKomuni'][0]['idGereja'])
+                                    .showDialogBox(context);
+                              },
+                              child: Container(
+                                margin: EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topRight,
+                                      end: Alignment.topLeft,
+                                      colors: [
+                                        Colors.blueAccent,
+                                        Colors.lightBlue,
+                                      ]),
+                                  border: Border.all(
+                                    color: Colors.lightBlue,
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
                                 ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    "Jadwal : " +
-                                        i['UserKrisma'][0]['jadwalBuka']
-                                            .toString()
-                                            .substring(0, 19) +
-                                        " s/d " +
-                                        i['UserKrisma'][0]['jadwalTutup']
-                                            .toString()
-                                            .substring(0, 19),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                  FutureBuilder<List>(
-                                      future: callInfoGereja(
-                                          i['UserKrisma'][0]['idGereja']),
-                                      builder:
-                                          (context, AsyncSnapshot snapshot) {
-                                        try {
-                                          return Text(
-                                            "Nama Gereja : " +
-                                                snapshot.data[0]['nama'],
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.w300),
-                                          );
-                                        } catch (e) {
-                                          print(e);
-                                          return Center(
-                                              child:
-                                                  CircularProgressIndicator());
-                                        }
-                                      }),
-                                ],
-                              ),
-                            )),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      "Jadwal : " +
+                                          i['UserKomuni'][0]['jadwalBuka']
+                                              .toString()
+                                              .substring(0, 19) +
+                                          " s/d " +
+                                          i['UserKomuni'][0]['jadwalTutup']
+                                              .toString()
+                                              .substring(0, 19),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                    Text(
+                                      "Nama Gereja : " +
+                                          snapshot.data[0]['nama'].toString(),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                    Text(
+                                      i['status'] == "0"
+                                          ? ' Status : Belum Hadir'
+                                          : i['status'] == "-1"
+                                              ? ' Status : Dibatalkan'
+                                              : ' Status : Sudah Dihadiri',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                  ],
+                                ),
+                              )),
 
-                      /////////
-                    ],
-                  );
-                } catch (e) {
-                  print(e);
-                  return Center(child: CircularProgressIndicator());
-                }
-              }),
-          Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-              child: Text(
-                "Kegiatan Umum yang Pernah Didaftar",
-                style: TextStyle(color: Colors.black, fontSize: 23.0),
-              )),
-          FutureBuilder<List>(
-              future: callDbKegiatanDaftar(),
-              builder: (context, AsyncSnapshot snapshot) {
-                try {
-                  return Column(
-                    children: <Widget>[
+                        /////////
+                      ],
+                    ),
+
+                    Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                        child: Text(
+                          "Krisma yang Pernah Didaftar",
+                          style: TextStyle(color: Colors.black, fontSize: 23.0),
+                        )),
+                    Column(
+                      children: <Widget>[
+                        for (var i in snapshot.data)
+                          InkWell(
+                              borderRadius: new BorderRadius.circular(24),
+                              onTap: () {
+                                tiketSayaDetailKrisma(
+                                        names,
+                                        emails,
+                                        idUser,
+                                        i['UserKrisma'][0]['_id'],
+                                        i['UserKrisma'][0]['idGereja'],
+                                        i['_id'])
+                                    .showDialogBox(context);
+                              },
+                              child: Container(
+                                margin: EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topRight,
+                                      end: Alignment.topLeft,
+                                      colors: [
+                                        Colors.blueAccent,
+                                        Colors.lightBlue,
+                                      ]),
+                                  border: Border.all(
+                                    color: Colors.lightBlue,
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      "Jadwal : " +
+                                          i['UserKrisma'][0]['jadwalBuka']
+                                              .toString()
+                                              .substring(0, 19) +
+                                          " s/d " +
+                                          i['UserKrisma'][0]['jadwalTutup']
+                                              .toString()
+                                              .substring(0, 19),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                    Text(
+                                      "Nama Gereja : " +
+                                          snapshot.data[0]['nama'],
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                  ],
+                                ),
+                              )),
+
+                        /////////
+                      ],
+                    ),
+
+                    Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                        child: Text(
+                          "Kegiatan Umum yang Pernah Didaftar",
+                          style: TextStyle(color: Colors.black, fontSize: 23.0),
+                        )),
+                    Column(children: <Widget>[
                       for (var i in snapshot.data)
                         InkWell(
                             borderRadius: new BorderRadius.circular(24),
@@ -479,105 +441,100 @@ class history extends StatelessWidget {
                             )),
 
                       /////////
-                    ],
-                  );
-                } catch (e) {
-                  print(e);
-                  return Center(child: CircularProgressIndicator());
-                }
-              }),
-          Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-              child: Text(
-                "Pemberkatan yang Pernah Didaftar",
-                style: TextStyle(color: Colors.black, fontSize: 23.0),
-              )),
-          FutureBuilder<List>(
-              future: callDbPemberkatan(),
-              builder: (context, AsyncSnapshot snapshot) {
-                try {
-                  return Column(
-                    children: <Widget>[
-                      for (var i in snapshot.data)
-                        InkWell(
-                            borderRadius: new BorderRadius.circular(24),
-                            onTap: () {
-                              tiketSayaDetailPemberkatan(
-                                names,
-                                emails,
-                                idUser,
-                                i['_id'],
-                              ).showDialogBox(context);
-                            },
-                            child: Container(
-                              margin: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.topRight,
-                                    end: Alignment.topLeft,
-                                    colors: [
-                                      Colors.blueAccent,
-                                      Colors.lightBlue,
-                                    ]),
-                                border: Border.all(
-                                  color: Colors.lightBlue,
-                                ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    "Jadwal : " +
-                                        i['tanggal']
-                                            .toString()
-                                            .substring(0, 19),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                  Text(
-                                    "Nama Kegiatan : Pemberkatan " + i['jenis'],
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w300),
-                                  ),
-                                  if (i['status'] == 0)
-                                    Text(
-                                      "Status : Menunggu",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                  if (i['status'] == 1)
-                                    Text(
-                                      "Status : Disetujui",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                  if (i['status'] == -1)
-                                    Text(
-                                      "Status : Ditolak",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                ],
-                              ),
-                            )),
+
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 8),
-                      ),
-                      /////////
-                    ],
-                  );
+                          padding:
+                              EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                          child: Text(
+                            "Pemberkatan yang Pernah Didaftar",
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 23.0),
+                          )),
+                      Column(
+                        children: <Widget>[
+                          for (var i in snapshot.data)
+                            InkWell(
+                                borderRadius: new BorderRadius.circular(24),
+                                onTap: () {
+                                  tiketSayaDetailPemberkatan(
+                                    names,
+                                    emails,
+                                    idUser,
+                                    i['_id'],
+                                  ).showDialogBox(context);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topRight,
+                                        end: Alignment.topLeft,
+                                        colors: [
+                                          Colors.blueAccent,
+                                          Colors.lightBlue,
+                                        ]),
+                                    border: Border.all(
+                                      color: Colors.lightBlue,
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text(
+                                        "Jadwal : " +
+                                            i['tanggal']
+                                                .toString()
+                                                .substring(0, 19),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      Text(
+                                        "Nama Kegiatan : Pemberkatan " +
+                                            i['jenis'],
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      if (i['status'] == 0)
+                                        Text(
+                                          "Status : Menunggu",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                      if (i['status'] == 1)
+                                        Text(
+                                          "Status : Disetujui",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                      if (i['status'] == -1)
+                                        Text(
+                                          "Status : Ditolak",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                    ],
+                                  ),
+                                )),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 8),
+                          ),
+                          /////////
+                        ],
+                      )
+                    ])
+                  ]);
                 } catch (e) {
                   print(e);
                   return Center(child: CircularProgressIndicator());

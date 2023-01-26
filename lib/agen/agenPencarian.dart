@@ -247,6 +247,103 @@ class AgenPencarian {
             });
           }
 
+          if (data[0][0] == "cari Enroll History") {
+            print("masuk enrollll");
+            //////////Kegiatan Umum
+            var userKegiatanCollection =
+                MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+            final pipeline1 = AggregationPipelineBuilder()
+                .addStage(
+                  Lookup(
+                      from: 'umum',
+                      localField: 'idKegiatan',
+                      foreignField: '_id',
+                      as: 'UserKegiatan'),
+                )
+                .addStage(Match(where
+                    .eq('idUser', data[1][0])
+                    .eq('status', 0)
+                    .map['\$query']))
+                .build();
+            var resUmum = await userKegiatanCollection
+                .aggregateToStream(pipeline1)
+                .toList();
+            //////////Krisma
+            var userKrismaCollection =
+                MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
+            final pipeline2 = AggregationPipelineBuilder()
+                .addStage(
+                  Lookup(
+                      from: 'krisma',
+                      localField: 'idKrisma',
+                      foreignField: '_id',
+                      as: 'UserKrisma'),
+                )
+                .addStage(Match(where
+                    .eq('idUser', data[1][0])
+                    .eq('status', 0)
+                    .map['\$query']))
+                .build();
+            var resKrisma = await userKrismaCollection
+                .aggregateToStream(pipeline2)
+                .toList();
+            //////////Baptis
+            var userBaptisCollection =
+                MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+            final pipeline3 = AggregationPipelineBuilder()
+                .addStage(
+                  Lookup(
+                      from: 'baptis',
+                      localField: 'idBaptis',
+                      foreignField: '_id',
+                      as: 'UserBaptis'),
+                )
+                .addStage(Match(where
+                    .eq('idUser', data[1][0])
+                    .eq('status', 0)
+                    .map['\$query']))
+                .build();
+            var resBaptis = await userBaptisCollection
+                .aggregateToStream(pipeline3)
+                .toList();
+            //////////Komuni
+            var userKomuniCollection =
+                MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+            final pipeline4 = AggregationPipelineBuilder()
+                .addStage(
+                  Lookup(
+                      from: 'komuni',
+                      localField: 'idKomuni',
+                      foreignField: '_id',
+                      as: 'UserKomuni'),
+                )
+                .addStage(Match(where
+                    .eq('idUser', data[1][0])
+                    .eq('status', 0)
+                    .map['\$query']))
+                .build();
+            var resKomuni = await userKomuniCollection
+                .aggregateToStream(pipeline4)
+                .toList();
+            //////////Pemberkatan
+            var pemberkatanCollection =
+                MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
+            var resPemberkatan = await pemberkatanCollection
+                .find({'idUser': data[1][0], 'status': 0})
+                .toList()
+                .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent([
+                    [resBaptis],
+                    [resKomuni],
+                    [resKrisma],
+                    [resUmum],
+                    [result]
+                  ]);
+                  await msg.send();
+                });
+          }
+
 /////cari jumlah
           if (data[0][0] == "cari tampilan homepage") {
             var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
