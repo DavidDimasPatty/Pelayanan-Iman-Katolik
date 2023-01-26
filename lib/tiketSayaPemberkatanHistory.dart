@@ -7,7 +7,7 @@ import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
 
-class tiketSayaDetailPemberkatan {
+class tiketSayaPemberkatanHistory {
   var names;
   var idUser;
   var emails;
@@ -18,7 +18,7 @@ class tiketSayaDetailPemberkatan {
   var idUmum;
   var idUserBaptis;
   var cancelPemberkatan;
-  tiketSayaDetailPemberkatan(
+  tiketSayaPemberkatanHistory(
       this.names, this.emails, this.idUser, this.idPemberkatan);
 
   Future<List> callDb() async {
@@ -150,19 +150,7 @@ class tiketSayaDetailPemberkatan {
                       return Center(child: CircularProgressIndicator());
                     }
                   }),
-              actions: <Widget>[
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      RaisedButton(
-                          child: Text('Batalkan Mendaftar'),
-                          textColor: Colors.white,
-                          color: Colors.blueAccent,
-                          onPressed: () async {
-                            await cancelDaftar(idPemberkatan, context);
-                          }), // button 1
-                    ])
-              ]);
+              actions: <Widget>[]);
         });
   }
 }

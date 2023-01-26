@@ -17,6 +17,7 @@ import 'package:pelayanan_iman_katolik/tiketSayaDetailPemberkatan.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaKegiatanHistory.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaKomuniHistory.dart';
 import 'package:pelayanan_iman_katolik/tiketSayaKrismaHistory.dart';
+import 'package:pelayanan_iman_katolik/tiketSayaPemberkatanHistory.dart';
 
 class history extends StatefulWidget {
   var names;
@@ -432,7 +433,7 @@ class _history extends State<history> {
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
-                                      tiketSayaDetailPemberkatan(
+                                      tiketSayaPemberkatanHistory(
                                         names,
                                         emails,
                                         idUser,
@@ -541,7 +542,7 @@ class _history extends State<history> {
                   label: "Home",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.token),
+                  icon: Icon(Icons.token, color: Color.fromARGB(255, 0, 0, 0)),
                   label: "Jadwalku",
                 )
               ],

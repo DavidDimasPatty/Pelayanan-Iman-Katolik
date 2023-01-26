@@ -796,6 +796,24 @@ class AgenPencarian {
             }
           }
 
+          if (data[0][0] == "cancel Pemberkatan") {
+            try {
+              var tiket = MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
+              var conn = await tiket
+                  .updateOne(
+                      where.eq('_id', data[1][0]), modify.set('status', -2))
+                  .then((result) async {
+                msg.addReceiver("agenPage");
+                msg.setContent("oke");
+                await msg.send();
+              });
+            } catch (e) {
+              msg.addReceiver("agenPage");
+              msg.setContent("failed");
+              await msg.send();
+            }
+          }
+
           if (data[0][0] == "enroll Kegiatan") {
             try {
               var daftarUmumCollection =
