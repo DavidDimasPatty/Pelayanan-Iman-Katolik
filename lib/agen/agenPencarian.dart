@@ -183,6 +183,89 @@ class AgenPencarian {
             });
           }
 
+          if (data[0][0] == "cari Detail Jadwal Baptis") {
+            var jadwalCollection =
+                MongoDatabase.db.collection(BAPTIS_COLLECTION);
+            var conn =
+                await jadwalCollection.find({'_id': data[1][0]}).toList();
+
+            var GerejaCollection =
+                MongoDatabase.db.collection(GEREJA_COLLECTION);
+            var gereja = await GerejaCollection.find({'_id': data[2][0]})
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent([
+                [conn],
+                [result]
+              ]);
+              await msg.send();
+            });
+          }
+
+          if (data[0][0] == "cari Detail Jadwal Komuni") {
+            var jadwalCollection =
+                MongoDatabase.db.collection(KOMUNI_COLLECTION);
+            var conn =
+                await jadwalCollection.find({'_id': data[1][0]}).toList();
+            var GerejaCollection =
+                MongoDatabase.db.collection(GEREJA_COLLECTION);
+            var gereja = await GerejaCollection.find({'_id': data[2][0]})
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent([
+                [conn],
+                [result]
+              ]);
+              await msg.send();
+            });
+          }
+
+          if (data[0][0] == "cari Detail Jadwal Krisma") {
+            var jadwalCollection =
+                MongoDatabase.db.collection(KRISMA_COLLECTION);
+            var conn =
+                await jadwalCollection.find({'_id': data[1][0]}).toList();
+            var GerejaCollection =
+                MongoDatabase.db.collection(GEREJA_COLLECTION);
+            var gereja = await GerejaCollection.find({'_id': data[2][0]})
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent([
+                [conn],
+                [result]
+              ]);
+              await msg.send();
+            });
+          }
+
+          if (data[0][0] == "cari Detail Jadwal Umum") {
+            var jadwalCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
+            var conn = await jadwalCollection
+                .find({'_id': data[1][0]})
+                .toList()
+                .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
+
+          if (data[0][0] == "cari Detail Jadwal Pemberkatan") {
+            var pemberkatanCollection =
+                MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
+            var conn = await pemberkatanCollection
+                .find({'_id': data[1][0]})
+                .toList()
+                .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
+
           if (data[0][0] == "cari Detail Komuni") {
             var gerejaBaptisCollection =
                 MongoDatabase.db.collection(KOMUNI_COLLECTION);
@@ -492,6 +575,29 @@ class AgenPencarian {
             }
           }
 
+          if (data[0][0] == "cancel Baptis") {
+            try {
+              var baptisCollection =
+                  MongoDatabase.db.collection(BAPTIS_COLLECTION);
+              var tiket = MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+              var conn = await tiket.updateOne(
+                  where.eq('_id', data[1][0]), modify.set('status', -1));
+
+              var update = await baptisCollection
+                  .updateOne(where.eq('_id', data[2][0]),
+                      modify.set('kapasitas', data[3][0] + 1))
+                  .then((result) async {
+                msg.addReceiver("agenPage");
+                msg.setContent("oke");
+                await msg.send();
+              });
+            } catch (e) {
+              msg.addReceiver("agenPage");
+              msg.setContent("failed");
+              await msg.send();
+            }
+          }
+
           if (data[0][0] == "enroll Komuni") {
             try {
               var daftarKomuniCollection =
@@ -508,6 +614,29 @@ class AgenPencarian {
               var update = await komuniCollection
                   .updateOne(where.eq('_id', data[1][0]),
                       modify.set('kapasitas', data[3][0] - 1))
+                  .then((result) async {
+                msg.addReceiver("agenPage");
+                msg.setContent("oke");
+                await msg.send();
+              });
+            } catch (e) {
+              msg.addReceiver("agenPage");
+              msg.setContent("failed");
+              await msg.send();
+            }
+          }
+
+          if (data[0][0] == "cancel Komuni") {
+            try {
+              var baptisCollection =
+                  MongoDatabase.db.collection(KOMUNI_COLLECTION);
+              var tiket = MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+              var conn = await tiket.updateOne(
+                  where.eq('_id', data[1][0]), modify.set('status', -1));
+
+              var update = await baptisCollection
+                  .updateOne(where.eq('_id', data[2][0]),
+                      modify.set('kapasitas', data[3][0] + 1))
                   .then((result) async {
                 msg.addReceiver("agenPage");
                 msg.setContent("oke");
@@ -548,6 +677,29 @@ class AgenPencarian {
             }
           }
 
+          if (data[0][0] == "cancel Krisma") {
+            try {
+              var baptisCollection =
+                  MongoDatabase.db.collection(KRISMA_COLLECTION);
+              var tiket = MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
+              var conn = await tiket.updateOne(
+                  where.eq('_id', data[1][0]), modify.set('status', -1));
+
+              var update = await baptisCollection
+                  .updateOne(where.eq('_id', data[2][0]),
+                      modify.set('kapasitas', data[3][0] + 1))
+                  .then((result) async {
+                msg.addReceiver("agenPage");
+                msg.setContent("oke");
+                await msg.send();
+              });
+            } catch (e) {
+              msg.addReceiver("agenPage");
+              msg.setContent("failed");
+              await msg.send();
+            }
+          }
+
           if (data[0][0] == "enroll Kegiatan") {
             try {
               var daftarUmumCollection =
@@ -563,6 +715,29 @@ class AgenPencarian {
               var update = await umumCollection
                   .updateOne(where.eq('_id', data[1][0]),
                       modify.set('kapasitas', data[3][0] - 1))
+                  .then((result) async {
+                msg.addReceiver("agenPage");
+                msg.setContent("oke");
+                await msg.send();
+              });
+            } catch (e) {
+              msg.addReceiver("agenPage");
+              msg.setContent("failed");
+              await msg.send();
+            }
+          }
+
+          if (data[0][0] == "cancel Umum") {
+            try {
+              var baptisCollection =
+                  MongoDatabase.db.collection(UMUM_COLLECTION);
+              var tiket = MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+              var conn = await tiket.updateOne(
+                  where.eq('_id', data[1][0]), modify.set('status', -1));
+
+              var update = await baptisCollection
+                  .updateOne(where.eq('_id', data[2][0]),
+                      modify.set('kapasitas', data[3][0] + 1))
                   .then((result) async {
                 msg.addReceiver("agenPage");
                 msg.setContent("oke");
