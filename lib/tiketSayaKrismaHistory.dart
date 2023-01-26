@@ -7,26 +7,26 @@ import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
 
-class tiketSayaBaptisHistory {
+class tiketSayaKrismaHistory {
   var names;
   var idUser;
   var emails;
   var tiketGereja;
   var tiket;
   var namaGereja;
-  var idBaptis;
+  var idKrisma;
   var idGereja;
-  var idUserBaptis;
-  var cancelBaptis;
-  tiketSayaBaptisHistory(this.names, this.emails, this.idUser, this.idBaptis,
-      this.idGereja, this.idUserBaptis);
+  var idUserKrisma;
+  var cancelKrisma;
+  tiketSayaKrismaHistory(this.names, this.emails, this.idUser, this.idKrisma,
+      this.idGereja, this.idUserKrisma);
 
   Future<List> callDb() async {
     Messages msg = new Messages();
     msg.addReceiver("agenPencarian");
     msg.setContent([
-      ["cari Detail Jadwal Baptis"],
-      [idBaptis],
+      ["cari Detail Jadwal Krisma"],
+      [idKrisma],
       [idGereja]
     ]);
 
@@ -42,18 +42,13 @@ class tiketSayaBaptisHistory {
     // return tiket;
   }
 
-  // Future<List> callInfoGereja(idGereja) async {
-  //   // namaGereja = await MongoDatabase.cariGereja(idGereja);
-  //   // return namaGereja;
-  // }
-
   cancelDaftar(kapasitas, context) async {
     Messages msg = new Messages();
     msg.addReceiver("agenPencarian");
     msg.setContent([
-      ["cancel Baptis"],
-      [idUserBaptis],
-      [idBaptis],
+      ["cancel Krisma"],
+      [idUserKrisma],
+      [idKrisma],
       [kapasitas]
     ]);
 
@@ -62,10 +57,10 @@ class tiketSayaBaptisHistory {
       print(await AgenPage().receiverTampilan());
     });
     await Future.delayed(Duration(seconds: 1));
-    cancelBaptis = await AgenPage().receiverTampilan();
-    if (cancelBaptis == 'oke') {
+    cancelKrisma = await AgenPage().receiverTampilan();
+    if (cancelKrisma == 'oke') {
       Fluttertoast.showToast(
-          msg: "Berhasil Cancel Baptis",
+          msg: "Berhasil Cancel Krisma",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,

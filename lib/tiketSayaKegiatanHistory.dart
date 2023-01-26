@@ -7,27 +7,27 @@ import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
 
-class tiketSayaBaptisHistory {
+class tiketSayaKegiatanHistory {
   var names;
   var idUser;
   var emails;
   var tiketGereja;
   var tiket;
   var namaGereja;
-  var idBaptis;
+  var idKegiatan;
   var idGereja;
-  var idUserBaptis;
-  var cancelBaptis;
-  tiketSayaBaptisHistory(this.names, this.emails, this.idUser, this.idBaptis,
-      this.idGereja, this.idUserBaptis);
+  var idUmum;
+  var idUserUmum;
+  var cancelUmum;
+  tiketSayaKegiatanHistory(
+      this.names, this.emails, this.idUser, this.idUserUmum, this.idUmum);
 
   Future<List> callDb() async {
     Messages msg = new Messages();
     msg.addReceiver("agenPencarian");
     msg.setContent([
-      ["cari Detail Jadwal Baptis"],
-      [idBaptis],
-      [idGereja]
+      ["cari Detail Jadwal Umum"],
+      [idUmum]
     ]);
 
     await msg.send().then((res) async {
@@ -42,18 +42,13 @@ class tiketSayaBaptisHistory {
     // return tiket;
   }
 
-  // Future<List> callInfoGereja(idGereja) async {
-  //   // namaGereja = await MongoDatabase.cariGereja(idGereja);
-  //   // return namaGereja;
-  // }
-
   cancelDaftar(kapasitas, context) async {
     Messages msg = new Messages();
     msg.addReceiver("agenPencarian");
     msg.setContent([
-      ["cancel Baptis"],
-      [idUserBaptis],
-      [idBaptis],
+      ["cancel Umum"],
+      [idUserUmum],
+      [idUmum],
       [kapasitas]
     ]);
 
@@ -62,10 +57,10 @@ class tiketSayaBaptisHistory {
       print(await AgenPage().receiverTampilan());
     });
     await Future.delayed(Duration(seconds: 1));
-    cancelBaptis = await AgenPage().receiverTampilan();
-    if (cancelBaptis == 'oke') {
+    cancelUmum = await AgenPage().receiverTampilan();
+    if (cancelUmum == 'oke') {
       Fluttertoast.showToast(
-          msg: "Berhasil Cancel Baptis",
+          msg: "Berhasil Cancel Kegiatan",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
@@ -129,18 +124,15 @@ class tiketSayaBaptisHistory {
                                     fontSize: 24.0,
                                     fontWeight: FontWeight.w300),
                               ),
-                              Text('Waktu: ' +
-                                  snapshot.data[0][0][0]['jadwalBuka']
-                                      .toString()
-                                      .substring(0, 19) +
-                                  " s/d " +
-                                  snapshot.data[0][0][0]['jadwalTutup']
+                              Text('Jadwal: ' +
+                                  tiket[0]['tanggal']
                                       .toString()
                                       .substring(0, 19)),
-                              Text('Nama Gereja: ' +
-                                  snapshot.data[1][0][0]['nama']),
-                              Text('Alamat Gereja: ' +
-                                  snapshot.data[1][0][0]['address']),
+                              Text('Lokasi: ' + tiket[0]['lokasi']),
+                              Text(
+                                  'Nama Kegiatan: ' + tiket[0]['namaKegiatan']),
+                              Text(
+                                  'Tema Kegiatan: ' + tiket[0]['temaKegiatan']),
                             ],
                           ),
                         ]);
