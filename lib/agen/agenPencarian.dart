@@ -21,6 +21,28 @@ class AgenPencarian {
     action() async {
       try {
         if (data.runtimeType == List<List<String>>) {
+          if (data[0][0] == "cari Pemberkatan") {
+            var gerejaImamCollection =
+                MongoDatabase.db.collection(IMAM_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaImam'))
+                .addStage(
+                    Match(where.eq('statusPemberkatan', 0).map['\$query']))
+                .build();
+            var conn = await gerejaImamCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
+          }
+
           if (data[0][0] == "cari Baptis") {
             var gerejaKomuniCollection =
                 MongoDatabase.db.collection(BAPTIS_COLLECTION);
@@ -201,6 +223,18 @@ class AgenPencarian {
               ]);
               await msg.send();
             });
+          }
+
+          if (data[0][0] == "cari Imam Pemberkatan") {
+            var gerejaCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
+            var conn = await gerejaCollection
+                .find({'idGereja': data[1][0], "statusPemberkatan": 0})
+                .toList()
+                .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent(result);
+                  await msg.send();
+                });
           }
 
           if (data[0][0] == "cari Detail Jadwal Komuni") {
