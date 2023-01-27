@@ -2,6 +2,9 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
+import 'package:pelayanan_iman_katolik/agen/messages.dart';
+import 'package:pelayanan_iman_katolik/pemberkatan.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/baptis.dart';
@@ -17,11 +20,13 @@ class FormulirPemberkatan extends StatefulWidget {
   final email;
   final idUser;
   final idGereja;
+  final idImam;
 
-  FormulirPemberkatan(this.name, this.email, this.idUser, this.idGereja);
+  FormulirPemberkatan(
+      this.name, this.email, this.idUser, this.idGereja, this.idImam);
   @override
-  _FormulirPemberkatan createState() =>
-      _FormulirPemberkatan(this.name, this.email, this.idUser, this.idGereja);
+  _FormulirPemberkatan createState() => _FormulirPemberkatan(
+      this.name, this.email, this.idUser, this.idGereja, this.idImam);
 }
 
 class _FormulirPemberkatan extends State<FormulirPemberkatan> {
@@ -29,7 +34,9 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
   final email;
   final idUser;
   final idGereja;
-  _FormulirPemberkatan(this.name, this.email, this.idUser, this.idGereja);
+  final idImam;
+  _FormulirPemberkatan(
+      this.name, this.email, this.idUser, this.idGereja, this.idImam);
 
   @override
   var jenisPemberkatan = ['Gedung', 'Rumah', 'Barang'];
@@ -65,30 +72,47 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
 
   void submitForm(nama, paroki, lingkungan, notelp, alamat, jenis, tanggal,
       note, context) async {
-    var add = await MongoDatabase.addPemberkatan(idUser, nama, paroki,
-        lingkungan, notelp, alamat, jenis, tanggal, idGereja, note);
-    if (add == 'oke') {
+    // var add = await MongoDatabase.addPemberkatan(idUser, nama, paroki,
+    //     lingkungan, notelp, alamat, jenis, tanggal, idGereja, note, idImam);
+
+    Messages msg = new Messages();
+    msg.addReceiver("agenPencarian");
+    msg.setContent([
+      ["add Pemberkatan"],
+      [idUser],
+      [nama],
+      [paroki],
+      [lingkungan],
+      [notelp],
+      [alamat],
+      [jenis],
+      [tanggal],
+      [idGereja],
+      [note],
+      [idImam],
+    ]);
+
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    var daftarmisa = await AgenPage().receiverTampilan();
+
+    if (daftarmisa == 'oke') {
       Fluttertoast.showToast(
-          msg: "Berhasil Mendaftar Pemberkatan",
+          msg: "Berhasil Mendaftar Baptis",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
-      Navigator.pushReplacement(
+      Navigator.pop(
         context,
-        MaterialPageRoute(builder: (context) => HomePage(name, email, idUser)),
+        MaterialPageRoute(
+            builder: (context) => Pemberkatan(name, email, idUser)),
       );
-    } else {
-      Fluttertoast.showToast(
-          msg: "Gagal Mendaftar Pemberkatan",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
     }
   }
 

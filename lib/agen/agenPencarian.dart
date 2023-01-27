@@ -677,6 +677,37 @@ class AgenPencarian {
                 });
           }
 
+          if (data[0][0] == "add Pemberkatan") {
+            try {
+              var pemberkatanCollection =
+                  MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
+              var checkEmail;
+
+              var hasil = await pemberkatanCollection.insertOne({
+                'idUser': data[1][0],
+                'namaLengkap': data[2][0],
+                'paroki': data[3][0],
+                'lingkungan': data[4][0],
+                'notelp': data[5][0],
+                'alamat': data[6][0],
+                'jenis': data[7][0],
+                'tanggal': DateTime.parse(data[8][0]),
+                'note': data[9][0],
+                'idGereja': data[10][0],
+                'idImam': data[11][0],
+                'status': 0
+              }).then((result) async {
+                msg.addReceiver("agenPage");
+                msg.setContent("oke");
+                await msg.send();
+              });
+            } catch (e) {
+              msg.addReceiver("agenPage");
+              msg.setContent("failed");
+              await msg.send();
+            }
+          }
+
           if (data[0][0] == "enroll Baptis") {
             try {
               var daftarBaptisCollection =

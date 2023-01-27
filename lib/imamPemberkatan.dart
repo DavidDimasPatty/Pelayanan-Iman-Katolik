@@ -170,7 +170,11 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => FormulirPemberkatan(
-                                      names, emails, idUser, i['_id'])),
+                                      names,
+                                      emails,
+                                      idUser,
+                                      i['idGereja'],
+                                      i['_id'])),
                             );
                           },
                           child: Container(
