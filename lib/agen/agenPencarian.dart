@@ -600,27 +600,37 @@ class AgenPencarian {
 
             DateTime ans = DateTime.utc(1989, 11, 9);
             var hasil;
+            try {
+              if (ans.compareTo(
+                      DateTime.parse(dateBap[0]['tanggalDaftar'].toString())) <
+                  0) {
+                ans = DateTime.parse(dateBap[0]['tanggalDaftar'].toString());
+                hasil = dateBap;
+              }
+              print("masuk rusak?");
+              if (ans.compareTo(
+                      DateTime.parse(dateKom[0]['tanggalDaftar'].toString())) <
+                  0) {
+                ans = DateTime.parse(dateKom[0]['tanggalDaftar'].toString());
+                hasil = dateKom;
+              }
 
-            if (ans.compareTo(
-                    DateTime.parse(dateBap[0]['tanggalDaftar'].toString())) <
-                0) {
-              ans = DateTime.parse(dateBap[0]['tanggalDaftar'].toString());
-              hasil = dateBap;
-            }
-
-            if (ans.compareTo(
-                    DateTime.parse(dateKom[0]['tanggalDaftar'].toString())) <
-                0) {
-              ans = DateTime.parse(dateKom[0]['tanggalDaftar'].toString());
-              hasil = dateKom;
-            }
-
-            if (ans.compareTo(
-                    DateTime.parse(dateKeg[0]['tanggalDaftar'].toString())) <
-                0) {
-              ans = DateTime.parse(dateKeg[0]['tanggalDaftar'].toString());
-              hasil = dateKeg;
-              // print(ans);
+              if (ans.compareTo(
+                      DateTime.parse(dateKeg[0]['tanggalDaftar'].toString())) <
+                  0) {
+                ans = DateTime.parse(dateKeg[0]['tanggalDaftar'].toString());
+                hasil = dateKeg;
+                // print(ans);
+              }
+            } catch (e) {
+              hasil = null;
+              msg.addReceiver("agenPage");
+              msg.setContent([
+                [dataUser],
+                [null],
+                [hasil]
+              ]);
+              return await msg.send();
             }
 
             var jadwalCollection =
@@ -931,6 +941,51 @@ class AgenPencarian {
 
 /////////////
           /////////
+        }
+        if (data.runtimeType == List<List<String>>) {
+          if (data[0][0] == "add User") {
+            var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
+            var checkEmail;
+            var checkName;
+            await userCollection
+                .find({'name': data[1][0]})
+                .toList()
+                .then((res) async {
+                  checkName = res;
+                  checkEmail =
+                      await userCollection.find({'email': data[2][0]}).toList();
+                });
+
+            try {
+              if (checkName.length > 0) {
+                return "nama";
+              }
+              if (checkEmail.length > 0) {
+                print("MASUKKKK");
+                return "email";
+              }
+              if (checkName.length == 0 && checkEmail.length == 0) {
+                var hasil = await userCollection.insertOne({
+                  'name': data[1][0],
+                  'email': data[2][0],
+                  'password': data[3][0],
+                  'picture': "",
+                  "banned": 0,
+                  "notifGD": false,
+                  "notifPG": false,
+                  "tanggalDaftar": DateTime.now()
+                }).then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent("oke");
+                  await msg.send();
+                });
+              }
+            } catch (e) {
+              msg.addReceiver("agenPage");
+              msg.setContent("failed");
+              await msg.send();
+            }
+          }
         }
       } catch (e) {
         return 0;

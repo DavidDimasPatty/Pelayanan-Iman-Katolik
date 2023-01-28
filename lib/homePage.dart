@@ -140,6 +140,7 @@ class _HomePage extends State<HomePage> {
                     future: callTampilan(),
                     builder: (context, AsyncSnapshot snapshot) {
                       try {
+                        print(snapshot.data);
                         return Card(
                             elevation: 20,
                             color: Colors.lightBlue,
@@ -273,71 +274,87 @@ class _HomePage extends State<HomePage> {
                                                     fontWeight:
                                                         FontWeight.w300),
                                               ),
-                                              Column(children: <Widget>[
-                                                if (hasil[2][0][0]
-                                                        ['idKrisma'] !=
-                                                    null)
-                                                  Text(
-                                                    'Krisma',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 20.0,
-                                                        fontWeight:
-                                                            FontWeight.w300),
-                                                  ),
-                                                if (hasil[2][0][0]
-                                                        ['idKomuni'] !=
-                                                    null)
-                                                  Text(
-                                                    'Komuni',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 20.0,
-                                                        fontWeight:
-                                                            FontWeight.w300),
-                                                  ),
-                                                if (hasil[2][0][0]
-                                                        ['idBaptis'] !=
-                                                    null)
-                                                  Text(
-                                                    'Baptis',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 20.0,
-                                                        fontWeight:
-                                                            FontWeight.w300),
-                                                  ),
-                                                if (hasil[2][0][0]
-                                                        ['idKegiatan'] !=
-                                                    null)
-                                                  Text(
-                                                    'Kegiatan Umum',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 20.0,
-                                                        fontWeight:
-                                                            FontWeight.w300),
-                                                  ),
-                                                if (hasil[2][0][0]
-                                                        ['tanggalDaftar'] !=
-                                                    null)
-                                                  Text(
-                                                    hasil[2][0][0]
-                                                            ['tanggalDaftar']
-                                                        .toString()
-                                                        .substring(0, 19),
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                        color: Colors.black,
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.w300),
-                                                  ),
-                                              ])
+                                              if (hasil[2][0] == null)
+                                                Text(
+                                                  'Belum ada Pendaftaran',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 20.0,
+                                                      fontWeight:
+                                                          FontWeight.w300),
+                                                ),
+                                              if (hasil[2][0] != null)
+                                                Column(children: <Widget>[
+                                                  if (hasil[2][0][0]
+                                                          ['idKrisma'] !=
+                                                      null)
+                                                    Text(
+                                                      'Krisma',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                    ),
+                                                  if (hasil[2][0][0]
+                                                          ['idKomuni'] !=
+                                                      null)
+                                                    Text(
+                                                      'Komuni',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                    ),
+                                                  if (hasil[2][0][0]
+                                                          ['idBaptis'] !=
+                                                      null)
+                                                    Text(
+                                                      'Baptis',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                    ),
+                                                  if (hasil[2][0][0]
+                                                          ['idKegiatan'] !=
+                                                      null)
+                                                    Text(
+                                                      'Kegiatan Umum',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 20.0,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                    ),
+                                                  if (hasil[2][0][0]
+                                                          ['tanggalDaftar'] !=
+                                                      null)
+                                                    Text(
+                                                      hasil[2][0][0]
+                                                              ['tanggalDaftar']
+                                                          .toString()
+                                                          .substring(0, 19),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                    ),
+                                                ])
                                             ],
                                           ),
                                         )),

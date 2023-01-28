@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/FadeAnimation.dart';
+import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
+
+import 'agen/agenPage.dart';
 
 class SignUp extends StatelessWidget {
   TextEditingController nameController = new TextEditingController();
@@ -74,8 +77,24 @@ class SignUp extends StatelessWidget {
       } else if (emailValid == true &&
           namaValid == true &&
           passwordController.text == repasswordController.text) {
-        var add = await MongoDatabase.addUser(
-            nameController.text, emailController.text, passwordController.text);
+        print("masssssssuyk");
+        Messages msg = new Messages();
+        msg.addReceiver("agenPencarian");
+        msg.setContent([
+          ["add User"],
+          [nameController.text],
+          [emailController.text],
+          [passwordController.text],
+        ]);
+
+        await msg.send().then((res) async {
+          print("masuk");
+          print(await AgenPage().receiverTampilan());
+        });
+        await Future.delayed(Duration(seconds: 1));
+        var add = await AgenPage().receiverTampilan();
+        // var add = await MongoDatabase.addUser(
+        //     nameController.text, emailController.text, passwordController.text);
 
         if (add == "nama") {
           nameController.text = "";
@@ -102,7 +121,15 @@ class SignUp extends StatelessWidget {
           emailController.clear();
           passwordController.clear();
         } else if (add == 'oke') {
-          Navigator.pushReplacement(
+          Fluttertoast.showToast(
+              msg: "Berhasil Sign Up",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 2,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          Navigator.pop(
             context,
             MaterialPageRoute(builder: (context) => Login()),
           );
