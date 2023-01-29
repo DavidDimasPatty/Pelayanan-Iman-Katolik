@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/messages.dart';
+import 'package:pelayanan_iman_katolik/baptis.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarBaptis.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 
@@ -65,9 +66,7 @@ class confirmBaptis {
           fontSize: 16.0);
       Navigator.pop(
         context,
-        MaterialPageRoute(
-            builder: (context) =>
-                detailDaftarBaptis(name, email, namaGereja, idUser, idBaptis)),
+        MaterialPageRoute(builder: (context) => Baptis(name, email, idUser)),
       );
     }
   }

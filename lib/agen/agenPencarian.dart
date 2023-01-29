@@ -607,14 +607,17 @@ class AgenPencarian {
                 ans = DateTime.parse(dateBap[0]['tanggalDaftar'].toString());
                 hasil = dateBap;
               }
-              print("masuk rusak?");
+            } catch (e) {}
+            print("masuk rusak?");
+            try {
               if (ans.compareTo(
                       DateTime.parse(dateKom[0]['tanggalDaftar'].toString())) <
                   0) {
                 ans = DateTime.parse(dateKom[0]['tanggalDaftar'].toString());
                 hasil = dateKom;
               }
-
+            } catch (e) {}
+            try {
               if (ans.compareTo(
                       DateTime.parse(dateKeg[0]['tanggalDaftar'].toString())) <
                   0) {
@@ -622,16 +625,16 @@ class AgenPencarian {
                 hasil = dateKeg;
                 // print(ans);
               }
-            } catch (e) {
-              hasil = null;
-              msg.addReceiver("agenPage");
-              msg.setContent([
-                [dataUser],
-                [null],
-                [hasil]
-              ]);
-              return await msg.send();
-            }
+            } catch (e) {}
+            try {
+              if (ans.compareTo(
+                      DateTime.parse(dateKri[0]['tanggalDaftar'].toString())) <
+                  0) {
+                ans = DateTime.parse(dateKri[0]['tanggalDaftar'].toString());
+                hasil = dateKri;
+                // print(ans);
+              }
+            } catch (e) {}
 
             var jadwalCollection =
                 MongoDatabase.db.collection(GEREJA_COLLECTION);
