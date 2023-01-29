@@ -1,5 +1,6 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
@@ -177,85 +178,165 @@ class _Krisma extends State<Krisma> {
                   try {
                     return Column(children: [
                       for (var i in daftarGereja)
-                        InkWell(
-                          borderRadius: new BorderRadius.circular(24),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => detailDaftarKrisma(
-                                      names,
-                                      emails,
-                                      i['GerejaKrisma'][0]['nama'],
-                                      idUser,
-                                      i['_id'])),
-                            );
-                          },
-                          child: Container(
-                              margin: EdgeInsets.only(
-                                  right: 15, left: 15, bottom: 20),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.topRight,
-                                    end: Alignment.topLeft,
-                                    colors: [
-                                      Colors.blueGrey,
-                                      Colors.lightBlue,
-                                    ]),
-                                border: Border.all(
-                                  color: Colors.lightBlue,
+                        if (i['kapasitas'] <= 0)
+                          InkWell(
+                            borderRadius: new BorderRadius.circular(24),
+                            onTap: () {
+                              Fluttertoast.showToast(
+                                  msg: "Maaf Krisma Penuh",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.CENTER,
+                                  timeInSecForIosWeb: 2,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                  fontSize: 16.0);
+                            },
+                            child: Container(
+                                margin: EdgeInsets.only(
+                                    right: 15, left: 15, bottom: 20),
+                                decoration: BoxDecoration(
+                                  color: Colors.redAccent,
+                                  border: Border.all(
+                                    color: Colors.lightBlue,
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
                                 ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              child: Column(children: <Widget>[
-                                //Color(Colors.blue);
+                                child: Column(children: <Widget>[
+                                  //Color(Colors.blue);
 
-                                Text(
-                                  i['GerejaKrisma'][0]['nama'],
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 26.0,
-                                      fontWeight: FontWeight.w300),
-                                  textAlign: TextAlign.left,
+                                  Text(
+                                    i['GerejaKrisma'][0]['nama'],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 26.0,
+                                        fontWeight: FontWeight.w300),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  Text(
+                                    'Paroki: ' + i['GerejaKrisma'][0]['paroki'],
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                  Text(
+                                    'Alamat: ' +
+                                        i['GerejaKrisma'][0]['address'],
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                  Text(
+                                    'Kapasitas Tersedia: ' +
+                                        i['kapasitas'].toString(),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                  FutureBuilder(
+                                      future: jarak(i['GerejaKrisma'][0]['lat'],
+                                          i['GerejaKrisma'][0]['lng']),
+                                      builder:
+                                          (context, AsyncSnapshot snapshot) {
+                                        try {
+                                          return Column(children: <Widget>[
+                                            Text(
+                                              snapshot.data,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                            )
+                                          ]);
+                                        } catch (e) {
+                                          print(e);
+                                          return Center(
+                                              child:
+                                                  CircularProgressIndicator());
+                                        }
+                                      }),
+                                ])),
+                          ),
+                      for (var i in daftarGereja)
+                        if (i['kapasitas'] > 0)
+                          InkWell(
+                            borderRadius: new BorderRadius.circular(24),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => detailDaftarKrisma(
+                                        names,
+                                        emails,
+                                        i['GerejaKrisma'][0]['nama'],
+                                        idUser,
+                                        i['_id'])),
+                              );
+                            },
+                            child: Container(
+                                margin: EdgeInsets.only(
+                                    right: 15, left: 15, bottom: 20),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topRight,
+                                      end: Alignment.topLeft,
+                                      colors: [
+                                        Colors.blueGrey,
+                                        Colors.lightBlue,
+                                      ]),
+                                  border: Border.all(
+                                    color: Colors.lightBlue,
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
                                 ),
-                                Text(
-                                  'Paroki: ' + i['GerejaKrisma'][0]['paroki'],
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                                Text(
-                                  'Alamat: ' + i['GerejaKrisma'][0]['address'],
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                                Text(
-                                  'Kapasitas Tersedia: ' +
-                                      i['kapasitas'].toString(),
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                                FutureBuilder(
-                                    future: jarak(i['GerejaKrisma'][0]['lat'],
-                                        i['GerejaKrisma'][0]['lng']),
-                                    builder: (context, AsyncSnapshot snapshot) {
-                                      try {
-                                        return Column(children: <Widget>[
-                                          Text(
-                                            snapshot.data,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12),
-                                          )
-                                        ]);
-                                      } catch (e) {
-                                        print(e);
-                                        return Center(
-                                            child: CircularProgressIndicator());
-                                      }
-                                    }),
-                              ])),
-                        ),
+                                child: Column(children: <Widget>[
+                                  //Color(Colors.blue);
+
+                                  Text(
+                                    i['GerejaKrisma'][0]['nama'],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 26.0,
+                                        fontWeight: FontWeight.w300),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                  Text(
+                                    'Paroki: ' + i['GerejaKrisma'][0]['paroki'],
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                  Text(
+                                    'Alamat: ' +
+                                        i['GerejaKrisma'][0]['address'],
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                  Text(
+                                    'Kapasitas Tersedia: ' +
+                                        i['kapasitas'].toString(),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                  FutureBuilder(
+                                      future: jarak(i['GerejaKrisma'][0]['lat'],
+                                          i['GerejaKrisma'][0]['lng']),
+                                      builder:
+                                          (context, AsyncSnapshot snapshot) {
+                                        try {
+                                          return Column(children: <Widget>[
+                                            Text(
+                                              snapshot.data,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                            )
+                                          ]);
+                                        } catch (e) {
+                                          print(e);
+                                          return Center(
+                                              child:
+                                                  CircularProgressIndicator());
+                                        }
+                                      }),
+                                ])),
+                          ),
                     ]);
                   } catch (e) {
                     print(e);
