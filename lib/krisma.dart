@@ -231,8 +231,7 @@ class _Krisma extends State<Krisma> {
                                 ),
                                 Text(
                                   'Kapasitas Tersedia: ' +
-                                      i['GerejaKrisma'][0]['kapasitas']
-                                          .toString(),
+                                      i['kapasitas'].toString(),
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),

@@ -231,8 +231,7 @@ class _Baptis extends State<Baptis> {
                                 ),
                                 Text(
                                   'Kapasitas Tersedia: ' +
-                                      i['GerejaBaptis'][0]['kapasitas']
-                                          .toString(),
+                                      i['kapasitas'].toString(),
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),

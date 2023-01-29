@@ -230,8 +230,7 @@ class _Komuni extends State<Komuni> {
                                 ),
                                 Text(
                                   'Kapasitas Tersedia: ' +
-                                      i['GerejaKomuni'][0]['kapasitas']
-                                          .toString(),
+                                      i['kapasitas'].toString(),
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),
