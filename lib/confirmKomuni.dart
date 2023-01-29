@@ -70,6 +70,22 @@ class confirmKomuni {
                 detailDaftarKomuni(name, email, namaGereja, idUser, idKomuni)),
       );
     }
+    if (daftarmisa == 'sudah') {
+      Fluttertoast.showToast(
+          msg: "Sudah Mendaftar Komuni ini",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      Navigator.pop(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                detailDaftarKomuni(name, email, namaGereja, idUser, idKomuni)),
+      );
+    }
   }
 
   void showDialogBox(BuildContext context) async {

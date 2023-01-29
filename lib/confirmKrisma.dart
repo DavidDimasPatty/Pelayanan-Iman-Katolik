@@ -71,6 +71,22 @@ class confirmKrisma {
                 detailDaftarKrisma(name, email, namaGereja, idUser, idGereja)),
       );
     }
+    if (daftarmisa == 'sudah') {
+      Fluttertoast.showToast(
+          msg: "Sudah Mendaftar Krisma ini",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      Navigator.pop(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                detailDaftarKrisma(name, email, namaGereja, idUser, idGereja)),
+      );
+    }
   }
 
   void showDialogBox(BuildContext context) async {

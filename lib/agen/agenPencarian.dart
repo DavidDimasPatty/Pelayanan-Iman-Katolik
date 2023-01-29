@@ -722,29 +722,43 @@ class AgenPencarian {
           }
 
           if (data[0][0] == "enroll Baptis") {
-            try {
-              var daftarBaptisCollection =
-                  MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
-              var baptisCollection =
-                  MongoDatabase.db.collection(BAPTIS_COLLECTION);
-              var hasil = await daftarBaptisCollection.insertOne({
-                'idBaptis': data[1][0],
-                'idUser': data[2][0],
-                "tanggalDaftar": DateTime.now(),
-                'status': 0
-              });
+            var daftarBaptisCollection =
+                MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+            var hasilFind = await daftarBaptisCollection.find({
+              'idBaptis': data[1][0],
+              'idUser': data[2][0],
+            }).length;
+            print(hasilFind);
 
-              var update = await baptisCollection
-                  .updateOne(where.eq('_id', data[1][0]),
-                      modify.set('kapasitas', data[3][0] - 1))
-                  .then((result) async {
+            if (hasilFind == 0) {
+              try {
+                var daftarBaptisCollection =
+                    MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+                var baptisCollection =
+                    MongoDatabase.db.collection(BAPTIS_COLLECTION);
+                var hasil = await daftarBaptisCollection.insertOne({
+                  'idBaptis': data[1][0],
+                  'idUser': data[2][0],
+                  "tanggalDaftar": DateTime.now(),
+                  'status': 0
+                });
+
+                var update = await baptisCollection
+                    .updateOne(where.eq('_id', data[1][0]),
+                        modify.set('kapasitas', data[3][0] - 1))
+                    .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent("oke");
+                  await msg.send();
+                });
+              } catch (e) {
                 msg.addReceiver("agenPage");
-                msg.setContent("oke");
+                msg.setContent("failed");
                 await msg.send();
-              });
-            } catch (e) {
+              }
+            } else {
               msg.addReceiver("agenPage");
-              msg.setContent("failed");
+              msg.setContent("sudah");
               await msg.send();
             }
           }
@@ -773,31 +787,44 @@ class AgenPencarian {
           }
 
           if (data[0][0] == "enroll Komuni") {
-            try {
-              var daftarKomuniCollection =
-                  MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
-              var komuniCollection =
-                  MongoDatabase.db.collection(KOMUNI_COLLECTION);
-              var hasil = await daftarKomuniCollection.insertOne({
-                'idKomuni': data[1][0],
-                'idUser': data[2][0],
-                "tanggalDaftar": DateTime.now(),
-                'status': 0
-              });
+            var daftarKomuniCollection =
+                MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+            var hasilFind = await daftarKomuniCollection.find({
+              'idKomuni': data[1][0],
+              'idUser': data[2][0],
+            }).length;
+            print(hasilFind);
+            if (hasilFind == 0) {
+              try {
+                var daftarKomuniCollection =
+                    MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+                var komuniCollection =
+                    MongoDatabase.db.collection(KOMUNI_COLLECTION);
+                var hasil = await daftarKomuniCollection.insertOne({
+                  'idKomuni': data[1][0],
+                  'idUser': data[2][0],
+                  "tanggalDaftar": DateTime.now(),
+                  'status': 0
+                });
 
-              var update = await komuniCollection
-                  .updateOne(where.eq('_id', data[1][0]),
-                      modify.set('kapasitas', data[3][0] - 1))
-                  .then((result) async {
+                var update = await komuniCollection
+                    .updateOne(where.eq('_id', data[1][0]),
+                        modify.set('kapasitas', data[3][0] - 1))
+                    .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent("oke");
+                  await msg.send();
+                });
+              } catch (e) {
                 msg.addReceiver("agenPage");
-                msg.setContent("oke");
+                msg.setContent("failed");
                 await msg.send();
-              });
-            } catch (e) {
-              msg.addReceiver("agenPage");
-              msg.setContent("failed");
-              await msg.send();
+              }
             }
+          } else {
+            msg.addReceiver("agenPage");
+            msg.setContent("sudah");
+            await msg.send();
           }
 
           if (data[0][0] == "cancel Komuni") {
@@ -824,31 +851,44 @@ class AgenPencarian {
           }
 
           if (data[0][0] == "enroll Krisma") {
-            try {
-              var daftarKrismaCollection =
-                  MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
-              var komuniCollection =
-                  MongoDatabase.db.collection(KRISMA_COLLECTION);
-              var hasil = await daftarKrismaCollection.insertOne({
-                'idKrisma': data[1][0],
-                'idUser': data[2][0],
-                'status': 0,
-                'tanggalDaftar': DateTime.now()
-              });
+            var daftarKrismaCollection =
+                MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
+            var hasilFind = await daftarKrismaCollection.find({
+              'idKrisma': data[1][0],
+              'idUser': data[2][0],
+            }).length;
+            print(hasilFind);
+            if (hasilFind == 0) {
+              try {
+                var daftarKrismaCollection =
+                    MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
+                var komuniCollection =
+                    MongoDatabase.db.collection(KRISMA_COLLECTION);
+                var hasil = await daftarKrismaCollection.insertOne({
+                  'idKrisma': data[1][0],
+                  'idUser': data[2][0],
+                  'status': 0,
+                  'tanggalDaftar': DateTime.now()
+                });
 
-              var update = await komuniCollection
-                  .updateOne(where.eq('_id', data[1][0]),
-                      modify.set('kapasitas', data[3][0] - 1))
-                  .then((result) async {
+                var update = await komuniCollection
+                    .updateOne(where.eq('_id', data[1][0]),
+                        modify.set('kapasitas', data[3][0] - 1))
+                    .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent("oke");
+                  await msg.send();
+                });
+              } catch (e) {
                 msg.addReceiver("agenPage");
-                msg.setContent("oke");
+                msg.setContent("failed");
                 await msg.send();
-              });
-            } catch (e) {
-              msg.addReceiver("agenPage");
-              msg.setContent("failed");
-              await msg.send();
+              }
             }
+          } else {
+            msg.addReceiver("agenPage");
+            msg.setContent("sudah");
+            await msg.send();
           }
 
           if (data[0][0] == "cancel Krisma") {
