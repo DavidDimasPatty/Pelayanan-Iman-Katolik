@@ -70,6 +70,22 @@ class confirmRetret {
                 detailDaftarRetret(name, email, idUser, idKegiatan)),
       );
     }
+    if (daftarmisa == 'sudah') {
+      Fluttertoast.showToast(
+          msg: "Sudah Mendaftar Kegiatan ini",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      Navigator.pop(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                detailDaftarRetret(name, email, idUser, idKegiatan)),
+      );
+    }
   }
 
   void showDialogBox(BuildContext context) async {

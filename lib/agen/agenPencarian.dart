@@ -933,30 +933,44 @@ class AgenPencarian {
           }
 
           if (data[0][0] == "enroll Kegiatan") {
-            try {
-              var daftarUmumCollection =
-                  MongoDatabase.db.collection(USER_UMUM_COLLECTION);
-              var umumCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
-              var hasil = await daftarUmumCollection.insertOne({
-                'idKegiatan': data[1][0],
-                'idUser': data[2][0],
-                'tanggalDaftar': DateTime.now(),
-                'status': 0
-              });
+            var daftarUmumCollection =
+                MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+            var hasilFind = await daftarUmumCollection.find({
+              'idKegiatan': data[1][0],
+              'idUser': data[2][0],
+            }).length;
+            print(hasilFind);
+            if (hasilFind == 0) {
+              try {
+                var daftarUmumCollection =
+                    MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+                var umumCollection =
+                    MongoDatabase.db.collection(UMUM_COLLECTION);
+                var hasil = await daftarUmumCollection.insertOne({
+                  'idKegiatan': data[1][0],
+                  'idUser': data[2][0],
+                  'tanggalDaftar': DateTime.now(),
+                  'status': 0
+                });
 
-              var update = await umumCollection
-                  .updateOne(where.eq('_id', data[1][0]),
-                      modify.set('kapasitas', data[3][0] - 1))
-                  .then((result) async {
+                var update = await umumCollection
+                    .updateOne(where.eq('_id', data[1][0]),
+                        modify.set('kapasitas', data[3][0] - 1))
+                    .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent("oke");
+                  await msg.send();
+                });
+              } catch (e) {
                 msg.addReceiver("agenPage");
-                msg.setContent("oke");
+                msg.setContent("failed");
                 await msg.send();
-              });
-            } catch (e) {
-              msg.addReceiver("agenPage");
-              msg.setContent("failed");
-              await msg.send();
+              }
             }
+          } else {
+            msg.addReceiver("agenPage");
+            msg.setContent("sudah");
+            await msg.send();
           }
 
           if (data[0][0] == "cancel Umum") {
