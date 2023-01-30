@@ -16,7 +16,6 @@ class AgenPendaftaran {
     Messages msg = Messages();
 
     var data = msg.receive();
-    print(data.runtimeType);
     action() async {
       try {
         if (data.runtimeType == List<List<dynamic>>) {
@@ -59,40 +58,33 @@ class AgenPendaftaran {
                     {'idBaptis': data[1][0], 'idUser': data[2][0], 'status': 0})
                 .length
                 .then((res) async {
-                  try {
-                    if (res == 0) {
-                      print("late");
+                  print("nawww");
+                  print(res.runtimeType);
+                  if (res == 0) {
+                    var daftarBaptisCollection =
+                        MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+                    var baptisCollection =
+                        MongoDatabase.db.collection(BAPTIS_COLLECTION);
+                    var hasil = await daftarBaptisCollection.insertOne({
+                      'idBaptis': data[1][0],
+                      'idUser': data[2][0],
+                      "tanggalDaftar": DateTime.now(),
+                      'status': 0
+                    });
 
-                      var daftarBaptisCollection =
-                          MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
-                      var baptisCollection =
-                          MongoDatabase.db.collection(BAPTIS_COLLECTION);
-                      var hasil = await daftarBaptisCollection.insertOne({
-                        'idBaptis': data[1][0],
-                        'idUser': data[2][0],
-                        "tanggalDaftar": DateTime.now(),
-                        'status': 0
-                      });
-
-                      var update = await baptisCollection
-                          .updateOne(where.eq('_id', data[1][0]),
-                              modify.set('kapasitas', data[3][0] - 1))
-                          .then((result) async {
-                        msg.addReceiver("agenPage");
-                        msg.setContent("oke");
-                        await msg.send();
-                      });
-                    }
-                    if (res != 0) {
-                      print(res.toString());
-                      print("????");
+                    var update = await baptisCollection
+                        .updateOne(where.eq('_id', data[1][0]),
+                            modify.set('kapasitas', data[3][0] - 1))
+                        .then((result) async {
                       msg.addReceiver("agenPage");
-                      msg.setContent("sudah");
+                      msg.setContent("oke");
                       await msg.send();
-                    }
-                  } catch (e) {
+                    });
+                  }
+                  if (res > 0) {
+                    print("????");
                     msg.addReceiver("agenPage");
-                    msg.setContent("failed");
+                    msg.setContent("sudah");
                     await msg.send();
                   }
                 });
@@ -156,11 +148,11 @@ class AgenPendaftaran {
                 msg.setContent("failed");
                 await msg.send();
               }
+            } else {
+              msg.addReceiver("agenPage");
+              msg.setContent("sudah");
+              await msg.send();
             }
-          } else {
-            msg.addReceiver("agenPage");
-            msg.setContent("sudah");
-            await msg.send();
           }
 
           if (data[0][0] == "cancel Komuni") {
@@ -221,11 +213,11 @@ class AgenPendaftaran {
                 msg.setContent("failed");
                 await msg.send();
               }
+            } else {
+              msg.addReceiver("agenPage");
+              msg.setContent("sudah");
+              await msg.send();
             }
-          } else {
-            msg.addReceiver("agenPage");
-            msg.setContent("sudah");
-            await msg.send();
           }
 
           if (data[0][0] == "cancel Krisma") {
@@ -304,11 +296,11 @@ class AgenPendaftaran {
                 msg.setContent("failed");
                 await msg.send();
               }
+            } else {
+              msg.addReceiver("agenPage");
+              msg.setContent("sudah");
+              await msg.send();
             }
-          } else {
-            msg.addReceiver("agenPage");
-            msg.setContent("sudah");
-            await msg.send();
           }
 
           if (data[0][0] == "cancel Umum") {
