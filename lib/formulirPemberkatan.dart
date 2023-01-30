@@ -76,7 +76,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
     //     lingkungan, notelp, alamat, jenis, tanggal, idGereja, note, idImam);
 
     Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
+    msg.addReceiver("agenPendaftaran");
     msg.setContent([
       ["add Pemberkatan"],
       [idUser],

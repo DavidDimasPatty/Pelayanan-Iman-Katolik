@@ -44,7 +44,7 @@ class tiketSayaDetailKegiatan {
 
   cancelDaftar(kapasitas, context) async {
     Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
+    msg.addReceiver("agenPendaftaran");
     msg.setContent([
       ["cancel Umum"],
       [idUserUmum],

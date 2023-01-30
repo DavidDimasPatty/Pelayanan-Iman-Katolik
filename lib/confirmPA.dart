@@ -38,7 +38,7 @@ class confirmPA {
 
   daftar(idKegiatan, idUser, kapasitas, context) async {
     Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
+    msg.addReceiver("agenPendaftaran");
     msg.setContent([
       ["enroll Kegiatan"],
       [idKegiatan],

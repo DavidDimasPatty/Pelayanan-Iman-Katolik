@@ -46,7 +46,7 @@ class tiketSayaDetailPemberkatan {
   cancelDaftar(idMisa, context) async {
     // cancelPemberkatan = await MongoDatabase.cancelPemberkatan(idPemberkatan);
     Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
+    msg.addReceiver("agenPendaftaran");
     msg.setContent([
       ["cancel Pemberkatan"],
       [idPemberkatan]

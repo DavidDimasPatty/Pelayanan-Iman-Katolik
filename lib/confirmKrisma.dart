@@ -40,7 +40,7 @@ class confirmKrisma {
 
   daftar(idKrisma, idUser, kapasitas, context) async {
     Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
+    msg.addReceiver("agenPendaftaran");
     msg.setContent([
       ["enroll Krisma"],
       [idKrisma],
