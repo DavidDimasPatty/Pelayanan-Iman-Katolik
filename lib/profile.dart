@@ -2,6 +2,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/messages.dart';
@@ -58,24 +59,35 @@ class _Profile extends State<Profile> {
   }
 
   Future uploadFile(File file, context) async {
-    if (file == null) return;
-    DateTime now = new DateTime.now();
-    DateTime date = new DateTime(
-        now.year, now.month, now.day, now.hour, now.minute, now.second);
-    final filename = date.toString();
-    final destination = 'files/$filename';
-    UploadTask? task = FirebaseApi.uploadFile(destination, file);
-    final snapshot = await task!.whenComplete(() {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
-    await MongoDatabase.updateProfilePicture(idUser, urlDownload).then((value) {
-      Navigator.pop(context);
+    Messages msg = new Messages();
+    msg.addReceiver("agenAkun");
+    msg.setContent([
+      ["change Picture"],
+      [idUser],
+      [file]
+    ]);
+    var k;
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    k = await AgenPage().receiverTampilan();
+
+    if (k == 'oke') {
+      Fluttertoast.showToast(
+          msg: "Berhasil Ganti Profile Picture",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => Profile(name, email, idUser)),
       );
-    });
-
-    //print('Download-Link: $urlDownload');
+    }
   }
 
   _Profile(this.name, this.email, this.idUser);

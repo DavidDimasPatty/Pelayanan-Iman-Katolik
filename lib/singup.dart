@@ -79,7 +79,7 @@ class SignUp extends StatelessWidget {
           passwordController.text == repasswordController.text) {
         print("masssssssuyk");
         Messages msg = new Messages();
-        msg.addReceiver("agenPencarian");
+        msg.addReceiver("agenAkun");
         msg.setContent([
           ["add User"],
           [nameController.text],

@@ -690,7 +690,7 @@ class MongoDatabase {
         return "found";
       }
     } catch (e) {
-      return "failed";
+      return "not";
     }
   }
 

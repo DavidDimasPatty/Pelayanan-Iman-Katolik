@@ -1,3 +1,4 @@
+import 'package:pelayanan_iman_katolik/agen/agenAkun.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPendaftaran.dart';
 
 import 'agenPage.dart';
@@ -24,6 +25,9 @@ class Messages {
     }
     if (this.Agen == "agenPendaftaran") {
       await AgenPendaftaran();
+    }
+    if (this.Agen == "agenAkun") {
+      await AgenAkun();
     }
   }
 

@@ -2,7 +2,11 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
+import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
+import 'package:pelayanan_iman_katolik/privacySafety.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
@@ -23,58 +27,77 @@ class gantiPassword extends StatelessWidget {
 
   checkPassword(context) async {
     if (passBaruController.text != passUlBaruController.text) {
+      Fluttertoast.showToast(
+          msg: "Password Baru Tidak Cocok",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      passLamaController.text = "";
       passBaruController.text = "";
       passUlBaruController.text = "";
-      return showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Password baru tidak sama'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
     } else {
       print(passLamaController.text);
-      status = await MongoDatabase.findPassword(email, passLamaController.text)
-          .then((value) async {
-        if (value == "not") {
-          return showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Password lama tidak cocok!'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
-        } else {
-          await MongoDatabase.updatePassword(idUser, passBaruController.text)
-              .then((value) {
-            passLamaController.text = "";
-            passBaruController.text = "";
-            passUlBaruController.text = "";
-            return showDialog<String>(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                title: const Text('Password Berhasil Diubah!'),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
-                  ),
-                ],
-              ),
-            );
-          });
-        }
+      Messages msg = new Messages();
+      msg.addReceiver("agenAkun");
+      msg.setContent([
+        ["find Password"],
+        [email],
+        [passLamaController.text],
+      ]);
+
+      await msg.send().then((res) async {
+        print("masuk");
+        print(await AgenPage().receiverTampilan());
       });
+      await Future.delayed(Duration(seconds: 1));
+      var value = await AgenPage().receiverTampilan();
+      if (value == "not") {
+        Fluttertoast.showToast(
+            msg: "Password Lama Tidak Cocok",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        passLamaController.text = "";
+        passBaruController.text = "";
+        passUlBaruController.text = "";
+      } else {
+        Messages msg = new Messages();
+        msg.addReceiver("agenAkun");
+        msg.setContent([
+          ["ganti Password"],
+          [idUser],
+          [passBaruController.text],
+        ]);
+
+        await msg.send().then((res) async {
+          print("masuk");
+          print(await AgenPage().receiverTampilan());
+        });
+        await Future.delayed(Duration(seconds: 1));
+        var value = await AgenPage().receiverTampilan();
+        passLamaController.text = "";
+        passBaruController.text = "";
+        passUlBaruController.text = "";
+        Fluttertoast.showToast(
+            msg: "Berhasil Ganti Password",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        Navigator.pop(
+          context,
+          MaterialPageRoute(
+              builder: (context) => privacySafety(name, email, idUser)),
+        );
+      }
     }
   }
 

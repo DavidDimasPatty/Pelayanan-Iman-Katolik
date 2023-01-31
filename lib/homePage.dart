@@ -495,39 +495,39 @@ class _HomePage extends State<HomePage> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 11),
                     ),
-                    SizedBox.fromSize(
-                      size: Size(75, 75), // button width and height
-                      child: ClipOval(
-                        child: Material(
-                          color: Colors.brown, // button color
-                          child: InkWell(
-                            splashColor: Colors.green, // splash color
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        Alkitab(names, emails, iduser)),
-                              );
-                            }, // button pressed
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(Icons.book, size: 30), // icon
-                                Text(
-                                  "Alkitab",
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ), // text
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // SizedBox.fromSize(
+                    //   size: Size(75, 75), // button width and height
+                    //   child: ClipOval(
+                    //     child: Material(
+                    //       color: Colors.brown, // button color
+                    //       child: InkWell(
+                    //         splashColor: Colors.green, // splash color
+                    //         onTap: () {
+                    //           Navigator.push(
+                    //             context,
+                    //             MaterialPageRoute(
+                    //                 builder: (context) =>
+                    //                     Alkitab(names, emails, iduser)),
+                    //           );
+                    //         }, // button pressed
+                    //         child: Column(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: <Widget>[
+                    //             Icon(Icons.book, size: 30), // icon
+                    //             Text(
+                    //               "Alkitab",
+                    //               style: TextStyle(
+                    //                 fontSize: 12,
+                    //                 fontWeight: FontWeight.bold,
+                    //               ),
+                    //               textAlign: TextAlign.center,
+                    //             ), // text
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
                 Padding(
