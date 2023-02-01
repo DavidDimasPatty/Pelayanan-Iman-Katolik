@@ -2,8 +2,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/aboutus.dart';
+import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
+import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/customerService.dart';
 import 'package:pelayanan_iman_katolik/gantiPasword.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
@@ -24,6 +27,30 @@ class Settings extends StatelessWidget {
   var dataUser;
 
   //print('Download-Link: $urlDownload');
+  Future LogOut() async {
+    Messages msg = new Messages();
+    msg.addReceiver("agenSetting");
+    msg.setContent([
+      ["log out"]
+    ]);
+    var k;
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    k = await AgenPage().receiverTampilan();
+    if (k == 'oke') {
+      Fluttertoast.showToast(
+          msg: "Berhasil Log Out",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
 
   Settings(this.name, this.email, this.idUser);
 
@@ -238,7 +265,8 @@ class Settings extends StatelessWidget {
                 )),
             Padding(padding: EdgeInsets.symmetric(vertical: 14)),
             RaisedButton(
-                onPressed: () {
+                onPressed: () async {
+                  await LogOut();
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => Login()),

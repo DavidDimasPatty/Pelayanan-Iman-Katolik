@@ -94,6 +94,14 @@ class _HomePage extends State<HomePage> {
     });
   }
 
+  void initState() {
+    super.initState();
+    setState(() {
+      callTampilan();
+      indexCaption = -1;
+    });
+  }
+
   _HomePage(this.names, this.emails, this.iduser);
   @override
   Widget build(BuildContext context) {

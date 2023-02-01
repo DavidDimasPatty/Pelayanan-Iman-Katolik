@@ -23,7 +23,7 @@ class Login extends StatelessWidget {
       print("masuk");
       print(await AgenPage().receiverTampilan());
     });
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 2));
     hasil = await AgenPage().receiverTampilan();
     return hasil;
   }
@@ -193,9 +193,9 @@ class Login extends StatelessWidget {
                                             passwordController.text)
                                         .then((ret) async {
                                       print("work");
-                                      print(ret);
+                                      print(await ret);
                                       try {
-                                        if (ret.length > 0) {
+                                        if (await ret.length > 0) {
                                           print(ret[0]["_id"]);
                                           Navigator.pushReplacement(
                                             context,
