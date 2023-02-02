@@ -98,12 +98,12 @@ void main() async {
       var object = tampilan[0][0][2]
           .toString()
           .substring(10, tampilan[0][0][2].length - 2);
-      print("Morning!");
+      print("Night!");
       runApp(MaterialApp(
         title: 'Navigation Basics',
         theme: ThemeData(
           // Define the default brightness and colors.
-          brightness: Brightness.light,
+          brightness: Brightness.dark,
           primaryColor: Colors.grey,
 
           // Define the default font family.

@@ -118,6 +118,23 @@ class AgenAkun {
               await msg.send();
             });
           }
+          if (data[0][0] == "edit Profile") {
+            print("masuk banget");
+            var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
+            var conn =
+                await userCollection.updateOne(where.eq('_id', data[1][0]), {
+              'name': data[2][0],
+              'email': data[3][0],
+              'paroki': data[4][0],
+              'lingkungan': data[5][0],
+              'notelp': data[6][0],
+              'alamat': data[7][0],
+            }).then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent("oke");
+              await msg.send();
+            });
+          }
         }
         if (data.runtimeType == List<List<String>>) {
           if (data[0][0] == "add User") {

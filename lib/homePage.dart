@@ -53,22 +53,22 @@ class _HomePage extends State<HomePage> {
     "Tanggapan Umat Katolik Mengikuti Misa"
   ];
 
-  Future<List> callDb() async {
-    dataUser = await MongoDatabase.getDataUser(iduser);
-    return dataUser;
-  }
+  // Future<List> callDb() async {
+  //   dataUser = await MongoDatabase.getDataUser(iduser);
+  //   return dataUser;
+  // }
 
-  Future<List> jadwalTerakhir() async {
-    //var dataTerakhir = await MongoDatabase.jadwalku(iduser);
-    var tanggalTerakhir = await MongoDatabase.latestJadwal(iduser);
-    // print("tanggal=" + tanggalTerakhir.toString());
-    // var jadwalTerakhir =
-    //     await MongoDatabase.jadwalMisaku(tanggalTerakhir[0]['idMisa']);
-    var gerejaTerakhir =
-        await MongoDatabase.cariGereja(tanggalTerakhir[0]['idGereja']);
-    print(gerejaTerakhir);
-    return [tanggalTerakhir, gerejaTerakhir];
-  }
+  // Future<List> jadwalTerakhir() async {
+  //   //var dataTerakhir = await MongoDatabase.jadwalku(iduser);
+  //   var tanggalTerakhir = await MongoDatabase.latestJadwal(iduser);
+  //   // print("tanggal=" + tanggalTerakhir.toString());
+  //   // var jadwalTerakhir =
+  //   //     await MongoDatabase.jadwalMisaku(tanggalTerakhir[0]['idMisa']);
+  //   var gerejaTerakhir =
+  //       await MongoDatabase.cariGereja(tanggalTerakhir[0]['idGereja']);
+  //   print(gerejaTerakhir);
+  //   return [tanggalTerakhir, gerejaTerakhir];
+  // }
 
   Future callTampilan() async {
     Messages msg = new Messages();

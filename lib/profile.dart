@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/messages.dart';
+import 'package:pelayanan_iman_katolik/editProfile.dart';
 import 'package:pelayanan_iman_katolik/history.dart';
 import 'package:pelayanan_iman_katolik/login.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
@@ -397,6 +398,49 @@ class _Profile extends State<Profile> {
                                       alignment: Alignment.center,
                                       child: Text(
                                         "Change Profile Picture",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 26.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                            Padding(
+                                padding: EdgeInsets.symmetric(vertical: 10)),
+                            Container(
+                              width: 300.00,
+                              child: RaisedButton(
+                                  onPressed: () async {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditProfile(name, email, idUser)),
+                                    );
+                                  },
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(80.0)),
+                                  elevation: 0.0,
+                                  padding: EdgeInsets.all(0.0),
+                                  child: Ink(
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topRight,
+                                          end: Alignment.topLeft,
+                                          colors: [
+                                            Colors.blueAccent,
+                                            Colors.lightBlue,
+                                          ]),
+                                      borderRadius: BorderRadius.circular(30.0),
+                                    ),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth: 300.0, minHeight: 50.0),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Edit Profile",
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 26.0,
