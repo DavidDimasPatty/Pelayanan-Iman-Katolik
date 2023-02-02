@@ -656,6 +656,12 @@ class AgenPencarian {
               }
             } catch (e) {}
 
+            var gambarGerejaCollection =
+                MongoDatabase.db.collection(GAMBAR_GEREJA_COLLECTION);
+            var connGambar = await gambarGerejaCollection
+                .find(where.sortBy('tanggal', descending: true).limit(4))
+                .toList();
+
             var jadwalCollection =
                 MongoDatabase.db.collection(GEREJA_COLLECTION);
             var conn = await jadwalCollection
@@ -666,7 +672,8 @@ class AgenPencarian {
                   msg.setContent([
                     [dataUser],
                     [result],
-                    [hasil]
+                    [hasil],
+                    [connGambar]
                   ]);
                   await msg.send();
                 });
