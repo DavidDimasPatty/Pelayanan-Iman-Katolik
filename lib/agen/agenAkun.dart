@@ -120,20 +120,41 @@ class AgenAkun {
           }
           if (data[0][0] == "edit Profile") {
             print("masuk banget");
-            var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
-            var conn =
-                await userCollection.updateOne(where.eq('_id', data[1][0]), {
-              'name': data[2][0],
-              'email': data[3][0],
-              'paroki': data[4][0],
-              'lingkungan': data[5][0],
-              'notelp': data[6][0],
-              'alamat': data[7][0],
-            }).then((result) async {
-              msg.addReceiver("agenPage");
-              msg.setContent("oke");
-              await msg.send();
-            });
+            print(data[1][0].runtimeType);
+            try {
+              var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
+              var conn = await userCollection.updateOne(
+                  where.eq('_id', data[1][0]), modify.set('name', data[2][0]));
+
+              var conn1 = await userCollection.updateOne(
+                  where.eq('_id', data[1][0]), modify.set('email', data[3][0]));
+
+              var conn2 = await userCollection.updateOne(
+                  where.eq('_id', data[1][0]),
+                  modify.set('paroki', data[4][0]));
+
+              var conn3 = await userCollection.updateOne(
+                  where.eq('_id', data[1][0]),
+                  modify.set(
+                    'lingkungan',
+                    data[5][0],
+                  ));
+
+              var conn4 = await userCollection.updateOne(
+                  where.eq('_id', data[1][0]),
+                  modify.set('notelp', data[6][0]));
+
+              var conn5 = await userCollection
+                  .updateOne(where.eq('_id', data[1][0]),
+                      modify.set('alamat', data[7][0]))
+                  .then((result) async {
+                msg.addReceiver("agenPage");
+                msg.setContent("oke");
+                await msg.send();
+              });
+            } catch (e) {
+              print(e);
+            }
           }
         }
         if (data.runtimeType == List<List<String>>) {
