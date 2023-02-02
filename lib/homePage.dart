@@ -208,7 +208,7 @@ class _HomePage extends State<HomePage> {
                                                     color: Colors.white,
                                                     fontSize: 22.0,
                                                     fontWeight:
-                                                        FontWeight.w300),
+                                                        FontWeight.w700),
                                               ),
                                               Text(
                                                 emails,
@@ -217,25 +217,25 @@ class _HomePage extends State<HomePage> {
                                                     color: Colors.white,
                                                     fontSize: 14.0,
                                                     fontWeight:
-                                                        FontWeight.w300),
+                                                        FontWeight.w500),
                                               ),
                                               Text(
-                                                'Paroki',
+                                                hasil[0][0][0]['paroki'],
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 14.0,
                                                     fontWeight:
-                                                        FontWeight.w300),
+                                                        FontWeight.w500),
                                               ),
                                               Text(
-                                                'Lingkungan',
+                                                hasil[0][0][0]['lingkungan'],
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 14.0,
                                                     fontWeight:
-                                                        FontWeight.w300),
+                                                        FontWeight.w500),
                                               ),
                                             ],
                                           )

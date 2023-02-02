@@ -197,7 +197,7 @@ class _Profile extends State<Profile> {
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 24.0,
-                                                  fontWeight: FontWeight.w300),
+                                                  fontWeight: FontWeight.w700),
                                             ),
                                             SizedBox(
                                               height: 10.0,
@@ -257,7 +257,30 @@ class _Profile extends State<Profile> {
                                         ),
                                       ),
                                     ))),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 8),
+                            ),
                             Container(
+                              width: 350.0,
+                              height: 350.0,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Colors.grey,
+                                      Colors.lightBlue,
+                                    ]),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey,
+                                    offset: Offset(0.0, 1.0), //(x,y)
+                                    blurRadius: 6.0,
+                                  ),
+                                ],
+                              ),
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 35.0, horizontal: 16.0),
@@ -268,7 +291,7 @@ class _Profile extends State<Profile> {
                                     Text(
                                       "User Information:",
                                       style: TextStyle(
-                                          color: Colors.redAccent,
+                                          color: Colors.pinkAccent,
                                           fontStyle: FontStyle.normal,
                                           fontSize: 18.0),
                                     ),
@@ -282,8 +305,8 @@ class _Profile extends State<Profile> {
                                           "Email: ",
                                           style: TextStyle(
                                             fontSize: 14,
-                                            fontWeight: FontWeight.w300,
-                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
                                             letterSpacing: 2.0,
                                           ),
                                         ),
@@ -291,8 +314,8 @@ class _Profile extends State<Profile> {
                                           snapshot.data[0][0][0]['email'],
                                           style: TextStyle(
                                             fontSize: 14,
-                                            fontWeight: FontWeight.w300,
-                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
                                             letterSpacing: 2.0,
                                           ),
                                         ),
@@ -305,20 +328,20 @@ class _Profile extends State<Profile> {
                                     Row(
                                       children: <Widget>[
                                         Text(
-                                          "Address: ",
+                                          "Alamat: ",
                                           style: TextStyle(
                                             fontSize: 14,
-                                            fontWeight: FontWeight.w300,
-                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
                                             letterSpacing: 2.0,
                                           ),
                                         ),
                                         Text(
-                                          " ",
+                                          snapshot.data[0][0][0]['alamat'],
                                           style: TextStyle(
                                             fontSize: 14,
-                                            fontWeight: FontWeight.w300,
-                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
                                             letterSpacing: 2.0,
                                           ),
                                         ),
@@ -331,20 +354,72 @@ class _Profile extends State<Profile> {
                                     Row(
                                       children: <Widget>[
                                         Text(
-                                          "Phone Number: ",
+                                          "Paroki: ",
                                           style: TextStyle(
                                             fontSize: 14,
-                                            fontWeight: FontWeight.w300,
-                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
                                             letterSpacing: 2.0,
                                           ),
                                         ),
                                         Text(
-                                          " ",
+                                          snapshot.data[0][0][0]['paroki'],
                                           style: TextStyle(
                                             fontSize: 14,
-                                            fontWeight: FontWeight.w300,
-                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            letterSpacing: 2.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 12),
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Text(
+                                          "Lingkungan: ",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            letterSpacing: 2.0,
+                                          ),
+                                        ),
+                                        Text(
+                                          snapshot.data[0][0][0]['lingkungan'],
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            letterSpacing: 2.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 8, vertical: 12),
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Text(
+                                          "Nomor Telepon: ",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            letterSpacing: 2.0,
+                                          ),
+                                        ),
+                                        Text(
+                                          snapshot.data[0][0][0]['notelp'],
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
                                             letterSpacing: 2.0,
                                           ),
                                         ),
@@ -365,8 +440,9 @@ class _Profile extends State<Profile> {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 5.0,
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 12),
                             ),
                             Container(
                               width: 300.00,

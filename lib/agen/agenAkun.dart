@@ -188,7 +188,11 @@ class AgenAkun {
                   "banned": 0,
                   "notifGD": false,
                   "notifPG": false,
-                  "tanggalDaftar": DateTime.now()
+                  "tanggalDaftar": DateTime.now(),
+                  "paroki": "",
+                  "alamat": "",
+                  "lingkungan": "",
+                  "notelp": "",
                 }).then((result) async {
                   msg.addReceiver("agenPage");
                   msg.setContent("oke");
