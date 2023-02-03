@@ -2,6 +2,9 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
+import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
@@ -33,17 +36,88 @@ class _notifClass extends State<notification> {
     switch2 = true;
   }
 
-  Future<List> callDb() async {
-    checknotif = await MongoDatabase.getDataUser(idUser);
+  Future callDb() async {
+    Messages msg = new Messages();
+    msg.addReceiver("agenAkun");
+    msg.setContent([
+      ["cari data user"],
+      [idUser]
+    ]);
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    checknotif = AgenPage().receiverTampilan();
+
     return checknotif;
   }
 
-  void updateNotifPg(notifPg) async {
-    await MongoDatabase.updateNotifPg(idUser, notifPg);
+  Future updateNotifPg(notifPg) async {
+    Messages msg = new Messages();
+    msg.addReceiver("agenAkun");
+    msg.setContent([
+      ["update NotifPG"],
+      [idUser],
+      [notifPg]
+    ]);
+
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    var daftarmisa = await AgenPage().receiverTampilan();
+
+    if (daftarmisa == 'oke') {
+      Fluttertoast.showToast(
+          msg: "Berhasil Update Notif",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
   }
 
-  void updateNotifGd(notifGD) async {
-    await MongoDatabase.updateNotifGd(idUser, notifGD);
+  Future updateNotifGd(notifGD) async {
+    Messages msg = new Messages();
+    msg.addReceiver("agenAkun");
+    msg.setContent([
+      ["update NotifGD"],
+      [idUser],
+      [notifGD]
+    ]);
+
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    var daftarmisa = await AgenPage().receiverTampilan();
+
+    if (daftarmisa == 'oke') {
+      Fluttertoast.showToast(
+          msg: "Berhasil Update Notif",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
+
+  // void initState() {
+  //   super.initState();
+  //   callDb();
+  // }
+
+  Future pullRefresh() async {
+    setState(() {
+      callDb();
+    });
   }
 
   @override
@@ -71,100 +145,125 @@ class _notifClass extends State<notification> {
           ),
         ],
       ),
-      body: FutureBuilder<List>(
-          future: callDb(),
-          builder: (context, AsyncSnapshot snapshot) {
-            try {
-              switch1 = snapshot.data[0]['notifPG'];
-              switch2 = snapshot.data[0]['notifGD'];
+      body: RefreshIndicator(
+        onRefresh: pullRefresh,
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.only(right: 15, left: 15),
+          children: <Widget>[
+            FutureBuilder(
+                future: callDb(),
+                builder: (context, AsyncSnapshot snapshot) {
+                  try {
+                    switch1 = checknotif[0]['notifPG'];
+                    switch2 = checknotif[0]['notifGD'];
 
-              return Column(
-                children: <Widget>[
-                  Padding(padding: EdgeInsets.symmetric(vertical: 10)),
-                  Row(
-                    children: <Widget>[
-                      Padding(padding: EdgeInsets.symmetric(horizontal: 6)),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Pengingat Gereja',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                    return Column(
+                      children: <Widget>[
+                        Padding(padding: EdgeInsets.symmetric(vertical: 10)),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 6)),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Pengingat Gereja',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 3)),
+                                  Text(
+                                    'Jika dimatikan tidak akan mendapatkan notifikasi gereja dimulai 1 jam sebelumnya',
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                  )
+                                ],
                               ),
                             ),
-                            Padding(padding: EdgeInsets.symmetric(vertical: 3)),
-                            Text(
-                              'Jika dimatikan tidak akan mendapatkan notifikasi gereja dimulai 1 jam sebelumnya',
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.grey),
-                            )
+                            Switch(
+                              value: switch1,
+                              onChanged: (value) {
+                                setState(() async {
+                                  switch1 = value;
+                                  await updateNotifPg(switch1);
+                                  // await callDb();
+                                  setState(() {
+                                    switch1 = checknotif[0]['notifPG'];
+                                  });
+                                });
+                              },
+                              activeTrackColor: Colors.lightGreenAccent,
+                              activeColor: Colors.green,
+                            ),
                           ],
                         ),
-                      ),
-                      Switch(
-                        value: switch1,
-                        onChanged: (value) {
-                          setState(() async {
-                            switch1 = value;
-                            updateNotifPg(switch1);
-                          });
-                        },
-                        activeTrackColor: Colors.lightGreenAccent,
-                        activeColor: Colors.green,
-                      ),
-                    ],
-                  ),
-                  Padding(padding: EdgeInsets.symmetric(vertical: 8)),
-                  Row(
-                    children: <Widget>[
-                      Padding(padding: EdgeInsets.symmetric(horizontal: 6)),
-                      Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Misa di Gereja Terdekat',
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
+                        Padding(padding: EdgeInsets.symmetric(vertical: 8)),
+                        Row(
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 6)),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    'Misa di Gereja Terdekat',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(vertical: 3)),
+                                  Text(
+                                    'Pemberitahuan Misa di Gereja Terdekat',
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                  )
+                                ],
                               ),
                             ),
-                            Padding(padding: EdgeInsets.symmetric(vertical: 3)),
-                            Text(
-                              'Pemberitahuan Misa di Gereja Terdekat',
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.grey),
-                            )
+                            Switch(
+                              value: switch2,
+                              onChanged: (value) {
+                                setState(() async {
+                                  switch2 = value;
+                                  await updateNotifGd(switch2);
+
+                                  // await callDb();
+                                  setState(() {
+                                    switch2 = checknotif[0]['notifGD'];
+                                  });
+                                });
+                              },
+                              activeTrackColor: Colors.lightGreenAccent,
+                              activeColor: Colors.green,
+                            ),
                           ],
-                        ),
-                      ),
-                      Switch(
-                        value: switch2,
-                        onChanged: (value) {
-                          setState(() async {
-                            updateNotifGd(switch2);
-                            switch2 = value;
-                          });
-                        },
-                        activeTrackColor: Colors.lightGreenAccent,
-                        activeColor: Colors.green,
-                      ),
-                    ],
-                  )
-                ],
-              );
-            } catch (e) {
-              print(e);
-              return Center(child: CircularProgressIndicator());
-            }
-          }),
+                        )
+                      ],
+                    );
+                  } catch (e) {
+                    print(e);
+                    return Center(child: CircularProgressIndicator());
+                  }
+                }),
+            /////////
+          ],
+        ),
+      ),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(

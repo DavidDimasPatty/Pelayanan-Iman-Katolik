@@ -23,6 +23,18 @@ class AgenAkun {
     action() async {
       try {
         if (data.runtimeType == List<List<dynamic>>) {
+          if (data[0][0] == "cari data user") {
+            var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
+            var conn = await userCollection
+                .find({'_id': data[1][0]})
+                .toList()
+                .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
+
           if (data[0][0] == "cari user") {
             var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
             var conn = await userCollection
@@ -155,6 +167,30 @@ class AgenAkun {
             } catch (e) {
               print(e);
             }
+          }
+
+          if (data[0][0] == "update NotifPG") {
+            var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
+            var conn = await userCollection
+                .updateOne(where.eq('_id', data[1][0]),
+                    modify.set('notifPG', data[2][0]))
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent("oke");
+              await msg.send();
+            });
+          }
+
+          if (data[0][0] == "update NotifGD") {
+            var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
+            var conn = await userCollection
+                .updateOne(where.eq('_id', data[1][0]),
+                    modify.set('notifGD', data[2][0]))
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent("oke");
+              await msg.send();
+            });
           }
         }
         if (data.runtimeType == List<List<String>>) {
