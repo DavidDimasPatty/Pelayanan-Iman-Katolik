@@ -45,7 +45,7 @@ void main() async {
 
   if (tampilan[1][0] == "pagi") {
     print(tampilan[0][0]);
-    if (tampilan[0][0].length != 0 && tampilan[0][0][0] != " ") {
+    if (tampilan[0][0].length != 0 && tampilan[0][0] != "nothing") {
       var object = tampilan[0][0][2]
           .toString()
           .substring(10, tampilan[0][0][2].length - 2);
@@ -94,7 +94,7 @@ void main() async {
       ));
     }
   } else {
-    if (tampilan[0][0].length != 0 && tampilan[0][0][0] != " ") {
+    if (tampilan[0][0].length != 0 && tampilan[0][0] != "nothing") {
       var object = tampilan[0][0][2]
           .toString()
           .substring(10, tampilan[0][0][2].length - 2);
