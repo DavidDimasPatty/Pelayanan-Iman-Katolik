@@ -150,7 +150,7 @@ class _HomePage extends State<HomePage> {
                       try {
                         for (var i = 0; i < hasil[3][0].length; i++) {
                           cardList.add(hasil[3][0][i]['gambar']);
-                          caption.add(hasil[3][0][i]['caption']);
+                          caption.add(hasil[3][0][i]['title']);
                         }
                         return Column(children: [
                           Card(

@@ -659,7 +659,10 @@ class AgenPencarian {
             var gambarGerejaCollection =
                 MongoDatabase.db.collection(GAMBAR_GEREJA_COLLECTION);
             var connGambar = await gambarGerejaCollection
-                .find(where.sortBy('tanggal', descending: true).limit(4))
+                .find(where
+                    .sortBy('tanggal', descending: false)
+                    .eq("status", 0)
+                    .limit(4))
                 .toList();
 
             var jadwalCollection =
