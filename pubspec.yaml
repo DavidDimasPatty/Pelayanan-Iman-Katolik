@@ -51,6 +51,8 @@ dependencies:
   fluttertoast: ^8.0.9
   scroll_to_index: ^3.0.1
   syncfusion_flutter_datepicker: ^20.2.49
+  firebase_messaging: ^10.0.7
+  flutter_local_notifications: ^13.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
