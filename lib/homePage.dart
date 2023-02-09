@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:objectid/objectid.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/alkitabMenu.dart';
@@ -108,7 +109,19 @@ class _HomePage extends State<HomePage> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification!;
       AndroidNotification? android = message.notification?.android;
-      if (notification != null && android != null && !kIsWeb) {
+      var newVal = message.data['id'];
+      print(newVal);
+      print(newVal.runtimeType);
+      print("object id");
+      print(iduser.$oid.toString());
+      // print()
+      if (notification != null &&
+          android != null &&
+          !kIsWeb &&
+          newVal == iduser.$oid.toString()) {
+        print("Data notification 2");
+        print(message.notification!.body);
+        print(message.notification!.title);
         flutterLocalNotificationsPlugin!.show(
             notification.hashCode,
             notification.title,
