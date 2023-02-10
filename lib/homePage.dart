@@ -141,8 +141,11 @@ class _HomePage extends State<HomePage> {
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       print('A new onMessageOpenedApp event was published!');
-      // Navigator.pushNamed(context, '/message',
-      //     arguments: MessageArguments(message, true));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomePage(names, emails, iduser)),
+      );
     });
   }
 
@@ -163,7 +166,7 @@ class _HomePage extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, iduser)),
+                    builder: (context) => Settings(names, emails, iduser)),
               );
             },
           ),
