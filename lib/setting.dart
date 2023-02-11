@@ -27,11 +27,12 @@ class Settings extends StatelessWidget {
   var dataUser;
 
   //print('Download-Link: $urlDownload');
-  Future LogOut() async {
+  Future LogOut(context) async {
     Messages msg = new Messages();
-    msg.addReceiver("agenSetting");
+    msg.addReceiver("agenAkun");
     msg.setContent([
-      ["log out"]
+      ["log out"],
+      [idUser]
     ]);
     var k;
     await msg.send().then((res) async {
@@ -49,6 +50,11 @@ class Settings extends StatelessWidget {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Login()),
+      );
     }
   }
 
@@ -266,11 +272,11 @@ class Settings extends StatelessWidget {
             Padding(padding: EdgeInsets.symmetric(vertical: 14)),
             RaisedButton(
                 onPressed: () async {
-                  await LogOut();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => Login()),
-                  );
+                  await LogOut(context);
+                  // Navigator.pushReplacement(
+                  //   context,
+                  //   MaterialPageRoute(builder: (context) => Login()),
+                  // );
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),

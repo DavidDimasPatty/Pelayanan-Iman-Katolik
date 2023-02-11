@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/data.dart';
@@ -42,6 +43,13 @@ class AgenAkun {
                 .toList()
                 .then((result) async {
                   if (result != 0) {
+                    var conn = await userCollection.updateOne(
+                        where
+                            .eq('email', data[1][0])
+                            .eq('password', data[2][0]),
+                        modify.set('token',
+                            await FirebaseMessaging.instance.getToken()));
+
                     msg.addReceiver("agenPage");
                     msg.setContent(result);
                     await msg.send();
@@ -130,6 +138,24 @@ class AgenAkun {
               await msg.send();
             });
           }
+
+          if (data[0][0] == "log out") {
+            var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
+            final directory = await getApplicationDocumentsDirectory();
+            var path = directory.path;
+
+            final file = await File('$path/login.txt');
+            await file.writeAsString("");
+
+            var conn = await userCollection
+                .updateOne(where.eq('_id', data[1][0]), modify.set('token', ""))
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent("oke");
+              await msg.send();
+            });
+          }
+
           if (data[0][0] == "edit Profile") {
             print("masuk banget");
             print(data[1][0].runtimeType);
@@ -229,6 +255,7 @@ class AgenAkun {
                   "alamat": "",
                   "lingkungan": "",
                   "notelp": "",
+                  "token": ""
                 }).then((result) async {
                   msg.addReceiver("agenPage");
                   msg.setContent("oke");

@@ -65,16 +65,6 @@ class AgenSetting {
             await msg.send();
           }
         }
-        if (data[0][0] == "log out") {
-          final directory = await getApplicationDocumentsDirectory();
-          var path = directory.path;
-
-          final file = await File('$path/login.txt');
-          await file.writeAsString("");
-          msg.addReceiver("agenPage");
-          msg.setContent("oke");
-          await msg.send();
-        }
       } catch (e) {
         return 0;
       }
