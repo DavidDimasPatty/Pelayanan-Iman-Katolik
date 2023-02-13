@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -179,6 +180,10 @@ class _EditProfile extends State<EditProfile> {
                             ),
                             TextField(
                               controller: namaController,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp("[a-zA-Z ]")),
+                              ],
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(
@@ -331,6 +336,10 @@ class _EditProfile extends State<EditProfile> {
                             ),
                             TextField(
                               controller: notelpController,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp("[0-9]")),
+                              ],
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                   enabledBorder: OutlineInputBorder(

@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
@@ -180,6 +181,10 @@ class SignUp extends StatelessWidget {
                                   1.8,
                                   TextField(
                                     controller: nameController,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp("[a-zA-Z ]")),
+                                    ],
                                     style: TextStyle(color: Colors.white),
                                     decoration: InputDecoration(
                                         enabledBorder: OutlineInputBorder(

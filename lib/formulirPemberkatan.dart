@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -159,6 +160,9 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
                 padding: EdgeInsets.symmetric(vertical: 5),
               ),
               TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+                ],
                 controller: namaController,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
@@ -273,6 +277,9 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
                 padding: EdgeInsets.symmetric(vertical: 5),
               ),
               TextField(
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                ],
                 controller: notelpController,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(

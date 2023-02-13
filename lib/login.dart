@@ -138,7 +138,7 @@ class Login extends StatelessWidget {
                                     controller: emailController,
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: "Email or Phone number",
+                                        hintText: "Email",
                                         hintStyle:
                                             TextStyle(color: Colors.grey[400])),
                                   ),
