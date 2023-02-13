@@ -109,16 +109,15 @@ class _HomePage extends State<HomePage> {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification!;
       AndroidNotification? android = message.notification?.android;
-      var newVal = message.data['id'];
-      print(newVal);
-      print(newVal.runtimeType);
-      print("object id");
-      print(iduser.$oid.toString());
+      // var newVal = message.data['id'];
+      // print(newVal);
+      // print(newVal.runtimeType);
+      // print("object id");
+      // print(iduser.$oid.toString());
       // print()
-      if (notification != null &&
-          android != null &&
-          !kIsWeb &&
-          newVal == iduser.$oid.toString()) {
+      if (notification != null && android != null && !kIsWeb
+          //  && newVal == iduser.$oid.toString()
+          ) {
         print("Data notification 2");
         print(message.notification!.body);
         print(message.notification!.title);
