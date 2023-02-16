@@ -248,7 +248,11 @@ class AgenPencarian {
           if (data[0][0] == "cari Imam Pemberkatan") {
             var gerejaCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
             var conn = await gerejaCollection
-                .find({'idGereja': data[1][0], "statusPemberkatan": 0})
+                .find({
+                  'idGereja': data[1][0],
+                  "statusPemberkatan": 0,
+                  "banned": 0
+                })
                 .toList()
                 .then((result) async {
                   msg.addReceiver("agenPage");
