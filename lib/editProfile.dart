@@ -64,42 +64,58 @@ class _EditProfile extends State<EditProfile> {
   }
 
   submitForm(nama, email, paroki, lingkungan, notelp, alamat, context) async {
-    // var add = await MongoDatabase.addPemberkatan(idUser, nama, paroki,
-    //     lingkungan, notelp, alamat, jenis, tanggal, idGereja, note, idImam);
+    if (namaController.text != "" &&
+        emailController.text != "" &&
+        parokiController.text != "" &&
+        lingkunganController.text != "" &&
+        notelpController.text != "" &&
+        alamatController.text != "") {
+      // var add = await MongoDatabase.addPemberkatan(idUser, nama, paroki,
+      //     lingkungan, notelp, alamat, jenis, tanggal, idGereja, note, idImam);
 
-    Messages msg = new Messages();
-    msg.addReceiver("agenAkun");
-    msg.setContent([
-      ["edit Profile"],
-      [idUser],
-      [nama],
-      [email],
-      [paroki],
-      [lingkungan],
-      [notelp],
-      [alamat],
-    ]);
+      Messages msg = new Messages();
+      msg.addReceiver("agenAkun");
+      msg.setContent([
+        ["edit Profile"],
+        [idUser],
+        [nama],
+        [email],
+        [paroki],
+        [lingkungan],
+        [notelp],
+        [alamat],
+      ]);
 
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
-    var daftarmisa = await AgenPage().receiverTampilan();
+      await msg.send().then((res) async {
+        print("masuk");
+        print(await AgenPage().receiverTampilan());
+      });
+      await Future.delayed(Duration(seconds: 1));
+      var daftarmisa = await AgenPage().receiverTampilan();
 
-    if (daftarmisa == 'oke') {
+      if (daftarmisa == 'oke') {
+        Fluttertoast.showToast(
+            msg: "Berhasil Edit Profile",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Profile(name, email, idUser)),
+        );
+      }
+    } else {
       Fluttertoast.showToast(
-          msg: "Berhasil Edit Profile",
+          msg: "Lengkapi semua bidang",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.red,
           textColor: Colors.white,
           fontSize: 16.0);
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => Profile(name, email, idUser)),
-      );
     }
   }
 
@@ -404,18 +420,45 @@ class _EditProfile extends State<EditProfile> {
                           padding: EdgeInsets.symmetric(vertical: 11),
                         ),
                         RaisedButton(
-                          onPressed: () async {
-                            await submitForm(
-                                namaController.text,
-                                emailController.text,
-                                parokiController.text,
-                                lingkunganController.text,
-                                notelpController.text,
-                                alamatController.text,
-                                context);
-                          },
-                          child: Text('Submit'),
-                        ),
+                            onPressed: () async {
+                              await submitForm(
+                                  namaController.text,
+                                  emailController.text,
+                                  parokiController.text,
+                                  lingkunganController.text,
+                                  notelpController.text,
+                                  alamatController.text,
+                                  context);
+                            },
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(80.0)),
+                            elevation: 10.0,
+                            padding: EdgeInsets.all(0.0),
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.topRight,
+                                    end: Alignment.topLeft,
+                                    colors: [
+                                      Colors.blueAccent,
+                                      Colors.lightBlue,
+                                    ]),
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              child: Container(
+                                constraints: BoxConstraints(
+                                    maxWidth: double.maxFinite,
+                                    minHeight: 50.0),
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Submit Form",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 26.0,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                              ),
+                            )),
                         Padding(padding: EdgeInsets.symmetric(vertical: 15))
                       ]);
                     } catch (e) {

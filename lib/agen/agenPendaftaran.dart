@@ -44,6 +44,7 @@ class AgenPendaftaran {
                 await msg.send();
               });
             } catch (e) {
+              print(e);
               msg.addReceiver("agenPage");
               msg.setContent("failed");
               await msg.send();

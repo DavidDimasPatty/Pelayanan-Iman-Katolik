@@ -63,7 +63,6 @@ class SignUp extends StatelessWidget {
             fontSize: 16.0);
         passwordController.clear();
       } else if (emailValid == false) {
-        print("masuk");
         emailController.text = "";
         Fluttertoast.showToast(
             msg: "Email Tidak Valid",
@@ -78,7 +77,6 @@ class SignUp extends StatelessWidget {
       } else if (emailValid == true &&
           namaValid == true &&
           passwordController.text == repasswordController.text) {
-        print("masssssssuyk");
         Messages msg = new Messages();
         msg.addReceiver("agenAkun");
         msg.setContent([
