@@ -165,7 +165,7 @@ class _HomePage extends State<HomePage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, iduser)),
+                    builder: (context) => Profile(names, emails, iduser)),
               );
             },
           ),

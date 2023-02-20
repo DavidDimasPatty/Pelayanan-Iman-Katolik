@@ -51,7 +51,11 @@ class AgenPencarian {
                     localField: 'idGereja',
                     foreignField: '_id',
                     as: 'GerejaBaptis'))
-                .addStage(Match(where.eq('status', 0).map['\$query']))
+                .addStage(Match(where
+                    .eq('status', 0)
+                    .gt("kapasitas", 0)
+                    .gte("jadwalTutup", DateTime.now())
+                    .map['\$query']))
                 .build();
             var conn = await gerejaKomuniCollection
                 .aggregateToStream(pipeline)
@@ -71,7 +75,11 @@ class AgenPencarian {
                     localField: 'idGereja',
                     foreignField: '_id',
                     as: 'GerejaKomuni'))
-                .addStage(Match(where.eq('status', 0).map['\$query']))
+                .addStage(Match(where
+                    .eq('status', 0)
+                    .gt("kapasitas", 0)
+                    .gte("jadwalTutup", DateTime.now())
+                    .map['\$query']))
                 .build();
             var conn = await gerejaKomuniCollection
                 .aggregateToStream(pipeline)
@@ -92,7 +100,11 @@ class AgenPencarian {
                     localField: 'idGereja',
                     foreignField: '_id',
                     as: 'GerejaKrisma'))
-                .addStage(Match(where.eq('status', 0).map['\$query']))
+                .addStage(Match(where
+                    .eq('status', 0)
+                    .gt("kapasitas", 0)
+                    .gte("jadwalTutup", DateTime.now())
+                    .map['\$query']))
                 .build();
             var conn = await gerejaKrismaCollection
                 .aggregateToStream(pipeline)
@@ -107,37 +119,49 @@ class AgenPencarian {
           if (data[0][0] == "cari Rekoleksi") {
             var umumCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
             var conn = await umumCollection
-                .find({'jenisKegiatan': "Rekoleksi", "status": 0})
+                .find(where
+                    .eq('jenisKegiatan', "Rekoleksi")
+                    .eq("status", 0)
+                    .gt("kapasitas", 0)
+                    .gte("tanggal", DateTime.now()))
                 .toList()
                 .then((result) async {
-                  msg.addReceiver("agenPage");
-                  msg.setContent(result);
-                  await msg.send();
-                });
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
           }
 
           if (data[0][0] == "cari Retret") {
             var umumCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
             var conn = await umumCollection
-                .find({'jenisKegiatan': "Retret", "status": 0})
+                .find(where
+                    .eq('jenisKegiatan', "Retret")
+                    .eq("status", 0)
+                    .gt("kapasitas", 0)
+                    .gte("tanggal", DateTime.now()))
                 .toList()
                 .then((result) async {
-                  msg.addReceiver("agenPage");
-                  msg.setContent(result);
-                  await msg.send();
-                });
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
           }
 
           if (data[0][0] == "cari PA") {
             var umumCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
             var conn = await umumCollection
-                .find({'jenisKegiatan': "Pendalaman Alkitab", "status": 0})
+                .find(where
+                    .eq('jenisKegiatan', "Pendalaman Alkitab")
+                    .eq("status", 0)
+                    .gt("kapasitas", 0)
+                    .gte("tanggal", DateTime.now()))
                 .toList()
                 .then((result) async {
-                  msg.addReceiver("agenPage");
-                  msg.setContent(result);
-                  await msg.send();
-                });
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
           }
         }
 
