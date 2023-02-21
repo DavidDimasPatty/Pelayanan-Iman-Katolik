@@ -127,7 +127,7 @@ class _Perkawinan extends State<Perkawinan> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        title: Text('Pendaftaran Perkawinan'),
+        title: Text('Gereja Perkawinan'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.account_circle_rounded),

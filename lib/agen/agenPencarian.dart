@@ -63,6 +63,49 @@ class AgenPencarian {
             });
           }
 
+          if (data[0][0] == "cari Perminyakan") {
+            var gerejaImamCollection =
+                MongoDatabase.db.collection(IMAM_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaPerminyakan'))
+                .addStage(
+                    Match(where.eq('statusPerminyakan', 0).map['\$query']))
+                .build();
+            var conn = await gerejaImamCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
+          }
+
+          if (data[0][0] == "cari Tobat") {
+            var gerejaImamCollection =
+                MongoDatabase.db.collection(IMAM_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaTobat'))
+                .addStage(Match(where.eq('statusTobat', 0).map['\$query']))
+                .build();
+            var conn = await gerejaImamCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
+          }
+
           if (data[0][0] == "cari Baptis") {
             var gerejaKomuniCollection =
                 MongoDatabase.db.collection(BAPTIS_COLLECTION);
@@ -356,6 +399,34 @@ class AgenPencarian {
                   "statusPerkawinan": 0,
                   "banned": 0
                 })
+                .toList()
+                .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
+
+          if (data[0][0] == "cari Imam Perminyakan") {
+            var gerejaCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
+            var conn = await gerejaCollection
+                .find({
+                  'idGereja': data[1][0],
+                  "statusPerminyakan": 0,
+                  "banned": 0
+                })
+                .toList()
+                .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
+
+          if (data[0][0] == "cari Imam Tobat") {
+            var gerejaCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
+            var conn = await gerejaCollection
+                .find({'idGereja': data[1][0], "statusTobat": 0, "banned": 0})
                 .toList()
                 .then((result) async {
                   msg.addReceiver("agenPage");

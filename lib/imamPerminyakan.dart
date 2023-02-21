@@ -1,44 +1,45 @@
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarBaptis.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
-import 'package:pelayanan_iman_katolik/imamPerminyakan.dart';
+import 'package:pelayanan_iman_katolik/formulirPemberkatan.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
 import 'tiketSaya.dart';
 import 'homePage.dart';
 
-class Perminyakan extends StatefulWidget {
+class ImamPerminyakan extends StatefulWidget {
   var names;
   var emails;
-
   final idUser;
-  Perminyakan(this.names, this.emails, this.idUser);
+  final idGereja;
+  ImamPerminyakan(this.names, this.emails, this.idUser, this.idGereja);
   @override
-  _Perminyakan createState() =>
-      _Perminyakan(this.names, this.emails, this.idUser);
+  _ImamPerminyakan createState() =>
+      _ImamPerminyakan(this.names, this.emails, this.idUser, this.idGereja);
 }
 
-class _Perminyakan extends State<Perminyakan> {
-  var distance;
+class _ImamPerminyakan extends State<ImamPerminyakan> {
   var names;
   var emails;
+  var distance;
   List daftarGereja = [];
 
   List dummyTemp = [];
   final idUser;
-  _Perminyakan(this.names, this.emails, this.idUser);
+  final idGereja;
+  _ImamPerminyakan(this.names, this.emails, this.idUser, this.idGereja);
 
   Future<List> callDb() async {
     Messages msg = new Messages();
     msg.addReceiver("agenPencarian");
     msg.setContent([
-      ["cari Perminyakan"]
+      ["cari Imam Perminyakan"],
+      [idGereja]
     ]);
     List k = [];
     await msg.send().then((res) async {
@@ -62,29 +63,11 @@ class _Perminyakan extends State<Perminyakan> {
     });
   }
 
-  Future jarak(lat, lang) async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    print(position.toString());
-    double distanceInMeters = Geolocator.distanceBetween(
-        lat, lang, position.latitude, position.longitude);
-    print(distanceInMeters.toString());
-    if (distanceInMeters > 1000) {
-      distanceInMeters = distanceInMeters / 1000;
-      distance = distanceInMeters.toInt().toString() + " KM";
-    } else {
-      distance = distanceInMeters.toInt().toString() + " M";
-    }
-    return distance;
-  }
-
   filterSearchResults(String query) {
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
       for (var item in dummyTemp) {
-        if (item['GerejaPerminyakan'][0]['nama']
-            .toLowerCase()
-            .contains(query.toLowerCase())) {
+        if (item['name'].toLowerCase().contains(query.toLowerCase())) {
           listOMaps.add(item);
         }
       }
@@ -127,7 +110,7 @@ class _Perminyakan extends State<Perminyakan> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        title: Text('Gereja Perminyakan'),
+        title: Text('Imam Perminyakan'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.account_circle_rounded),
@@ -183,16 +166,16 @@ class _Perminyakan extends State<Perminyakan> {
                         InkWell(
                           borderRadius: new BorderRadius.circular(24),
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ImamPerminyakan(
-                                        names,
-                                        emails,
-                                        idUser,
-                                        i['GerejaPerminyakan'][0]['_id'],
-                                      )),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) => DetailPerminyakan(
+                            //           names,
+                            //           emails,
+                            //           idUser,
+                            //           i['idGereja'],
+                            //           i['_id'])),
+                            // );
                           },
                           child: Container(
                               margin: EdgeInsets.only(
@@ -215,51 +198,24 @@ class _Perminyakan extends State<Perminyakan> {
                                 //Color(Colors.blue);
 
                                 Text(
-                                  i['GerejaPerminyakan'][0]['nama'],
+                                  i['name'],
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 26.0,
+                                      fontSize: 22.0,
                                       fontWeight: FontWeight.w300),
                                   textAlign: TextAlign.left,
                                 ),
                                 Text(
-                                  'Paroki: ' +
-                                      i['GerejaPerminyakan'][0]['paroki'],
+                                  i['statusPerminyakan'] == 0
+                                      ? ' Status : Bersedia'
+                                      : i['status'] == -1
+                                          ? ' Status : Tidak Bersedia'
+                                          : ' Status : Sedang Melakukan Pelayanan',
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w300),
                                 ),
-                                Text(
-                                  'Alamat: ' +
-                                      i['GerejaPerminyakan'][0]['address'],
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                                Text(
-                                  'Kapasitas Tersedia: ' +
-                                      i['kapasitas'].toString(),
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                                FutureBuilder(
-                                    future: jarak(
-                                        i['GerejaPerminyakan'][0]['lat'],
-                                        i['GerejaPerminyakan'][0]['lng']),
-                                    builder: (context, AsyncSnapshot snapshot) {
-                                      try {
-                                        return Column(children: <Widget>[
-                                          Text(
-                                            snapshot.data,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12),
-                                          )
-                                        ]);
-                                      } catch (e) {
-                                        print(e);
-                                        return Center(
-                                            child: CircularProgressIndicator());
-                                      }
-                                    }),
                               ])),
                         ),
                     ]);
