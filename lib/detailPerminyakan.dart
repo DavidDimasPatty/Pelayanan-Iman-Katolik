@@ -73,7 +73,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        title: const Text('Pendaftaran Baptis'),
+        title: const Text('Informasi Imam'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.account_circle_rounded),
@@ -149,9 +149,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              if (snapshot.data[0]
-                                                          ['GerejaBaptis'][0]
-                                                      ['picture'] ==
+                                              if (snapshot.data[0]['picture'] ==
                                                   null)
                                                 CircleAvatar(
                                                   backgroundImage:
@@ -160,15 +158,12 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                       Colors.greenAccent,
                                                   radius: 80.0,
                                                 ),
-                                              if (snapshot.data[0]
-                                                          ['GerejaBaptis'][0]
-                                                      ['picture'] !=
+                                              if (snapshot.data[0]['picture'] !=
                                                   null)
                                                 CircleAvatar(
                                                   backgroundImage: NetworkImage(
                                                       snapshot.data[0]
-                                                              ['GerejaBaptis']
-                                                          [0]['picture']),
+                                                          ['picture']),
                                                   backgroundColor:
                                                       Colors.greenAccent,
                                                   radius: 80.0,
@@ -177,8 +172,8 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                 height: 10.0,
                                               ),
                                               Text(
-                                                snapshot.data[0]['GerejaBaptis']
-                                                    [0]['nama'],
+                                                snapshot.data[0]['name'],
+                                                textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 24.0,
@@ -210,6 +205,40 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                       Expanded(
                                                         child: Column(
                                                           children: <Widget>[
+                                                            Text(
+                                                              "Email : " +
+                                                                  snapshot.data[
+                                                                          0]
+                                                                      ['email'],
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      15.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w300),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10.0,
+                                                            ),
+                                                            Text(
+                                                              "No Telepon : " +
+                                                                  snapshot.data[
+                                                                          0][
+                                                                      'notelp'],
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize:
+                                                                      15.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w300),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 10.0,
+                                                            ),
                                                             Row(
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
@@ -223,7 +252,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                               children: <
                                                                   Widget>[
                                                                 Text(
-                                                                  "Paroki: ",
+                                                                  "Paroki : ",
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .black,
@@ -234,7 +263,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[0]['GerejaBaptis']
+                                                                  snapshot.data[0]['GerejaImam']
                                                                               [
                                                                               0]
                                                                           [
@@ -267,7 +296,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                               children: <
                                                                   Widget>[
                                                                 Text(
-                                                                  "Alamat Gereja: ",
+                                                                  "Alamat Gereja : ",
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .black,
@@ -281,7 +310,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                                   snapshot.data[
                                                                               0]
                                                                           [
-                                                                          'GerejaBaptis'][0]
+                                                                          'GerejaImam'][0]
                                                                       [
                                                                       'address'],
                                                                   style: TextStyle(
@@ -298,134 +327,8 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                             SizedBox(
                                                               height: 8.0,
                                                             ),
-                                                            Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: <
-                                                                  Widget>[
-                                                                Text(
-                                                                  "Kapasitas: ",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          15.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w300),
-                                                                ),
-                                                                Text(
-                                                                  snapshot
-                                                                      .data[0][
-                                                                          'kapasitas']
-                                                                      .toString(),
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          15.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w300),
-                                                                ),
-                                                              ],
-                                                            ),
                                                             SizedBox(
                                                               height: 8.0,
-                                                            ),
-                                                            Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: <
-                                                                  Widget>[
-                                                                Text(
-                                                                  "Tanggal Pembukaan: ",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          15.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w300),
-                                                                ),
-                                                                Text(
-                                                                  snapshot
-                                                                      .data[0][
-                                                                          'jadwalBuka']
-                                                                      .toString()
-                                                                      .substring(
-                                                                          0,
-                                                                          19),
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          15.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w300),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(
-                                                              height: 8.0,
-                                                            ),
-                                                            Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: <
-                                                                  Widget>[
-                                                                Text(
-                                                                  "Tanggal Penutupan: ",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          15.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w300),
-                                                                ),
-                                                                Text(
-                                                                  snapshot
-                                                                      .data[0][
-                                                                          'jadwalTutup']
-                                                                      .toString()
-                                                                      .substring(
-                                                                          0,
-                                                                          19),
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          15.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w300),
-                                                                ),
-                                                              ],
                                                             ),
                                                           ],
                                                         ),
@@ -441,87 +344,6 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                               SizedBox(
                                 height: 20.0,
                               ),
-                              RaisedButton(
-                                  onPressed: () async {
-                                    showDirectionWithFirstMap(Coords(
-                                        snapshot.data[0]['GerejaBaptis'][0]
-                                            ['lat'],
-                                        snapshot.data[0]['GerejaBaptis'][0]
-                                            ['lng']));
-                                  },
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(80.0)),
-                                  elevation: 0.0,
-                                  padding: EdgeInsets.all(0.0),
-                                  child: Ink(
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topRight,
-                                          end: Alignment.topLeft,
-                                          colors: [
-                                            Colors.blueAccent,
-                                            Colors.lightBlue,
-                                          ]),
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: 300.0, minHeight: 50.0),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Lokasi Gereja",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 26.0,
-                                            fontWeight: FontWeight.w300),
-                                      ),
-                                    ),
-                                  )),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                              RaisedButton(
-                                  onPressed: () async {
-                                    // confirmBaptis(
-                                    //         snapshot.data[0]['GerejaBaptis'][0]
-                                    //             ['nama'],
-                                    //         idUser,
-                                    //         snapshot.data[0]['_id'],
-                                    //         this.name,
-                                    //         this.email,
-                                    //         this.namaGereja)
-                                    //     .showDialogBox(context);
-                                  },
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(80.0)),
-                                  elevation: 0.0,
-                                  padding: EdgeInsets.all(0.0),
-                                  child: Ink(
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topRight,
-                                          end: Alignment.topLeft,
-                                          colors: [
-                                            Colors.blueAccent,
-                                            Colors.lightBlue,
-                                          ]),
-                                      borderRadius: BorderRadius.circular(30.0),
-                                    ),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: 300.0, minHeight: 50.0),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Daftar Baptis",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 26.0,
-                                            fontWeight: FontWeight.w300),
-                                      ),
-                                    ),
-                                  )),
                             ],
                           )),
 

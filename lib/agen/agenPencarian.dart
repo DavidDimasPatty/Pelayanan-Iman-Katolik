@@ -375,6 +375,26 @@ class AgenPencarian {
             });
           }
 
+          if (data[0][0] == "cari Detail Imam") {
+            var imamCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaImam'))
+                .addStage(Match(where.eq('_id', data[1][0]).map['\$query']))
+                .build();
+            var conn = await imamCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
+          }
+
           if (data[0][0] == "cari Imam Pemberkatan") {
             var gerejaCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
             var conn = await gerejaCollection

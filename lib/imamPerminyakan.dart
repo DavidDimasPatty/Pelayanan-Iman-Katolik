@@ -6,6 +6,7 @@ import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarBaptis.dart';
 import 'package:pelayanan_iman_katolik/detailDaftarMisa.dart';
+import 'package:pelayanan_iman_katolik/detailPerminyakan.dart';
 import 'package:pelayanan_iman_katolik/formulirPemberkatan.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/setting.dart';
@@ -166,16 +167,12 @@ class _ImamPerminyakan extends State<ImamPerminyakan> {
                         InkWell(
                           borderRadius: new BorderRadius.circular(24),
                           onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => DetailPerminyakan(
-                            //           names,
-                            //           emails,
-                            //           idUser,
-                            //           i['idGereja'],
-                            //           i['_id'])),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => detailPerminyakan(names,
+                                      emails, idUser, i['idGereja'], i['_id'])),
+                            );
                           },
                           child: Container(
                               margin: EdgeInsets.only(
