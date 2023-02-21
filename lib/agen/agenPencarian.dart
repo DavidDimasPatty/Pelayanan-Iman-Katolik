@@ -66,6 +66,28 @@ class AgenPencarian {
               await msg.send();
             });
           }
+
+          if (data[0][0] == "cari Pengumuman") {
+            var pengumumanCollection =
+                MongoDatabase.db.collection(GAMBAR_GEREJA_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaPengumuman'))
+                .addStage(Match(where.eq('status', 0).map['\$query']))
+                .build();
+            var conn = await pengumumanCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
+          }
+
           if (data[0][0] == "cari Komuni") {
             var gerejaKomuniCollection =
                 MongoDatabase.db.collection(KOMUNI_COLLECTION);
@@ -186,6 +208,26 @@ class AgenPencarian {
                     await msg.send();
                   }
                 });
+          }
+          if (data[0][0] == "cari Detail Pengumuman") {
+            var pengumumanCollection =
+                MongoDatabase.db.collection(GAMBAR_GEREJA_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaPengumuman'))
+                .addStage(Match(where.eq("_id", data[1][0]).map['\$query']))
+                .build();
+            var conn = await pengumumanCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
           }
           if (data[0][0] == "cari tampilan Profile") {
             var userKrismaCollection =

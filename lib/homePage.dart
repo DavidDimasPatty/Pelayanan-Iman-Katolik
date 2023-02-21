@@ -11,6 +11,7 @@ import 'package:pelayanan_iman_katolik/alkitabMenu.dart';
 import 'package:pelayanan_iman_katolik/baptis.dart';
 import 'package:pelayanan_iman_katolik/komuni.dart';
 import 'package:pelayanan_iman_katolik/main.dart';
+import 'package:pelayanan_iman_katolik/pengumuman.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/sakramen.dart';
 import 'package:pelayanan_iman_katolik/sakramentali.dart';
@@ -83,12 +84,12 @@ class _HomePage extends State<HomePage> {
       [iduser]
     ]);
     await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
+      // print("masuk");
+      // print(await AgenPage().receiverTampilan());
     });
     await Future.delayed(Duration(seconds: 1));
     hasil = AgenPage().receiverTampilan();
-    print(hasil);
+    // print(hasil);
     return hasil;
   }
 
@@ -118,9 +119,9 @@ class _HomePage extends State<HomePage> {
       if (notification != null && android != null && !kIsWeb
           //  && newVal == iduser.$oid.toString()
           ) {
-        print("Data notification 2");
-        print(message.notification!.body);
-        print(message.notification!.title);
+        // print("Data notification 2");
+        // print(message.notification!.body);
+        // print(message.notification!.title);
         flutterLocalNotificationsPlugin!.show(
             notification.hashCode,
             notification.title,
@@ -139,7 +140,7 @@ class _HomePage extends State<HomePage> {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('A new onMessageOpenedApp event was published!');
+      // print('A new onMessageOpenedApp event was published!');
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -603,7 +604,27 @@ class _HomePage extends State<HomePage> {
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 12),
+                                horizontal: 8, vertical: 7),
+                          ),
+                          new GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Pengumuman(names, emails, iduser)),
+                                );
+                              },
+                              child: Text(
+                                "Pengumuman",
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 5),
                           ),
                           Container(
                             child: Center(
