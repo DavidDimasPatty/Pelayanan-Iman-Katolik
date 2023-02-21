@@ -105,303 +105,118 @@ class _tiketSaya extends State<tiketSaya> {
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
                       return Column(children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 8),
-                            child: Text(
-                              "Baptis yang Terdaftar",
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 23.0),
-                            )),
-                        if (snapshot.data[0][0].length == 0)
+                        // if (snapshot.data[0][0].length == 0)
+                        //   Padding(
+                        //       padding: EdgeInsets.symmetric(
+                        //           vertical: 10, horizontal: 8),
+                        //       child: Text(
+                        //         "Tidak Ada Baptis yang Didaftar",
+                        //         style: TextStyle(
+                        //             color: Colors.grey, fontSize: 15.0),
+                        //       )),
+                        if (snapshot.data[0][0].length != 0)
                           Padding(
                               padding: EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 8),
                               child: Text(
-                                "Tidak Ada Baptis yang Didaftar",
+                                "Baptis yang Terdaftar",
                                 style: TextStyle(
-                                    color: Colors.grey, fontSize: 15.0),
+                                    color: Colors.black, fontSize: 23.0),
                               )),
-                        if (snapshot.data[0][0].length != 0)
-                          for (var i in snapshot.data[0][0])
-                            InkWell(
-                                borderRadius: new BorderRadius.circular(24),
-                                onTap: () {
-                                  tiketSayaDetailBaptis(
-                                          names,
-                                          emails,
-                                          idUser,
-                                          i['UserBaptis'][0]['_id'],
-                                          i['UserBaptis'][0]['idGereja'],
-                                          i['_id'])
-                                      .showDialogBox(context);
-                                },
-                                child: Container(
-                                  margin: EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topRight,
-                                        end: Alignment.topLeft,
-                                        colors: [
-                                          Colors.blueAccent,
-                                          Colors.lightBlue,
-                                        ]),
-                                    border: Border.all(
-                                      color: Colors.lightBlue,
+                        for (var i in snapshot.data[0][0])
+                          InkWell(
+                              borderRadius: new BorderRadius.circular(24),
+                              onTap: () {
+                                tiketSayaDetailBaptis(
+                                        names,
+                                        emails,
+                                        idUser,
+                                        i['UserBaptis'][0]['_id'],
+                                        i['UserBaptis'][0]['idGereja'],
+                                        i['_id'])
+                                    .showDialogBox(context);
+                              },
+                              child: Container(
+                                margin: EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topRight,
+                                      end: Alignment.topLeft,
+                                      colors: [
+                                        Colors.blueAccent,
+                                        Colors.lightBlue,
+                                      ]),
+                                  border: Border.all(
+                                    color: Colors.lightBlue,
+                                  ),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                ),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(
+                                      "Jadwal : " +
+                                          i['UserBaptis'][0]['jadwalBuka']
+                                              .toString()
+                                              .substring(0, 19) +
+                                          " s/d " +
+                                          i['UserBaptis'][0]['jadwalTutup']
+                                              .toString()
+                                              .substring(0, 19),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w300),
                                     ),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
-                                  ),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(
-                                        "Jadwal : " +
-                                            i['UserBaptis'][0]['jadwalBuka']
-                                                .toString()
-                                                .substring(0, 19) +
-                                            " s/d " +
-                                            i['UserBaptis'][0]['jadwalTutup']
-                                                .toString()
-                                                .substring(0, 19),
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w300),
-                                      ),
-                                      Text(
-                                        i['status'] == 0
-                                            ? ' Status : Belum Hadir'
-                                            : i['status'] == -1
-                                                ? ' Status : Dibatalkan'
-                                                : ' Status : Sudah Dihadiri',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w300),
-                                      ),
-                                    ],
-                                  ),
-                                )),
+                                    Text(
+                                      i['status'] == 0
+                                          ? ' Status : Belum Hadir'
+                                          : i['status'] == -1
+                                              ? ' Status : Dibatalkan'
+                                              : ' Status : Sudah Dihadiri',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.w300),
+                                    ),
+                                  ],
+                                ),
+                              )),
 
                         /////////
 
-                        Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 8),
-                            child: Text(
-                              "Komuni yang Terdaftar",
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 23.0),
-                            )),
                         Column(
                           children: <Widget>[
-                            if (snapshot.data[1][0].length == 0)
-                              Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 8),
-                                  child: Text(
-                                    "Tidak Ada Komuni yang Didaftar",
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 15.0),
-                                  )),
+                            // if (snapshot.data[1][0].length == 0)
+                            //   Padding(
+                            //       padding: EdgeInsets.symmetric(
+                            //           vertical: 10, horizontal: 8),
+                            //       child: Text(
+                            //         "Tidak Ada Komuni yang Didaftar",
+                            //         style: TextStyle(
+                            //             color: Colors.grey, fontSize: 15.0),
+                            //       )),
                             if (snapshot.data[1][0].length != 0)
-                              for (var i in snapshot.data[1][0])
-                                InkWell(
-                                    borderRadius: new BorderRadius.circular(24),
-                                    onTap: () {
-                                      tiketSayaDetailKomuni(
-                                              names,
-                                              emails,
-                                              idUser,
-                                              i['UserKomuni'][0]['_id'],
-                                              i['UserKomuni'][0]['idGereja'],
-                                              i['_id'])
-                                          .showDialogBox(context);
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.topLeft,
-                                            colors: [
-                                              Colors.blueAccent,
-                                              Colors.lightBlue,
-                                            ]),
-                                        border: Border.all(
-                                          color: Colors.lightBlue,
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                      ),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Text(
-                                            "Jadwal : " +
-                                                i['UserKomuni'][0]['jadwalBuka']
-                                                    .toString()
-                                                    .substring(0, 19) +
-                                                " s/d " +
-                                                i['UserKomuni'][0]
-                                                        ['jadwalTutup']
-                                                    .toString()
-                                                    .substring(0, 19),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w300),
-                                          ),
-                                          // Text(
-                                          //   "Nama Gereja : " +
-                                          //       snapshot.data[0]['nama']
-                                          //           .toString(),
-                                          //   style: TextStyle(
-                                          //       color: Colors.white,
-                                          //       fontSize: 15.0,
-                                          //       fontWeight: FontWeight.w300),
-                                          // ),
-                                          Text(
-                                            i['status'] == 0
-                                                ? ' Status : Belum Hadir'
-                                                : i['status'] == -1
-                                                    ? ' Status : Dibatalkan'
-                                                    : ' Status : Sudah Dihadiri',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w300),
-                                          ),
-                                        ],
-                                      ),
-                                    )),
-
-                            /////////
-                          ],
-                        ),
-
-                        Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 8),
-                            child: Text(
-                              "Krisma yang Terdaftar",
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 23.0),
-                            )),
-                        Column(
-                          children: <Widget>[
-                            if (snapshot.data[2][0].length == 0)
                               Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 8),
                                   child: Text(
-                                    "Tidak Ada Krisma yang Didaftar",
+                                    "Komuni yang Terdaftar",
                                     style: TextStyle(
-                                        color: Colors.grey, fontSize: 15.0),
+                                        color: Colors.black, fontSize: 23.0),
                                   )),
-                            if (snapshot.data[2][0].length != 0)
-                              for (var i in snapshot.data[2][0])
-                                InkWell(
-                                    borderRadius: new BorderRadius.circular(24),
-                                    onTap: () {
-                                      tiketSayaDetailKrisma(
-                                              names,
-                                              emails,
-                                              idUser,
-                                              i['UserKrisma'][0]['_id'],
-                                              i['UserKrisma'][0]['idGereja'],
-                                              i['_id'])
-                                          .showDialogBox(context);
-                                    },
-                                    child: Container(
-                                      margin: EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.topLeft,
-                                            colors: [
-                                              Colors.blueAccent,
-                                              Colors.lightBlue,
-                                            ]),
-                                        border: Border.all(
-                                          color: Colors.lightBlue,
-                                        ),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
-                                      ),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Text(
-                                            "Jadwal : " +
-                                                i['UserKrisma'][0]['jadwalBuka']
-                                                    .toString()
-                                                    .substring(0, 19) +
-                                                " s/d " +
-                                                i['UserKrisma'][0]
-                                                        ['jadwalTutup']
-                                                    .toString()
-                                                    .substring(0, 19),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w300),
-                                          ),
-                                          // Text(
-                                          //   "Nama Gereja : " +
-                                          //       snapshot.data[0]['nama'],
-                                          //   style: TextStyle(
-                                          //       color: Colors.white,
-                                          //       fontSize: 15.0,
-                                          //       fontWeight: FontWeight.w300),
-                                          // ),
-                                          Text(
-                                            i['status'] == 0
-                                                ? ' Status : Belum Hadir'
-                                                : i['status'] == -1
-                                                    ? ' Status : Dibatalkan'
-                                                    : ' Status : Sudah Dihadiri',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w300),
-                                          ),
-                                        ],
-                                      ),
-                                    )),
-
-                            /////////
-                          ],
-                        ),
-
-                        Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 8),
-                            child: Text(
-                              "Kegiatan Umum yang Terdaftar",
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 20.0),
-                            )),
-                        Column(children: <Widget>[
-                          if (snapshot.data[3][0].length == 0)
-                            Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 8),
-                                child: Text(
-                                  "Tidak Ada Kegiatan Umum yang Didaftar",
-                                  style: TextStyle(
-                                      color: Colors.grey, fontSize: 15.0),
-                                )),
-                          if (snapshot.data[3][0].length != 0)
-                            for (var i in snapshot.data[3][0])
+                            for (var i in snapshot.data[1][0])
                               InkWell(
                                   borderRadius: new BorderRadius.circular(24),
                                   onTap: () {
-                                    tiketSayaDetailKegiatan(
-                                      names,
-                                      emails,
-                                      idUser,
-                                      i['_id'],
-                                      i['UserKegiatan'][0]['_id'],
-                                    ).showDialogBox(context);
+                                    tiketSayaDetailKomuni(
+                                            names,
+                                            emails,
+                                            idUser,
+                                            i['UserKomuni'][0]['_id'],
+                                            i['UserKomuni'][0]['idGereja'],
+                                            i['_id'])
+                                        .showDialogBox(context);
                                   },
                                   child: Container(
                                     margin: EdgeInsets.all(20),
@@ -423,7 +238,11 @@ class _tiketSaya extends State<tiketSaya> {
                                       children: <Widget>[
                                         Text(
                                           "Jadwal : " +
-                                              i['UserKegiatan'][0]['tanggal']
+                                              i['UserKomuni'][0]['jadwalBuka']
+                                                  .toString()
+                                                  .substring(0, 19) +
+                                              " s/d " +
+                                              i['UserKomuni'][0]['jadwalTutup']
                                                   .toString()
                                                   .substring(0, 19),
                                           style: TextStyle(
@@ -431,18 +250,21 @@ class _tiketSaya extends State<tiketSaya> {
                                               fontSize: 16.0,
                                               fontWeight: FontWeight.w300),
                                         ),
+                                        // Text(
+                                        //   "Nama Gereja : " +
+                                        //       snapshot.data[0]['nama']
+                                        //           .toString(),
+                                        //   style: TextStyle(
+                                        //       color: Colors.white,
+                                        //       fontSize: 15.0,
+                                        //       fontWeight: FontWeight.w300),
+                                        // ),
                                         Text(
-                                          "Nama Kegiatan : " +
-                                              i['UserKegiatan'][0]
-                                                  ['namaKegiatan'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w300),
-                                        ),
-                                        Text(
-                                          "Lokasi : " +
-                                              i['UserKegiatan'][0]['lokasi'],
+                                          i['status'] == 0
+                                              ? ' Status : Belum Hadir'
+                                              : i['status'] == -1
+                                                  ? ' Status : Dibatalkan'
+                                                  : ' Status : Sudah Dihadiri',
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 16.0,
@@ -452,106 +274,278 @@ class _tiketSaya extends State<tiketSaya> {
                                     ),
                                   )),
 
+                            /////////
+                          ],
+                        ),
+
+                        Column(
+                          children: <Widget>[
+                            // if (snapshot.data[2][0].length == 0)
+                            //   Padding(
+                            //       padding: EdgeInsets.symmetric(
+                            //           vertical: 10, horizontal: 8),
+                            //       child: Text(
+                            //         "Tidak Ada Krisma yang Didaftar",
+                            //         style: TextStyle(
+                            //             color: Colors.grey, fontSize: 15.0),
+                            //       )),
+                            if (snapshot.data[2][0].length != 0)
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 8),
+                                  child: Text(
+                                    "Krisma yang Terdaftar",
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: 23.0),
+                                  )),
+                            for (var i in snapshot.data[2][0])
+                              InkWell(
+                                  borderRadius: new BorderRadius.circular(24),
+                                  onTap: () {
+                                    tiketSayaDetailKrisma(
+                                            names,
+                                            emails,
+                                            idUser,
+                                            i['UserKrisma'][0]['_id'],
+                                            i['UserKrisma'][0]['idGereja'],
+                                            i['_id'])
+                                        .showDialogBox(context);
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topRight,
+                                          end: Alignment.topLeft,
+                                          colors: [
+                                            Colors.blueAccent,
+                                            Colors.lightBlue,
+                                          ]),
+                                      border: Border.all(
+                                        color: Colors.lightBlue,
+                                      ),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                    ),
+                                    child: Column(
+                                      children: <Widget>[
+                                        Text(
+                                          "Jadwal : " +
+                                              i['UserKrisma'][0]['jadwalBuka']
+                                                  .toString()
+                                                  .substring(0, 19) +
+                                              " s/d " +
+                                              i['UserKrisma'][0]['jadwalTutup']
+                                                  .toString()
+                                                  .substring(0, 19),
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                        // Text(
+                                        //   "Nama Gereja : " +
+                                        //       snapshot.data[0]['nama'],
+                                        //   style: TextStyle(
+                                        //       color: Colors.white,
+                                        //       fontSize: 15.0,
+                                        //       fontWeight: FontWeight.w300),
+                                        // ),
+                                        Text(
+                                          i['status'] == 0
+                                              ? ' Status : Belum Hadir'
+                                              : i['status'] == -1
+                                                  ? ' Status : Dibatalkan'
+                                                  : ' Status : Sudah Dihadiri',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+
+                            /////////
+                          ],
+                        ),
+
+                        Column(children: <Widget>[
+                          // if (snapshot.data[3][0].length == 0)
+                          //   Padding(
+                          //       padding: EdgeInsets.symmetric(
+                          //           vertical: 10, horizontal: 8),
+                          //       child: Text(
+                          //         "Tidak Ada Kegiatan Umum yang Didaftar",
+                          //         style: TextStyle(
+                          //             color: Colors.grey, fontSize: 15.0),
+                          //       )),
+                          if (snapshot.data[3][0].length != 0)
+                            Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 8),
+                                child: Text(
+                                  "Kegiatan Umum yang Terdaftar",
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 20.0),
+                                )),
+                          for (var i in snapshot.data[3][0])
+                            InkWell(
+                                borderRadius: new BorderRadius.circular(24),
+                                onTap: () {
+                                  tiketSayaDetailKegiatan(
+                                    names,
+                                    emails,
+                                    idUser,
+                                    i['_id'],
+                                    i['UserKegiatan'][0]['_id'],
+                                  ).showDialogBox(context);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topRight,
+                                        end: Alignment.topLeft,
+                                        colors: [
+                                          Colors.blueAccent,
+                                          Colors.lightBlue,
+                                        ]),
+                                    border: Border.all(
+                                      color: Colors.lightBlue,
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
+                                  ),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text(
+                                        "Jadwal : " +
+                                            i['UserKegiatan'][0]['tanggal']
+                                                .toString()
+                                                .substring(0, 19),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      Text(
+                                        "Nama Kegiatan : " +
+                                            i['UserKegiatan'][0]
+                                                ['namaKegiatan'],
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                      Text(
+                                        "Lokasi : " +
+                                            i['UserKegiatan'][0]['lokasi'],
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                    ],
+                                  ),
+                                )),
+
                           /////////
 
-                          Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 8),
-                              child: Text(
-                                "Pemberkatan yang Terdaftar",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 23.0),
-                              )),
                           Column(
                             children: <Widget>[
-                              if (snapshot.data[4][0].length == 0)
+                              // if (snapshot.data[4][0].length == 0)
+                              //   Padding(
+                              //       padding: EdgeInsets.symmetric(
+                              //           vertical: 10, horizontal: 8),
+                              //       child: Text(
+                              //         "Tidak Ada Pemberkatan yang Didaftar",
+                              //         style: TextStyle(
+                              //             color: Colors.grey, fontSize: 15.0),
+                              //       )),
+                              if (snapshot.data[4][0].length != 0)
                                 Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 8),
                                     child: Text(
-                                      "Tidak Ada Pemberkatan yang Didaftar",
+                                      "Pemberkatan yang Terdaftar",
                                       style: TextStyle(
-                                          color: Colors.grey, fontSize: 15.0),
+                                          color: Colors.black, fontSize: 23.0),
                                     )),
-                              if (snapshot.data[4][0].length != 0)
-                                for (var i in snapshot.data[4][0])
-                                  InkWell(
-                                      borderRadius:
-                                          new BorderRadius.circular(24),
-                                      onTap: () {
-                                        tiketSayaDetailPemberkatan(
-                                          names,
-                                          emails,
-                                          idUser,
-                                          i['_id'],
-                                        ).showDialogBox(context);
-                                      },
-                                      child: Container(
-                                        margin: EdgeInsets.all(20),
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.topRight,
-                                              end: Alignment.topLeft,
-                                              colors: [
-                                                Colors.blueAccent,
-                                                Colors.lightBlue,
-                                              ]),
-                                          border: Border.all(
-                                            color: Colors.lightBlue,
+                              for (var i in snapshot.data[4][0])
+                                InkWell(
+                                    borderRadius: new BorderRadius.circular(24),
+                                    onTap: () {
+                                      tiketSayaDetailPemberkatan(
+                                        names,
+                                        emails,
+                                        idUser,
+                                        i['_id'],
+                                      ).showDialogBox(context);
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.topLeft,
+                                            colors: [
+                                              Colors.blueAccent,
+                                              Colors.lightBlue,
+                                            ]),
+                                        border: Border.all(
+                                          color: Colors.lightBlue,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                      ),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                            "Jadwal : " +
+                                                i['tanggal']
+                                                    .toString()
+                                                    .substring(0, 19),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w300),
                                           ),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
-                                        ),
-                                        child: Column(
-                                          children: <Widget>[
+                                          Text(
+                                            "Nama Kegiatan : Pemberkatan " +
+                                                i['jenis'],
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w300),
+                                          ),
+                                          if (i['status'] == 0)
                                             Text(
-                                              "Jadwal : " +
-                                                  i['tanggal']
-                                                      .toString()
-                                                      .substring(0, 19),
+                                              "Status : Menunggu",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16.0,
                                                   fontWeight: FontWeight.w300),
                                             ),
+                                          if (i['status'] == 1)
                                             Text(
-                                              "Nama Kegiatan : Pemberkatan " +
-                                                  i['jenis'],
+                                              "Status : Disetujui",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16.0,
                                                   fontWeight: FontWeight.w300),
                                             ),
-                                            if (i['status'] == 0)
-                                              Text(
-                                                "Status : Menunggu",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              ),
-                                            if (i['status'] == 1)
-                                              Text(
-                                                "Status : Disetujui",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              ),
-                                            if (i['status'] == -1)
-                                              Text(
-                                                "Status : Ditolak",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              ),
-                                          ],
-                                        ),
-                                      )),
+                                          if (i['status'] == -1)
+                                            Text(
+                                              "Status : Ditolak",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                        ],
+                                      ),
+                                    )),
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 8),
