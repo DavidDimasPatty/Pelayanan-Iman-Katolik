@@ -50,6 +50,36 @@ class AgenPendaftaran {
               await msg.send();
             }
           }
+          if (data[0][0] == "add Perkawinan") {
+            try {
+              var perkawinanCollection =
+                  MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
+              var checkEmail;
+
+              var hasil = await perkawinanCollection.insertOne({
+                'idUser': data[1][0],
+                'namaPria': data[2][0],
+                'namaPerempuan': data[3][0],
+                'notelp': data[4][0],
+                'alamat': data[5][0],
+                'email': data[6][0],
+                'tanggal': DateTime.parse(data[7][0]),
+                'note': data[8][0],
+                'idGereja': data[9][0],
+                'idImam': data[10][0],
+                'status': 0
+              }).then((result) async {
+                msg.addReceiver("agenPage");
+                msg.setContent("oke");
+                await msg.send();
+              });
+            } catch (e) {
+              print(e);
+              msg.addReceiver("agenPage");
+              msg.setContent("failed");
+              await msg.send();
+            }
+          }
 
           if (data[0][0] == "enroll Baptis") {
             var daftarBaptisCollection =

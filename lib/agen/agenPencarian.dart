@@ -42,6 +42,27 @@ class AgenPencarian {
             });
           }
 
+          if (data[0][0] == "cari Perkawinan") {
+            var gerejaImamCollection =
+                MongoDatabase.db.collection(IMAM_COLLECTION);
+            final pipeline = AggregationPipelineBuilder()
+                .addStage(Lookup(
+                    from: 'Gereja',
+                    localField: 'idGereja',
+                    foreignField: '_id',
+                    as: 'GerejaImam'))
+                .addStage(Match(where.eq('statusPerkawinan', 0).map['\$query']))
+                .build();
+            var conn = await gerejaImamCollection
+                .aggregateToStream(pipeline)
+                .toList()
+                .then((result) async {
+              msg.addReceiver("agenPage");
+              msg.setContent(result);
+              await msg.send();
+            });
+          }
+
           if (data[0][0] == "cari Baptis") {
             var gerejaKomuniCollection =
                 MongoDatabase.db.collection(BAPTIS_COLLECTION);
@@ -317,6 +338,22 @@ class AgenPencarian {
                 .find({
                   'idGereja': data[1][0],
                   "statusPemberkatan": 0,
+                  "banned": 0
+                })
+                .toList()
+                .then((result) async {
+                  msg.addReceiver("agenPage");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
+
+          if (data[0][0] == "cari Imam Perkawinan") {
+            var gerejaCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
+            var conn = await gerejaCollection
+                .find({
+                  'idGereja': data[1][0],
+                  "statusPerkawinan": 0,
                   "banned": 0
                 })
                 .toList()

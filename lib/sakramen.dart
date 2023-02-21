@@ -7,8 +7,11 @@ import 'package:pelayanan_iman_katolik/homePage.dart';
 import 'package:pelayanan_iman_katolik/komuni.dart';
 import 'package:pelayanan_iman_katolik/krisma.dart';
 import 'package:pelayanan_iman_katolik/misa.dart';
+import 'package:pelayanan_iman_katolik/perkawinan.dart';
+import 'package:pelayanan_iman_katolik/perminyakan.dart';
 import 'package:pelayanan_iman_katolik/profile.dart';
 import 'package:pelayanan_iman_katolik/tiketSaya.dart';
+import 'package:pelayanan_iman_katolik/tobat.dart';
 
 class Sakramen extends StatelessWidget {
   final name;
@@ -141,6 +144,105 @@ class Sakramen extends StatelessWidget {
                 ),
                 child: Text(
                   'Krisma',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 26.0,
+                      fontWeight: FontWeight.w300),
+                  textAlign: TextAlign.center,
+                )),
+          ),
+          InkWell(
+            borderRadius: new BorderRadius.circular(24),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Perminyakan(name, email, idUser)),
+              );
+            },
+            child: Container(
+                margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.topLeft,
+                      colors: [
+                        Colors.blueGrey,
+                        Colors.lightBlue,
+                      ]),
+                  border: Border.all(
+                    color: Colors.lightBlue,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: Text(
+                  'Perminyakan',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 26.0,
+                      fontWeight: FontWeight.w300),
+                  textAlign: TextAlign.center,
+                )),
+          ),
+          InkWell(
+            borderRadius: new BorderRadius.circular(24),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Perkawinan(name, email, idUser)),
+              );
+            },
+            child: Container(
+                margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.topLeft,
+                      colors: [
+                        Colors.blueGrey,
+                        Colors.lightBlue,
+                      ]),
+                  border: Border.all(
+                    color: Colors.lightBlue,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: Text(
+                  'Perkawinan',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 26.0,
+                      fontWeight: FontWeight.w300),
+                  textAlign: TextAlign.center,
+                )),
+          ),
+          InkWell(
+            borderRadius: new BorderRadius.circular(24),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Tobat(name, email, idUser)),
+              );
+            },
+            child: Container(
+                margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.topLeft,
+                      colors: [
+                        Colors.blueGrey,
+                        Colors.lightBlue,
+                      ]),
+                  border: Border.all(
+                    color: Colors.lightBlue,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
+                child: Text(
+                  'Tobat',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 26.0,
