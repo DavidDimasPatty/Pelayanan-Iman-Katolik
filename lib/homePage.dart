@@ -9,6 +9,7 @@ import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/messages.dart';
 import 'package:pelayanan_iman_katolik/alkitabMenu.dart';
 import 'package:pelayanan_iman_katolik/baptis.dart';
+import 'package:pelayanan_iman_katolik/detailPengumuman.dart';
 import 'package:pelayanan_iman_katolik/komuni.dart';
 import 'package:pelayanan_iman_katolik/main.dart';
 import 'package:pelayanan_iman_katolik/pengumuman.dart';
@@ -53,6 +54,13 @@ class _HomePage extends State<HomePage> {
   ];
 
   List<String> caption = [
+    // "Gereja Pembukaan",
+    // "Umat Merayakan Hari Paskah",
+    // "Tanggapan Gereja Mengenai Isu Sara",
+    // "Tanggapan Umat Katolik Mengikuti Misa"
+  ];
+
+  List idImage = [
     // "Gereja Pembukaan",
     // "Umat Merayakan Hari Paskah",
     // "Tanggapan Gereja Mengenai Isu Sara",
@@ -198,6 +206,7 @@ class _HomePage extends State<HomePage> {
                         for (var i = 0; i < hasil[3][0].length; i++) {
                           cardList.add(hasil[3][0][i]['gambar']);
                           caption.add(hasil[3][0][i]['title']);
+                          idImage.add(hasil[3][0][i]['_id']);
                         }
                         return Column(children: [
                           Card(
@@ -640,10 +649,25 @@ class _HomePage extends State<HomePage> {
                                   viewportFraction: 0.8,
                                 ),
                                 items: cardList.map((item) {
-                                  return ItemCard(
-                                      images: item.toString(),
-                                      captions: caption[cardList.indexOf(item)]
-                                          .toString());
+                                  return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  detailPengumuman(
+                                                      names,
+                                                      emails,
+                                                      iduser,
+                                                      idImage[cardList
+                                                          .indexOf(item)])),
+                                        );
+                                      },
+                                      child: ItemCard(
+                                          images: item.toString(),
+                                          captions:
+                                              caption[cardList.indexOf(item)]
+                                                  .toString()));
                                 }).toList(),
                               ),
                             ),

@@ -104,238 +104,193 @@ class _detailPengumuman extends State<detailPengumuman> {
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
                       print(snapshot.data);
-                      return ListView(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.all(20.0),
+                      return Column(
                         children: <Widget>[
-                          /////////
-                          ///
-
-                          Center(
-                              child: Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 8, vertical: 16),
-                              ),
-                              ClipRRect(
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              Colors.blueAccent,
-                                              Colors.lightBlue,
-                                            ]),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey,
-                                            offset: Offset(0.0, 1.0), //(x,y)
-                                            blurRadius: 6.0,
-                                          ),
-                                        ],
-                                      ),
-                                      child: Container(
-                                        width: 350.0,
-                                        height: 450.0,
-                                        child: Center(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              if (snapshot.data[0]['gambar'] ==
-                                                  null)
-                                                CircleAvatar(
-                                                  backgroundImage:
-                                                      AssetImage(''),
-                                                  backgroundColor:
-                                                      Colors.greenAccent,
-                                                  radius: 80.0,
-                                                ),
-                                              if (snapshot.data[0]['gambar'] !=
-                                                  null)
-                                                CircleAvatar(
-                                                  backgroundImage: NetworkImage(
-                                                      snapshot.data[0]
-                                                          ['gambar']),
-                                                  backgroundColor:
-                                                      Colors.greenAccent,
-                                                  radius: 80.0,
-                                                ),
-                                              SizedBox(
-                                                height: 10.0,
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 16),
+                          ),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(30),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.blueAccent,
+                                        Colors.lightBlue,
+                                      ]),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey,
+                                      offset: Offset(0.0, 1.0), //(x,y)
+                                      blurRadius: 6.0,
+                                    ),
+                                  ],
+                                ),
+                                child: ConstrainedBox(
+                                    constraints: BoxConstraints(
+                                      minHeight: 100,
+                                    ),
+                                    child: Container(
+                                      child: Center(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            if (snapshot.data[0]['gambar'] ==
+                                                null)
+                                              CircleAvatar(
+                                                backgroundImage: AssetImage(''),
+                                                backgroundColor:
+                                                    Colors.greenAccent,
+                                                radius: 80.0,
                                               ),
-                                              Text(
-                                                snapshot.data[0]['title'],
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 24.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                            if (snapshot.data[0]['gambar'] !=
+                                                null)
+                                              CircleAvatar(
+                                                backgroundImage: NetworkImage(
+                                                    snapshot.data[0]['gambar']),
+                                                backgroundColor:
+                                                    Colors.greenAccent,
+                                                radius: 80.0,
                                               ),
-                                              SizedBox(
-                                                height: 10.0,
+                                            SizedBox(
+                                              height: 10.0,
+                                            ),
+                                            Text(
+                                              snapshot.data[0]['title'],
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 24.0,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                            SizedBox(
+                                              height: 10.0,
+                                            ),
+                                            Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(30.0),
                                               ),
-                                              Card(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          30.0),
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 20.0,
+                                                  vertical: 10.0),
+                                              clipBehavior: Clip.antiAlias,
+                                              color: Colors.white,
+                                              elevation: 20.0,
+                                              child: ConstrainedBox(
+                                                constraints: BoxConstraints(
+                                                  minHeight: 100,
                                                 ),
-                                                margin: EdgeInsets.symmetric(
-                                                    horizontal: 20.0,
-                                                    vertical: 5.0),
-                                                clipBehavior: Clip.antiAlias,
-                                                color: Colors.white,
-                                                elevation: 20.0,
-                                                child: Padding(
-                                                  padding: const EdgeInsets
-                                                          .symmetric(
-                                                      horizontal: 7.0,
-                                                      vertical: 22.0),
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      Expanded(
-                                                        child: Column(
-                                                          children: <Widget>[
-                                                            Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: <
-                                                                  Widget>[
-                                                                Text(
-                                                                  "Gereja: ",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          15.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w300),
-                                                                ),
-                                                                Text(
-                                                                  snapshot.data[0]['GerejaPengumuman']
-                                                                              [
-                                                                              0]
-                                                                          [
-                                                                          'nama']
-                                                                      as String,
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          15.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w300),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(
-                                                              height: 8.0,
-                                                            ),
-                                                            Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .center,
-                                                              children: <
-                                                                  Widget>[
-                                                                FittedBox(
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                  child: Text(
-                                                                    snapshot.data[
-                                                                            0][
-                                                                        'caption'],
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            15.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w300),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(
-                                                              height: 8.0,
-                                                            ),
-                                                            SizedBox(
-                                                              height: 8.0,
-                                                            ),
-                                                            Text(
-                                                              "Tanggal buat pengumuman: ",
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .black,
-                                                                  fontSize:
-                                                                      15.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w300),
-                                                            ),
-                                                            FittedBox(
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                                child: Text(
-                                                                  snapshot
-                                                                      .data[0][
-                                                                          'tanggal']
-                                                                      .toString()
-                                                                      .substring(
-                                                                          0,
-                                                                          19),
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          15.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w300),
-                                                                )),
-                                                            SizedBox(
-                                                              height: 8.0,
-                                                            ),
-                                                          ],
-                                                        ),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsets.symmetric(
+                                                              horizontal: 10),
+                                                      child: Text(
+                                                        snapshot.data[0]
+                                                            ['caption'],
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300),
                                                       ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8.0,
+                                                    ),
+                                                    Row(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Text(
+                                                          "Gereja: ",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                        Text(
+                                                          snapshot.data[0][
+                                                                  'GerejaPengumuman'][0]
+                                                              [
+                                                              'nama'] as String,
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8.0,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 8.0,
+                                                    ),
+                                                    Text(
+                                                      "Tanggal buat pengumuman: ",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.w300),
+                                                    ),
+                                                    FittedBox(
+                                                        fit: BoxFit.cover,
+                                                        child: Text(
+                                                          snapshot.data[0]
+                                                                  ['tanggal']
+                                                              .toString()
+                                                              .substring(0, 19),
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w300),
+                                                        )),
+                                                    SizedBox(
+                                                      height: 8.0,
+                                                    ),
+                                                  ],
                                                 ),
-                                              )
-                                            ],
-                                          ),
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                      ))),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                            ],
-                          )),
-
-                          /////////
+                                      ),
+                                    ))),
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
                         ],
+
+                        /////////
                       );
                     } catch (e) {
                       print(e);
