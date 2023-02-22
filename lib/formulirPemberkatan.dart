@@ -97,8 +97,9 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
         [alamat],
         [jenis],
         [tanggal],
-        [idGereja],
         [note],
+        [idGereja],
+    
         [idImam],
       ]);
 
