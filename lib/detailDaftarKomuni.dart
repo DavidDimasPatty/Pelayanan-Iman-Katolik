@@ -14,22 +14,22 @@ import 'homePage.dart';
 class detailDaftarKomuni extends StatefulWidget {
   final name;
   final email;
-  final namaGereja;
+  final idGereja;
   var detailGereja;
   final idUser;
   final idKomuni;
   @override
   detailDaftarKomuni(
-      this.name, this.email, this.namaGereja, this.idUser, this.idKomuni);
+      this.name, this.email, this.idGereja, this.idUser, this.idKomuni);
 
   _detailDaftarKomuni createState() => _detailDaftarKomuni(
-      this.name, this.email, this.namaGereja, this.idUser, this.idKomuni);
+      this.name, this.email, this.idGereja, this.idUser, this.idKomuni);
 }
 
 class _detailDaftarKomuni extends State<detailDaftarKomuni> {
   final name;
   final email;
-  final namaGereja;
+  final idGereja;
   var detailGereja;
   final idUser;
   final idKomuni;
@@ -39,7 +39,8 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
     msg.addReceiver("agenPencarian");
     msg.setContent([
       ["cari Detail Komuni"],
-      [idKomuni]
+      [idKomuni],
+      [idGereja]
     ]);
     List k = [];
     await msg.send().then((res) async {
@@ -60,7 +61,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
   }
 
   _detailDaftarKomuni(
-      this.name, this.email, this.namaGereja, this.idUser, this.idKomuni);
+      this.name, this.email, this.idGereja, this.idUser, this.idKomuni);
 
   Future pullRefresh() async {
     setState(() {
@@ -106,10 +107,9 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                 future: callDb(),
                 builder: (context, AsyncSnapshot snapshot) {
                   try {
-                    print(snapshot.data);
-                    return ListView(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.all(20.0),
+                    return Column(
+                      // shrinkWrap: true,
+                      // padding: EdgeInsets.all(20.0),
                       children: <Widget>[
                         /////////
                         ///
@@ -151,8 +151,9 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: <Widget>[
-                                            if (snapshot.data[0]['GerejaKomuni']
-                                                    [0]['picture'] ==
+                                            if (snapshot.data[0][0][0]
+                                                        ['GerejaKomuni'][0]
+                                                    ['gambar'] ==
                                                 null)
                                               CircleAvatar(
                                                 backgroundImage: AssetImage(''),
@@ -160,14 +161,15 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                     Colors.greenAccent,
                                                 radius: 80.0,
                                               ),
-                                            if (snapshot.data[0]['GerejaKomuni']
-                                                    [0]['picture'] !=
+                                            if (snapshot.data[0][0][0]
+                                                        ['GerejaKomuni'][0]
+                                                    ['gambar'] !=
                                                 null)
                                               CircleAvatar(
                                                 backgroundImage: NetworkImage(
-                                                    snapshot.data[0]
+                                                    snapshot.data[0][0][0]
                                                             ['GerejaKomuni'][0]
-                                                        ['picture']),
+                                                        ['gambar']),
                                                 backgroundColor:
                                                     Colors.greenAccent,
                                                 radius: 80.0,
@@ -176,8 +178,8 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                               height: 10.0,
                                             ),
                                             Text(
-                                              snapshot.data[0]['GerejaKomuni']
-                                                  [0]['nama'],
+                                              snapshot.data[0][0][0]
+                                                  ['GerejaKomuni'][0]['nama'],
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 24.0,
@@ -231,11 +233,11 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                               ),
                                                               Text(
                                                                 snapshot.data[0]
-                                                                            [
-                                                                            'GerejaKomuni'][0]
+                                                                            [0][0]
                                                                         [
-                                                                        'paroki']
-                                                                    as String,
+                                                                        'GerejaKomuni'][0]
+                                                                    [
+                                                                    'paroki'] as String,
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .black,
@@ -274,6 +276,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                               ),
                                                               Text(
                                                                 snapshot.data[0]
+                                                                            [0][0]
                                                                         [
                                                                         'GerejaKomuni']
                                                                     [
@@ -316,7 +319,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                               ),
                                                               Text(
                                                                 snapshot.data[0]
-                                                                        [
+                                                                        [0][0][
                                                                         'kapasitas']
                                                                     .toString(),
                                                                 style: TextStyle(
@@ -357,7 +360,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                               ),
                                                               Text(
                                                                 snapshot.data[0]
-                                                                        [
+                                                                        [0][0][
                                                                         'jadwalBuka']
                                                                     .toString()
                                                                     .substring(
@@ -400,7 +403,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                               ),
                                                               Text(
                                                                 snapshot.data[0]
-                                                                        [
+                                                                        [0][0][
                                                                         'jadwalTutup']
                                                                     .toString()
                                                                     .substring(
@@ -428,14 +431,70 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                       ),
                                     ))),
                             SizedBox(
-                              height: 20.0,
+                              height: 10.0,
+                            ),
+                            Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 5.0),
+                              clipBehavior: Clip.antiAlias,
+                              color: Colors.white,
+                              elevation: 20.0,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 7.0, vertical: 22.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Text(
+                                                "Aturan Komuni Gereja: ",
+                                                style: TextStyle(
+                                                    color: Colors.red,
+                                                    fontSize: 15.0,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              Text(
+                                                snapshot.data[1][0][0]
+                                                    ['komuni'],
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15.0,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
+                                            ],
+                                          ),
+                                          SizedBox(
+                                            height: 8.0,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10.0,
                             ),
                             RaisedButton(
                                 onPressed: () async {
                                   showDirectionWithFirstMap(Coords(
-                                      snapshot.data[0]['GerejaKomuni'][0]
+                                      snapshot.data[0][0][0]['GerejaKomuni'][0]
                                           ['lat'],
-                                      snapshot.data[0]['GerejaKomuni'][0]
+                                      snapshot.data[0][0][0]['GerejaKomuni'][0]
                                           ['lng']));
                                 },
                                 shape: RoundedRectangleBorder(
@@ -472,12 +531,13 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                             RaisedButton(
                                 onPressed: () async {
                                   confirmKomuni(
-                                    snapshot.data[0]['GerejaKomuni'][0]['nama'],
+                                    snapshot.data[0][0][0]['GerejaKomuni'][0]
+                                        ['nama'],
                                     idUser,
-                                    snapshot.data[0]['_id'],
+                                    snapshot.data[0][0][0]['_id'],
                                     this.name,
                                     this.email,
-                                    this.namaGereja,
+                                    this.idGereja,
                                   ).showDialogBox(context);
                                 },
                                 shape: RoundedRectangleBorder(
@@ -510,7 +570,9 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                 )),
                           ],
                         )),
-
+                        SizedBox(
+                          height: 20.0,
+                        ),
                         /////////
                       ],
                     );

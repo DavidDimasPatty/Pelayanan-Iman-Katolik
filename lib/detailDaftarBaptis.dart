@@ -14,22 +14,22 @@ import 'homePage.dart';
 class detailDaftarBaptis extends StatefulWidget {
   final name;
   final email;
-  final namaGereja;
+  final idGereja;
   var detailGereja;
   final idUser;
   final idBaptis;
   @override
   detailDaftarBaptis(
-      this.name, this.email, this.namaGereja, this.idUser, this.idBaptis);
+      this.name, this.email, this.idGereja, this.idUser, this.idBaptis);
 
   _detailDaftarBaptis createState() => _detailDaftarBaptis(
-      this.name, this.email, this.namaGereja, this.idUser, this.idBaptis);
+      this.name, this.email, this.idGereja, this.idUser, this.idBaptis);
 }
 
 class _detailDaftarBaptis extends State<detailDaftarBaptis> {
   final name;
   final email;
-  final namaGereja;
+  final idGereja;
   var detailGereja;
   final idUser;
   final idBaptis;
@@ -39,7 +39,8 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
     msg.addReceiver("agenPencarian");
     msg.setContent([
       ["cari Detail Baptis"],
-      [idBaptis]
+      [idBaptis],
+      [idGereja]
     ]);
     List k = [];
     await msg.send().then((res) async {
@@ -66,7 +67,7 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
   }
 
   _detailDaftarBaptis(
-      this.name, this.email, this.namaGereja, this.idUser, this.idBaptis);
+      this.name, this.email, this.idGereja, this.idUser, this.idBaptis);
 
   @override
   Widget build(BuildContext context) {
@@ -107,9 +108,10 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
-                      return ListView(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.all(20.0),
+                      // print(snapshot.data[1]);
+                      return Column(
+                        // shrinkWrap: true,
+                        // padding: EdgeInsets.all(20.0),
                         children: <Widget>[
                           /////////
                           ///
@@ -151,9 +153,9 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              if (snapshot.data[0]
+                                              if (snapshot.data[0][0][0]
                                                           ['GerejaBaptis'][0]
-                                                      ['picture'] ==
+                                                      ['gambar'] ==
                                                   null)
                                                 CircleAvatar(
                                                   backgroundImage:
@@ -162,15 +164,15 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                                                       Colors.greenAccent,
                                                   radius: 80.0,
                                                 ),
-                                              if (snapshot.data[0]
+                                              if (snapshot.data[0][0][0]
                                                           ['GerejaBaptis'][0]
-                                                      ['picture'] !=
+                                                      ['gambar'] !=
                                                   null)
                                                 CircleAvatar(
                                                   backgroundImage: NetworkImage(
-                                                      snapshot.data[0]
+                                                      snapshot.data[0][0][0]
                                                               ['GerejaBaptis']
-                                                          [0]['picture']),
+                                                          [0]['gambar']),
                                                   backgroundColor:
                                                       Colors.greenAccent,
                                                   radius: 80.0,
@@ -179,8 +181,8 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                                                 height: 10.0,
                                               ),
                                               Text(
-                                                snapshot.data[0]['GerejaBaptis']
-                                                    [0]['nama'],
+                                                snapshot.data[0][0][0]
+                                                    ['GerejaBaptis'][0]['nama'],
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 24.0,
@@ -236,7 +238,7 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[0]['GerejaBaptis']
+                                                                  snapshot.data[0][0][0]['GerejaBaptis']
                                                                               [
                                                                               0]
                                                                           [
@@ -280,7 +282,8 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[
+                                                                  snapshot.data[0][0]
+                                                                              [
                                                                               0]
                                                                           [
                                                                           'GerejaBaptis'][0]
@@ -325,7 +328,9 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                                                                 ),
                                                                 Text(
                                                                   snapshot
-                                                                      .data[0][
+                                                                      .data[0]
+                                                                          [0][0]
+                                                                          [
                                                                           'kapasitas']
                                                                       .toString(),
                                                                   style: TextStyle(
@@ -367,7 +372,9 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                                                                 ),
                                                                 Text(
                                                                   snapshot
-                                                                      .data[0][
+                                                                      .data[0]
+                                                                          [0][0]
+                                                                          [
                                                                           'jadwalBuka']
                                                                       .toString()
                                                                       .substring(
@@ -412,7 +419,9 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                                                                 ),
                                                                 Text(
                                                                   snapshot
-                                                                      .data[0][
+                                                                      .data[0]
+                                                                          [0][0]
+                                                                          [
                                                                           'jadwalTutup']
                                                                       .toString()
                                                                       .substring(
@@ -435,21 +444,77 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                                                     ],
                                                   ),
                                                 ),
-                                              )
+                                              ),
                                             ],
                                           ),
                                         ),
                                       ))),
                               SizedBox(
-                                height: 20.0,
+                                height: 10.0,
+                              ),
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 20.0, vertical: 5.0),
+                                clipBehavior: Clip.antiAlias,
+                                color: Colors.white,
+                                elevation: 20.0,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 7.0, vertical: 22.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Column(
+                                          children: <Widget>[
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Text(
+                                                  "Aturan Baptis Gereja: ",
+                                                  style: TextStyle(
+                                                      color: Colors.red,
+                                                      fontSize: 15.0,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                Text(
+                                                  snapshot.data[1][0][0]
+                                                      ['baptis'],
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15.0,
+                                                      fontWeight:
+                                                          FontWeight.w300),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 8.0,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.0,
                               ),
                               RaisedButton(
                                   onPressed: () async {
                                     showDirectionWithFirstMap(Coords(
-                                        snapshot.data[0]['GerejaBaptis'][0]
-                                            ['lat'],
-                                        snapshot.data[0]['GerejaBaptis'][0]
-                                            ['lng']));
+                                        snapshot.data[0][0][0]['GerejaBaptis']
+                                            [0]['lat'],
+                                        snapshot.data[0][0][0]['GerejaBaptis']
+                                            [0]['lng']));
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
@@ -486,13 +551,13 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                               RaisedButton(
                                   onPressed: () async {
                                     confirmBaptis(
-                                            snapshot.data[0]['GerejaBaptis'][0]
-                                                ['nama'],
+                                            snapshot.data[0][0][0]
+                                                ['GerejaBaptis'][0]['nama'],
                                             idUser,
-                                            snapshot.data[0]['_id'],
+                                            snapshot.data[0][0][0]['_id'],
                                             this.name,
                                             this.email,
-                                            this.namaGereja)
+                                            this.idGereja)
                                         .showDialogBox(context);
                                   },
                                   shape: RoundedRectangleBorder(
@@ -526,6 +591,9 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                                   )),
                             ],
                           )),
+                          SizedBox(
+                            height: 20.0,
+                          ),
 
                           /////////
                         ],

@@ -264,7 +264,7 @@ class _Krisma extends State<Krisma> {
                                     builder: (context) => detailDaftarKrisma(
                                         names,
                                         emails,
-                                        i['GerejaKrisma'][0]['nama'],
+                                        i['GerejaKrisma'][0]['_id'],
                                         idUser,
                                         i['_id'])),
                               );

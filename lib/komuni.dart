@@ -263,7 +263,7 @@ class _Komuni extends State<Komuni> {
                                     builder: (context) => detailDaftarKomuni(
                                         names,
                                         emails,
-                                        i['GerejaKomuni'][0]['nama'],
+                                        i['GerejaKomuni'][0]['_id'],
                                         idUser,
                                         i['_id'])),
                               );

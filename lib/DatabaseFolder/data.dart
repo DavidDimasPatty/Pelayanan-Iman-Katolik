@@ -19,3 +19,4 @@ const USER_KRISMA_COLLECTION = "userKrisma";
 const PEMBERKATAN_COLLECTION = "pemberkatan";
 const PERKAWINAN_COLLECTION = "perkawinan";
 const GAMBAR_GEREJA_COLLECTION = "gambarGereja";
+const ATURAN_PELAYANAN_COLLECTION = "aturanPelayanan";

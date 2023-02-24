@@ -264,7 +264,7 @@ class _Baptis extends State<Baptis> {
                                     builder: (context) => detailDaftarBaptis(
                                         names,
                                         emails,
-                                        i['GerejaBaptis'][0]['nama'],
+                                        i['GerejaBaptis'][0]['_id'],
                                         idUser,
                                         i['_id'])),
                               );

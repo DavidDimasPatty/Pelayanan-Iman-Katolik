@@ -335,6 +335,11 @@ class AgenPencarian {
           }
 
           if (data[0][0] == "cari Detail Baptis") {
+            var aturanCollection =
+                MongoDatabase.db.collection(ATURAN_PELAYANAN_COLLECTION);
+            var aturan = await aturanCollection
+                .find(where.eq("idGereja", data[2][0]))
+                .toList();
             var gerejaBaptisCollection =
                 MongoDatabase.db.collection(BAPTIS_COLLECTION);
             final pipeline = AggregationPipelineBuilder()
@@ -350,7 +355,10 @@ class AgenPencarian {
                 .toList()
                 .then((result) async {
               msg.addReceiver("agenPage");
-              msg.setContent(result);
+              msg.setContent([
+                [result],
+                [aturan]
+              ]);
               await msg.send();
             });
           }
@@ -519,6 +527,11 @@ class AgenPencarian {
           }
 
           if (data[0][0] == "cari Detail Komuni") {
+            var aturanCollection =
+                MongoDatabase.db.collection(ATURAN_PELAYANAN_COLLECTION);
+            var aturan = await aturanCollection
+                .find(where.eq("idGereja", data[2][0]))
+                .toList();
             var gerejaBaptisCollection =
                 MongoDatabase.db.collection(KOMUNI_COLLECTION);
             final pipeline = AggregationPipelineBuilder()
@@ -534,12 +547,20 @@ class AgenPencarian {
                 .toList()
                 .then((result) async {
               msg.addReceiver("agenPage");
-              msg.setContent(result);
+              msg.setContent([
+                [result],
+                [aturan]
+              ]);
               await msg.send();
             });
           }
 
           if (data[0][0] == "cari Detail Krisma") {
+            var aturanCollection =
+                MongoDatabase.db.collection(ATURAN_PELAYANAN_COLLECTION);
+            var aturan = await aturanCollection
+                .find(where.eq("idGereja", data[2][0]))
+                .toList();
             var gerejaBaptisCollection =
                 MongoDatabase.db.collection(KRISMA_COLLECTION);
             final pipeline = AggregationPipelineBuilder()
@@ -555,7 +576,10 @@ class AgenPencarian {
                 .toList()
                 .then((result) async {
               msg.addReceiver("agenPage");
-              msg.setContent(result);
+              msg.setContent([
+                [result],
+                [aturan]
+              ]);
               await msg.send();
             });
           }

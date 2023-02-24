@@ -15,22 +15,22 @@ import 'homePage.dart';
 class detailDaftarKrisma extends StatefulWidget {
   final name;
   final email;
-  final namaGereja;
+  final idGereja;
   var detailGereja;
   final idUser;
   final idKrisma;
   @override
   detailDaftarKrisma(
-      this.name, this.email, this.namaGereja, this.idUser, this.idKrisma);
+      this.name, this.email, this.idGereja, this.idUser, this.idKrisma);
 
   _detailDaftarKrisma createState() => _detailDaftarKrisma(
-      this.name, this.email, this.namaGereja, this.idUser, this.idKrisma);
+      this.name, this.email, this.idGereja, this.idUser, this.idKrisma);
 }
 
 class _detailDaftarKrisma extends State<detailDaftarKrisma> {
   final name;
   final email;
-  final namaGereja;
+  final idGereja;
   var detailGereja;
   final idUser;
   final idKrisma;
@@ -40,7 +40,8 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
     msg.addReceiver("agenPencarian");
     msg.setContent([
       ["cari Detail Krisma"],
-      [idKrisma]
+      [idKrisma],
+      [idGereja]
     ]);
     List k = [];
     await msg.send().then((res) async {
@@ -61,7 +62,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
   }
 
   _detailDaftarKrisma(
-      this.name, this.email, this.namaGereja, this.idUser, this.idKrisma);
+      this.name, this.email, this.idGereja, this.idUser, this.idKrisma);
   Future pullRefresh() async {
     setState(() {
       callDb();
@@ -107,9 +108,9 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
-                      return ListView(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.all(20.0),
+                      return Column(
+                        // shrinkWrap: true,
+                        // padding: EdgeInsets.all(20.0),
                         children: <Widget>[
                           /////////
                           ///
@@ -151,9 +152,9 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              if (snapshot.data[0]
+                                              if (snapshot.data[0][0][0]
                                                           ['GerejaKrisma'][0]
-                                                      ['picture'] ==
+                                                      ['gambar'] ==
                                                   null)
                                                 CircleAvatar(
                                                   backgroundImage:
@@ -162,15 +163,15 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                       Colors.greenAccent,
                                                   radius: 80.0,
                                                 ),
-                                              if (snapshot.data[0]
+                                              if (snapshot.data[0][0][0]
                                                           ['GerejaKrisma'][0]
-                                                      ['picture'] !=
+                                                      ['gambar'] !=
                                                   null)
                                                 CircleAvatar(
                                                   backgroundImage: NetworkImage(
-                                                      snapshot.data[0]
+                                                      snapshot.data[0][0][0]
                                                               ['GerejaKrisma']
-                                                          [0]['picture']),
+                                                          [0]['gambar']),
                                                   backgroundColor:
                                                       Colors.greenAccent,
                                                   radius: 80.0,
@@ -179,8 +180,8 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                 height: 10.0,
                                               ),
                                               Text(
-                                                snapshot.data[0]['GerejaKrisma']
-                                                    [0]['nama'],
+                                                snapshot.data[0][0][0]
+                                                    ['GerejaKrisma'][0]['nama'],
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 24.0,
@@ -236,7 +237,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[0]['GerejaKrisma']
+                                                                  snapshot.data[0][0][0]['GerejaKrisma']
                                                                               [
                                                                               0]
                                                                           [
@@ -280,7 +281,8 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[
+                                                                  snapshot.data[0][0]
+                                                                              [
                                                                               0]
                                                                           [
                                                                           'GerejaKrisma'][0]
@@ -325,7 +327,9 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                                 ),
                                                                 Text(
                                                                   snapshot
-                                                                      .data[0][
+                                                                      .data[0]
+                                                                          [0][0]
+                                                                          [
                                                                           'kapasitas']
                                                                       .toString(),
                                                                   style: TextStyle(
@@ -367,7 +371,9 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                                 ),
                                                                 Text(
                                                                   snapshot
-                                                                      .data[0][
+                                                                      .data[0]
+                                                                          [0][0]
+                                                                          [
                                                                           'jadwalBuka']
                                                                       .toString()
                                                                       .substring(
@@ -412,7 +418,9 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                                 ),
                                                                 Text(
                                                                   snapshot
-                                                                      .data[0][
+                                                                      .data[0]
+                                                                          [0][0]
+                                                                          [
                                                                           'jadwalTutup']
                                                                       .toString()
                                                                       .substring(
@@ -441,15 +449,71 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                         ),
                                       ))),
                               SizedBox(
-                                height: 20.0,
+                                height: 10.0,
+                              ),
+                              Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 20.0, vertical: 5.0),
+                                clipBehavior: Clip.antiAlias,
+                                color: Colors.white,
+                                elevation: 20.0,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 7.0, vertical: 22.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Column(
+                                          children: <Widget>[
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Text(
+                                                  "Aturan Krisma Gereja: ",
+                                                  style: TextStyle(
+                                                      color: Colors.red,
+                                                      fontSize: 15.0,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                Text(
+                                                  snapshot.data[1][0][0]
+                                                      ['krisma'],
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15.0,
+                                                      fontWeight:
+                                                          FontWeight.w300),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 8.0,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10.0,
                               ),
                               RaisedButton(
                                   onPressed: () async {
                                     showDirectionWithFirstMap(Coords(
-                                        snapshot.data[0]['GerejaKrisma'][0]
-                                            ['lat'],
-                                        snapshot.data[0]['GerejaKrisma'][0]
-                                            ['lng']));
+                                        snapshot.data[0][0][0]['GerejaKrisma']
+                                            [0]['lat'],
+                                        snapshot.data[0][0][0]['GerejaKrisma']
+                                            [0]['lng']));
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
@@ -492,7 +556,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                       snapshot.data[0]['_id'],
                                       this.name,
                                       this.email,
-                                      this.namaGereja,
+                                      this.idGereja,
                                     ).showDialogBox(context);
                                   },
                                   shape: RoundedRectangleBorder(
@@ -524,6 +588,9 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                       ),
                                     ),
                                   )),
+                              SizedBox(
+                                height: 20.0,
+                              ),
                             ],
                           )),
 
