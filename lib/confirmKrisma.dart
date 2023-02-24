@@ -25,7 +25,8 @@ class confirmKrisma {
     msg.addReceiver("agenPencarian");
     msg.setContent([
       ["cari Detail Krisma"],
-      [idKrisma]
+      [idKrisma],
+      [idGereja]
     ]);
 
     await msg.send().then((res) async {
@@ -107,25 +108,24 @@ class confirmKrisma {
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            for (var i in detailGereja)
-                              Column(
-                                children: <Widget>[
-                                  Text(
-                                      "Konfirmasi Pendaftaran Krisma \n Pada Gereja " +
-                                          detailGereja[0]['GerejaKrisma'][0]
-                                              ['nama'] +
-                                          "\n" +
-                                          "Pada Tanggal " +
-                                          detailGereja[0]['jadwalBuka']
-                                              .toString()
-                                              .substring(0, 19) +
-                                          " - " +
-                                          detailGereja[0]['jadwalTutup']
-                                              .toString()
-                                              .substring(0, 19) +
-                                          " ?")
-                                ],
-                              )
+                            Column(
+                              children: <Widget>[
+                                Text(
+                                    "Konfirmasi Pendaftaran Krisma \n Pada Gereja " +
+                                        detailGereja[0][0][0]['GerejaKrisma'][0]
+                                            ['nama'] +
+                                        "\n" +
+                                        "Pada Tanggal " +
+                                        detailGereja[0][0][0]['jadwalBuka']
+                                            .toString()
+                                            .substring(0, 19) +
+                                        " - " +
+                                        detailGereja[0][0][0]['jadwalTutup']
+                                            .toString()
+                                            .substring(0, 19) +
+                                        " ?")
+                              ],
+                            )
                           ]);
                     } catch (e) {
                       print(e);
@@ -142,7 +142,7 @@ class confirmKrisma {
                           color: Colors.blueAccent,
                           onPressed: () async {
                             await daftar(idKrisma, idUser,
-                                detailGereja[0]['kapasitas'], context);
+                                detailGereja[0][0][0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
                       RaisedButton(

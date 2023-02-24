@@ -552,7 +552,7 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                                   onPressed: () async {
                                     confirmBaptis(
                                             snapshot.data[0][0][0]
-                                                ['GerejaBaptis'][0]['nama'],
+                                                ['GerejaBaptis'][0]['_id'],
                                             idUser,
                                             snapshot.data[0][0][0]['_id'],
                                             this.name,

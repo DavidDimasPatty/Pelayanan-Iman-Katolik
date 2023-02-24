@@ -550,10 +550,10 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                               RaisedButton(
                                   onPressed: () async {
                                     confirmKrisma(
-                                      snapshot.data[0]['GerejaKrisma'][0]
-                                          ['nama'],
+                                      snapshot.data[0][0][0]['GerejaKrisma'][0]
+                                          ['_id'],
                                       idUser,
-                                      snapshot.data[0]['_id'],
+                                      snapshot.data[0][0][0]['_id'],
                                       this.name,
                                       this.email,
                                       this.idGereja,

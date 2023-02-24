@@ -532,7 +532,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                 onPressed: () async {
                                   confirmKomuni(
                                     snapshot.data[0][0][0]['GerejaKomuni'][0]
-                                        ['nama'],
+                                        ['_id'],
                                     idUser,
                                     snapshot.data[0][0][0]['_id'],
                                     this.name,
