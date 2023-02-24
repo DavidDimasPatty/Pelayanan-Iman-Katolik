@@ -384,6 +384,11 @@ class AgenPencarian {
           }
 
           if (data[0][0] == "cari Detail Imam") {
+            var aturanCollection =
+                MongoDatabase.db.collection(ATURAN_PELAYANAN_COLLECTION);
+            var aturan = await aturanCollection
+                .find(where.eq("idGereja", data[2][0]))
+                .toList();
             var imamCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
             final pipeline = AggregationPipelineBuilder()
                 .addStage(Lookup(
@@ -398,7 +403,10 @@ class AgenPencarian {
                 .toList()
                 .then((result) async {
               msg.addReceiver("agenPage");
-              msg.setContent(result);
+              msg.setContent([
+                [result],
+                [aturan]
+              ]);
               await msg.send();
             });
           }

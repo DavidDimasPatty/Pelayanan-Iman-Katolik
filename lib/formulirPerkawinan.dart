@@ -69,6 +69,25 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
     print(_selectedDate);
   }
 
+  Future<List> callDb() async {
+    Messages msg = new Messages();
+    msg.addReceiver("agenPencarian");
+    msg.setContent([
+      ["cari Detail Imam"],
+      [idImam],
+      [idGereja]
+    ]);
+    List k = [];
+    await msg.send().then((res) async {
+      print("masuk");
+      print(await AgenPage().receiverTampilan());
+    });
+    await Future.delayed(Duration(seconds: 1));
+    k = await AgenPage().receiverTampilan();
+
+    return k;
+  }
+
   void submitForm(
       namap, namaw, notelp, alamat, email, note, tanggal, context) async {
     if (namaPriaController.text != "" &&
@@ -162,6 +181,76 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 11),
           ),
+          FutureBuilder<List>(
+              future: callDb(),
+              builder: (context, AsyncSnapshot snapshot) {
+                try {
+                  return Column(
+                    children: <Widget>[
+                      /////////
+                      ///
+                      Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 5.0),
+                        clipBehavior: Clip.antiAlias,
+                        color: Colors.white,
+                        elevation: 20.0,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 7.0, vertical: 22.0),
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Text(
+                                          "Aturan Perkawinan Gereja: ",
+                                          style: TextStyle(
+                                              color: Colors.red,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        Text(
+                                          snapshot.data[1][0][0]['perkawinan'],
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 8.0,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+
+                      /////////
+                    ],
+                  );
+                } catch (e) {
+                  print(e);
+                  return Center(child: CircularProgressIndicator());
+                }
+              }),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

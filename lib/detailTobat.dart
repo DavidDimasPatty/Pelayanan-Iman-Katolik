@@ -36,7 +36,8 @@ class _detailTobat extends State<detailTobat> {
     msg.addReceiver("agenPencarian");
     msg.setContent([
       ["cari Detail Imam"],
-      [idImam]
+      [idImam],
+      [idGereja]
     ]);
     List k = [];
     await msg.send().then((res) async {
@@ -109,7 +110,59 @@ class _detailTobat extends State<detailTobat> {
                         children: <Widget>[
                           /////////
                           ///
-
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 5.0),
+                            clipBehavior: Clip.antiAlias,
+                            color: Colors.white,
+                            elevation: 20.0,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 7.0, vertical: 22.0),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text(
+                                              "Aturan Tobat Gereja: ",
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            Text(
+                                              snapshot.data[1][0][0]['tobat'],
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 8.0,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
                           Center(
                               child: Column(
                             children: <Widget>[
@@ -147,7 +200,8 @@ class _detailTobat extends State<detailTobat> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              if (snapshot.data[0]['picture'] ==
+                                              if (snapshot.data[0][0][0]
+                                                      ['picture'] ==
                                                   null)
                                                 CircleAvatar(
                                                   backgroundImage:
@@ -156,11 +210,12 @@ class _detailTobat extends State<detailTobat> {
                                                       Colors.greenAccent,
                                                   radius: 80.0,
                                                 ),
-                                              if (snapshot.data[0]['picture'] !=
+                                              if (snapshot.data[0][0][0]
+                                                      ['picture'] !=
                                                   null)
                                                 CircleAvatar(
                                                   backgroundImage: NetworkImage(
-                                                      snapshot.data[0]
+                                                      snapshot.data[0][0][0]
                                                           ['picture']),
                                                   backgroundColor:
                                                       Colors.greenAccent,
@@ -170,7 +225,7 @@ class _detailTobat extends State<detailTobat> {
                                                 height: 10.0,
                                               ),
                                               Text(
-                                                snapshot.data[0]['name'],
+                                                snapshot.data[0][0][0]['name'],
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.white,
@@ -206,7 +261,8 @@ class _detailTobat extends State<detailTobat> {
                                                             Text(
                                                               "Email : " +
                                                                   snapshot.data[
-                                                                          0]
+                                                                              0]
+                                                                          [0][0]
                                                                       ['email'],
                                                               style: TextStyle(
                                                                   color: Colors
@@ -223,7 +279,9 @@ class _detailTobat extends State<detailTobat> {
                                                             Text(
                                                               "No Telepon : " +
                                                                   snapshot.data[
-                                                                          0][
+                                                                              0]
+                                                                          [0][0]
+                                                                      [
                                                                       'notelp'],
                                                               style: TextStyle(
                                                                   color: Colors
@@ -261,7 +319,7 @@ class _detailTobat extends State<detailTobat> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[0]['GerejaImam']
+                                                                  snapshot.data[0][0][0]['GerejaImam']
                                                                               [
                                                                               0]
                                                                           [
@@ -305,7 +363,8 @@ class _detailTobat extends State<detailTobat> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[
+                                                                  snapshot.data[0][0]
+                                                                              [
                                                                               0]
                                                                           [
                                                                           'GerejaImam'][0]
