@@ -13,7 +13,6 @@ import '../../tiketSaya.dart';
 class detailDaftarRetret extends StatefulWidget {
   final name;
   final email;
-  var detailGereja;
   final idUser;
   final idKegiatan;
 

@@ -25,7 +25,6 @@ class ImamPemberkatan extends StatefulWidget {
 class _ImamPemberkatan extends State<ImamPemberkatan> {
   var names;
   var emails;
-  var distance;
   List daftarGereja = [];
 
   List dummyTemp = [];

@@ -31,9 +31,6 @@ class _EditProfile extends State<EditProfile> {
   _EditProfile(this.name, this.email, this.idUser);
 
   @override
-  var jenisPemberkatan = ['Gedung', 'Rumah', 'Barang'];
-  var selectedJenis;
-  String ddValue = "Gedung";
   TextEditingController namaController = new TextEditingController();
   TextEditingController parokiController = new TextEditingController();
   TextEditingController lingkunganController = new TextEditingController();

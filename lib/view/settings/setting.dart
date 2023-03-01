@@ -26,7 +26,6 @@ class Settings extends StatelessWidget {
   final name;
   final email;
   final idUser;
-  var dataUser;
 
   //print('Download-Link: $urlDownload');
   Future LogOut(context) async {

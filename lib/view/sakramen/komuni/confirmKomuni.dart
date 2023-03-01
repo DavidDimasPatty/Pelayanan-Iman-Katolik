@@ -14,7 +14,6 @@ class confirmKomuni {
   final idUser;
   final idKomuni;
   var detailGereja;
-  var key = 0;
   confirmKomuni(this.idGereja, this.idUser, this.idKomuni, this.name,
       this.email, this.namaGereja);
 

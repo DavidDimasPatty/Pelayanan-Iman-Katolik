@@ -14,10 +14,6 @@ class Sakramentali extends StatelessWidget {
   final idUser;
   Sakramentali(this.name, this.email, this.idUser);
   @override
-  TextEditingController passLamaController = new TextEditingController();
-  TextEditingController passBaruController = new TextEditingController();
-  TextEditingController passUlBaruController = new TextEditingController();
-
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

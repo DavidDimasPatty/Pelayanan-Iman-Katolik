@@ -50,13 +50,6 @@ class _detailPerminyakan extends State<detailPerminyakan> {
     return k;
   }
 
-  showDirectionWithFirstMap(coordinates) async {
-    final List<AvailableMap> availableMaps = await MapLauncher.installedMaps;
-    await availableMaps.first.showDirections(
-      destination: coordinates,
-    );
-  }
-
   Future pullRefresh() async {
     setState(() {
       callDb();

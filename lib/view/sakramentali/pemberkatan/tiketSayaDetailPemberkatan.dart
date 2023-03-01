@@ -11,12 +11,9 @@ class tiketSayaDetailPemberkatan {
   var names;
   var idUser;
   var emails;
-  var tiketGereja;
   var tiket;
   var namaGereja;
   var idPemberkatan;
-  var idUmum;
-  var idUserBaptis;
   var cancelPemberkatan;
   tiketSayaDetailPemberkatan(
       this.names, this.emails, this.idUser, this.idPemberkatan);

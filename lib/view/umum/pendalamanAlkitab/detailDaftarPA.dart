@@ -14,7 +14,6 @@ import '../../tiketSaya.dart';
 class detailDaftarPA extends StatefulWidget {
   final name;
   final email;
-  var detailGereja;
   final idUser;
   final idKegiatan;
 

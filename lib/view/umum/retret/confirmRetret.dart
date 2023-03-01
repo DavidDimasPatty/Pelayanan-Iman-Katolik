@@ -12,7 +12,6 @@ class confirmRetret {
   final idUser;
   final idKegiatan;
   var detailGereja;
-  var key = 0;
   confirmRetret(this.idUser, this.idKegiatan, this.name, this.email);
 
   Future<List> callDb() async {

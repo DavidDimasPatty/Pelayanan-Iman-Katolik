@@ -15,7 +15,6 @@ class detailDaftarBaptis extends StatefulWidget {
   final name;
   final email;
   final idGereja;
-  var detailGereja;
   final idUser;
   final idBaptis;
   @override

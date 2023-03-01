@@ -14,7 +14,6 @@ class confirmBaptis {
   final name;
   final email;
   final namaGereja;
-  var key = 0;
   confirmBaptis(this.idGereja, this.idUser, this.idBaptis, this.name,
       this.email, this.namaGereja);
 

@@ -13,9 +13,7 @@ class tiketSayaKegiatanHistory {
   var emails;
   var tiketGereja;
   var tiket;
-  var namaGereja;
   var idKegiatan;
-  var idGereja;
   var idUmum;
   var idUserUmum;
   var cancelUmum;

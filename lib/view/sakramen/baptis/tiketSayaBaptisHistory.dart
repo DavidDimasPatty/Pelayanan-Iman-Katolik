@@ -13,7 +13,6 @@ class tiketSayaBaptisHistory {
   var emails;
   var tiketGereja;
   var tiket;
-  var namaGereja;
   var idBaptis;
   var idGereja;
   var idUserBaptis;

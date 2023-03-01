@@ -11,7 +11,6 @@ class confirmRekoleksi {
   final idUser;
   final idKegiatan;
   var detailGereja;
-  var key = 0;
   confirmRekoleksi(this.idUser, this.idKegiatan, this.name, this.email);
 
   Future<List> callDb() async {

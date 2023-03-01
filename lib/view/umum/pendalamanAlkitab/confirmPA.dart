@@ -12,7 +12,6 @@ class confirmPA {
   final idUser;
   final idKegiatan;
   var detailGereja;
-  var key = 0;
   confirmPA(this.idUser, this.idKegiatan, this.name, this.email);
 
   Future<List> callDb() async {
