@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pelayanan_iman_katolik/login.dart';
 
+import '../view/login.dart';
 import 'messages.dart';
 
 class AgenPage {
