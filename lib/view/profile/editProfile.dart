@@ -34,7 +34,6 @@ class _EditProfile extends State<EditProfile> {
   var jenisPemberkatan = ['Gedung', 'Rumah', 'Barang'];
   var selectedJenis;
   String ddValue = "Gedung";
-  var dateValue;
   TextEditingController namaController = new TextEditingController();
   TextEditingController parokiController = new TextEditingController();
   TextEditingController lingkunganController = new TextEditingController();

@@ -25,15 +25,15 @@ class _tiketSaya extends State<tiketSaya> {
   var names;
   var idUser;
   var emails;
-  var tiketGereja;
-  var tiket;
-  var namaGereja;
-  var hasil;
-  var baptisUser;
-  var kegiatanUser;
-  var komuniUser;
-  var krismaUser;
-  var pemberkatanUser;
+  // var tiketGereja;
+  // var tiket;
+  // var namaGereja;
+  // var hasil;
+  // var baptisUser;
+  // var kegiatanUser;
+  // var komuniUser;
+  // var krismaUser;
+  // var pemberkatanUser;
 
   _tiketSaya(this.names, this.emails, this.idUser);
 

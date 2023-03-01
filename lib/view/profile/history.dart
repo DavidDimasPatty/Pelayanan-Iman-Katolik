@@ -28,15 +28,6 @@ class _history extends State<history> {
   var names;
   var idUser;
   var emails;
-  var tiketGereja;
-  var tiket;
-  var namaGereja;
-  var hasil;
-  var baptisUser;
-  var kegiatanUser;
-  var komuniUser;
-  var krismaUser;
-  var pemberkatanUser;
 
   _history(this.names, this.emails, this.idUser);
 

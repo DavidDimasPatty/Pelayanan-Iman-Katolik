@@ -24,7 +24,7 @@ class Pengumuman extends StatefulWidget {
 }
 
 class _Pengumuman extends State<Pengumuman> {
-  var distance;
+  // var distance;
   var names;
   var emails;
   List daftarGereja = [];
@@ -61,21 +61,21 @@ class _Pengumuman extends State<Pengumuman> {
     });
   }
 
-  Future jarak(lat, lang) async {
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    print(position.toString());
-    double distanceInMeters = Geolocator.distanceBetween(
-        lat, lang, position.latitude, position.longitude);
-    print(distanceInMeters.toString());
-    if (distanceInMeters > 1000) {
-      distanceInMeters = distanceInMeters / 1000;
-      distance = distanceInMeters.toInt().toString() + " KM";
-    } else {
-      distance = distanceInMeters.toInt().toString() + " M";
-    }
-    return distance;
-  }
+  // Future jarak(lat, lang) async {
+  //   Position position = await Geolocator.getCurrentPosition(
+  //       desiredAccuracy: LocationAccuracy.high);
+  //   print(position.toString());
+  //   double distanceInMeters = Geolocator.distanceBetween(
+  //       lat, lang, position.latitude, position.longitude);
+  //   print(distanceInMeters.toString());
+  //   if (distanceInMeters > 1000) {
+  //     distanceInMeters = distanceInMeters / 1000;
+  //     distance = distanceInMeters.toInt().toString() + " KM";
+  //   } else {
+  //     distance = distanceInMeters.toInt().toString() + " M";
+  //   }
+  //   return distance;
+  // }
 
   filterSearchResults(String query) {
     if (query.isNotEmpty) {

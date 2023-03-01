@@ -19,6 +19,8 @@ import 'package:pelayanan_iman_katolik/view/login.dart';
 //   runApp(MyApp());
 // }
 
+var tampilan;
+
 Future callDb() async {
   Messages msg = new Messages();
   msg.addReceiver("agenSetting");
@@ -92,7 +94,7 @@ void main() async {
     LocationPermission permission2 = await Geolocator.checkPermission();
     print(permission2);
   }
-  var tampilan = await callDb();
+  tampilan = await callDb();
 
   if (tampilan[1][0] == "pagi") {
     print(tampilan[0][0]);

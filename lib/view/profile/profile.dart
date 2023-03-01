@@ -27,8 +27,6 @@ class _Profile extends State<Profile> {
   final name;
   final email;
   final idUser;
-  var dataUser;
-  var totalGereja;
 
   Future selectFile(context) async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
@@ -424,16 +422,6 @@ class _Profile extends State<Profile> {
                                       ],
                                     ),
                                     // Text(
-                                    //   'My name is Alice and I am  a freelance mobile app developper.\n'
-                                    //   'if you need any mobile app for your company then contact me for more informations',
-                                    //   style: TextStyle(
-                                    //     fontSize: 14,
-                                    //     fontStyle: FontStyle.italic,
-                                    //     fontWeight: FontWeight.w300,
-                                    //     color: Colors.black,
-                                    //     letterSpacing: 2.0,
-                                    //   ),
-                                    // ),
                                   ],
                                 ),
                               ),
@@ -633,85 +621,3 @@ class _Profile extends State<Profile> {
     );
   }
 }
-//  return Column(children: <Widget>[
-//                     Padding(
-//                       padding:
-//                           EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-//                     ),
-//                     if (snapshot.data[0]['picture'] == null)
-//                       CircleAvatar(
-//                         backgroundImage: AssetImage(''),
-//                         backgroundColor: Colors.greenAccent,
-//                         radius: 120,
-//                       ),
-//                     if (snapshot.data[0]['picture'] != null)
-//                       CircleAvatar(
-//                         backgroundImage:
-//                             NetworkImage(snapshot.data[0]['picture']),
-//                         backgroundColor: Colors.greenAccent,
-//                         radius: 120,
-//                       ),
-//                     Padding(
-//                       padding:
-//                           EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-//                     ),
-//                     Text(
-//                       'User Information',
-//                       style: TextStyle(
-//                         fontSize: 18,
-//                         fontWeight: FontWeight.bold,
-//                       ),
-//                     ),
-//                     Padding(
-//                       padding:
-//                           EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-//                     ),
-//                     Row(
-//                       children: <Widget>[
-//                         Text("Nama: "),
-//                         Text(snapshot.data[0]['name']),
-//                       ],
-//                     ),
-//                     Padding(
-//                       padding:
-//                           EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-//                     ),
-//                     Row(
-//                       children: <Widget>[
-//                         Text("Email: "),
-//                         Text(snapshot.data[0]['email']),
-//                       ],
-//                     ),
-//                     Padding(
-//                       padding:
-//                           EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-//                     ),
-//                     Row(
-//                       children: <Widget>[
-//                         Text("Address: "),
-//                         Text(" "),
-//                       ],
-//                     ),
-//                     Padding(
-//                       padding:
-//                           EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-//                     ),
-//                     Row(
-//                       children: <Widget>[
-//                         Text("Phone Number: "),
-//                         Text(" "),
-//                       ],
-//                     ),
-//                     Padding(
-//                       padding:
-//                           EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-//                     ),
-//                     RaisedButton(
-//                         child: Text("Change Profile Picture"),
-//                         textColor: Colors.white,
-//                         color: Colors.blueAccent,
-//                         onPressed: () async {
-//                           //await ImagePicker().pickImage(source: ImageSource.gallery);
-//                           await selectFile(context);
-//                         }),
-//                   ]);

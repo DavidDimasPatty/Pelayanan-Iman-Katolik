@@ -26,7 +26,6 @@ class detailPengumuman extends StatefulWidget {
 class _detailPengumuman extends State<detailPengumuman> {
   final name;
   final email;
-  var detailGereja;
   final idUser;
   final idPengumuman;
 
@@ -48,12 +47,12 @@ class _detailPengumuman extends State<detailPengumuman> {
     return k;
   }
 
-  showDirectionWithFirstMap(coordinates) async {
-    final List<AvailableMap> availableMaps = await MapLauncher.installedMaps;
-    await availableMaps.first.showDirections(
-      destination: coordinates,
-    );
-  }
+  // showDirectionWithFirstMap(coordinates) async {
+  //   final List<AvailableMap> availableMaps = await MapLauncher.installedMaps;
+  //   await availableMaps.first.showDirections(
+  //     destination: coordinates,
+  //   );
+  // }
 
   Future pullRefresh() async {
     setState(() {
