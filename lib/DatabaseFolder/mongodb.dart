@@ -4,7 +4,7 @@ import 'package:mongo_dart/mongo_dart.dart';
 import './data.dart';
 
 class MongoDatabase {
-  static var db, userCollection;
+  static var db;
 
   static connect() async {
     db = await Db.create(MONGO_CONN_URL);
