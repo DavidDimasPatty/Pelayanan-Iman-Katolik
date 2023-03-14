@@ -24,7 +24,7 @@ class Pemberkatan extends StatefulWidget {
 class _Pemberkatan extends State<Pemberkatan> {
   var names;
   var emails;
-  var distance;
+
   List daftarGereja = [];
 
   List dummyTemp = [];
@@ -60,6 +60,7 @@ class _Pemberkatan extends State<Pemberkatan> {
   }
 
   Future jarak(lat, lang) async {
+    var distance;
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
     print(position.toString());
