@@ -39,9 +39,8 @@ class _HomePage extends State<HomePage> {
   var names;
   var emails;
   var iduser;
-  var dataUser;
-  int _currentIndex = 0;
-  int indexCaption = -1;
+
+  // int indexCaption = -1;
   List hasil = [];
   List<String> cardList = [];
 
@@ -69,7 +68,7 @@ class _HomePage extends State<HomePage> {
   Future pullRefresh() async {
     setState(() {
       callTampilan();
-      indexCaption = -1;
+      // indexCaption = -1;
     });
   }
 
@@ -77,7 +76,7 @@ class _HomePage extends State<HomePage> {
     super.initState();
     setState(() {
       callTampilan();
-      indexCaption = -1;
+      // indexCaption = -1;
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
