@@ -16,7 +16,6 @@ class tiketSayaBaptisHistory {
   var idBaptis;
   var idGereja;
   var idUserBaptis;
-  var cancelBaptis;
   tiketSayaBaptisHistory(this.names, this.emails, this.idUser, this.idBaptis,
       this.idGereja, this.idUserBaptis);
 
@@ -61,7 +60,7 @@ class tiketSayaBaptisHistory {
       print(await AgenPage().receiverTampilan());
     });
     await Future.delayed(Duration(seconds: 1));
-    cancelBaptis = await AgenPage().receiverTampilan();
+    var cancelBaptis = await AgenPage().receiverTampilan();
     if (cancelBaptis == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Cancel Baptis",

@@ -11,11 +11,9 @@ class tiketSayaPemberkatanHistory {
   var names;
   var idUser;
   var emails;
-  var tiketGereja;
   var tiket;
   var namaGereja;
   var idPemberkatan;
-  var cancelPemberkatan;
   tiketSayaPemberkatanHistory(
       this.names, this.emails, this.idUser, this.idPemberkatan);
 
@@ -55,7 +53,7 @@ class tiketSayaPemberkatanHistory {
       print(await AgenPage().receiverTampilan());
     });
     await Future.delayed(Duration(seconds: 1));
-    cancelPemberkatan = await AgenPage().receiverTampilan();
+    var cancelPemberkatan = await AgenPage().receiverTampilan();
     if (cancelPemberkatan == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Cancel Pemberkatan",

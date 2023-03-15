@@ -11,12 +11,10 @@ class tiketSayaDetailBaptis {
   var names;
   var idUser;
   var emails;
-  var tiketGereja;
   var tiket;
   var idBaptis;
   var idGereja;
   var idUserBaptis;
-  var cancelBaptis;
   tiketSayaDetailBaptis(this.names, this.emails, this.idUser, this.idBaptis,
       this.idGereja, this.idUserBaptis);
 
@@ -61,7 +59,7 @@ class tiketSayaDetailBaptis {
       print(await AgenPage().receiverTampilan());
     });
     await Future.delayed(Duration(seconds: 1));
-    cancelBaptis = await AgenPage().receiverTampilan();
+    var cancelBaptis = await AgenPage().receiverTampilan();
     if (cancelBaptis == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Cancel Baptis",

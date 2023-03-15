@@ -40,9 +40,9 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
 
   @override
   var jenisPemberkatan = ['Gedung', 'Rumah', 'Barang'];
-  var selectedJenis;
+  // var selectedJenis;
   String ddValue = "Gedung";
-  var dateValue;
+  // var dateValue;
   TextEditingController namaController = new TextEditingController();
   TextEditingController parokiController = new TextEditingController();
   TextEditingController lingkunganController = new TextEditingController();
@@ -50,22 +50,25 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
   TextEditingController alamatController = new TextEditingController();
   TextEditingController noteController = new TextEditingController();
   String _selectedDate = '';
-  String _dateCount = '';
-  String _range = '';
-  String _rangeCount = '';
+
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
-      if (args.value is PickerDateRange) {
-        _range = '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} -'
-            // ignore: lines_longer_than_80_chars
-            ' ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
-      } else if (args.value is DateTime) {
+      // if (args.value is PickerDateRange) {
+      //   _range = '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} -'
+      //       // ignore: lines_longer_than_80_chars
+      //       ' ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
+      // }
+      //  else if (args.value is DateTime) {
+      //   _selectedDate = args.value.toString();
+      // }
+      if (args.value is DateTime) {
         _selectedDate = args.value.toString();
-      } else if (args.value is List<DateTime>) {
-        _dateCount = args.value.length.toString();
-      } else {
-        _rangeCount = args.value.length.toString();
       }
+      // else if (args.value is List<DateTime>) {
+      //   _dateCount = args.value.length.toString();
+      // } else {
+      //   _rangeCount = args.value.length.toString();
+      // }
     });
     print(_selectedDate);
   }
@@ -77,7 +80,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
         lingkunganController.text != "" &&
         notelpController.text != "" &&
         alamatController.text != "" &&
-        selectedJenis != "" &&
+        ddValue != "" &&
         _selectedDate != "" &&
         noteController.text != "") {
       // var add = await MongoDatabase.addPemberkatan(idUser, nama, paroki,
