@@ -87,36 +87,36 @@ class AgenSetting {
           await dotenv.load(fileName: ".env");
           await Firebase.initializeApp();
           await MongoDatabase.connect();
-          FirebaseMessaging.onBackgroundMessage(
-              _firebaseMessagingBackgroundHandler);
-          if (!kIsWeb) {
-            channel = const AndroidNotificationChannel(
-              'high_importance_channel', // id
-              'High Importance Notifications', // title
-              // 'This channel is used for important notifications.', // description
-              importance: Importance.high,
-            );
+          // FirebaseMessaging.onBackgroundMessage(
+          //     _firebaseMessagingBackgroundHandler);
+          // if (!kIsWeb) {
+          //   channel = const AndroidNotificationChannel(
+          //     'high_importance_channel', // id
+          //     'High Importance Notifications', // title
+          //     // 'This channel is used for important notifications.', // description
+          //     importance: Importance.high,
+          //   );
 
-            flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+          //   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-            /// Create an Android Notification Channel.
-            ///
-            /// We use this channel in the `AndroidManifest.xml` file to override the
-            /// default FCM channel to enable heads up notifications.
-            await flutterLocalNotificationsPlugin!
-                .resolvePlatformSpecificImplementation<
-                    AndroidFlutterLocalNotificationsPlugin>()
-                ?.createNotificationChannel(channel!);
+          //   /// Create an Android Notification Channel.
+          //   ///
+          //   /// We use this channel in the `AndroidManifest.xml` file to override the
+          //   /// default FCM channel to enable heads up notifications.
+          //   await flutterLocalNotificationsPlugin!
+          //       .resolvePlatformSpecificImplementation<
+          //           AndroidFlutterLocalNotificationsPlugin>()
+          //       ?.createNotificationChannel(channel!);
 
-            /// Update the iOS foreground notification presentation options to allow
-            /// heads up notifications.
-            await FirebaseMessaging.instance
-                .setForegroundNotificationPresentationOptions(
-              alert: true,
-              badge: true,
-              sound: true,
-            );
-          }
+          //   /// Update the iOS foreground notification presentation options to allow
+          //   /// heads up notifications.
+          //   await FirebaseMessaging.instance
+          //       .setForegroundNotificationPresentationOptions(
+          //     alert: true,
+          //     badge: true,
+          //     sound: true,
+          //   );
+          // }
           LocationPermission permission = await Geolocator.checkPermission();
           print(permission);
           if (permission == LocationPermission.denied) {
@@ -163,9 +163,10 @@ class AgenSetting {
         if (data[0][0] == "log out akun") {
           final directory = await getApplicationDocumentsDirectory();
           var path = directory.path;
-
+          print("cobaaaa");
           final file = await File('$path/login.txt');
           await file.writeAsString("");
+          print("log out");
         }
       } catch (e) {
         return 0;

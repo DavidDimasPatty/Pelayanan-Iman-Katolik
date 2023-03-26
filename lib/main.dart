@@ -28,7 +28,7 @@ Future callDb() async {
     ["setting User"]
   ]);
   await msg.send().then((res) async {});
-  await Future.delayed(Duration(seconds: 1));
+  await Future.delayed(Duration(seconds: 2));
   return await AgenPage().receiverTampilan();
 }
 
@@ -49,40 +49,41 @@ AndroidNotificationChannel? channel;
 FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
 void main() async {
+  await callDb();
   // WidgetsFlutterBinding.ensureInitialized();
   // await dotenv.load(fileName: ".env");
   // await Firebase.initializeApp();
 
   // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-  // if (!kIsWeb) {
-  //   channel = const AndroidNotificationChannel(
-  //     'high_importance_channel', // id
-  //     'High Importance Notifications', // title
-  //     // 'This channel is used for important notifications.', // description
-  //     importance: Importance.high,
-  //   );
+  if (!kIsWeb) {
+    channel = const AndroidNotificationChannel(
+      'high_importance_channel', // id
+      'High Importance Notifications', // title
+      // 'This channel is used for important notifications.', // description
+      importance: Importance.high,
+    );
 
-  //   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  //   /// Create an Android Notification Channel.
-  //   ///
-  //   /// We use this channel in the `AndroidManifest.xml` file to override the
-  //   /// default FCM channel to enable heads up notifications.
-  //   await flutterLocalNotificationsPlugin!
-  //       .resolvePlatformSpecificImplementation<
-  //           AndroidFlutterLocalNotificationsPlugin>()
-  //       ?.createNotificationChannel(channel!);
+    /// Create an Android Notification Channel.
+    ///
+    /// We use this channel in the `AndroidManifest.xml` file to override the
+    /// default FCM channel to enable heads up notifications.
+    await flutterLocalNotificationsPlugin!
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel!);
 
-  //   /// Update the iOS foreground notification presentation options to allow
-  //   /// heads up notifications.
-  //   await FirebaseMessaging.instance
-  //       .setForegroundNotificationPresentationOptions(
-  //     alert: true,
-  //     badge: true,
-  //     sound: true,
-  //   );
-  // }
+    /// Update the iOS foreground notification presentation options to allow
+    /// heads up notifications.
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+  }
 
   // await MongoDatabase.connect();
   // LocationPermission permission = await Geolocator.checkPermission();
@@ -92,7 +93,6 @@ void main() async {
   //   LocationPermission permission2 = await Geolocator.checkPermission();
   //   print(permission2);
   // }
-  await callDb();
 
   // if (tampilan[1][0] == "pagi") {
   //   print(tampilan[0][0]);

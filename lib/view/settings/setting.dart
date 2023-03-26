@@ -36,10 +36,7 @@ class Settings extends StatelessWidget {
       [idUser]
     ]);
     var k;
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
+    await msg.send();
     await Future.delayed(Duration(seconds: 1));
     k = await AgenPage().receiverTampilan();
     if (k == 'oke') {

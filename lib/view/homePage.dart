@@ -54,7 +54,7 @@ class _HomePage extends State<HomePage> {
       [iduser]
     ]);
     await msg.send();
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 3));
     hasil = await AgenPage().receiverTampilan();
     // print(hasil);
     return hasil;
@@ -211,7 +211,7 @@ class _HomePage extends State<HomePage> {
                                             Column(
                                               children: <Widget>[
                                                 Text(
-                                                  names,
+                                                  hasil[0][0][0]['name'],
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Colors.white,
@@ -220,7 +220,7 @@ class _HomePage extends State<HomePage> {
                                                           FontWeight.w700),
                                                 ),
                                                 Text(
-                                                  emails,
+                                                  hasil[0][0][0]['email'],
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Colors.white,

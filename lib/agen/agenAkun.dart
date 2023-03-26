@@ -57,12 +57,9 @@ class AgenAkun {
                     ]);
                     await msg.send();
 
-                    await Future.delayed(Duration(seconds: 2))
-                        .then((value) async {
-                      await msg.addReceiver("agenPage");
-                      await msg.setContent(result);
-                      await msg.send();
-                    });
+                    await msg.addReceiver("agenPage");
+                    await msg.setContent(result);
+                    await msg.send();
 
                     // final directory = await getApplicationDocumentsDirectory();
                     // var path = directory.path;
@@ -155,8 +152,11 @@ class AgenAkun {
             // final directory = await getApplicationDocumentsDirectory();
             // var path = directory.path;
             msg.addReceiver("agenSetting");
-            msg.setContent(["log out akun"]);
+            msg.setContent([
+              ["log out akun"]
+            ]);
             await msg.send();
+
             // final file = await File('$path/login.txt');
             // await file.writeAsString("");
 
