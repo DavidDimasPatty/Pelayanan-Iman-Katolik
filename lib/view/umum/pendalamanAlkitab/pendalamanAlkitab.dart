@@ -323,14 +323,14 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
               },
             ),
           )),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () {
-          openCamera();
-        },
-        tooltip: 'Increment',
-        child: new Icon(Icons.camera_alt_rounded),
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: new FloatingActionButton(
+      //   onPressed: () {
+      //     openCamera();
+      //   },
+      //   tooltip: 'Increment',
+      //   child: new Icon(Icons.camera_alt_rounded),
+      // ),
     );
   }
 }

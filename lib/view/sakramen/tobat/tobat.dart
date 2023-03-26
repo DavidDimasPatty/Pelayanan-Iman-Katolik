@@ -306,14 +306,14 @@ class _Tobat extends State<Tobat> {
               },
             ),
           )),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () {
-          openCamera();
-        },
-        tooltip: 'Increment',
-        child: new Icon(Icons.camera_alt_rounded),
-      ),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // floatingActionButton: new FloatingActionButton(
+      //   onPressed: () {
+      //     openCamera();
+      //   },
+      //   tooltip: 'Increment',
+      //   child: new Icon(Icons.camera_alt_rounded),
+      // ),
     );
   }
 }
