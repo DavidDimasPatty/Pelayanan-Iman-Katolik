@@ -252,6 +252,65 @@ class AgenPencarian {
         }
 
         if (data.runtimeType == List<List<dynamic>>) {
+          if (data[0][0] == "enroll baptis pencarian") {
+            var gerejaKomuniCollection =
+                MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+            var conn = await gerejaKomuniCollection
+                .find(
+                    {'idBaptis': data[1][0], 'idUser': data[2][0], "status": 0})
+                .length
+                .then((result) async {
+                  print(result);
+                  msg.addReceiver("agenPendaftaran");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
+
+          if (data[0][0] == "enroll komuni pencarian") {
+            var gerejaKomuniCollection =
+                MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+            var conn = await gerejaKomuniCollection
+                .find(
+                    {'idKomuni': data[1][0], 'idUser': data[2][0], "status": 0})
+                .length
+                .then((result) async {
+                  print(result);
+                  msg.addReceiver("agenPendaftaran");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
+
+          if (data[0][0] == "enroll krisma pencarian") {
+            var gerejaKomuniCollection =
+                MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
+            var conn = await gerejaKomuniCollection
+                .find(
+                    {'idKrisma': data[1][0], 'idUser': data[2][0], "status": 0})
+                .length
+                .then((result) async {
+                  print(result);
+                  msg.addReceiver("agenPendaftaran");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
+
+          if (data[0][0] == "enroll umum pencarian") {
+            var gerejaKomuniCollection =
+                MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+            var conn = await gerejaKomuniCollection
+                .find({'idUmum': data[1][0], 'idUser': data[2][0], "status": 0})
+                .length
+                .then((result) async {
+                  print(result);
+                  msg.addReceiver("agenPendaftaran");
+                  msg.setContent(result);
+                  await msg.send();
+                });
+          }
+
           if (data[0][0] == "cari user") {
             print("nih");
             print(data);

@@ -51,7 +51,7 @@ class confirmKrisma {
       print("masuk");
       print(await AgenPage().receiverTampilan());
     });
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 2));
     var daftarmisa = await AgenPage().receiverTampilan();
 
     if (daftarmisa == 'oke') {

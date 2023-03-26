@@ -26,13 +26,13 @@ class confirmRetret {
       print("masuk");
       print(await AgenPage().receiverTampilan());
     });
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 2));
     detailGereja = await AgenPage().receiverTampilan();
 
     return detailGereja;
   }
 
-  daftar(idKegiatan, idUser, kapasitas, context) async {
+  Future daftar(idKegiatan, idUser, kapasitas, context) async {
     Messages msg = new Messages();
     msg.addReceiver("agenPendaftaran");
     msg.setContent([
@@ -46,7 +46,7 @@ class confirmRetret {
       print("masuk");
       print(await AgenPage().receiverTampilan());
     });
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 2));
     var daftarmisa = await AgenPage().receiverTampilan();
 
     if (daftarmisa == 'oke') {

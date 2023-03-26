@@ -9,22 +9,18 @@ import 'package:pelayanan_iman_katolik/view/settings/forgetPassword.dart';
 import 'package:pelayanan_iman_katolik/view/singup.dart';
 
 class Login extends StatelessWidget {
-  login(id, password) async {
+  Future login(id, password) async {
     Messages msg = new Messages();
-    msg.addReceiver("agenAkun");
-    msg.setContent([
+    await msg.addReceiver("agenAkun");
+    await msg.setContent([
       ["cari user"],
       [id],
       [password]
     ]);
     var hasil;
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
+    await msg.send();
     await Future.delayed(Duration(seconds: 2));
-    hasil = await AgenPage().receiverTampilan();
-    return hasil;
+    return await AgenPage().receiverTampilan();
   }
 
   @override

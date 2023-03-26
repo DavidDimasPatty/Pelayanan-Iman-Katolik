@@ -4,10 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:objectid/objectid.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/messages.dart';
-import 'package:pelayanan_iman_katolik/view/alkitabMenu.dart';
 import 'package:pelayanan_iman_katolik/main.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/detailPengumuman.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/pengumuman.dart';
@@ -55,12 +53,9 @@ class _HomePage extends State<HomePage> {
       ["cari tampilan homepage"],
       [iduser]
     ]);
-    await msg.send().then((res) async {
-      // print("masuk");
-      // print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
-    hasil = AgenPage().receiverTampilan();
+    await msg.send();
+    await Future.delayed(Duration(seconds: 2));
+    hasil = await AgenPage().receiverTampilan();
     // print(hasil);
     return hasil;
   }
@@ -92,9 +87,6 @@ class _HomePage extends State<HomePage> {
               android: AndroidNotificationDetails(
                 channel!.id,
                 channel!.name,
-                // channel!.description,
-                // TODO add a proper drawable resource to android, for now using
-                //      one that already exists in example app.
                 icon: 'launch_background',
               ),
             ));

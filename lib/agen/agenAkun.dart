@@ -50,35 +50,46 @@ class AgenAkun {
                         modify.set('token',
                             await FirebaseMessaging.instance.getToken()));
 
-                    msg.addReceiver("agenPage");
-                    msg.setContent(result);
+                    await msg.addReceiver("agenSetting");
+                    await msg.setContent([
+                      ["save data"],
+                      [result]
+                    ]);
                     await msg.send();
-                    final directory = await getApplicationDocumentsDirectory();
-                    var path = directory.path;
 
-                    if (await File('$path/login.txt').exists()) {
-                      final file = await File('$path/login.txt');
-                      print("found file");
-                      print(result[0]['name']);
-                      await file.writeAsString(result[0]['name']);
-                      await file.writeAsString('\n' + result[0]['email'],
-                          mode: FileMode.append);
+                    await Future.delayed(Duration(seconds: 2))
+                        .then((value) async {
+                      await msg.addReceiver("agenPage");
+                      await msg.setContent(result);
+                      await msg.send();
+                    });
 
-                      await file.writeAsString(
-                          '\n' + result[0]['_id'].toString(),
-                          mode: FileMode.append);
-                    } else {
-                      print("file not found");
-                      final file =
-                          await File('$path/login.txt').create(recursive: true);
-                      await file.writeAsString(result[0]['name']);
-                      await file.writeAsString('\n' + result[0]['email'],
-                          mode: FileMode.append);
+                    // final directory = await getApplicationDocumentsDirectory();
+                    // var path = directory.path;
 
-                      await file.writeAsString(
-                          '\n' + result[0]['_id'].toString(),
-                          mode: FileMode.append);
-                    }
+                    // if (await File('$path/login.txt').exists()) {
+                    //   final file = await File('$path/login.txt');
+                    //   print("found file");
+                    //   print(result[0]['name']);
+                    //   await file.writeAsString(result[0]['name']);
+                    //   await file.writeAsString('\n' + result[0]['email'],
+                    //       mode: FileMode.append);
+
+                    //   await file.writeAsString(
+                    //       '\n' + result[0]['_id'].toString(),
+                    //       mode: FileMode.append);
+                    // } else {
+                    //   print("file not found");
+                    //   final file =
+                    //       await File('$path/login.txt').create(recursive: true);
+                    //   await file.writeAsString(result[0]['name']);
+                    //   await file.writeAsString('\n' + result[0]['email'],
+                    //       mode: FileMode.append);
+
+                    //   await file.writeAsString(
+                    //       '\n' + result[0]['_id'].toString(),
+                    //       mode: FileMode.append);
+                    // }
                   } else {
                     msg.addReceiver("agenPage");
                     msg.setContent(result);
@@ -141,11 +152,13 @@ class AgenAkun {
 
           if (data[0][0] == "log out") {
             var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
-            final directory = await getApplicationDocumentsDirectory();
-            var path = directory.path;
-
-            final file = await File('$path/login.txt');
-            await file.writeAsString("");
+            // final directory = await getApplicationDocumentsDirectory();
+            // var path = directory.path;
+            msg.addReceiver("agenSetting");
+            msg.setContent(["log out akun"]);
+            await msg.send();
+            // final file = await File('$path/login.txt');
+            // await file.writeAsString("");
 
             var conn = await userCollection
                 .updateOne(where.eq('_id', data[1][0]), modify.set('token', ""))

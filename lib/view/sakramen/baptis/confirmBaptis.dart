@@ -46,11 +46,8 @@ class confirmBaptis {
       [kapasitas]
     ]);
 
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
+    await msg.send();
+    await Future.delayed(Duration(seconds: 2));
     var daftarmisa = await AgenPage().receiverTampilan();
 
     if (daftarmisa == 'oke') {

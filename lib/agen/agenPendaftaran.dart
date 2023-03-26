@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/data.dart';
@@ -7,9 +8,39 @@ import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'messages.dart';
 
 class AgenPendaftaran {
+  static var dataPencarian;
   AgenPendaftaran() {
     ReadyBehaviour();
+    ReceiveBehaviour();
     ResponsBehaviour();
+  }
+  setDataTampilan(data) {
+    dataPencarian = data;
+  }
+
+  receiverTampilan() {
+    return dataPencarian;
+  }
+
+  ReceiveBehaviour() {
+    Messages msg = Messages();
+
+    var data = msg.receive();
+    print("APAANIH DATANYA");
+    print(data.runtimeType);
+    action() async {
+      try {
+        if (data.runtimeType == List<Map<String, Object?>>) {
+          await setDataTampilan(data);
+        }
+
+        if (data.runtimeType == int) {
+          await setDataTampilan(data);
+        }
+      } catch (e) {}
+    }
+
+    action();
   }
 
   ResponsBehaviour() {
@@ -82,43 +113,43 @@ class AgenPendaftaran {
           }
 
           if (data[0][0] == "enroll Baptis") {
-            var daftarBaptisCollection =
-                MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
-            var hasilFind = await daftarBaptisCollection
-                .find(
-                    {'idBaptis': data[1][0], 'idUser': data[2][0], 'status': 0})
-                .length
-                .then((res) async {
-                  print("nawww");
-                  print(res.runtimeType);
-                  if (res == 0) {
-                    var daftarBaptisCollection =
-                        MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
-                    var baptisCollection =
-                        MongoDatabase.db.collection(BAPTIS_COLLECTION);
-                    var hasil = await daftarBaptisCollection.insertOne({
-                      'idBaptis': data[1][0],
-                      'idUser': data[2][0],
-                      "tanggalDaftar": DateTime.now(),
-                      'status': 0
-                    });
+            msg.addReceiver("agenPencarian");
+            msg.setContent([
+              ['enroll baptis pencarian'],
+              [data[1][0]],
+              [data[2][0]]
+            ]);
+            await msg.send();
+            await Future.delayed(Duration(seconds: 1));
+            var res = await receiverTampilan();
+            print(res);
+            if (res == 0) {
+              var daftarBaptisCollection =
+                  MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+              var baptisCollection =
+                  MongoDatabase.db.collection(BAPTIS_COLLECTION);
+              var hasil = await daftarBaptisCollection.insertOne({
+                'idBaptis': data[1][0],
+                'idUser': data[2][0],
+                "tanggalDaftar": DateTime.now(),
+                'status': 0
+              });
 
-                    var update = await baptisCollection
-                        .updateOne(where.eq('_id', data[1][0]),
-                            modify.set('kapasitas', data[3][0] - 1))
-                        .then((result) async {
-                      msg.addReceiver("agenPage");
-                      msg.setContent("oke");
-                      await msg.send();
-                    });
-                  }
-                  if (res > 0) {
-                    print("????");
-                    msg.addReceiver("agenPage");
-                    msg.setContent("sudah");
-                    await msg.send();
-                  }
-                });
+              var update = await baptisCollection
+                  .updateOne(where.eq('_id', data[1][0]),
+                      modify.set('kapasitas', data[3][0] - 1))
+                  .then((result) async {
+                msg.addReceiver("agenPage");
+                msg.setContent("oke");
+                await msg.send();
+              });
+            }
+            if (res > 0) {
+              print("????");
+              msg.addReceiver("agenPage");
+              msg.setContent("sudah");
+              await msg.send();
+            }
           }
 
           if (data[0][0] == "cancel Baptis") {
@@ -147,13 +178,17 @@ class AgenPendaftaran {
           if (data[0][0] == "enroll Komuni") {
             var daftarKomuniCollection =
                 MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
-            var hasilFind = await daftarKomuniCollection.find({
-              'idKomuni': data[1][0],
-              'idUser': data[2][0],
-              'status': 0
-            }).length;
-            print(hasilFind);
-            if (hasilFind == 0) {
+            msg.addReceiver("agenPencarian");
+            msg.setContent([
+              ['enroll komuni pencarian'],
+              [data[1][0]],
+              [data[2][0]]
+            ]);
+            await msg.send();
+            await Future.delayed(Duration(seconds: 1));
+            var res = await receiverTampilan();
+            print(res);
+            if (res == 0) {
               try {
                 var daftarKomuniCollection =
                     MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
@@ -212,13 +247,17 @@ class AgenPendaftaran {
           if (data[0][0] == "enroll Krisma") {
             var daftarKrismaCollection =
                 MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
-            var hasilFind = await daftarKrismaCollection.find({
-              'idKrisma': data[1][0],
-              'idUser': data[2][0],
-              'status': 0
-            }).length;
-            print(hasilFind);
-            if (hasilFind == 0) {
+            msg.addReceiver("agenPencarian");
+            msg.setContent([
+              ['enroll krisma pencarian'],
+              [data[1][0]],
+              [data[2][0]]
+            ]);
+            await msg.send();
+            await Future.delayed(Duration(seconds: 1));
+            var res = await receiverTampilan();
+            print(res);
+            if (res == 0) {
               try {
                 var daftarKrismaCollection =
                     MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
@@ -295,13 +334,16 @@ class AgenPendaftaran {
           if (data[0][0] == "enroll Kegiatan") {
             var daftarUmumCollection =
                 MongoDatabase.db.collection(USER_UMUM_COLLECTION);
-            var hasilFind = await daftarUmumCollection.find({
-              'idKegiatan': data[1][0],
-              'idUser': data[2][0],
-              'status': 0
-            }).length;
-            print(hasilFind);
-            if (hasilFind == 0) {
+            msg.addReceiver("agenPencarian");
+            msg.setContent([
+              ['enroll umum pencarian'],
+              [data[1][0]],
+              [data[2][0]]
+            ]);
+            await msg.send();
+            await Future.delayed(Duration(seconds: 1));
+            var res = await receiverTampilan();
+            if (res == 0) {
               try {
                 var daftarUmumCollection =
                     MongoDatabase.db.collection(USER_UMUM_COLLECTION);
