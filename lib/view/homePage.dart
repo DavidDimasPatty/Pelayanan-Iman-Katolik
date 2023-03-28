@@ -56,7 +56,7 @@ class _HomePage extends State<HomePage> {
     await msg.send();
     await Future.delayed(Duration(seconds: 2));
     hasil = await AgenPage().receiverTampilan();
-    // print(hasil);
+
     return hasil;
   }
 
@@ -94,7 +94,6 @@ class _HomePage extends State<HomePage> {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      // print('A new onMessageOpenedApp event was published!');
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -149,10 +148,6 @@ class _HomePage extends State<HomePage> {
                     future: callTampilan(),
                     builder: (context, AsyncSnapshot snapshot) {
                       try {
-                        print("INIIIIIIIIIIIIIII 1");
-                        print(snapshot.data[1]);
-                        print("INIIIIIIIIIIIIIII 2");
-                        print(snapshot.data[2]);
                         for (var i = 0; i < hasil[3][0].length; i++) {
                           cardList.add(hasil[3][0][i]['gambar']);
                           caption.add(hasil[3][0][i]['title']);
@@ -526,39 +521,6 @@ class _HomePage extends State<HomePage> {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 11),
                               ),
-                              // SizedBox.fromSize(
-                              //   size: Size(75, 75), // button width and height
-                              //   child: ClipOval(
-                              //     child: Material(
-                              //       color: Colors.brown, // button color
-                              //       child: InkWell(
-                              //         splashColor: Colors.green, // splash color
-                              //         onTap: () {
-                              //           Navigator.push(
-                              //             context,
-                              //             MaterialPageRoute(
-                              //                 builder: (context) =>
-                              //                     Alkitab(names, emails, iduser)),
-                              //           );
-                              //         }, // button pressed
-                              //         child: Column(
-                              //           mainAxisAlignment: MainAxisAlignment.center,
-                              //           children: <Widget>[
-                              //             Icon(Icons.book, size: 30), // icon
-                              //             Text(
-                              //               "Alkitab",
-                              //               style: TextStyle(
-                              //                 fontSize: 12,
-                              //                 fontWeight: FontWeight.bold,
-                              //               ),
-                              //               textAlign: TextAlign.center,
-                              //             ), // text
-                              //           ],
-                              //         ),
-                              //       ),
-                              //     ),
-                              //   ),
-                              // ),
                             ],
                           ),
                           Padding(

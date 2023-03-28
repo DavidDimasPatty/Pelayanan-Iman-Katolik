@@ -24,6 +24,7 @@ class AgenPage {
   ResponsBehaviour() async {
     Messages msg = Messages();
     var data = msg.receive();
+    print(data.runtimeType);
 
     action() async {
       try {

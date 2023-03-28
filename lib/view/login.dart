@@ -255,20 +255,20 @@ class Login extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      FadeAnimation(
-                          1.5,
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ForgetPassword()),
-                                );
-                              },
-                              child: Text(
-                                "Forgot Password?",
-                                style: TextStyle(color: Colors.lightBlue),
-                              ))),
+                      // FadeAnimation(
+                      //     1.5,
+                      //     GestureDetector(
+                      //         onTap: () {
+                      //           Navigator.push(
+                      //             context,
+                      //             MaterialPageRoute(
+                      //                 builder: (context) => ForgetPassword()),
+                      //           );
+                      //         },
+                      //         child: Text(
+                      //           "Forgot Password?",
+                      //           style: TextStyle(color: Colors.lightBlue),
+                      //         ))),
                     ],
                   ),
                 )

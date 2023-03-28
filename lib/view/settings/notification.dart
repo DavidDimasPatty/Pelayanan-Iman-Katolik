@@ -42,12 +42,9 @@ class _notifClass extends State<notification> {
       ["cari data user"],
       [idUser]
     ]);
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
-    checknotif = AgenPage().receiverTampilan();
+    await msg.send();
+    await Future.delayed(Duration(seconds: 2));
+    checknotif = await AgenPage().receiverTampilan();
 
     return checknotif;
   }
@@ -61,11 +58,8 @@ class _notifClass extends State<notification> {
       [notifPg]
     ]);
 
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
+    await msg.send();
+    await Future.delayed(Duration(seconds: 2));
     var daftarmisa = await AgenPage().receiverTampilan();
 
     if (daftarmisa == 'oke') {
@@ -154,6 +148,7 @@ class _notifClass extends State<notification> {
                 future: callDb(),
                 builder: (context, AsyncSnapshot snapshot) {
                   try {
+                    print(snapshot.data);
                     switch1 = checknotif[0]['notifPG'];
                     switch2 = checknotif[0]['notifGD'];
 
