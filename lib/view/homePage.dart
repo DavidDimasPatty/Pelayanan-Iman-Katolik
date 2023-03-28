@@ -54,7 +54,7 @@ class _HomePage extends State<HomePage> {
       [iduser]
     ]);
     await msg.send();
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 2));
     hasil = await AgenPage().receiverTampilan();
     // print(hasil);
     return hasil;
@@ -109,7 +109,7 @@ class _HomePage extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text('Welcome ' + names + ","),
+        title: Text('Selamat Datang!'),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
@@ -149,6 +149,10 @@ class _HomePage extends State<HomePage> {
                     future: callTampilan(),
                     builder: (context, AsyncSnapshot snapshot) {
                       try {
+                        print("INIIIIIIIIIIIIIII 1");
+                        print(snapshot.data[1]);
+                        print("INIIIIIIIIIIIIIII 2");
+                        print(snapshot.data[2]);
                         for (var i = 0; i < hasil[3][0].length; i++) {
                           cardList.add(hasil[3][0][i]['gambar']);
                           caption.add(hasil[3][0][i]['title']);

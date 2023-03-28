@@ -884,18 +884,21 @@ class AgenPencarian {
             var dateKri = await userKrismaCollection
                 .find(where
                     .eq("idUser", data[1][0])
+                    .eq("status", 0)
                     .sortBy('tanggalDaftar', descending: true)
                     .limit(1))
                 .toList();
             var dateBap = await userBaptisCollection
                 .find(where
                     .eq("idUser", data[1][0])
+                    .eq("status", 0)
                     .sortBy('tanggalDaftar', descending: true)
                     .limit(1))
                 .toList();
             var dateKom = await userKomuniCollection
                 .find(where
                     .eq("idUser", data[1][0])
+                    .eq("status", 0)
                     .sortBy('tanggalDaftar', descending: true)
                     .limit(1))
                 .toList();
@@ -903,12 +906,13 @@ class AgenPencarian {
             var dateKeg = await userKegiatanCollection
                 .find(where
                     .eq("idUser", data[1][0])
+                    .eq("status", 0)
                     .sortBy('tanggalDaftar', descending: true)
                     .limit(1))
                 .toList();
 
             DateTime ans = DateTime.utc(1989, 11, 9);
-            var hasil;
+            var hasil = null;
             try {
               if (ans.compareTo(
                       DateTime.parse(dateBap[0]['tanggalDaftar'].toString())) <
@@ -954,21 +958,32 @@ class AgenPencarian {
                     .limit(4))
                 .toList();
 
-            var jadwalCollection =
-                MongoDatabase.db.collection(GEREJA_COLLECTION);
-            var conn = await jadwalCollection
-                .find({'_id': hasil[0]['idGereja']})
-                .toList()
-                .then((result) async {
-                  msg.addReceiver("agenPage");
-                  msg.setContent([
-                    [dataUser],
-                    [result],
-                    [hasil],
-                    [connGambar]
-                  ]);
-                  await msg.send();
-                });
+            if (hasil != null) {
+              var jadwalCollection =
+                  MongoDatabase.db.collection(GEREJA_COLLECTION);
+              var conn = await jadwalCollection
+                  .find({'_id': hasil[0]['idGereja']})
+                  .toList()
+                  .then((result) async {
+                    msg.addReceiver("agenPage");
+                    msg.setContent([
+                      [dataUser],
+                      [result],
+                      [hasil],
+                      [connGambar]
+                    ]);
+                    await msg.send();
+                  });
+            } else {
+              msg.addReceiver("agenPage");
+              msg.setContent([
+                [dataUser],
+                [null],
+                [hasil],
+                [connGambar]
+              ]);
+              await msg.send();
+            }
           }
         }
       } catch (e) {
