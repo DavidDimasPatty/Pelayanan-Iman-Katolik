@@ -11,7 +11,7 @@ import 'package:mongo_dart/mongo_dart.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/agenSetting.dart';
-import 'package:pelayanan_iman_katolik/agen/messages.dart';
+import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/login.dart';
 

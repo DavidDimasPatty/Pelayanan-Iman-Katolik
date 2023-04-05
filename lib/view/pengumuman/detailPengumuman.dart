@@ -3,7 +3,7 @@ import 'package:map_launcher/map_launcher.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
-import 'package:pelayanan_iman_katolik/agen/messages.dart';
+import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
 import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
 

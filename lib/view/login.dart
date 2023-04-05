@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/FadeAnimation.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
-import 'package:pelayanan_iman_katolik/agen/messages.dart';
+import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';

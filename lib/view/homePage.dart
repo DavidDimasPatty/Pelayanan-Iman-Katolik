@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
-import 'package:pelayanan_iman_katolik/agen/messages.dart';
+import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/main.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/detailPengumuman.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/pengumuman.dart';

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
-import 'package:pelayanan_iman_katolik/agen/messages.dart';
+import 'package:pelayanan_iman_katolik/agen/Message.dart';
 
 import '../homePage.dart';
 import '../profile/profile.dart';
