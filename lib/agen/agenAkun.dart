@@ -314,7 +314,7 @@ class AgentAkun extends Agent {
     return false;
   }
 
-  Future<dynamic> receiveMessage(Message msg, String sender) {
+  Future<dynamic> receiveMessage(Messages msg, String sender) {
     print(agentName + ' received message from $sender');
     _Message.add(msg);
     _Sender.add(sender);
@@ -322,7 +322,7 @@ class AgentAkun extends Agent {
   }
 
   Future<dynamic> performTask() async {
-    Message msg = _Message.last;
+    Messages msg = _Message.last;
     String sender = _Sender.last;
     dynamic task = msg.task;
     for (var p in _plan) {
@@ -332,11 +332,11 @@ class AgentAkun extends Agent {
           timer.cancel();
 
           MessagePassing messagePassing = MessagePassing();
-          Message msg = rejectTask(task, sender);
+          Messages msg = rejectTask(task, sender);
           messagePassing.sendMessage(msg);
         });
 
-        Message message = await action(p.goals, task.data, sender);
+        Messages message = await action(p.goals, task.data, sender);
 
         if (stop == false) {
           if (timer.isActive) {
@@ -345,7 +345,7 @@ class AgentAkun extends Agent {
             if (message.task.data.runtimeType == String &&
                 message.task.data == "failed") {
               MessagePassing messagePassing = MessagePassing();
-              Message msg = rejectTask(task, sender);
+              Messages msg = rejectTask(task, sender);
               messagePassing.sendMessage(msg);
             } else {
               for (var g in _goals) {
@@ -378,7 +378,7 @@ class AgentAkun extends Agent {
     return pencarianData;
   }
 
-  Future<Message> action(String goals, dynamic data, String sender) async {
+  Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "login":
         return login(data, sender);
@@ -404,57 +404,57 @@ class AgentAkun extends Agent {
     }
   }
 
-  Future<Message> cariUser(dynamic data, String sender) async {
+  Future<Messages> cariUser(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var conn = await userCollection.find({'_id': data[1][0]}).toList();
-    Message message = Message(agentName, sender, "REQUEST",
+    Messages message = Messages(agentName, sender, "REQUEST",
         Tasks("status modifikasi/ pencarian data akun", conn));
     return message;
   }
 
-  Future<Message> login(dynamic data, String sender) async {
+  Future<Messages> login(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var conn = await userCollection
         .find({'email': data[0], 'password': data[1]}).toList();
 
     sendToAgenSettingLogin(conn, agentName);
-    Message message = Message(agentName, sender, "REQUEST",
+    Messages message = Messages(agentName, sender, "REQUEST",
         Tasks("status modifikasi/ pencarian data akun", conn));
     return message;
   }
 
-  Future<Message> logout(dynamic data, String sender) async {
+  Future<Messages> logout(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var update = await userCollection.updateOne(
         where.eq('_id', data[0]), modify.set('token', ""));
 
     sendToAgenSettingLogout(null, agentName);
     if (update.isSuccess) {
-      Message message = Message(agentName, sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "oke"));
       return message;
     } else {
-      Message message = Message(agentName, sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "failed"));
       return message;
     }
   }
 
   void sendToAgenSettingLogin(dynamic data, String sender) async {
-    Message message =
-        Message(sender, "Agent Setting", "REQUEST", Tasks('save data', data));
+    Messages message =
+        Messages(sender, "Agent Setting", "REQUEST", Tasks('save data', data));
     MessagePassing messagePassing = MessagePassing();
     messagePassing.sendMessage(message);
   }
 
   void sendToAgenSettingLogout(dynamic data, String sender) async {
-    Message message =
-        Message(sender, "Agent Setting", "REQUEST", Tasks('log out', data));
+    Messages message =
+        Messages(sender, "Agent Setting", "REQUEST", Tasks('log out', data));
     MessagePassing messagePassing = MessagePassing();
     messagePassing.sendMessage(message);
   }
 
-  Future<Message> cariProfile(dynamic data, String sender) async {
+  Future<Messages> cariProfile(dynamic data, String sender) async {
     var userKrismaCollection =
         MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
     var userBaptisCollection =
@@ -484,7 +484,7 @@ class AgentAkun extends Agent {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var conn = await userCollection.find({'_id': data}).toList();
 
-    Message message = Message(
+    Messages message = Messages(
         'Agent Pencarian',
         sender,
         "INFORM",
@@ -493,7 +493,7 @@ class AgentAkun extends Agent {
     return message;
   }
 
-  Future<Message> EditProfile(dynamic data, String sender) async {
+  Future<Messages> EditProfile(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var update = await userCollection.updateOne(
         where.eq('_id', data[0]),
@@ -510,69 +510,69 @@ class AgentAkun extends Agent {
             .set('updatedAt', DateTime.now()));
 
     if (update.isSuccess) {
-      Message message = Message(agentName, sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "oke"));
       return message;
     } else {
-      Message message = Message(agentName, sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "failed"));
       return message;
     }
   }
 
-  Future<Message> updateNotification(dynamic data, String sender) async {
+  Future<Messages> updateNotification(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var update = await userCollection.updateOne(where.eq('_id', data[0]),
         modify.set('notifPG', data[1]).set('updatedAt', DateTime.now()));
     if (update.isSuccess) {
-      Message message = Message(agentName, sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "oke"));
       return message;
     } else {
-      Message message = Message(agentName, sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "failed"));
       return message;
     }
   }
 
-  Future<Message> cariPassword(dynamic data, String sender) async {
+  Future<Messages> cariPassword(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var conn = await userCollection
         .find({'_id': data[0], 'password': data[1]}).toList();
     try {
       if (conn[0]['_id'] == null) {
-        Message message = Message(agentName, sender, "INFORM",
+        Messages message = Messages(agentName, sender, "INFORM",
             Tasks("status modifikasi/ pencarian data akun", "not"));
         return message;
       } else {
-        Message message = Message(agentName, sender, "INFORM",
+        Messages message = Messages(agentName, sender, "INFORM",
             Tasks("status modifikasi/ pencarian data akun", "found"));
         return message;
       }
     } catch (e) {
-      Message message = Message(agentName, sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "not"));
       return message;
     }
   }
 
-  Future<Message> gantiPassword(dynamic data, String sender) async {
+  Future<Messages> gantiPassword(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var update = await userCollection.updateOne(where.eq('_id', data[0]),
         modify.set('password', data[1]).set('updatedAt', DateTime.now()));
 
     if (update.isSuccess) {
-      Message message = Message(agentName, sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "not"));
       return message;
     } else {
-      Message message = Message(agentName, sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "found"));
       return message;
     }
   }
 
-  Future<Message> changeProfilePicture(dynamic data, String sender) async {
+  Future<Messages> changeProfilePicture(dynamic data, String sender) async {
     DateTime now = new DateTime.now();
     DateTime date = new DateTime(
         now.year, now.month, now.day, now.hour, now.minute, now.second);
@@ -586,18 +586,18 @@ class AgentAkun extends Agent {
     var conn = await userCollection.updateOne(where.eq('_id', data[0]),
         modify.set('picture', urlDownload).set('updatedAt', DateTime.now()));
     if (conn.isSuccess) {
-      Message message = Message(agentName, sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "not"));
       return message;
     } else {
-      Message message = Message(agentName, sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "found"));
       return message;
     }
   }
 
-  Message rejectTask(dynamic task, sender) {
-    Message message = Message(
+  Messages rejectTask(dynamic task, sender) {
+    Messages message = Messages(
         "Agent Akun",
         sender,
         "INFORM",
@@ -609,8 +609,8 @@ class AgentAkun extends Agent {
     return message;
   }
 
-  Message overTime(sender) {
-    Message message = Message(
+  Messages overTime(sender) {
+    Messages message = Messages(
         sender,
         "Agent Akun",
         "INFORM",

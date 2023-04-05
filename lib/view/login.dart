@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/FadeAnimation.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,17 +14,28 @@ import 'package:pelayanan_iman_katolik/view/singup.dart';
 
 class Login extends StatelessWidget {
   Future login(id, password) async {
-    Messages msg = new Messages();
-    await msg.addReceiver("agenAkun");
-    await msg.setContent([
-      ["cari user"],
-      [id],
-      [password]
-    ]);
-    var hasil;
-    await msg.send();
-    await Future.delayed(Duration(seconds: 3));
-    return await AgenPage().receiverTampilan();
+    // Messages msg = new Messages();
+    // await msg.addReceiver("agenAkun");
+    // await msg.setContent([
+    //   ["cari user"],
+    //   [id],
+    //   [password]
+    // ]);
+    // var hasil;
+    // await msg.send();
+    // await Future.delayed(Duration(seconds: 3));
+    // return await AgenPage().receiverTampilan();
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
+        Tasks('log out', [id, password]));
+
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    var hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+
+    await completer.future;
+    return await hasil;
   }
 
   @override
@@ -189,8 +204,6 @@ class Login extends StatelessWidget {
                                     var ret = await login(emailController.text,
                                             passwordController.text)
                                         .then((ret) async {
-                                      print("work");
-                                      print(await ret);
                                       try {
                                         if (await ret.length > 0) {
                                           print(ret[0]["_id"]);

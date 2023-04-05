@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
 
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
@@ -29,17 +33,27 @@ class Settings extends StatelessWidget {
 
   //print('Download-Link: $urlDownload');
   Future LogOut(context) async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenAkun");
-    msg.setContent([
-      ["log out"],
-      [idUser]
-    ]);
-    var k;
-    await msg.send();
-    await Future.delayed(Duration(seconds: 1));
-    k = await AgenPage().receiverTampilan();
-    if (k == 'oke') {
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenAkun");
+    // msg.setContent([
+    //   ["log out"],
+    //   [idUser]
+    // ]);
+    // var k;
+    // await msg.send();
+    // await Future.delayed(Duration(seconds: 1));
+    // k = await AgenPage().receiverTampilan();
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages(
+        'Agent Page', 'Agent Akun', "REQUEST", Tasks('login', [idUser]));
+
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    var hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+
+    await completer.future;
+    if (hasil == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Log Out",
           toastLength: Toast.LENGTH_SHORT,

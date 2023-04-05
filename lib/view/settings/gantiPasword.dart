@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/settings/privacySafety.dart';
@@ -39,20 +43,32 @@ class gantiPassword extends StatelessWidget {
       passUlBaruController.text = "";
     } else {
       print(passLamaController.text);
-      Messages msg = new Messages();
-      msg.addReceiver("agenAkun");
-      msg.setContent([
-        ["find Password"],
-        [email],
-        [passLamaController.text],
-      ]);
+      // Messages msg = new Messages();
+      // msg.addReceiver("agenAkun");
+      // msg.setContent([
+      //   ["find Password"],
+      //   [idUser],
+      //   [passLamaController.text],
+      // ]);
 
-      await msg.send().then((res) async {
-        print("masuk");
-        print(await AgenPage().receiverTampilan());
-      });
-      await Future.delayed(Duration(seconds: 1));
-      var value = await AgenPage().receiverTampilan();
+      // await msg.send().then((res) async {
+      //   print("masuk");
+      //   print(await AgenPage().receiverTampilan());
+      // });
+      // await Future.delayed(Duration(seconds: 1));
+      // var value = await AgenPage().receiverTampilan();
+
+      Completer<void> completer = Completer<void>();
+      Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
+          Tasks('find password', [idUser, passLamaController.text]));
+
+      MessagePassing messagePassing = MessagePassing();
+      var data = await messagePassing.sendMessage(message);
+      completer.complete();
+      var value = await await AgentPage.getDataPencarian();
+
+      await completer.future;
+
       if (value == "not") {
         Fluttertoast.showToast(
             msg: "Password Lama Tidak Cocok",
@@ -66,20 +82,31 @@ class gantiPassword extends StatelessWidget {
         passBaruController.text = "";
         passUlBaruController.text = "";
       } else {
-        Messages msg = new Messages();
-        msg.addReceiver("agenAkun");
-        msg.setContent([
-          ["ganti Password"],
-          [idUser],
-          [passBaruController.text],
-        ]);
+        // Messages msg = new Messages();
+        // msg.addReceiver("agenAkun");
+        // msg.setContent([
+        //   ["ganti Password"],
+        //   [idUser],
+        //   [passBaruController.text],
+        // ]);
 
-        await msg.send().then((res) async {
-          print("masuk");
-          print(await AgenPage().receiverTampilan());
-        });
-        await Future.delayed(Duration(seconds: 1));
-        var value = await AgenPage().receiverTampilan();
+        // await msg.send().then((res) async {
+        //   print("masuk");
+        //   print(await AgenPage().receiverTampilan());
+        // });
+        // await Future.delayed(Duration(seconds: 1));
+        // var value = await AgenPage().receiverTampilan();
+        Completer<void> completer = Completer<void>();
+        Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
+            Tasks('change password', [idUser, passBaruController.text]));
+
+        MessagePassing messagePassing = MessagePassing();
+        var data = await messagePassing.sendMessage(message);
+        completer.complete();
+        var value = await await AgentPage.getDataPencarian();
+
+        await completer.future;
+
         passLamaController.text = "";
         passBaruController.text = "";
         passUlBaruController.text = "";

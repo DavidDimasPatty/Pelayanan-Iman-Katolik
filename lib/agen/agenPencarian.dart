@@ -919,7 +919,7 @@ class AgentPencarian extends Agent {
     return false;
   }
 
-  Future<dynamic> receiveMessage(Message msg, String sender) {
+  Future<dynamic> receiveMessage(Messages msg, String sender) {
     print(agentName + ' received message from $sender');
     _Message.add(msg);
     _Sender.add(sender);
@@ -927,7 +927,7 @@ class AgentPencarian extends Agent {
   }
 
   Future<dynamic> performTask() async {
-    Message msg = _Message.last;
+    Messages msg = _Message.last;
     String sender = _Sender.last;
 
     dynamic task = msg.task;
@@ -938,11 +938,11 @@ class AgentPencarian extends Agent {
           timer.cancel();
 
           MessagePassing messagePassing = MessagePassing();
-          Message msg = rejectTask(task, sender);
+          Messages msg = rejectTask(task, sender);
           messagePassing.sendMessage(msg);
         });
 
-        Message message = await action(p.goals, task.data, sender);
+        Messages message = await action(p.goals, task.data, sender);
 
         if (stop == false) {
           if (timer.isActive) {
@@ -951,7 +951,7 @@ class AgentPencarian extends Agent {
             if (message.task.data.runtimeType == String &&
                 message.task.data == "failed") {
               MessagePassing messagePassing = MessagePassing();
-              Message msg = rejectTask(task, sender);
+              Messages msg = rejectTask(task, sender);
               messagePassing.sendMessage(msg);
             } else {
               print(message.task.data.runtimeType);
@@ -977,7 +977,7 @@ class AgentPencarian extends Agent {
     }
   }
 
-  Future<Message> action(String goals, dynamic data, String sender) async {
+  Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "cari pengumuman":
         return cariPengumuman(data, sender);
@@ -992,7 +992,7 @@ class AgentPencarian extends Agent {
     }
   }
 
-  Future<Message> cariJadwalPendaftaran(dynamic data, String sender) async {
+  Future<Messages> cariJadwalPendaftaran(dynamic data, String sender) async {
     dynamic statusQuery;
     dynamic statusPemPer;
     if (data[0] == "current") {
@@ -1071,7 +1071,7 @@ class AgentPencarian extends Agent {
         MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
     var resPerkawinan = await perkawinanCollection.find(statusPemPer).toList();
 
-    Message message = Message(
+    Messages message = Messages(
         'Agent Pencarian',
         sender,
         "INFORM",
@@ -1086,9 +1086,9 @@ class AgentPencarian extends Agent {
     return message;
   }
 
-  Future<Message> cariTampilanHome(dynamic data, String sender) async {
+  Future<Messages> cariTampilanHome(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
-    var dataUser = await userCollection.find({'_id': data[1]}).toList();
+    var dataUser = await userCollection.find({'_id': data[0]}).toList();
 
     var userKrismaCollection =
         MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
@@ -1101,21 +1101,21 @@ class AgentPencarian extends Agent {
         MongoDatabase.db.collection(USER_UMUM_COLLECTION);
     var dateKri = await userKrismaCollection
         .find(where
-            .eq("idUser", data[1])
+            .eq("idUser", data[0])
             .eq("status", 0)
             .sortBy('tanggalDaftar', descending: true)
             .limit(1))
         .toList();
     var dateBap = await userBaptisCollection
         .find(where
-            .eq("idUser", data[1])
+            .eq("idUser", data[0])
             .eq("status", 0)
             .sortBy('tanggalDaftar', descending: true)
             .limit(1))
         .toList();
     var dateKom = await userKomuniCollection
         .find(where
-            .eq("idUser", data[1])
+            .eq("idUser", data[0])
             .eq("status", 0)
             .sortBy('tanggalDaftar', descending: true)
             .limit(1))
@@ -1123,7 +1123,7 @@ class AgentPencarian extends Agent {
 
     var dateKeg = await userKegiatanCollection
         .find(where
-            .eq("idUser", data[1])
+            .eq("idUser", data[0])
             .eq("status", 0)
             .sortBy('tanggalDaftar', descending: true)
             .limit(1))
@@ -1176,17 +1176,17 @@ class AgentPencarian extends Agent {
       var jadwalCollection = MongoDatabase.db.collection(GEREJA_COLLECTION);
       var conn =
           await jadwalCollection.find({'_id': hasil[0]['idGereja']}).toList();
-      Message message = Message('Agent Pencarian', sender, "INFORM",
+      Messages message = Messages('Agent Pencarian', sender, "INFORM",
           Tasks('hasil pencarian', [dataUser, conn, hasil, connGambar]));
       return message;
     } else {
-      Message message = Message('Agent Pencarian', sender, "INFORM",
+      Messages message = Messages('Agent Pencarian', sender, "INFORM",
           Tasks('hasil pencarian', [dataUser, null, hasil, connGambar]));
       return message;
     }
   }
 
-  Future<Message> cariPengumuman(dynamic data, String sender) async {
+  Future<Messages> cariPengumuman(dynamic data, String sender) async {
     var pengumumanCollection =
         MongoDatabase.db.collection(GAMBAR_GEREJA_COLLECTION);
     if (data[0] == "general") {
@@ -1200,7 +1200,7 @@ class AgentPencarian extends Agent {
           .build();
       var conn =
           await pengumumanCollection.aggregateToStream(pipeline).toList();
-      Message message = Message(
+      Messages message = Messages(
           'Agent Pencarian', sender, "INFORM", Tasks('hasil pencarian', conn));
       return message;
     } else {
@@ -1216,13 +1216,13 @@ class AgentPencarian extends Agent {
           .build();
       var conn =
           await pengumumanCollection.aggregateToStream(pipeline).toList();
-      Message message = Message(
+      Messages message = Messages(
           'Agent Pencarian', sender, "INFORM", Tasks('hasil pencarian', conn));
       return message;
     }
   }
 
-  Future<Message> cariPelayanan(dynamic data, String sender) async {
+  Future<Messages> cariPelayanan(dynamic data, String sender) async {
     var pelayananCollection;
     var aturanCollection =
         MongoDatabase.db.collection(ATURAN_PELAYANAN_COLLECTION);
@@ -1257,7 +1257,7 @@ class AgentPencarian extends Agent {
             .build();
         var conn =
             await pelayananCollection.aggregateToStream(pipeline).toList();
-        Message message = Message('Agent Pencarian', sender, "INFORM",
+        Messages message = Messages('Agent Pencarian', sender, "INFORM",
             Tasks('hasil pencarian', conn));
         return message;
       } else {
@@ -1274,7 +1274,7 @@ class AgentPencarian extends Agent {
             .build();
         var conn =
             await pelayananCollection.aggregateToStream(pipeline).toList();
-        Message message = Message('Agent Pencarian', sender, "INFORM",
+        Messages message = Messages('Agent Pencarian', sender, "INFORM",
             Tasks('hasil pencarian', [conn, aturan]));
         return message;
       }
@@ -1314,13 +1314,13 @@ class AgentPencarian extends Agent {
             .build();
         var conn =
             await pelayananCollection.aggregateToStream(pipeline).toList();
-        Message message = Message('Agent Pencarian', sender, "INFORM",
+        Messages message = Messages('Agent Pencarian', sender, "INFORM",
             Tasks('hasil pencarian', conn));
         return message;
       } else if (data[1] == "imam") {
         var conn = await pelayananCollection
             .find({'idGereja': data[2], status: 0, "banned": 0}).toList();
-        Message message = Message('Agent Pencarian', sender, "INFORM",
+        Messages message = Messages('Agent Pencarian', sender, "INFORM",
             Tasks('hasil pencarian', conn));
         return message;
       } else {
@@ -1339,14 +1339,14 @@ class AgentPencarian extends Agent {
               .build();
           var conn =
               await pelayananCollection.aggregateToStream(pipeline).toList();
-          Message message = Message('Agent Pencarian', sender, "INFORM",
+          Messages message = Messages('Agent Pencarian', sender, "INFORM",
               Tasks('hasil pencarian', [conn, aturan]));
           return message;
         } else {
           var aturan = await aturanCollection
               .find(where.eq("idGereja", data[2]))
               .toList();
-          Message message = Message('Agent Pencarian', sender, "INFORM",
+          Messages message = Messages('Agent Pencarian', sender, "INFORM",
               Tasks('hasil pencarian', aturan));
           return message;
         }
@@ -1369,7 +1369,7 @@ class AgentPencarian extends Agent {
         var conn =
             await pelayananCollection.aggregateToStream(pipeline).toList();
 
-        Message message = Message('Agent Pencarian', sender, "INFORM",
+        Messages message = Messages('Agent Pencarian', sender, "INFORM",
             Tasks('hasil pencarian', conn));
         return message;
       } else {
@@ -1380,15 +1380,15 @@ class AgentPencarian extends Agent {
                 .gt("kapasitas", 0)
                 .gte("tanggal", DateTime.now()))
             .toList();
-        Message message = Message('Agent Pencarian', sender, "INFORM",
+        Messages message = Messages('Agent Pencarian', sender, "INFORM",
             Tasks('hasil pencarian', conn));
         return message;
       }
     }
   }
 
-  Message rejectTask(dynamic task, sender) {
-    Message message = Message(
+  Messages rejectTask(dynamic task, sender) {
+    Messages message = Messages(
         agentName,
         sender,
         "INFORM",
@@ -1400,8 +1400,8 @@ class AgentPencarian extends Agent {
     return message;
   }
 
-  Message overTime(sender) {
-    Message message = Message(
+  Messages overTime(sender) {
+    Messages message = Messages(
         sender,
         agentName,
         "INFORM",

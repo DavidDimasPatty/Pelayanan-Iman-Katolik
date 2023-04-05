@@ -5,7 +5,7 @@ import 'Message.dart';
 abstract class Agent {
   bool canPerformTask(dynamic task);
 
-  Future<dynamic> receiveMessage(Message msg, String sender);
+  Future<dynamic> receiveMessage(Messages msg, String sender);
 
   Future<dynamic> performTask();
 

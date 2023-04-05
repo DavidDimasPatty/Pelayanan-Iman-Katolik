@@ -51,11 +51,11 @@
 // }
 import 'Task.dart';
 
-class Message {
+class Messages {
   String sender;
   String receiver;
   Tasks task;
   dynamic protocol;
 
-  Message(this.sender, this.receiver, this.protocol, this.task);
+  Messages(this.sender, this.receiver, this.protocol, this.task);
 }

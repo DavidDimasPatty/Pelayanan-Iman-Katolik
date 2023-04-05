@@ -16,7 +16,7 @@ class MessagePassing {
     'Agent Page': AgentPage()
   };
 
-  Future<dynamic> sendMessage(Message message) async {
+  Future<dynamic> sendMessage(Messages message) async {
     if (agents.containsKey(message.receiver)) {
       Agent? agent = agents[message.receiver];
       if (agent!.canPerformTask(message)) {

@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 
@@ -36,61 +40,54 @@ class _notifClass extends State<notification> {
   }
 
   Future callDb() async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenAkun");
-    msg.setContent([
-      ["cari data user"],
-      [idUser]
-    ]);
-    await msg.send();
-    await Future.delayed(Duration(seconds: 2));
-    checknotif = await AgenPage().receiverTampilan();
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenAkun");
+    // msg.setContent([
+    //   ["cari data user"],
+    //   [idUser]
+    // ]);
+    // await msg.send();
+    // await Future.delayed(Duration(seconds: 2));
+    // checknotif = await AgenPage().receiverTampilan();
+
+    // return checknotif;
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages(
+        'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', idUser));
+
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    completer.complete();
+    var checknotif = await await AgentPage.getDataPencarian();
+
+    await completer.future;
 
     return checknotif;
   }
 
   Future updateNotifPg(notifPg) async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenAkun");
-    msg.setContent([
-      ["update NotifPG"],
-      [idUser],
-      [notifPg]
-    ]);
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenAkun");
+    // msg.setContent([
+    //   ["update NotifPG"],
+    //   [idUser],
+    //   [notifPg]
+    // ]);
 
-    await msg.send();
-    await Future.delayed(Duration(seconds: 2));
-    var daftarmisa = await AgenPage().receiverTampilan();
+    // await msg.send();
+    // await Future.delayed(Duration(seconds: 2));
+    // var daftarmisa = await AgenPage().receiverTampilan();
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
+        Tasks('update notification', [idUser, notifPg]));
 
-    if (daftarmisa == 'oke') {
-      Fluttertoast.showToast(
-          msg: "Berhasil Update Notif",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 2,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0);
-    }
-  }
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    completer.complete();
+    var hasil = await await AgentPage.getDataPencarian();
 
-  Future updateNotifGd(notifGD) async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenAkun");
-    msg.setContent([
-      ["update NotifGD"],
-      [idUser],
-      [notifGD]
-    ]);
-
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
-    var daftarmisa = await AgenPage().receiverTampilan();
-
-    if (daftarmisa == 'oke') {
+    await completer.future;
+    if (hasil == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Update Notif",
           toastLength: Toast.LENGTH_SHORT,
@@ -150,7 +147,6 @@ class _notifClass extends State<notification> {
                   try {
                     print(snapshot.data);
                     switch1 = checknotif[0]['notifPG'];
-                    switch2 = checknotif[0]['notifGD'];
 
                     return Column(
                       children: <Widget>[
@@ -200,53 +196,6 @@ class _notifClass extends State<notification> {
                             ),
                           ],
                         ),
-                        Padding(padding: EdgeInsets.symmetric(vertical: 8)),
-                        Row(
-                          children: <Widget>[
-                            Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 6)),
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'Misa di Gereja Terdekat',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 3)),
-                                  Text(
-                                    'Pemberitahuan Misa di Gereja Terdekat',
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.grey),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Switch(
-                              value: switch2,
-                              onChanged: (value) {
-                                setState(() async {
-                                  switch2 = value;
-                                  await updateNotifGd(switch2);
-
-                                  // await callDb();
-                                  setState(() {
-                                    switch2 = checknotif[0]['notifGD'];
-                                  });
-                                });
-                              },
-                              activeTrackColor: Colors.lightGreenAccent,
-                              activeColor: Colors.green,
-                            ),
-                          ],
-                        )
                       ],
                     );
                   } catch (e) {

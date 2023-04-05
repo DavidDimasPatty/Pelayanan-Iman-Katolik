@@ -1,9 +1,13 @@
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/main.dart';
@@ -47,16 +51,25 @@ class _HomePage extends State<HomePage> {
   List idImage = [];
 
   Future callTampilan() async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
-    msg.setContent([
-      ["cari tampilan homepage"],
-      [iduser]
-    ]);
-    await msg.send();
-    await Future.delayed(Duration(seconds: 2));
-    hasil = await AgenPage().receiverTampilan();
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenPencarian");
+    // msg.setContent([
+    //   ["cari tampilan homepage"],
+    //   [iduser]
+    // ]);
+    // await msg.send();
+    // await Future.delayed(Duration(seconds: 2));
+    // hasil = await AgenPage().receiverTampilan();
 
+    // return hasil;
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
+        Tasks('cari tampilan home', [iduser]));
+
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    completer.complete();
+    var hasil = await await AgentPage.getDataPencarian();
     return hasil;
   }
 

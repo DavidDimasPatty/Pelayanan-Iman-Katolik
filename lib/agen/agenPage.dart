@@ -169,7 +169,7 @@ class AgentPage extends Agent {
     return false;
   }
 
-  Future<dynamic> receiveMessage(Message msg, String sender) {
+  Future<dynamic> receiveMessage(Messages msg, String sender) {
     print(agentName + ' received message from $sender');
     _Message.add(msg);
     _Sender.add(sender);
@@ -177,7 +177,7 @@ class AgentPage extends Agent {
   }
 
   Future<dynamic> performTask() async {
-    Message msg = _Message.last;
+    Messages msg = _Message.last;
     String sender = _Sender.last;
     dynamic task = msg.task;
     for (var p in _plan) {
@@ -194,8 +194,8 @@ class AgentPage extends Agent {
     return dataView.last;
   }
 
-  Message rejectTask(dynamic task, sender) {
-    Message message = Message(
+  Messages rejectTask(dynamic task, sender) {
+    Messages message = Messages(
         agentName,
         sender,
         "INFORM",

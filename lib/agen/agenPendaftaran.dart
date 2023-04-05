@@ -510,7 +510,7 @@ class AgentPendaftaran extends Agent {
     return false;
   }
 
-  Future<dynamic> receiveMessage(Message msg, String sender) {
+  Future<dynamic> receiveMessage(Messages msg, String sender) {
     print(agentName + ' received message from $sender');
     _Message.add(msg);
     _Sender.add(sender);
@@ -518,7 +518,7 @@ class AgentPendaftaran extends Agent {
   }
 
   Future<dynamic> performTask() async {
-    Message msg = _Message.last;
+    Messages msg = _Message.last;
     String sender = _Sender.last;
     dynamic task = msg.task;
     for (var p in _plan) {
@@ -528,11 +528,11 @@ class AgentPendaftaran extends Agent {
           timer.cancel();
 
           MessagePassing messagePassing = MessagePassing();
-          Message msg = rejectTask(task, sender);
+          Messages msg = rejectTask(task, sender);
           messagePassing.sendMessage(msg);
         });
 
-        Message message = await action(p.goals, task, sender);
+        Messages message = await action(p.goals, task, sender);
 
         if (stop == false) {
           if (timer.isActive) {
@@ -541,7 +541,7 @@ class AgentPendaftaran extends Agent {
             if (message.task.data.runtimeType == String &&
                 message.task.data == "failed") {
               MessagePassing messagePassing = MessagePassing();
-              Message msg = rejectTask(task, sender);
+              Messages msg = rejectTask(task, sender);
               messagePassing.sendMessage(msg);
             } else {
               for (var g in _goals) {
@@ -574,7 +574,7 @@ class AgentPendaftaran extends Agent {
     return pencarianData;
   }
 
-  Future<Message> action(String goals, dynamic data, String sender) async {
+  Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "enroll pelayanan":
         return enrollPelayanan(data.data, sender);
@@ -586,7 +586,7 @@ class AgentPendaftaran extends Agent {
     }
   }
 
-  Future<Message> enrollPelayanan(dynamic data, String sender) async {
+  Future<Messages> enrollPelayanan(dynamic data, String sender) async {
     var update1;
     var update2;
     var pelayananCollection;
@@ -630,12 +630,12 @@ class AgentPendaftaran extends Agent {
       update1 = await pelayananCollection.updateOne(
           where.eq('_id', data[1]), modify.set('kapasitas', data[3] - 1));
       if (update1.isSuccess && update2.isSuccess) {
-        Message message = Message(agentName, sender, "INFORM",
+        Messages message = Messages(agentName, sender, "INFORM",
             Tasks('status modifikasi data', "oke"));
 
         return message;
       } else {
-        Message message = Message(agentName, sender, "INFORM",
+        Messages message = Messages(agentName, sender, "INFORM",
             Tasks('status modifikasi data', "failed"));
         return message;
       }
@@ -684,19 +684,19 @@ class AgentPendaftaran extends Agent {
         });
       }
       if (update1.isSuccess) {
-        Message message = Message(agentName, "Agent Page", "INFORM",
+        Messages message = Messages(agentName, "Agent Page", "INFORM",
             Tasks('status modifikasi data', "oke"));
 
         return message;
       } else {
-        Message message = Message(agentName, "Agent Page", "INFORM",
+        Messages message = Messages(agentName, "Agent Page", "INFORM",
             Tasks('status modifikasi data', "failed"));
         return message;
       }
     }
   }
 
-  Future<Message> cancelPelayanan(dynamic data, String sender) async {
+  Future<Messages> cancelPelayanan(dynamic data, String sender) async {
     var update1;
     var update2;
     var pelayananCollection;
@@ -738,12 +738,12 @@ class AgentPendaftaran extends Agent {
       update2 = await pelayananCollection.updateOne(
           where.eq('_id', data[2]), modify.set('kapasitas', data[3] + 1));
       if (update1.isSuccess && update2.isSuccess) {
-        Message message = Message(agentName, "Agent Page", "INFORM",
+        Messages message = Messages(agentName, "Agent Page", "INFORM",
             Tasks('status modifikasi data', "oke"));
 
         return message;
       } else {
-        Message message = Message(agentName, "Agent Page", "INFORM",
+        Messages message = Messages(agentName, "Agent Page", "INFORM",
             Tasks('status modifikasi data', "failed"));
         return message;
       }
@@ -769,20 +769,20 @@ class AgentPendaftaran extends Agent {
                 .set("updatedBy", data[1]));
       }
       if (update1.isSuccess) {
-        Message message = Message(agentName, "Agent Page", "INFORM",
+        Messages message = Messages(agentName, "Agent Page", "INFORM",
             Tasks('status modifikasi data', "oke"));
 
         return message;
       } else {
-        Message message = Message(agentName, "Agent Page", "INFORM",
+        Messages message = Messages(agentName, "Agent Page", "INFORM",
             Tasks('status modifikasi data', "failed"));
         return message;
       }
     }
   }
 
-  Message rejectTask(dynamic task, sender) {
-    Message message = Message(
+  Messages rejectTask(dynamic task, sender) {
+    Messages message = Messages(
         "Agent Pendaftaran",
         sender,
         "INFORM",
@@ -794,8 +794,8 @@ class AgentPendaftaran extends Agent {
     return message;
   }
 
-  Message overTime(sender) {
-    Message message = Message(
+  Messages overTime(sender) {
+    Messages message = Messages(
         sender,
         "Agent Pendaftaran",
         "INFORM",

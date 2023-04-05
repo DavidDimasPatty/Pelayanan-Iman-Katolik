@@ -234,7 +234,7 @@ class AgentSetting extends Agent {
     return false;
   }
 
-  Future<dynamic> receiveMessage(Message msg, String sender) {
+  Future<dynamic> receiveMessage(Messages msg, String sender) {
     print(agentName + ' received message from $sender');
     _Message.add(msg);
     _Sender.add(sender);
@@ -242,7 +242,7 @@ class AgentSetting extends Agent {
   }
 
   Future<dynamic> performTask() async {
-    Message msg = _Message.last;
+    Messages msg = _Message.last;
     String sender = _Sender.last;
     dynamic task = msg.task;
     for (var p in _plan) {
@@ -252,11 +252,11 @@ class AgentSetting extends Agent {
           timer.cancel();
 
           MessagePassing messagePassing = MessagePassing();
-          Message msg = rejectTask(task, sender);
+          Messages msg = rejectTask(task, sender);
           messagePassing.sendMessage(msg);
         });
 
-        Message message = await action(p.goals, task.data, sender);
+        Messages message = await action(p.goals, task.data, sender);
         print(message.task.data.runtimeType);
 
         if (stop == false) {
@@ -266,7 +266,7 @@ class AgentSetting extends Agent {
             if (message.task.data.runtimeType == String &&
                 message.task.data == "failed") {
               MessagePassing messagePassing = MessagePassing();
-              Message msg = rejectTask(task, sender);
+              Messages msg = rejectTask(task, sender);
               messagePassing.sendMessage(msg);
             } else {
               for (var g in _goals) {
@@ -299,7 +299,7 @@ class AgentSetting extends Agent {
     return pencarianData;
   }
 
-  Future<Message> action(String goals, dynamic data, String sender) async {
+  Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "setting user":
         return settingUser(data, sender);
@@ -315,7 +315,7 @@ class AgentSetting extends Agent {
     }
   }
 
-  Future<Message> settingUser(dynamic data, String sender) async {
+  Future<Messages> settingUser(dynamic data, String sender) async {
     var date = DateTime.now();
     var hour = date.hour;
     WidgetsFlutterBinding.ensureInitialized();
@@ -345,7 +345,7 @@ class AgentSetting extends Agent {
     }
 
     if (hour >= 5 && hour <= 17) {
-      Message message = Message(
+      Messages message = Messages(
           'Agent Setting',
           sender,
           "INFORM",
@@ -355,7 +355,7 @@ class AgentSetting extends Agent {
           ]));
       return message;
     } else {
-      Message message = Message(
+      Messages message = Messages(
           'Agent Setting',
           sender,
           "INFORM",
@@ -367,7 +367,7 @@ class AgentSetting extends Agent {
     }
   }
 
-  Future<Message> saveData(dynamic data, String sender) async {
+  Future<Messages> saveData(dynamic data, String sender) async {
     final directory = await getApplicationDocumentsDirectory();
     var path = directory.path;
 
@@ -388,25 +388,25 @@ class AgentSetting extends Agent {
           mode: FileMode.append);
     }
 
-    Message message = Message(
+    Messages message = Messages(
         'Agent Setting', sender, "INFORM", Tasks('status aplikasi', "oke"));
     return message;
   }
 
-  Future<Message> logOut(dynamic data, String sender) async {
+  Future<Messages> logOut(dynamic data, String sender) async {
     final directory = await getApplicationDocumentsDirectory();
     var path = directory.path;
 
     final file = await File('$path/login.txt');
     await file.writeAsString("");
 
-    Message message = Message(
+    Messages message = Messages(
         'Agent Setting', sender, "INFORM", Tasks('status aplikasi', "oke"));
     return message;
   }
 
-  Message rejectTask(dynamic task, sender) {
-    Message message = Message(
+  Messages rejectTask(dynamic task, sender) {
+    Messages message = Messages(
         "Agent Setting",
         sender,
         "INFORM",
@@ -418,8 +418,8 @@ class AgentSetting extends Agent {
     return message;
   }
 
-  Message overTime(sender) {
-    Message message = Message(
+  Messages overTime(sender) {
+    Messages message = Messages(
         sender,
         "Agent Setting",
         "INFORM",

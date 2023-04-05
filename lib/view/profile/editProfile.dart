@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
@@ -39,21 +43,30 @@ class _EditProfile extends State<EditProfile> {
   TextEditingController emailController = new TextEditingController();
 
   Future<List> callDb() async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
-    msg.setContent([
-      ["cari tampilan Profile"],
-      [idUser]
-    ]);
-    List k = [];
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
-    k = await AgenPage().receiverTampilan();
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenPencarian");
+    // msg.setContent([
+    //   ["cari tampilan Profile"],
+    //   [idUser]
+    // ]);
+    // List k = [];
+    // await msg.send().then((res) async {
+    //   print("masuk");
+    //   print(await AgenPage().receiverTampilan());
+    // });
+    // await Future.delayed(Duration(seconds: 1));
+    // k = await AgenPage().receiverTampilan();
 
-    return k;
+    // return k;
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages(
+        'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', idUser));
+
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    var hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+    return hasil;
   }
 
   submitForm(nama, email, paroki, lingkungan, notelp, alamat, context) async {
@@ -66,27 +79,38 @@ class _EditProfile extends State<EditProfile> {
       // var add = await MongoDatabase.addPemberkatan(idUser, nama, paroki,
       //     lingkungan, notelp, alamat, jenis, tanggal, idGereja, note, idImam);
 
-      Messages msg = new Messages();
-      msg.addReceiver("agenAkun");
-      msg.setContent([
-        ["edit Profile"],
-        [idUser],
-        [nama],
-        [email],
-        [paroki],
-        [lingkungan],
-        [notelp],
-        [alamat],
-      ]);
+      // Messages msg = new Messages();
+      // msg.addReceiver("agenAkun");
+      // msg.setContent([
+      //   ["edit Profile"],
+      //   [idUser],
+      //   [nama],
+      //   [email],
+      //   [paroki],
+      //   [lingkungan],
+      //   [notelp],
+      //   [alamat],
+      // ]);
 
-      await msg.send().then((res) async {
-        print("masuk");
-        print(await AgenPage().receiverTampilan());
-      });
-      await Future.delayed(Duration(seconds: 1));
-      var daftarmisa = await AgenPage().receiverTampilan();
+      // await msg.send().then((res) async {
+      //   print("masuk");
+      //   print(await AgenPage().receiverTampilan());
+      // });
+      // await Future.delayed(Duration(seconds: 1));
+      // var daftarmisa = await AgenPage().receiverTampilan();
+      Completer<void> completer = Completer<void>();
+      Messages message = Messages(
+          'Agent Page',
+          'Agent Akun',
+          "REQUEST",
+          Tasks('edit profile',
+              [idUser, nama, email, paroki, lingkungan, notelp, alamat]));
 
-      if (daftarmisa == 'oke') {
+      MessagePassing messagePassing = MessagePassing();
+      var data = await messagePassing.sendMessage(message);
+      var hasil = await await AgentPage.getDataPencarian();
+      completer.complete();
+      if (hasil == 'oke') {
         Fluttertoast.showToast(
             msg: "Berhasil Edit Profile",
             toastLength: Toast.LENGTH_SHORT,
