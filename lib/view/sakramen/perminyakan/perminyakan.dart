@@ -192,6 +192,7 @@ class _Perminyakan extends State<Perminyakan> {
                 future: callDb(),
                 builder: (context, AsyncSnapshot snapshot) {
                   try {
+                    print(hasil);
                     return Column(children: [
                       for (var i in hasil)
                         InkWell(

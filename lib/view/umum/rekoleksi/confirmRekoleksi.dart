@@ -14,7 +14,7 @@ class confirmRekoleksi {
   final email;
   final idUser;
   final idKegiatan;
-  var detailGereja;
+  var hasil;
   confirmRekoleksi(this.idUser, this.idKegiatan, this.name, this.email);
 
   Future<List> callDb() async {
@@ -39,7 +39,7 @@ class confirmRekoleksi {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    hasil = await await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
@@ -111,7 +111,7 @@ class confirmRekoleksi {
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            for (var i in detailGereja)
+                            for (var i in hasil)
                               Column(
                                 children: <Widget>[
                                   Text("Konfirmasi Pendaftaran Rekoleksi \n " +
@@ -138,7 +138,7 @@ class confirmRekoleksi {
                           color: Colors.blueAccent,
                           onPressed: () async {
                             await daftar(idKegiatan, idUser,
-                                detailGereja[0]['kapasitas'], context);
+                                hasil[0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
                       RaisedButton(

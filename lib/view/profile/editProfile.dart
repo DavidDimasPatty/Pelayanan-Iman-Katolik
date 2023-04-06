@@ -66,6 +66,7 @@ class _EditProfile extends State<EditProfile> {
     var data = await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getDataPencarian();
     completer.complete();
+    await completer.future;
     return hasil;
   }
 
@@ -174,27 +175,25 @@ class _EditProfile extends State<EditProfile> {
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
-                      if (snapshot.data[0][0][0]['name'] != null) {
-                        namaController.text = snapshot.data[0][0][0]['name'];
+                      print(snapshot.data);
+                      if (snapshot.data[0]['name'] != null) {
+                        namaController.text = snapshot.data[0]['name'];
                       }
-                      if (snapshot.data[0][0][0]['email'] != null) {
-                        emailController.text = snapshot.data[0][0][0]['email'];
+                      if (snapshot.data[0]['email'] != null) {
+                        emailController.text = snapshot.data[0]['email'];
                       }
-                      if (snapshot.data[0][0][0]['paroki'] != null) {
-                        parokiController.text =
-                            snapshot.data[0][0][0]['paroki'];
+                      if (snapshot.data[0]['paroki'] != null) {
+                        parokiController.text = snapshot.data[0]['paroki'];
                       }
-                      if (snapshot.data[0][0][0]['lingkungan'] != null) {
+                      if (snapshot.data[0]['lingkungan'] != null) {
                         lingkunganController.text =
-                            snapshot.data[0][0][0]['lingkungan'];
+                            snapshot.data[0]['lingkungan'];
                       }
-                      if (snapshot.data[0][0][0]['notelp'] != null) {
-                        notelpController.text =
-                            snapshot.data[0][0][0]['notelp'];
+                      if (snapshot.data[0]['notelp'] != null) {
+                        notelpController.text = snapshot.data[0]['notelp'];
                       }
-                      if (snapshot.data[0][0][0]['alamat'] != null) {
-                        alamatController.text =
-                            snapshot.data[0][0][0]['alamat'];
+                      if (snapshot.data[0]['alamat'] != null) {
+                        alamatController.text = snapshot.data[0]['alamat'];
                       }
                       return Column(children: <Widget>[
                         Padding(

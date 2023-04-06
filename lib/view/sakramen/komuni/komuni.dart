@@ -55,7 +55,7 @@ class _Komuni extends State<Komuni> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    hasil = await await AgentPage.getDataPencarian();
+    hasil = await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
@@ -78,16 +78,16 @@ class _Komuni extends State<Komuni> {
     return distance;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    callDb().then((result) {
-      setState(() {
-        hasil.addAll(result);
-        dummyTemp.addAll(result);
-      });
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   callDb().then((result) {
+  //     setState(() {
+  //       hasil.addAll(result);
+  //       dummyTemp.addAll(result);
+  //     });
+  //   });
+  // }
 
   filterSearchResults(String query) {
     if (query.isNotEmpty) {

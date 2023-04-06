@@ -63,16 +63,16 @@ class _Krisma extends State<Krisma> {
     return await hasil;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    callDb().then((result) {
-      setState(() {
-        hasil.addAll(result);
-        dummyTemp.addAll(result);
-      });
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   callDb().then((result) {
+  //     setState(() {
+  //       hasil.addAll(result);
+  //       dummyTemp.addAll(result);
+  //     });
+  //   });
+  // }
 
   Future jarak(lat, lang) async {
     Position position = await Geolocator.getCurrentPosition(

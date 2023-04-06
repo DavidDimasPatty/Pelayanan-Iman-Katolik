@@ -151,7 +151,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                   fontWeight: FontWeight.w600),
                                             ),
                                             Text(
-                                              snapshot.data[1][0][0]
+                                              snapshot.data[1][0]
                                                   ['perminyakan'],
                                               style: TextStyle(
                                                   color: Colors.black,
@@ -210,7 +210,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              if (snapshot.data[0][0][0]
+                                              if (snapshot.data[0][0]
                                                       ['picture'] ==
                                                   null)
                                                 CircleAvatar(
@@ -220,12 +220,12 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                       Colors.greenAccent,
                                                   radius: 80.0,
                                                 ),
-                                              if (snapshot.data[0][0][0]
+                                              if (snapshot.data[0][0]
                                                       ['picture'] !=
                                                   null)
                                                 CircleAvatar(
                                                   backgroundImage: NetworkImage(
-                                                      snapshot.data[0][0][0]
+                                                      snapshot.data[0][0]
                                                           ['picture']),
                                                   backgroundColor:
                                                       Colors.greenAccent,
@@ -235,7 +235,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                 height: 10.0,
                                               ),
                                               Text(
-                                                snapshot.data[0][0][0]['name'],
+                                                snapshot.data[0][0]['name'],
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.white,
@@ -271,8 +271,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                             Text(
                                                               "Email : " +
                                                                   snapshot.data[
-                                                                              0]
-                                                                          [0][0]
+                                                                          0][0]
                                                                       ['email'],
                                                               style: TextStyle(
                                                                   color: Colors
@@ -289,9 +288,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                             Text(
                                                               "No Telepon : " +
                                                                   snapshot.data[
-                                                                              0]
-                                                                          [0][0]
-                                                                      [
+                                                                          0][0][
                                                                       'notelp'],
                                                               style: TextStyle(
                                                                   color: Colors
@@ -329,7 +326,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[0][0][0]['GerejaImam']
+                                                                  snapshot.data[0][0]['GerejaPerminyakan']
                                                                               [
                                                                               0]
                                                                           [
@@ -373,11 +370,11 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[0][0]
+                                                                  snapshot.data[0]
                                                                               [
                                                                               0]
                                                                           [
-                                                                          'GerejaImam'][0]
+                                                                          'GerejaPerminyakan'][0]
                                                                       [
                                                                       'address'],
                                                                   style: TextStyle(

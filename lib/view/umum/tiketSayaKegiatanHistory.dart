@@ -16,7 +16,7 @@ class tiketSayaKegiatanHistory {
   var idUser;
   var emails;
   var tiketGereja;
-  var tiket;
+  var hasil;
   var idKegiatan;
   var idUmum;
   var idUserUmum;
@@ -48,7 +48,7 @@ class tiketSayaKegiatanHistory {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    hasil = await await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
@@ -122,7 +122,7 @@ class tiketSayaKegiatanHistory {
                 future: callDb(),
                 builder: (context, AsyncSnapshot snapshot) {
                   try {
-                    print(snapshot.data);
+                    print(snapshot.data[0]);
                     return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
@@ -138,14 +138,14 @@ class tiketSayaKegiatanHistory {
                                     fontWeight: FontWeight.w300),
                               ),
                               Text('Jadwal: ' +
-                                  tiket[0]['tanggal']
+                                  snapshot.data[0]['tanggal']
                                       .toString()
                                       .substring(0, 19)),
-                              Text('Lokasi: ' + tiket[0]['lokasi']),
-                              Text(
-                                  'Nama Kegiatan: ' + tiket[0]['namaKegiatan']),
-                              Text(
-                                  'Tema Kegiatan: ' + tiket[0]['temaKegiatan']),
+                              Text('Lokasi: ' + snapshot.data[0]['lokasi']),
+                              Text('Nama Kegiatan: ' +
+                                  snapshot.data[0]['namaKegiatan']),
+                              Text('Tema Kegiatan: ' +
+                                  snapshot.data[0]['temaKegiatan']),
                             ],
                           ),
                         ]);

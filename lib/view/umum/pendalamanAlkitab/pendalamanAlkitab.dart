@@ -63,15 +63,15 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    callDb().then((result) {
-      setState(() {
-        hasil.addAll(result);
-        dummyTemp.addAll(result);
-      });
-    });
-  }
+  // void initState() {
+  //   super.initState();
+  //   callDb().then((result) {
+  //     setState(() {
+  //       hasil.addAll(result);
+  //       dummyTemp.addAll(result);
+  //     });
+  //   });
+  // }
 
   filterSearchResults(String query) {
     if (query.isNotEmpty) {

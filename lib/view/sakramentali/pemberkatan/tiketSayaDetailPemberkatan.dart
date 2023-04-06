@@ -129,7 +129,7 @@ class tiketSayaDetailPemberkatan {
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
-                      print(snapshot.data);
+                      print(snapshot.data[0]);
                       return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
@@ -145,21 +145,21 @@ class tiketSayaDetailPemberkatan {
                                       fontWeight: FontWeight.w300),
                                 ),
                                 Text('Jadwal: ' +
-                                    tiket[0]['tanggal']
+                                    snapshot.data[0]['tanggal']
                                         .toString()
                                         .substring(0, 19)),
-                                Text('Alamat: ' + tiket[0]['alamat']),
+                                Text('Alamat: ' + snapshot.data[0]['alamat']),
                                 Text('Nama Kegiatan: Pemberkatan ' +
-                                    tiket[0]['jenis']),
-                                if (tiket[0]['status'] == 0)
+                                    snapshot.data[0]['jenis']),
+                                if (snapshot.data[0]['status'] == 0)
                                   Text(
                                     "Status : Menunggu",
                                   ),
-                                if (tiket[0]['status'] == 1)
+                                if (snapshot.data[0]['status'] == 1)
                                   Text(
                                     "Status : Disetujui",
                                   ),
-                                if (tiket[0]['status'] == -1)
+                                if (snapshot.data[0]['status'] == -1)
                                   Text(
                                     "Status : Ditolak",
                                   ),
@@ -171,19 +171,7 @@ class tiketSayaDetailPemberkatan {
                       return Center(child: CircularProgressIndicator());
                     }
                   }),
-              actions: <Widget>[
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      RaisedButton(
-                          child: Text('Batalkan Mendaftar'),
-                          textColor: Colors.white,
-                          color: Colors.blueAccent,
-                          onPressed: () async {
-                            await cancelDaftar(idPemberkatan, context);
-                          }), // button 1
-                    ])
-              ]);
+              actions: <Widget>[]);
         });
   }
 }

@@ -61,16 +61,16 @@ class _Retret extends State<Retret> {
     return await hasil;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    callDb().then((result) {
-      setState(() {
-        hasil.addAll(result);
-        dummyTemp.addAll(result);
-      });
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   callDb().then((result) {
+  //     setState(() {
+  //       hasil.addAll(result);
+  //       dummyTemp.addAll(result);
+  //     });
+  //   });
+  // }
 
   filterSearchResults(String query) {
     if (query.isNotEmpty) {

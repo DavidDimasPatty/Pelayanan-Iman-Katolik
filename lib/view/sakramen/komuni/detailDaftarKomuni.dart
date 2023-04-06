@@ -166,7 +166,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: <Widget>[
-                                            if (snapshot.data[0][0][0]
+                                            if (snapshot.data[0][0]
                                                         ['GerejaKomuni'][0]
                                                     ['gambar'] ==
                                                 null)
@@ -176,13 +176,13 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                     Colors.greenAccent,
                                                 radius: 80.0,
                                               ),
-                                            if (snapshot.data[0][0][0]
+                                            if (snapshot.data[0][0]
                                                         ['GerejaKomuni'][0]
                                                     ['gambar'] !=
                                                 null)
                                               CircleAvatar(
                                                 backgroundImage: NetworkImage(
-                                                    snapshot.data[0][0][0]
+                                                    snapshot.data[0][0]
                                                             ['GerejaKomuni'][0]
                                                         ['gambar']),
                                                 backgroundColor:
@@ -193,7 +193,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                               height: 10.0,
                                             ),
                                             Text(
-                                              snapshot.data[0][0][0]
+                                              snapshot.data[0][0]
                                                   ['GerejaKomuni'][0]['nama'],
                                               style: TextStyle(
                                                   color: Colors.white,
@@ -248,8 +248,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                               ),
                                                               Text(
                                                                 snapshot.data[0]
-                                                                            [0][0]
-                                                                        [
+                                                                            [0][
                                                                         'GerejaKomuni'][0]
                                                                     [
                                                                     'paroki'] as String,
@@ -291,8 +290,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                               ),
                                                               Text(
                                                                 snapshot.data[0]
-                                                                            [0][0]
-                                                                        [
+                                                                            [0][
                                                                         'GerejaKomuni']
                                                                     [
                                                                     0]['address'],
@@ -334,7 +332,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                               ),
                                                               Text(
                                                                 snapshot.data[0]
-                                                                        [0][0][
+                                                                        [0][
                                                                         'kapasitas']
                                                                     .toString(),
                                                                 style: TextStyle(
@@ -375,7 +373,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                               ),
                                                               Text(
                                                                 snapshot.data[0]
-                                                                        [0][0][
+                                                                        [0][
                                                                         'jadwalBuka']
                                                                     .toString()
                                                                     .substring(
@@ -418,7 +416,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                               ),
                                                               Text(
                                                                 snapshot.data[0]
-                                                                        [0][0][
+                                                                        [0][
                                                                         'jadwalTutup']
                                                                     .toString()
                                                                     .substring(
@@ -481,8 +479,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                                         FontWeight.w600),
                                               ),
                                               Text(
-                                                snapshot.data[1][0][0]
-                                                    ['komuni'],
+                                                snapshot.data[1][0]['komuni'],
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 15.0,
@@ -507,9 +504,9 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                             RaisedButton(
                                 onPressed: () async {
                                   showDirectionWithFirstMap(Coords(
-                                      snapshot.data[0][0][0]['GerejaKomuni'][0]
+                                      snapshot.data[0][0]['GerejaKomuni'][0]
                                           ['lat'],
-                                      snapshot.data[0][0][0]['GerejaKomuni'][0]
+                                      snapshot.data[0][0]['GerejaKomuni'][0]
                                           ['lng']));
                                 },
                                 shape: RoundedRectangleBorder(
@@ -546,10 +543,10 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                             RaisedButton(
                                 onPressed: () async {
                                   confirmKomuni(
-                                    snapshot.data[0][0][0]['GerejaKomuni'][0]
+                                    snapshot.data[0][0]['GerejaKomuni'][0]
                                         ['_id'],
                                     idUser,
-                                    snapshot.data[0][0][0]['_id'],
+                                    snapshot.data[0][0]['_id'],
                                     this.name,
                                     this.email,
                                     this.idGereja,

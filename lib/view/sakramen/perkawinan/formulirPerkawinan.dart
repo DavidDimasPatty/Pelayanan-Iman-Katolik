@@ -257,7 +257,7 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
                                               fontWeight: FontWeight.w600),
                                         ),
                                         Text(
-                                          snapshot.data[1][0][0]['perkawinan'],
+                                          snapshot.data[0]['perkawinan'],
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 15.0,

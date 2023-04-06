@@ -14,7 +14,7 @@ class confirmBaptis {
   final idGereja;
   final idUser;
   final idBaptis;
-  var detailGereja;
+  var hasil;
   final name;
   final email;
   final namaGereja;
@@ -44,7 +44,7 @@ class confirmBaptis {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    hasil = await await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
@@ -127,15 +127,14 @@ class confirmBaptis {
                               children: <Widget>[
                                 Text(
                                     "Konfirmasi Pendaftaran Baptis \n Pada Gereja " +
-                                        detailGereja[0][0][0]['GerejaBaptis'][0]
-                                            ['nama'] +
+                                        hasil[0][0]['GerejaBaptis'][0]['nama'] +
                                         "\n" +
                                         "Pada Tanggal " +
-                                        detailGereja[0][0][0]['jadwalBuka']
+                                        hasil[0][0]['jadwalBuka']
                                             .toString()
                                             .substring(0, 19) +
                                         " - " +
-                                        detailGereja[0][0][0]['jadwalTutup']
+                                        hasil[0][0]['jadwalTutup']
                                             .toString()
                                             .substring(0, 19) +
                                         " ?")
@@ -157,7 +156,7 @@ class confirmBaptis {
                           color: Colors.blueAccent,
                           onPressed: () async {
                             await daftar(idBaptis, idUser,
-                                detailGereja[0][0][0]['kapasitas'], context);
+                                hasil[0][0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
                       RaisedButton(

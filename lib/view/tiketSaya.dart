@@ -313,7 +313,7 @@ class _tiketSaya extends State<tiketSaya> {
                                         color: Colors.grey, fontSize: 15.0),
                                   )),
                             if (snapshot.data[2].length != 0)
-                              for (var i in snapshot.data[2][0])
+                              for (var i in snapshot.data[2])
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {

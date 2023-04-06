@@ -15,7 +15,7 @@ class confirmPA {
   final email;
   final idUser;
   final idKegiatan;
-  var detailGereja;
+  var hasil;
   confirmPA(this.idUser, this.idKegiatan, this.name, this.email);
 
   Future<List> callDb() async {
@@ -40,7 +40,7 @@ class confirmPA {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    hasil = await await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
@@ -127,7 +127,7 @@ class confirmPA {
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[
-                            for (var i in detailGereja)
+                            for (var i in hasil)
                               Column(
                                 children: <Widget>[
                                   Text(
@@ -157,7 +157,7 @@ class confirmPA {
                           color: Colors.blueAccent,
                           onPressed: () async {
                             await daftar(idKegiatan, idUser,
-                                detailGereja[0]['kapasitas'], context);
+                                hasil[0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
                       RaisedButton(

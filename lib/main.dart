@@ -35,6 +35,7 @@ Future callDb() async {
   var data = await messagePassing.sendMessage(message);
   completer.complete();
   var hasil = await await AgentPage.getDataPencarian();
+  await completer.future;
   return hasil;
 }
 
@@ -99,12 +100,13 @@ void main() async {
   //   LocationPermission permission2 = await Geolocator.checkPermission();
   //   print(permission2);
   // }
-
+  print(tampilan);
   if (tampilan[1] == "pagi") {
     try {
       if (tampilan[0][0].length != 0 && tampilan[0][0] != "nothing") {
-        var object =
-            tampilan[0][2].toString().substring(10, tampilan[0][2].length - 2);
+        var object = tampilan[0][0][2]
+            .toString()
+            .substring(10, tampilan[0][0][2].length - 2);
         runApp(MaterialApp(
           title: 'Navigation Basics',
           theme: ThemeData(
@@ -123,8 +125,8 @@ void main() async {
             //   bodyMedium: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
             // ),
           ),
-          home:
-              HomePage(tampilan[0][0], tampilan[0][1], ObjectId.parse(object)),
+          home: HomePage(
+              tampilan[0][0][0], tampilan[0][0][1], ObjectId.parse(object)),
         ));
       } else {
         print("Morning!");
@@ -152,8 +154,9 @@ void main() async {
   } else {
     try {
       if (tampilan[0][0].length != 0 && tampilan[0][0] != "nothing") {
-        var object =
-            tampilan[0][2].toString().substring(10, tampilan[0][2].length - 2);
+        var object = tampilan[0][0][2]
+            .toString()
+            .substring(10, tampilan[0][0][2].length - 2);
         print("Night!");
         runApp(MaterialApp(
           title: 'Navigation Basics',
@@ -162,8 +165,8 @@ void main() async {
             primaryColor: Colors.grey,
             // ),
           ),
-          home:
-              HomePage(tampilan[0][0], tampilan[0][1], ObjectId.parse(object)),
+          home: HomePage(
+              tampilan[0][0][0], tampilan[0][0][1], ObjectId.parse(object)),
         ));
       } else {
         runApp(MaterialApp(

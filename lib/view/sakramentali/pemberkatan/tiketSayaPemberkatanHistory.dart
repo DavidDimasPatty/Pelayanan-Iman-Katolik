@@ -43,11 +43,11 @@ class tiketSayaPemberkatanHistory {
     // return tiket;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pelayanan', ["sakramentali", "detail", idPemberkatan]));
+        Tasks('cari pelayanan', ["sakramentali", "history", idPemberkatan]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
@@ -116,7 +116,7 @@ class tiketSayaPemberkatanHistory {
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
-                      print(snapshot.data);
+                      print(snapshot.data[0]);
                       return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
@@ -132,21 +132,21 @@ class tiketSayaPemberkatanHistory {
                                       fontWeight: FontWeight.w300),
                                 ),
                                 Text('Jadwal: ' +
-                                    tiket[0]['tanggal']
+                                    snapshot.data[0]['tanggal']
                                         .toString()
                                         .substring(0, 19)),
-                                Text('Alamat: ' + tiket[0]['alamat']),
+                                Text('Alamat: ' + snapshot.data[0]['alamat']),
                                 Text('Nama Kegiatan: Pemberkatan ' +
-                                    tiket[0]['jenis']),
-                                if (tiket[0]['status'] == 0)
+                                    snapshot.data[0]['jenis']),
+                                if (snapshot.data[0]['status'] == 0)
                                   Text(
                                     "Status : Menunggu",
                                   ),
-                                if (tiket[0]['status'] == 1)
+                                if (snapshot.data[0]['status'] == 1)
                                   Text(
                                     "Status : Disetujui",
                                   ),
-                                if (tiket[0]['status'] == -1)
+                                if (snapshot.data[0]['status'] == -1)
                                   Text(
                                     "Status : Ditolak",
                                   ),

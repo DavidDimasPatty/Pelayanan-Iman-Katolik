@@ -156,7 +156,7 @@ class _detailTobat extends State<detailTobat> {
                                                   fontWeight: FontWeight.w600),
                                             ),
                                             Text(
-                                              snapshot.data[1][0][0]['tobat'],
+                                              snapshot.data[1][0]['tobat'],
                                               style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 15.0,
@@ -214,7 +214,7 @@ class _detailTobat extends State<detailTobat> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              if (snapshot.data[0][0][0]
+                                              if (snapshot.data[0][0]
                                                       ['picture'] ==
                                                   null)
                                                 CircleAvatar(
@@ -224,12 +224,12 @@ class _detailTobat extends State<detailTobat> {
                                                       Colors.greenAccent,
                                                   radius: 80.0,
                                                 ),
-                                              if (snapshot.data[0][0][0]
+                                              if (snapshot.data[0][0]
                                                       ['picture'] !=
                                                   null)
                                                 CircleAvatar(
                                                   backgroundImage: NetworkImage(
-                                                      snapshot.data[0][0][0]
+                                                      snapshot.data[0][0]
                                                           ['picture']),
                                                   backgroundColor:
                                                       Colors.greenAccent,
@@ -239,7 +239,7 @@ class _detailTobat extends State<detailTobat> {
                                                 height: 10.0,
                                               ),
                                               Text(
-                                                snapshot.data[0][0][0]['name'],
+                                                snapshot.data[0][0]['name'],
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.white,
@@ -275,8 +275,7 @@ class _detailTobat extends State<detailTobat> {
                                                             Text(
                                                               "Email : " +
                                                                   snapshot.data[
-                                                                              0]
-                                                                          [0][0]
+                                                                          0][0]
                                                                       ['email'],
                                                               style: TextStyle(
                                                                   color: Colors
@@ -293,9 +292,7 @@ class _detailTobat extends State<detailTobat> {
                                                             Text(
                                                               "No Telepon : " +
                                                                   snapshot.data[
-                                                                              0]
-                                                                          [0][0]
-                                                                      [
+                                                                          0][0][
                                                                       'notelp'],
                                                               style: TextStyle(
                                                                   color: Colors
@@ -333,7 +330,7 @@ class _detailTobat extends State<detailTobat> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[0][0][0]['GerejaImam']
+                                                                  snapshot.data[0][0]['GerejaTobat']
                                                                               [
                                                                               0]
                                                                           [
@@ -377,11 +374,11 @@ class _detailTobat extends State<detailTobat> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[0][0]
+                                                                  snapshot.data[0]
                                                                               [
                                                                               0]
                                                                           [
-                                                                          'GerejaImam'][0]
+                                                                          'GerejaTobat'][0]
                                                                       [
                                                                       'address'],
                                                                   style: TextStyle(

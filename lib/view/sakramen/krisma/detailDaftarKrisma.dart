@@ -167,7 +167,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
-                                              if (snapshot.data[0][0][0]
+                                              if (snapshot.data[0][0]
                                                           ['GerejaKrisma'][0]
                                                       ['gambar'] ==
                                                   null)
@@ -178,13 +178,13 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                       Colors.greenAccent,
                                                   radius: 80.0,
                                                 ),
-                                              if (snapshot.data[0][0][0]
+                                              if (snapshot.data[0][0]
                                                           ['GerejaKrisma'][0]
                                                       ['gambar'] !=
                                                   null)
                                                 CircleAvatar(
                                                   backgroundImage: NetworkImage(
-                                                      snapshot.data[0][0][0]
+                                                      snapshot.data[0][0]
                                                               ['GerejaKrisma']
                                                           [0]['gambar']),
                                                   backgroundColor:
@@ -195,7 +195,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                 height: 10.0,
                                               ),
                                               Text(
-                                                snapshot.data[0][0][0]
+                                                snapshot.data[0][0]
                                                     ['GerejaKrisma'][0]['nama'],
                                                 style: TextStyle(
                                                     color: Colors.white,
@@ -252,7 +252,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[0][0][0]['GerejaKrisma']
+                                                                  snapshot.data[0][0]['GerejaKrisma']
                                                                               [
                                                                               0]
                                                                           [
@@ -296,7 +296,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                                               .w300),
                                                                 ),
                                                                 Text(
-                                                                  snapshot.data[0][0]
+                                                                  snapshot.data[0]
                                                                               [
                                                                               0]
                                                                           [
@@ -343,8 +343,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                                 Text(
                                                                   snapshot
                                                                       .data[0]
-                                                                          [0][0]
-                                                                          [
+                                                                          [0][
                                                                           'kapasitas']
                                                                       .toString(),
                                                                   style: TextStyle(
@@ -387,8 +386,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                                 Text(
                                                                   snapshot
                                                                       .data[0]
-                                                                          [0][0]
-                                                                          [
+                                                                          [0][
                                                                           'jadwalBuka']
                                                                       .toString()
                                                                       .substring(
@@ -434,8 +432,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                                 Text(
                                                                   snapshot
                                                                       .data[0]
-                                                                          [0][0]
-                                                                          [
+                                                                          [0][
                                                                           'jadwalTutup']
                                                                       .toString()
                                                                       .substring(
@@ -499,8 +496,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                           FontWeight.w600),
                                                 ),
                                                 Text(
-                                                  snapshot.data[1][0][0]
-                                                      ['krisma'],
+                                                  snapshot.data[1][0]['krisma'],
                                                   style: TextStyle(
                                                       color: Colors.black,
                                                       fontSize: 15.0,
@@ -525,10 +521,10 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                               RaisedButton(
                                   onPressed: () async {
                                     showDirectionWithFirstMap(Coords(
-                                        snapshot.data[0][0][0]['GerejaKrisma']
-                                            [0]['lat'],
-                                        snapshot.data[0][0][0]['GerejaKrisma']
-                                            [0]['lng']));
+                                        snapshot.data[0][0]['GerejaKrisma'][0]
+                                            ['lat'],
+                                        snapshot.data[0][0]['GerejaKrisma'][0]
+                                            ['lng']));
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
@@ -565,10 +561,10 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                               RaisedButton(
                                   onPressed: () async {
                                     confirmKrisma(
-                                      snapshot.data[0][0][0]['GerejaKrisma'][0]
+                                      snapshot.data[0][0]['GerejaKrisma'][0]
                                           ['_id'],
                                       idUser,
-                                      snapshot.data[0][0][0]['_id'],
+                                      snapshot.data[0][0]['_id'],
                                       this.name,
                                       this.email,
                                       this.idGereja,

@@ -61,7 +61,7 @@ class tiketSayaDetailBaptis {
 
   cancelDaftar(kapasitas, context) async {
     // Messages msg = new Messages();
-    // msg.addReceiver("agenPendaftaran");
+    // msg.addReceiver("agenPencarian");
     // msg.setContent([
     //   ["cancel Baptis"],
     //   [idUserBaptis],
@@ -89,6 +89,7 @@ class tiketSayaDetailBaptis {
     completer.complete();
 
     await completer.future;
+
     if (hasil == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Cancel Baptis",
@@ -156,32 +157,21 @@ class tiketSayaDetailBaptis {
                                     fontWeight: FontWeight.w300),
                               ),
                               Text('Waktu: ' +
-                                  snapshot.data[0][0][0]['jadwalBuka']
+                                  snapshot.data[0][0]['jadwalBuka']
                                       .toString()
                                       .substring(0, 19) +
                                   " s/d " +
-                                  snapshot.data[0][0][0]['jadwalTutup']
+                                  snapshot.data[0][0]['jadwalTutup']
                                       .toString()
                                       .substring(0, 19)),
                               Text('Nama Gereja: ' +
-                                  snapshot.data[1][0][0]['nama']),
+                                  snapshot.data[0][0]['GerejaBaptis'][0]
+                                      ['nama']),
                               Text('Alamat Gereja: ' +
-                                  snapshot.data[1][0][0]['address']),
+                                  snapshot.data[0][0]['GerejaBaptis'][0]
+                                      ['address']),
                             ],
                           ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                RaisedButton(
-                                    child: Text('Batalkan Mendaftar'),
-                                    textColor: Colors.white,
-                                    color: Colors.blueAccent,
-                                    onPressed: () async {
-                                      await cancelDaftar(
-                                          snapshot.data[0][0][0]['kapasitas'],
-                                          context);
-                                    }), // button 1
-                              ])
                         ]);
                   } catch (e) {
                     print(e);

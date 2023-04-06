@@ -1288,12 +1288,12 @@ class AgentPencarian extends Agent {
       String status = "";
       if (data[0] == "tobat") {
         pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
-        as = "GerejaImam";
+        as = "GerejaTobat";
         status = "statusTobat";
       }
       if (data[0] == "perminyakan") {
         pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
-        as = "GerejaImam";
+        as = "GerejaPerminyakan";
         status = "statusPerminyakan";
       }
       if (data[0] == "perkawinan") {
@@ -1306,7 +1306,14 @@ class AgentPencarian extends Agent {
         as = "GerejaImam";
         status = "statusPemberkatan";
       }
-      if (data[1] == "general") {
+      if (data[1] == "history") {
+        var conn = await MongoDatabase.db
+            .collection(PEMBERKATAN_COLLECTION)
+            .find({'_id': data[2]}).toList();
+        Messages message = Messages('Agent Pencarian', sender, "INFORM",
+            Tasks('hasil pencarian', conn));
+        return message;
+      } else if (data[1] == "general") {
         final pipeline = AggregationPipelineBuilder()
             .addStage(Lookup(
                 from: 'Gereja',
@@ -1426,6 +1433,7 @@ class AgentPencarian extends Agent {
       Goals("cari pengumuman", List<Map<String, Object?>>, 2),
       Goals("cari jadwal pendaftaran", List<dynamic>, 2),
       Goals("cari pelayanan", List<Map<String, Object?>>, 2),
+      Goals("cari pelayanan", List<dynamic>, 2),
       Goals("cari tampilan home", List<dynamic>, 2),
     ];
   }

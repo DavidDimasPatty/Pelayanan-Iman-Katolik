@@ -122,7 +122,7 @@ class tiketSayaDetailKegiatan {
                 future: callDb(),
                 builder: (context, AsyncSnapshot snapshot) {
                   try {
-                    print(snapshot.data);
+                    print(snapshot.data[0]);
                     return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
@@ -138,28 +138,16 @@ class tiketSayaDetailKegiatan {
                                     fontWeight: FontWeight.w300),
                               ),
                               Text('Jadwal: ' +
-                                  tiket[0]['tanggal']
+                                  snapshot.data[0]['tanggal']
                                       .toString()
                                       .substring(0, 19)),
-                              Text('Lokasi: ' + tiket[0]['lokasi']),
-                              Text(
-                                  'Nama Kegiatan: ' + tiket[0]['namaKegiatan']),
-                              Text(
-                                  'Tema Kegiatan: ' + tiket[0]['temaKegiatan']),
+                              Text('Lokasi: ' + snapshot.data[0]['lokasi']),
+                              Text('Nama Kegiatan: ' +
+                                  snapshot.data[0]['namaKegiatan']),
+                              Text('Tema Kegiatan: ' +
+                                  snapshot.data[0]['temaKegiatan']),
                             ],
                           ),
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                RaisedButton(
-                                    child: Text('Batalkan Mendaftar'),
-                                    textColor: Colors.white,
-                                    color: Colors.blueAccent,
-                                    onPressed: () async {
-                                      await cancelDaftar(
-                                          tiket[0]['kapasitas'], context);
-                                    }), // button 1
-                              ])
                         ]);
                   } catch (e) {
                     print(e);

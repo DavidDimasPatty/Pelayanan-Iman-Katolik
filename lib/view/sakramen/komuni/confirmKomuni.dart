@@ -17,7 +17,7 @@ class confirmKomuni {
   final idGereja;
   final idUser;
   final idKomuni;
-  var detailGereja;
+  var hasil;
   confirmKomuni(this.idGereja, this.idUser, this.idKomuni, this.name,
       this.email, this.namaGereja);
 
@@ -44,7 +44,7 @@ class confirmKomuni {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    hasil = await await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
@@ -133,15 +133,14 @@ class confirmKomuni {
                               children: <Widget>[
                                 Text(
                                     "Konfirmasi Pendaftaran Komuni \n Pada Gereja " +
-                                        detailGereja[0][0][0]['GerejaKomuni'][0]
-                                            ['nama'] +
+                                        hasil[0][0]['GerejaKomuni'][0]['nama'] +
                                         "\n" +
                                         "Pada Tanggal " +
-                                        detailGereja[0][0][0]['jadwalBuka']
+                                        hasil[0][0]['jadwalBuka']
                                             .toString()
                                             .substring(0, 19) +
                                         " - " +
-                                        detailGereja[0][0][0]['jadwalTutup']
+                                        hasil[0][0]['jadwalTutup']
                                             .toString()
                                             .substring(0, 19) +
                                         " ?")
@@ -163,7 +162,7 @@ class confirmKomuni {
                           color: Colors.blueAccent,
                           onPressed: () async {
                             await daftar(idKomuni, idUser,
-                                detailGereja[0][0][0]['kapasitas'], context);
+                                hasil[0][0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
                       RaisedButton(

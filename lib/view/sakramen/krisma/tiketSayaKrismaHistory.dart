@@ -152,17 +152,19 @@ class tiketSayaKrismaHistory {
                                     fontWeight: FontWeight.w300),
                               ),
                               Text('Waktu: ' +
-                                  snapshot.data[0][0][0]['jadwalBuka']
+                                  snapshot.data[0][0]['jadwalBuka']
                                       .toString()
                                       .substring(0, 19) +
                                   " s/d " +
-                                  snapshot.data[0][0][0]['jadwalTutup']
+                                  snapshot.data[0][0]['jadwalTutup']
                                       .toString()
                                       .substring(0, 19)),
                               Text('Nama Gereja: ' +
-                                  snapshot.data[1][0][0]['nama']),
+                                  snapshot.data[0][0]['GerejaKrisma'][0]
+                                      ['nama']),
                               Text('Alamat Gereja: ' +
-                                  snapshot.data[1][0][0]['address']),
+                                  snapshot.data[0][0]['GerejaKrisma'][0]
+                                      ['address']),
                             ],
                           ),
                         ]);
