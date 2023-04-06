@@ -398,16 +398,69 @@ class AgentAkun extends Agent {
         return changeProfilePicture(data, sender);
       case "log out":
         return logout(data, sender);
+      case "sign up":
+        return signup(data, sender);
 
       default:
         return rejectTask(data, data.sender);
     }
   }
 
+  Future<Messages> signup(dynamic data, String sender) async {
+    var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
+    var checkEmail;
+    var checkName;
+    await userCollection.find({'name': data[0]}).toList().then((res) async {
+          checkName = res;
+          checkEmail = await userCollection.find({'email': data[1]}).toList();
+        });
+
+    try {
+      if (checkName.length > 0) {
+        Messages message = Messages(agentName, sender, "INFORM",
+            Tasks("status modifikasi/ pencarian data akun", "nama"));
+        return message;
+      } else if (checkEmail.length > 0) {
+        Messages message = Messages(agentName, sender, "INFORM",
+            Tasks("status modifikasi/ pencarian data akun", "email"));
+        return message;
+      } else {
+        var insert = await userCollection.insertOne({
+          'name': data[0],
+          'email': data[1],
+          'password': data[2],
+          'picture': "",
+          "banned": 0,
+          "notifGD": false,
+          "notifPG": false,
+          "tanggalDaftar": DateTime.now(),
+          "paroki": "",
+          "alamat": "",
+          "lingkungan": "",
+          "notelp": "",
+          "token": ""
+        });
+        if (insert.isSuccess) {
+          Messages message = Messages(agentName, sender, "INFORM",
+              Tasks("status modifikasi/ pencarian data akun", "oke"));
+          return message;
+        } else {
+          Messages message = Messages(agentName, sender, "INFORM",
+              Tasks("status modifikasi/ pencarian data akun", "failed"));
+          return message;
+        }
+      }
+    } catch (e) {
+      Messages message = Messages(agentName, sender, "INFORM",
+          Tasks("status modifikasi/ pencarian data akun", "failed"));
+      return message;
+    }
+  }
+
   Future<Messages> cariUser(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var conn = await userCollection.find({'_id': data[1][0]}).toList();
-    Messages message = Messages(agentName, sender, "REQUEST",
+    Messages message = Messages(agentName, sender, "INFORM",
         Tasks("status modifikasi/ pencarian data akun", conn));
     return message;
   }
@@ -418,7 +471,7 @@ class AgentAkun extends Agent {
         .find({'email': data[0], 'password': data[1]}).toList();
 
     sendToAgenSettingLogin(conn, agentName);
-    Messages message = Messages(agentName, sender, "REQUEST",
+    Messages message = Messages(agentName, sender, "INFORM",
         Tasks("status modifikasi/ pencarian data akun", conn));
     return message;
   }
@@ -636,7 +689,7 @@ class AgentAkun extends Agent {
     _goals = [
       Goals("login", List<Map<String, Object?>>, 5),
       Goals("cari user", List<Map<String, Object?>>, 5),
-      Goals("cari profile", List<Map<String, Object?>>, 5),
+      Goals("cari profile", List<dynamic>, 5),
       Goals("edit profile", String, 2),
       Goals("update notification", String, 2),
       Goals("find password", String, 2),

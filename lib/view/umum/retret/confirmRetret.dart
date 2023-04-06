@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/umum/retret/detailDaftarRetret.dart';
@@ -15,21 +19,32 @@ class confirmRetret {
   confirmRetret(this.idUser, this.idKegiatan, this.name, this.email);
 
   Future<List> callDb() async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
-    msg.setContent([
-      ["cari Detail Kegiatan"],
-      [idKegiatan]
-    ]);
-    List k = [];
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 2));
-    detailGereja = await AgenPage().receiverTampilan();
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenPencarian");
+    // msg.setContent([
+    //   ["cari Detail Kegiatan"],
+    //   [idKegiatan]
+    // ]);
+    // List k = [];
+    // await msg.send().then((res) async {
+    //   print("masuk");
+    //   print(await AgenPage().receiverTampilan());
+    // });
+    // await Future.delayed(Duration(seconds: 2));
+    // detailGereja = await AgenPage().receiverTampilan();
 
-    return detailGereja;
+    // return detailGereja;
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
+        Tasks('cari pelayanan', ["umum", "detail", idKegiatan]));
+
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    var hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+
+    await completer.future;
+    return await hasil;
   }
 
   Future daftar(idKegiatan, idUser, kapasitas, context) async {
@@ -48,8 +63,17 @@ class confirmRetret {
     // });
     // await Future.delayed(Duration(seconds: 2));
     // var daftarmisa = await AgenPage().receiverTampilan();
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST",
+        Tasks('enroll pelayanan', ["umum", idKegiatan, idUser, kapasitas]));
 
-    if (daftarmisa == 'oke') {
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    var hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+
+    await completer.future;
+    if (hasil == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Mendaftar Retret",
           toastLength: Toast.LENGTH_SHORT,
@@ -65,7 +89,7 @@ class confirmRetret {
                 detailDaftarRetret(name, email, idUser, idKegiatan)),
       );
     }
-    if (daftarmisa == 'sudah') {
+    if (hasil == 'sudah') {
       Fluttertoast.showToast(
           msg: "Sudah Mendaftar Kegiatan ini",
           toastLength: Toast.LENGTH_SHORT,

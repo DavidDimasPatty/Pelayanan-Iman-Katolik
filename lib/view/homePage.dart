@@ -51,25 +51,16 @@ class _HomePage extends State<HomePage> {
   List idImage = [];
 
   Future callTampilan() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari tampilan homepage"],
-    //   [iduser]
-    // ]);
-    // await msg.send();
-    // await Future.delayed(Duration(seconds: 2));
-    // hasil = await AgenPage().receiverTampilan();
-
-    // return hasil;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari tampilan home', [iduser]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
+    var hasil = await AgentPage.getDataPencarian();
     completer.complete();
-    var hasil = await await AgentPage.getDataPencarian();
+
+    await completer.future;
     return hasil;
   }
 
@@ -84,7 +75,6 @@ class _HomePage extends State<HomePage> {
     super.initState();
     setState(() {
       callTampilan();
-      // indexCaption = -1;
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -161,10 +151,10 @@ class _HomePage extends State<HomePage> {
                     future: callTampilan(),
                     builder: (context, AsyncSnapshot snapshot) {
                       try {
-                        for (var i = 0; i < hasil[3][0].length; i++) {
-                          cardList.add(hasil[3][0][i]['gambar']);
-                          caption.add(hasil[3][0][i]['title']);
-                          idImage.add(hasil[3][0][i]['_id']);
+                        for (var i = 0; i < snapshot.data[3].length; i++) {
+                          cardList.add(snapshot.data[3][i]['gambar']);
+                          caption.add(snapshot.data[3][i]['title']);
+                          idImage.add(snapshot.data[3][i]['_id']);
                         }
                         return Column(children: [
                           Card(
@@ -199,7 +189,8 @@ class _HomePage extends State<HomePage> {
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 4),
                                             ),
-                                            if (hasil[0][0][0]['picture'] ==
+                                            if (snapshot.data[0][0]
+                                                    ['picture'] ==
                                                 null)
                                               CircleAvatar(
                                                 backgroundImage: AssetImage(''),
@@ -207,11 +198,13 @@ class _HomePage extends State<HomePage> {
                                                     Colors.greenAccent,
                                                 radius: 35,
                                               ),
-                                            if (hasil[0][0][0]['picture'] !=
+                                            if (snapshot.data[0][0]
+                                                    ['picture'] !=
                                                 null)
                                               CircleAvatar(
                                                 backgroundImage: NetworkImage(
-                                                    hasil[0][0][0]['picture']),
+                                                    snapshot.data[0][0]
+                                                        ['picture']),
                                                 backgroundColor:
                                                     Colors.greenAccent,
                                                 radius: 35,
@@ -223,7 +216,7 @@ class _HomePage extends State<HomePage> {
                                             Column(
                                               children: <Widget>[
                                                 Text(
-                                                  hasil[0][0][0]['name'],
+                                                  snapshot.data[0][0]['name'],
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Colors.white,
@@ -232,7 +225,7 @@ class _HomePage extends State<HomePage> {
                                                           FontWeight.w700),
                                                 ),
                                                 Text(
-                                                  hasil[0][0][0]['email'],
+                                                  snapshot.data[0][0]['email'],
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Colors.white,
@@ -241,7 +234,7 @@ class _HomePage extends State<HomePage> {
                                                           FontWeight.w500),
                                                 ),
                                                 Text(
-                                                  hasil[0][0][0]['paroki'],
+                                                  snapshot.data[0][0]['paroki'],
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Colors.white,
@@ -250,7 +243,8 @@ class _HomePage extends State<HomePage> {
                                                           FontWeight.w500),
                                                 ),
                                                 Text(
-                                                  hasil[0][0][0]['lingkungan'],
+                                                  snapshot.data[0][0]
+                                                      ['lingkungan'],
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Colors.white,
@@ -305,7 +299,7 @@ class _HomePage extends State<HomePage> {
                                                       fontWeight:
                                                           FontWeight.w300),
                                                 ),
-                                                if (hasil[2][0] == null)
+                                                if (snapshot.data[2] == null)
                                                   Text(
                                                     'Belum ada Pendaftaran',
                                                     textAlign: TextAlign.center,
@@ -315,9 +309,9 @@ class _HomePage extends State<HomePage> {
                                                         fontWeight:
                                                             FontWeight.w300),
                                                   ),
-                                                if (hasil[2][0] != null)
+                                                if (snapshot.data[2] != null)
                                                   Column(children: <Widget>[
-                                                    if (hasil[2][0][0]
+                                                    if (snapshot.data[2][0]
                                                             ['idKrisma'] !=
                                                         null)
                                                       Text(
@@ -331,7 +325,7 @@ class _HomePage extends State<HomePage> {
                                                                 FontWeight
                                                                     .w300),
                                                       ),
-                                                    if (hasil[2][0][0]
+                                                    if (snapshot.data[2][0]
                                                             ['idKomuni'] !=
                                                         null)
                                                       Text(
@@ -345,7 +339,7 @@ class _HomePage extends State<HomePage> {
                                                                 FontWeight
                                                                     .w300),
                                                       ),
-                                                    if (hasil[2][0][0]
+                                                    if (snapshot.data[2][0]
                                                             ['idBaptis'] !=
                                                         null)
                                                       Text(
@@ -359,7 +353,7 @@ class _HomePage extends State<HomePage> {
                                                                 FontWeight
                                                                     .w300),
                                                       ),
-                                                    if (hasil[2][0][0]
+                                                    if (snapshot.data[2][0]
                                                             ['idKegiatan'] !=
                                                         null)
                                                       Text(
@@ -373,11 +367,11 @@ class _HomePage extends State<HomePage> {
                                                                 FontWeight
                                                                     .w300),
                                                       ),
-                                                    if (hasil[2][0][0]
+                                                    if (snapshot.data[2][0]
                                                             ['tanggalDaftar'] !=
                                                         null)
                                                       Text(
-                                                        hasil[2][0][0][
+                                                        snapshot.data[2][0][
                                                                 'tanggalDaftar']
                                                             .toString()
                                                             .substring(0, 19),

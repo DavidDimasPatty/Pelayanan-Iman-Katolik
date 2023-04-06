@@ -26,8 +26,8 @@ class Login extends StatelessWidget {
     // await Future.delayed(Duration(seconds: 3));
     // return await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
-    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-        Tasks('log out', [id, password]));
+    Messages message = Messages(
+        'Agent Page', 'Agent Akun', "REQUEST", Tasks('login', [id, password]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -205,8 +205,8 @@ class Login extends StatelessWidget {
                                             passwordController.text)
                                         .then((ret) async {
                                       try {
+                                        print(ret);
                                         if (await ret.length > 0) {
-                                          print(ret[0]["_id"]);
                                           Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(

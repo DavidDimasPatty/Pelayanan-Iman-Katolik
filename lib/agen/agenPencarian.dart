@@ -1424,9 +1424,9 @@ class AgentPencarian extends Agent {
     ];
     _goals = [
       Goals("cari pengumuman", List<Map<String, Object?>>, 2),
-      Goals("cari jadwal pendaftaran", List<Map<String, Object?>>, 2),
+      Goals("cari jadwal pendaftaran", List<dynamic>, 2),
       Goals("cari pelayanan", List<Map<String, Object?>>, 2),
-      Goals("cari tampilan home", List<Map<String, Object?>>, 2),
+      Goals("cari tampilan home", List<dynamic>, 2),
     ];
   }
 }

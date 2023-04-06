@@ -6,11 +6,15 @@ import 'dart:async';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:mongo_dart/mongo_dart.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
+import 'package:pelayanan_iman_katolik/view/homePage.dart';
+import 'package:pelayanan_iman_katolik/view/login.dart';
 
 var tampilan;
 
@@ -51,7 +55,7 @@ AndroidNotificationChannel? channel;
 FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
 void main() async {
-  await callDb();
+  var tampilan = await callDb();
   // WidgetsFlutterBinding.ensureInitialized();
   // await dotenv.load(fileName: ".env");
   // await Firebase.initializeApp();
@@ -96,81 +100,90 @@ void main() async {
   //   print(permission2);
   // }
 
-  // if (tampilan[1][0] == "pagi") {
-  //   print(tampilan[0][0]);
-  //   if (tampilan[0][0].length != 0 && tampilan[0][0] != "nothing") {
-  //     var object = tampilan[0][0][2]
-  //         .toString()
-  //         .substring(10, tampilan[0][0][2].length - 2);
-  //     runApp(MaterialApp(
-  //       title: 'Navigation Basics',
-  //       theme: ThemeData(
-  //         // Define the default brightness and colors.
-  //         brightness: Brightness.light,
-  //         primaryColor: Colors.grey,
+  if (tampilan[1] == "pagi") {
+    try {
+      if (tampilan[0][0].length != 0 && tampilan[0][0] != "nothing") {
+        var object =
+            tampilan[0][2].toString().substring(10, tampilan[0][2].length - 2);
+        runApp(MaterialApp(
+          title: 'Navigation Basics',
+          theme: ThemeData(
+            // Define the default brightness and colors.
+            brightness: Brightness.light,
+            primaryColor: Colors.grey,
 
-  //         // Define the default font family.
-  //         // fontFamily: 'Georgia',
+            // Define the default font family.
+            // fontFamily: 'Georgia',
 
-  //         // Define the default `TextTheme`. Use this to specify the default
-  //         // text styling for headlines, titles, bodies of text, and more.
-  //         // textTheme: const TextTheme(
-  //         //   displayLarge: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-  //         //   titleLarge: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-  //         //   bodyMedium: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
-  //         // ),
-  //       ),
-  //       home: HomePage(
-  //           tampilan[0][0][0], tampilan[0][0][1], ObjectId.parse(object)),
-  //     ));
-  //   } else {
-  //     print("Morning!");
-  //     runApp(MaterialApp(
-  //       title: 'Navigation Basics',
-  //       theme: ThemeData(
-  //         // Define the default brightness and colors.
-  //         brightness: Brightness.light,
-  //         primaryColor: Colors.grey,
-
-  //         // Define the default font family.
-  //         // fontFamily: 'Georgia',
-
-  //         // Define the default `TextTheme`. Use this to specify the default
-  //         // text styling for headlines, titles, bodies of text, and more.
-  //         // textTheme: const TextTheme(
-  //         //   displayLarge: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-  //         //   titleLarge: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-  //         //   bodyMedium: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
-  //         // ),
-  //       ),
-  //       home: Login(),
-  //     ));
-  //   }
-  // } else {
-  //   if (tampilan[0][0].length != 0 && tampilan[0][0] != "nothing") {
-  //     var object = tampilan[0][0][2]
-  //         .toString()
-  //         .substring(10, tampilan[0][0][2].length - 2);
-  //     print("Night!");
-  //     runApp(MaterialApp(
-  //       title: 'Navigation Basics',
-  //       theme: ThemeData(
-  //         brightness: Brightness.dark,
-  //         primaryColor: Colors.grey,
-  //         // ),
-  //       ),
-  //       home: HomePage(
-  //           tampilan[0][0][0], tampilan[0][0][1], ObjectId.parse(object)),
-  //     ));
-  //   } else {
-  //     runApp(MaterialApp(
-  //       title: 'Navigation Basics',
-  //       theme: ThemeData(
-  //         brightness: Brightness.dark,
-  //         primaryColor: Colors.grey,
-  //       ),
-  //       home: Login(),
-  //     ));
-  //   }
-  // }
+            // Define the default `TextTheme`. Use this to specify the default
+            // text styling for headlines, titles, bodies of text, and more.
+            // textTheme: const TextTheme(
+            //   displayLarge: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+            //   titleLarge: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
+            //   bodyMedium: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+            // ),
+          ),
+          home:
+              HomePage(tampilan[0][0], tampilan[0][1], ObjectId.parse(object)),
+        ));
+      } else {
+        print("Morning!");
+        runApp(MaterialApp(
+          title: 'Navigation Basics',
+          theme: ThemeData(
+            // Define the default brightness and colors.
+            brightness: Brightness.light,
+            primaryColor: Colors.grey,
+          ),
+          home: Login(),
+        ));
+      }
+    } catch (e) {
+      runApp(MaterialApp(
+        title: 'Navigation Basics',
+        theme: ThemeData(
+          // Define the default brightness and colors.
+          brightness: Brightness.light,
+          primaryColor: Colors.grey,
+        ),
+        home: Login(),
+      ));
+    }
+  } else {
+    try {
+      if (tampilan[0][0].length != 0 && tampilan[0][0] != "nothing") {
+        var object =
+            tampilan[0][2].toString().substring(10, tampilan[0][2].length - 2);
+        print("Night!");
+        runApp(MaterialApp(
+          title: 'Navigation Basics',
+          theme: ThemeData(
+            brightness: Brightness.dark,
+            primaryColor: Colors.grey,
+            // ),
+          ),
+          home:
+              HomePage(tampilan[0][0], tampilan[0][1], ObjectId.parse(object)),
+        ));
+      } else {
+        runApp(MaterialApp(
+          title: 'Navigation Basics',
+          theme: ThemeData(
+            brightness: Brightness.dark,
+            primaryColor: Colors.grey,
+          ),
+          home: Login(),
+        ));
+      }
+    } catch (e) {
+      runApp(MaterialApp(
+        title: 'Navigation Basics',
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          primaryColor: Colors.grey,
+        ),
+        home: Login(),
+      ));
+    }
+  }
 }

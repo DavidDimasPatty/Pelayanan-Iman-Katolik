@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 
@@ -22,43 +26,69 @@ class tiketSayaDetailKomuni {
       this.idGereja, this.idUserKomuni);
 
   Future<List> callDb() async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
-    msg.setContent([
-      ["cari Detail Jadwal Komuni"],
-      [idKomuni],
-      [idGereja]
-    ]);
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenPencarian");
+    // msg.setContent([
+    //   ["cari Detail Jadwal Komuni"],
+    //   [idKomuni],
+    //   [idGereja]
+    // ]);
 
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
-    tiket = await AgenPage().receiverTampilan();
+    // await msg.send().then((res) async {
+    //   print("masuk");
+    //   print(await AgenPage().receiverTampilan());
+    // });
+    // await Future.delayed(Duration(seconds: 1));
+    // tiket = await AgenPage().receiverTampilan();
 
-    return tiket;
+    // return tiket;
+
     // tiket = await MongoDatabase.jadwalBaptis(idBaptis);
     // return tiket;
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
+        Tasks('cari pelayanan', ["komuni", "detail", idKomuni, idGereja]));
+
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    var hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+
+    await completer.future;
+    return await hasil;
   }
 
   cancelDaftar(kapasitas, context) async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenPendaftaran");
-    msg.setContent([
-      ["cancel Komuni"],
-      [idUserKomuni],
-      [idKomuni],
-      [kapasitas]
-    ]);
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenPendaftaran");
+    // msg.setContent([
+    //   ["cancel Komuni"],
+    //   [idUserKomuni],
+    //   [idKomuni],
+    //   [kapasitas]
+    // ]);
 
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
-    cancelKomuni = await AgenPage().receiverTampilan();
-    if (cancelKomuni == 'oke') {
+    // await msg.send().then((res) async {
+    //   print("masuk");
+    //   print(await AgenPage().receiverTampilan());
+    // });
+    // await Future.delayed(Duration(seconds: 1));
+    // cancelKomuni = await AgenPage().receiverTampilan();
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages(
+        'Agent Page',
+        'Agent Pendaftaran',
+        "REQUEST",
+        Tasks(
+            'cancel pelayanan', ["komuni", idUserKomuni, idKomuni, kapasitas]));
+
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    var hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+
+    await completer.future;
+    if (hasil == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Cancel Komuni",
           toastLength: Toast.LENGTH_SHORT,

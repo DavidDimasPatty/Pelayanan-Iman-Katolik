@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/sakramen/perkawinan/perkawinan.dart';
@@ -67,22 +71,33 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
   }
 
   Future<List> callDb() async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
-    msg.setContent([
-      ["cari Detail Imam"],
-      [idImam],
-      [idGereja]
-    ]);
-    List k = [];
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
-    k = await AgenPage().receiverTampilan();
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenPencarian");
+    // msg.setContent([
+    //   ["cari Detail Imam"],
+    //   [idImam],
+    //   [idGereja]
+    // ]);
+    // List k = [];
+    // await msg.send().then((res) async {
+    //   print("masuk");
+    //   print(await AgenPage().receiverTampilan());
+    // });
+    // await Future.delayed(Duration(seconds: 1));
+    // k = await AgenPage().receiverTampilan();
 
-    return k;
+    // return k;
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
+        Tasks('cari pelayanan', ["perkawinan", "detail", idGereja]));
+
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    var hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+
+    await completer.future;
+    return await hasil;
   }
 
   void submitForm(
@@ -97,30 +112,54 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
       // var add = await MongoDatabase.addPemberkatan(idUser, nama, paroki,
       //     lingkungan, notelp, alamat, jenis, tanggal, idGereja, note, idImam);
 
-      Messages msg = new Messages();
-      msg.addReceiver("agenPendaftaran");
-      msg.setContent([
-        ["add Perkawinan"],
-        [idUser],
-        [namap],
-        [namaw],
-        [notelp],
-        [alamat],
-        [email],
-        [tanggal],
-        [note],
-        [idGereja],
-        [idImam],
-      ]);
+      // Messages msg = new Messages();
+      // msg.addReceiver("agenPendaftaran");
+      // msg.setContent([
+      //   ["add Perkawinan"],
+      //   [idUser],
+      //   [namap],
+      //   [namaw],
+      //   [notelp],
+      //   [alamat],
+      //   [email],
+      //   [tanggal],
+      //   [note],
+      //   [idGereja],
+      //   [idImam],
+      // ]);
 
-      await msg.send().then((res) async {
-        print("masuk");
-        print(await AgenPage().receiverTampilan());
-      });
-      await Future.delayed(Duration(seconds: 1));
-      var daftarmisa = await AgenPage().receiverTampilan();
+      // await msg.send().then((res) async {
+      //   print("masuk");
+      //   print(await AgenPage().receiverTampilan());
+      // });
+      // await Future.delayed(Duration(seconds: 1));
+      // var daftarmisa = await AgenPage().receiverTampilan();
+      Completer<void> completer = Completer<void>();
+      Messages message = Messages(
+          'Agent Page',
+          'Agent Pendaftaran',
+          "REQUEST",
+          Tasks('enroll pelayanan', [
+            "perkawinan",
+            idUser,
+            namap,
+            namaw,
+            notelp,
+            alamat,
+            email,
+            tanggal,
+            note,
+            idGereja,
+            idImam
+          ]));
 
-      if (daftarmisa == 'oke') {
+      MessagePassing messagePassing = MessagePassing();
+      var data = await messagePassing.sendMessage(message);
+      var hasil = await await AgentPage.getDataPencarian();
+      completer.complete();
+
+      await completer.future;
+      if (hasil == 'oke') {
         Fluttertoast.showToast(
             msg: "Berhasil Mendaftar Perkawinan",
             toastLength: Toast.LENGTH_SHORT,

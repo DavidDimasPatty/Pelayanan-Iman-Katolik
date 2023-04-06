@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -5,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/FadeAnimation.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/login.dart';
@@ -76,25 +80,41 @@ class SignUp extends StatelessWidget {
       } else if (emailValid == true &&
           namaValid == true &&
           passwordController.text == repasswordController.text) {
-        Messages msg = new Messages();
-        msg.addReceiver("agenAkun");
-        msg.setContent([
-          ["add User"],
-          [nameController.text],
-          [emailController.text],
-          [passwordController.text],
-        ]);
+        // Messages msg = new Messages();
+        // msg.addReceiver("agenAkun");
+        // msg.setContent([
+        //   ["add User"],
+        //   [nameController.text],
+        //   [emailController.text],
+        //   [passwordController.text],
+        // ]);
 
-        await msg.send().then((res) async {
-          print("masuk");
-          print(await AgenPage().receiverTampilan());
-        });
-        await Future.delayed(Duration(seconds: 1));
-        var add = await AgenPage().receiverTampilan();
+        // await msg.send().then((res) async {
+        //   print("masuk");
+        //   print(await AgenPage().receiverTampilan());
+        // });
+        // await Future.delayed(Duration(seconds: 1));
+        // var add = await AgenPage().receiverTampilan();
         // var add = await MongoDatabase.addUser(
         //     nameController.text, emailController.text, passwordController.text);
+        Completer<void> completer = Completer<void>();
+        Messages message = Messages(
+            'Agent Page',
+            'Agent Akun',
+            "REQUEST",
+            Tasks('sign up', [
+              nameController.text,
+              emailController.text,
+              passwordController.text
+            ]));
 
-        if (add == "nama") {
+        MessagePassing messagePassing = MessagePassing();
+        var data = await messagePassing.sendMessage(message);
+        var hasil = await await AgentPage.getDataPencarian();
+        completer.complete();
+
+        await completer.future;
+        if (hasil == "nama") {
           nameController.text = "";
           Fluttertoast.showToast(
               msg: "Nama Sudah Digunakan",
@@ -106,7 +126,7 @@ class SignUp extends StatelessWidget {
               fontSize: 16.0);
           emailController.clear();
           passwordController.clear();
-        } else if (add == "email") {
+        } else if (hasil == "email") {
           emailController.text = "";
           Fluttertoast.showToast(
               msg: "Email Sudah Digunakan",
@@ -118,7 +138,7 @@ class SignUp extends StatelessWidget {
               fontSize: 16.0);
           emailController.clear();
           passwordController.clear();
-        } else if (add == 'oke') {
+        } else if (hasil == 'oke') {
           Fluttertoast.showToast(
               msg: "Berhasil Sign Up",
               toastLength: Toast.LENGTH_SHORT,

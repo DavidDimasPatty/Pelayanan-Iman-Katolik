@@ -186,7 +186,7 @@ class _Profile extends State<Profile> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: <Widget>[
-                                            if (snapshot.data[0][0][0]
+                                            if (snapshot.data[0][0]
                                                     ['picture'] ==
                                                 null)
                                               CircleAvatar(
@@ -195,12 +195,12 @@ class _Profile extends State<Profile> {
                                                     Colors.greenAccent,
                                                 radius: 80.0,
                                               ),
-                                            if (snapshot.data[0][0][0]
+                                            if (snapshot.data[0][0]
                                                     ['picture'] !=
                                                 null)
                                               CircleAvatar(
                                                 backgroundImage: NetworkImage(
-                                                    snapshot.data[0][0][0]
+                                                    snapshot.data[0][0]
                                                         ['picture']),
                                                 backgroundColor:
                                                     Colors.greenAccent,
@@ -210,7 +210,7 @@ class _Profile extends State<Profile> {
                                               height: 10.0,
                                             ),
                                             Text(
-                                              snapshot.data[0][0][0]['name'],
+                                              snapshot.data[0][0]['name'],
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 24.0,
@@ -254,15 +254,29 @@ class _Profile extends State<Profile> {
                                                           SizedBox(
                                                             height: 5.0,
                                                           ),
-                                                          Text(
-                                                            snapshot.data[1][0]
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                              fontSize: 20.0,
-                                                              color: Colors
-                                                                  .pinkAccent,
+                                                          if (snapshot
+                                                                  .data[1] ==
+                                                              null)
+                                                            Text(
+                                                              "0",
+                                                              style: TextStyle(
+                                                                fontSize: 20.0,
+                                                                color: Colors
+                                                                    .pinkAccent,
+                                                              ),
                                                             ),
-                                                          ),
+                                                          if (snapshot
+                                                                  .data[1] !=
+                                                              null)
+                                                            Text(
+                                                              snapshot.data[1]
+                                                                  .toString(),
+                                                              style: TextStyle(
+                                                                fontSize: 20.0,
+                                                                color: Colors
+                                                                    .pinkAccent,
+                                                              ),
+                                                            ),
                                                         ],
                                                       ),
                                                     ),
@@ -328,7 +342,7 @@ class _Profile extends State<Profile> {
                                           ),
                                         ),
                                         Text(
-                                          snapshot.data[0][0][0]['email'],
+                                          snapshot.data[0][0]['email'],
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w700,
@@ -354,7 +368,7 @@ class _Profile extends State<Profile> {
                                           ),
                                         ),
                                         Text(
-                                          snapshot.data[0][0][0]['alamat'],
+                                          snapshot.data[0][0]['alamat'],
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w700,
@@ -380,7 +394,7 @@ class _Profile extends State<Profile> {
                                           ),
                                         ),
                                         Text(
-                                          snapshot.data[0][0][0]['paroki'],
+                                          snapshot.data[0][0]['paroki'],
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w700,
@@ -406,7 +420,7 @@ class _Profile extends State<Profile> {
                                           ),
                                         ),
                                         Text(
-                                          snapshot.data[0][0][0]['lingkungan'],
+                                          snapshot.data[0][0]['lingkungan'],
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w700,
@@ -432,7 +446,7 @@ class _Profile extends State<Profile> {
                                           ),
                                         ),
                                         Text(
-                                          snapshot.data[0][0][0]['notelp'],
+                                          snapshot.data[0][0]['notelp'],
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.w700,

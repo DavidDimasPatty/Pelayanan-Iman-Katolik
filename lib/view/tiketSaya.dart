@@ -63,8 +63,11 @@ class _tiketSaya extends State<tiketSaya> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    completer.complete();
+
     var hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+
+    await completer.future;
     return hasil;
   }
 
@@ -124,7 +127,7 @@ class _tiketSaya extends State<tiketSaya> {
                               style: TextStyle(
                                   color: Colors.black, fontSize: 23.0),
                             )),
-                        if (snapshot.data[0][0].length == 0)
+                        if (snapshot.data[0].length == 0)
                           Padding(
                               padding: EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 8),
@@ -133,8 +136,8 @@ class _tiketSaya extends State<tiketSaya> {
                                 style: TextStyle(
                                     color: Colors.grey, fontSize: 15.0),
                               )),
-                        if (snapshot.data[0][0].length != 0)
-                          for (var i in snapshot.data[0][0])
+                        if (snapshot.data[0].length != 0)
+                          for (var i in snapshot.data[0])
                             InkWell(
                                 borderRadius: new BorderRadius.circular(24),
                                 onTap: () {
@@ -206,7 +209,7 @@ class _tiketSaya extends State<tiketSaya> {
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 23.0),
                                 )),
-                            if (snapshot.data[1][0].length == 0)
+                            if (snapshot.data[1].length == 0)
                               Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 8),
@@ -215,8 +218,8 @@ class _tiketSaya extends State<tiketSaya> {
                                     style: TextStyle(
                                         color: Colors.grey, fontSize: 15.0),
                                   )),
-                            if (snapshot.data[1][0].length != 0)
-                              for (var i in snapshot.data[1][0])
+                            if (snapshot.data[1].length != 0)
+                              for (var i in snapshot.data[1])
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
@@ -300,7 +303,7 @@ class _tiketSaya extends State<tiketSaya> {
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 23.0),
                                 )),
-                            if (snapshot.data[2][0].length == 0)
+                            if (snapshot.data[2].length == 0)
                               Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 8),
@@ -309,7 +312,7 @@ class _tiketSaya extends State<tiketSaya> {
                                     style: TextStyle(
                                         color: Colors.grey, fontSize: 15.0),
                                   )),
-                            if (snapshot.data[2][0].length != 0)
+                            if (snapshot.data[2].length != 0)
                               for (var i in snapshot.data[2][0])
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
@@ -392,7 +395,7 @@ class _tiketSaya extends State<tiketSaya> {
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 20.0),
                               )),
-                          if (snapshot.data[3][0].length == 0)
+                          if (snapshot.data[3].length == 0)
                             Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 8),
@@ -401,8 +404,8 @@ class _tiketSaya extends State<tiketSaya> {
                                   style: TextStyle(
                                       color: Colors.grey, fontSize: 15.0),
                                 )),
-                          if (snapshot.data[3][0].length != 0)
-                            for (var i in snapshot.data[3][0])
+                          if (snapshot.data[3].length != 0)
+                            for (var i in snapshot.data[3])
                               InkWell(
                                   borderRadius: new BorderRadius.circular(24),
                                   onTap: () {
@@ -475,7 +478,7 @@ class _tiketSaya extends State<tiketSaya> {
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 23.0),
                                   )),
-                              if (snapshot.data[4][0].length == 0)
+                              if (snapshot.data[4].length == 0)
                                 Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 8),
@@ -484,8 +487,8 @@ class _tiketSaya extends State<tiketSaya> {
                                       style: TextStyle(
                                           color: Colors.grey, fontSize: 15.0),
                                     )),
-                              if (snapshot.data[4][0].length != 0)
-                                for (var i in snapshot.data[4][0])
+                              if (snapshot.data[4].length != 0)
+                                for (var i in snapshot.data[4])
                                   InkWell(
                                       borderRadius:
                                           new BorderRadius.circular(24),
