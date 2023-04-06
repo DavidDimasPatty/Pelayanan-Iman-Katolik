@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/sakramen/baptis/detailDaftarBaptis.dart';
@@ -26,27 +30,38 @@ class _Baptis extends State<Baptis> {
   var distance;
   var names;
   var emails;
-  List daftarGereja = [];
+  List hasil = [];
 
   List dummyTemp = [];
   final idUser;
   _Baptis(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
-    msg.setContent([
-      ["cari Baptis"]
-    ]);
-    List k = [];
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
-    k = await AgenPage().receiverTampilan();
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenPencarian");
+    // msg.setContent([
+    //   ["cari Baptis"]
+    // ]);
+    // List k = [];
+    // await msg.send().then((res) async {
+    //   print("masuk");
+    //   print(await AgenPage().receiverTampilan());
+    // });
+    // await Future.delayed(Duration(seconds: 1));
+    // k = await AgenPage().receiverTampilan();
 
-    return k;
+    // return k;
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
+        Tasks('cari pelayanan', ["baptis", "general"]));
+
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+
+    await completer.future;
+    return await hasil;
   }
 
   @override
@@ -54,7 +69,7 @@ class _Baptis extends State<Baptis> {
     super.initState();
     callDb().then((result) {
       setState(() {
-        daftarGereja.addAll(result);
+        hasil.addAll(result);
         dummyTemp.addAll(result);
       });
     });
@@ -87,14 +102,14 @@ class _Baptis extends State<Baptis> {
         }
       }
       setState(() {
-        daftarGereja.clear();
-        daftarGereja.addAll(listOMaps);
+        hasil.clear();
+        hasil.addAll(listOMaps);
       });
-      return daftarGereja;
+      return hasil;
     } else {
       setState(() {
-        daftarGereja.clear();
-        daftarGereja.addAll(dummyTemp);
+        hasil.clear();
+        hasil.addAll(dummyTemp);
       });
     }
   }
@@ -103,9 +118,9 @@ class _Baptis extends State<Baptis> {
     setState(() {
       callDb().then((result) {
         setState(() {
-          daftarGereja.clear();
+          hasil.clear();
           dummyTemp.clear();
-          daftarGereja.addAll(result);
+          hasil.addAll(result);
           dummyTemp.addAll(result);
           filterSearchResults(editingController.text);
         });
@@ -177,7 +192,7 @@ class _Baptis extends State<Baptis> {
                 builder: (context, AsyncSnapshot snapshot) {
                   try {
                     return Column(children: [
-                      for (var i in daftarGereja)
+                      for (var i in hasil)
                         if (i['kapasitas'] <= 0)
                           InkWell(
                             borderRadius: new BorderRadius.circular(24),
@@ -253,7 +268,7 @@ class _Baptis extends State<Baptis> {
                                       }),
                                 ])),
                           ),
-                      for (var i in daftarGereja)
+                      for (var i in hasil)
                         if (i['kapasitas'] > 0)
                           InkWell(
                             borderRadius: new BorderRadius.circular(24),

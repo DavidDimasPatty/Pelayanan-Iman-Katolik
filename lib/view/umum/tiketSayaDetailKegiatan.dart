@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 
@@ -11,7 +15,7 @@ class tiketSayaDetailKegiatan {
   var names;
   var idUser;
   var emails;
-  var tiketGereja;
+  var hasil;
   var tiket;
   var idUmum;
   var idUserUmum;
@@ -20,41 +24,53 @@ class tiketSayaDetailKegiatan {
       this.names, this.emails, this.idUser, this.idUserUmum, this.idUmum);
 
   Future<List> callDb() async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
-    msg.setContent([
-      ["cari Detail Jadwal Umum"],
-      [idUmum]
-    ]);
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenPencarian");
+    // msg.setContent([
+    //   ["cari Detail Jadwal Umum"],
+    //   [idUmum]
+    // ]);
 
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
-    tiket = await AgenPage().receiverTampilan();
+    // await msg.send().then((res) async {
+    //   print("masuk");
+    //   print(await AgenPage().receiverTampilan());
+    // });
+    // await Future.delayed(Duration(seconds: 1));
+    // tiket = await AgenPage().receiverTampilan();
 
-    return tiket;
+    // return tiket;
     // tiket = await MongoDatabase.jadwalBaptis(idBaptis);
     // return tiket;
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
+        Tasks('cari pelayanan', ["umum", "detail", idUmum]));
+
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+
+    await completer.future;
+    return await hasil;
   }
 
   cancelDaftar(kapasitas, context) async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenPendaftaran");
-    msg.setContent([
-      ["cancel Umum"],
-      [idUserUmum],
-      [idUmum],
-      [kapasitas]
-    ]);
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenPendaftaran");
+    // msg.setContent([
+    //   ["cancel Umum"],
+    //   [idUserUmum],
+    //   [idUmum],
+    //   [kapasitas]
+    // ]);
 
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
-    cancelUmum = await AgenPage().receiverTampilan();
+    // await msg.send().then((res) async {
+    //   print("masuk");
+    //   print(await AgenPage().receiverTampilan());
+    // });
+    // await Future.delayed(Duration(seconds: 1));
+    // cancelUmum = await AgenPage().receiverTampilan();
+
     if (cancelUmum == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Cancel Kegiatan",

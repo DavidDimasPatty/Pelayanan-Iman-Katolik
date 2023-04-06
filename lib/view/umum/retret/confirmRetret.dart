@@ -33,21 +33,21 @@ class confirmRetret {
   }
 
   Future daftar(idKegiatan, idUser, kapasitas, context) async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenPendaftaran");
-    msg.setContent([
-      ["enroll Kegiatan"],
-      [idKegiatan],
-      [idUser],
-      [kapasitas]
-    ]);
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenPendaftaran");
+    // msg.setContent([
+    //   ["enroll Kegiatan"],
+    //   [idKegiatan],
+    //   [idUser],
+    //   [kapasitas]
+    // ]);
 
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 2));
-    var daftarmisa = await AgenPage().receiverTampilan();
+    // await msg.send().then((res) async {
+    //   print("masuk");
+    //   print(await AgenPage().receiverTampilan());
+    // });
+    // await Future.delayed(Duration(seconds: 2));
+    // var daftarmisa = await AgenPage().receiverTampilan();
 
     if (daftarmisa == 'oke') {
       Fluttertoast.showToast(

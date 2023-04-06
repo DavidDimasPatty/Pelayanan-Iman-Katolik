@@ -1281,7 +1281,10 @@ class AgentPencarian extends Agent {
     }
 
     ////PERKAWINAN atau SAKRAMENTALI atau TOBAT atau PERMINYAKAN
-    else if (data[0] == "perkawinan" || data[0] == "sakramentali") {
+    else if (data[0] == "perkawinan" ||
+        data[0] == "sakramentali" ||
+        data[0] == "tobat" ||
+        data[0] == "perminyakan") {
       String status = "";
       if (data[0] == "tobat") {
         pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);

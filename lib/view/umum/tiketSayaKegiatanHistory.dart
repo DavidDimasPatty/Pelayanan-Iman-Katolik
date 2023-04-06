@@ -41,21 +41,21 @@ class tiketSayaKegiatanHistory {
   }
 
   cancelDaftar(kapasitas, context) async {
-    Messages msg = new Messages();
-    msg.addReceiver("agenPencarian");
-    msg.setContent([
-      ["cancel Umum"],
-      [idUserUmum],
-      [idUmum],
-      [kapasitas]
-    ]);
+    // Messages msg = new Messages();
+    // msg.addReceiver("agenPencarian");
+    // msg.setContent([
+    //   ["cancel Umum"],
+    //   [idUserUmum],
+    //   [idUmum],
+    //   [kapasitas]
+    // ]);
 
-    await msg.send().then((res) async {
-      print("masuk");
-      print(await AgenPage().receiverTampilan());
-    });
-    await Future.delayed(Duration(seconds: 1));
-    cancelUmum = await AgenPage().receiverTampilan();
+    // await msg.send().then((res) async {
+    //   print("masuk");
+    //   print(await AgenPage().receiverTampilan());
+    // });
+    // await Future.delayed(Duration(seconds: 1));
+    // cancelUmum = await AgenPage().receiverTampilan();
     if (cancelUmum == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Cancel Kegiatan",
