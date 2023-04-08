@@ -32,7 +32,7 @@ class _Perkawinan extends State<Perkawinan> {
   var names;
   var emails;
   List hasil = [];
-
+  StreamController _controller = StreamController();
   List dummyTemp = [];
   final idUser;
   _Perkawinan(this.names, this.emails, this.idUser);
@@ -58,11 +58,11 @@ class _Perkawinan extends State<Perkawinan> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    hasil = await await AgentPage.getDataPencarian();
+    var hasilPencarian = await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
-    return await hasil;
+    return await hasilPencarian;
   }
 
   @override
@@ -72,6 +72,7 @@ class _Perkawinan extends State<Perkawinan> {
       setState(() {
         hasil.addAll(result);
         dummyTemp.addAll(result);
+        _controller.add(result);
       });
     });
   }
@@ -116,18 +117,7 @@ class _Perkawinan extends State<Perkawinan> {
   }
 
   Future pullRefresh() async {
-    setState(() {
-      callDb().then((result) {
-        setState(() {
-          hasil.clear();
-          dummyTemp.clear();
-          hasil.addAll(result);
-          dummyTemp.addAll(result);
-          filterSearchResults(editingController.text);
-        });
-      });
-      ;
-    });
+    callDb();
   }
 
   TextEditingController editingController = TextEditingController();
@@ -188,9 +178,20 @@ class _Perkawinan extends State<Perkawinan> {
             ),
 
             /////////
-            FutureBuilder(
-                future: callDb(),
-                builder: (context, AsyncSnapshot snapshot) {
+            StreamBuilder(
+                stream: _controller.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error: ${snapshot.error}'),
+                    );
+                  }
+
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
                   try {
                     return Column(children: [
                       for (var i in hasil)

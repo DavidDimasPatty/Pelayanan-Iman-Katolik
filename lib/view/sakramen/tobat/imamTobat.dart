@@ -31,7 +31,7 @@ class _ImamTobat extends State<ImamTobat> {
   var emails;
   var distance;
   List hasil = [];
-
+  StreamController _controller = StreamController();
   List dummyTemp = [];
   final idUser;
   final idGereja;
@@ -59,11 +59,11 @@ class _ImamTobat extends State<ImamTobat> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    hasil = await await AgentPage.getDataPencarian();
+    var hasilPencarian = await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
-    return await hasil;
+    return await hasilPencarian;
   }
 
   @override
@@ -73,6 +73,7 @@ class _ImamTobat extends State<ImamTobat> {
       setState(() {
         hasil.addAll(result);
         dummyTemp.addAll(result);
+        _controller.add(result);
       });
     });
   }
@@ -99,18 +100,7 @@ class _ImamTobat extends State<ImamTobat> {
   }
 
   Future pullRefresh() async {
-    setState(() {
-      callDb().then((result) {
-        setState(() {
-          hasil.clear();
-          dummyTemp.clear();
-          hasil.addAll(result);
-          dummyTemp.addAll(result);
-          filterSearchResults(editingController.text);
-        });
-      });
-      ;
-    });
+    callDb();
   }
 
   TextEditingController editingController = TextEditingController();
@@ -171,9 +161,20 @@ class _ImamTobat extends State<ImamTobat> {
             ),
 
             /////////
-            FutureBuilder(
-                future: callDb(),
-                builder: (context, AsyncSnapshot snapshot) {
+            StreamBuilder(
+                stream: _controller.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error: ${snapshot.error}'),
+                    );
+                  }
+
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
                   try {
                     return Column(children: [
                       for (var i in hasil)

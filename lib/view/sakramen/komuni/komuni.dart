@@ -32,6 +32,7 @@ class _Komuni extends State<Komuni> {
   List hasil = [];
   List dummyTemp = [];
   final idUser;
+  StreamController _controller = StreamController();
   _Komuni(this.names, this.emails, this.idUser);
 
   Future<List> callDb() async {
@@ -55,11 +56,23 @@ class _Komuni extends State<Komuni> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    hasil = await AgentPage.getDataPencarian();
+    var hasilPencarian = await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
-    return await hasil;
+    return await hasilPencarian;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    callDb().then((result) {
+      setState(() {
+        hasil.addAll(result);
+        dummyTemp.addAll(result);
+        _controller.add(result);
+      });
+    });
   }
 
   Future jarak(lat, lang) async {
@@ -77,17 +90,6 @@ class _Komuni extends State<Komuni> {
     }
     return distance;
   }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   callDb().then((result) {
-  //     setState(() {
-  //       hasil.addAll(result);
-  //       dummyTemp.addAll(result);
-  //     });
-  //   });
-  // }
 
   filterSearchResults(String query) {
     if (query.isNotEmpty) {
@@ -113,18 +115,7 @@ class _Komuni extends State<Komuni> {
   }
 
   Future pullRefresh() async {
-    setState(() {
-      callDb().then((result) {
-        setState(() {
-          hasil.clear();
-          dummyTemp.clear();
-          hasil.addAll(result);
-          dummyTemp.addAll(result);
-          filterSearchResults(editingController.text);
-        });
-      });
-      ;
-    });
+    callDb();
   }
 
   TextEditingController editingController = TextEditingController();
@@ -185,9 +176,20 @@ class _Komuni extends State<Komuni> {
             ),
 
             /////////
-            FutureBuilder(
-                future: callDb(),
-                builder: (context, AsyncSnapshot snapshot) {
+            StreamBuilder(
+                stream: _controller.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error: ${snapshot.error}'),
+                    );
+                  }
+
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
                   try {
                     return Column(children: [
                       for (var i in hasil)

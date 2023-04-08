@@ -30,7 +30,7 @@ class _Pemberkatan extends State<Pemberkatan> {
   var emails;
 
   List hasil = [];
-
+  StreamController _controller = StreamController();
   List dummyTemp = [];
   final idUser;
   _Pemberkatan(this.names, this.emails, this.idUser);
@@ -56,11 +56,11 @@ class _Pemberkatan extends State<Pemberkatan> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    hasil = await await AgentPage.getDataPencarian();
+    var hasilPencarian = await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
-    return await hasil;
+    return await hasilPencarian;
   }
 
   @override
@@ -70,6 +70,7 @@ class _Pemberkatan extends State<Pemberkatan> {
       setState(() {
         hasil.addAll(result);
         dummyTemp.addAll(result);
+        _controller.add(result);
       });
     });
   }
@@ -115,18 +116,7 @@ class _Pemberkatan extends State<Pemberkatan> {
   }
 
   Future pullRefresh() async {
-    setState(() {
-      callDb().then((result) {
-        setState(() {
-          hasil.clear();
-          dummyTemp.clear();
-          hasil.addAll(result);
-          dummyTemp.addAll(result);
-          filterSearchResults(editingController.text);
-        });
-      });
-      ;
-    });
+    callDb();
   }
 
   TextEditingController editingController = TextEditingController();
@@ -187,9 +177,20 @@ class _Pemberkatan extends State<Pemberkatan> {
             ),
 
             /////////
-            FutureBuilder(
-                future: callDb(),
-                builder: (context, AsyncSnapshot snapshot) {
+            StreamBuilder(
+                stream: _controller.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error: ${snapshot.error}'),
+                    );
+                  }
+
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
                   try {
                     print(snapshot.data);
                     return Column(children: [

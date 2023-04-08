@@ -948,13 +948,13 @@ class AgentPencarian extends Agent {
           if (timer.isActive) {
             timer.cancel();
             bool checkGoals = false;
+
             if (message.task.data.runtimeType == String &&
                 message.task.data == "failed") {
               MessagePassing messagePassing = MessagePassing();
               Messages msg = rejectTask(task, sender);
               messagePassing.sendMessage(msg);
             } else {
-              print(message.task.data.runtimeType);
               for (var g in _goals) {
                 if (g.request == p.goals &&
                     g.goals == message.task.data.runtimeType) {
@@ -1292,16 +1292,22 @@ class AgentPencarian extends Agent {
       }
       if (data[1] == "general") {
         final pipeline = AggregationPipelineBuilder()
-            .addStage(Lookup(
-                from: 'Gereja',
-                localField: 'idGereja',
-                foreignField: '_id',
-                as: as))
             .addStage(Match(where
                 .eq('status', 0)
                 .gt("kapasitas", 0)
                 .gte("jadwalTutup", DateTime.now())
                 .map['\$query']))
+            .addStage(Lookup(
+                from: 'Gereja',
+                localField: 'idGereja',
+                foreignField: '_id',
+                as: as))
+            // .addStage(Match({
+            //   '${as}.nama': {
+            //     '\$regex': '.*${data[2]}.*',
+            //     '\$options': 'i',
+            //   }
+            // }))
             .build();
         var conn =
             await pelayananCollection.aggregateToStream(pipeline).toList();

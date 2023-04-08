@@ -31,58 +31,45 @@ class _Baptis extends State<Baptis> {
   var names;
   var emails;
   List hasil = [];
-
+  StreamController _controller = StreamController();
   List dummyTemp = [];
   final idUser;
   _Baptis(this.names, this.emails, this.idUser);
 
-  Future<List> callDb() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari Baptis"]
-    // ]);
-    // List k = [];
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // k = await AgenPage().receiverTampilan();
-
-    // return k;
+  callDb() async {
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["baptis", "general"]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    hasil = await await AgentPage.getDataPencarian();
+    var hasilPencarian = await AgentPage.getDataPencarian();
+
     completer.complete();
 
     await completer.future;
-    print(hasil);
-    return await hasil;
+    return await hasilPencarian;
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   callDb().then((result) {
-  //     setState(() {
-  //       hasil.addAll(result);
-  //       dummyTemp.addAll(result);
-  //     });
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    callDb().then((result) {
+      setState(() {
+        hasil.addAll(result);
+        dummyTemp.addAll(result);
+        _controller.add(result);
+      });
+    });
+  }
 
   Future jarak(lat, lang) async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    print(position.toString());
+
     double distanceInMeters = Geolocator.distanceBetween(
         lat, lang, position.latitude, position.longitude);
-    print(distanceInMeters.toString());
+
     if (distanceInMeters > 1000) {
       distanceInMeters = distanceInMeters / 1000;
       distance = distanceInMeters.toInt().toString() + " KM";
@@ -95,6 +82,7 @@ class _Baptis extends State<Baptis> {
   filterSearchResults(String query) {
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
+
       for (var item in dummyTemp) {
         if (item['GerejaBaptis'][0]['nama']
             .toLowerCase()
@@ -106,7 +94,6 @@ class _Baptis extends State<Baptis> {
         hasil.clear();
         hasil.addAll(listOMaps);
       });
-      return hasil;
     } else {
       setState(() {
         hasil.clear();
@@ -116,25 +103,14 @@ class _Baptis extends State<Baptis> {
   }
 
   Future pullRefresh() async {
-    setState(() {
-      callDb().then((result) {
-        setState(() {
-          hasil.clear();
-          dummyTemp.clear();
-          hasil.addAll(result);
-          dummyTemp.addAll(result);
-          filterSearchResults(editingController.text);
-        });
-      });
-      ;
-    });
+    callDb();
   }
 
   TextEditingController editingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    editingController.addListener(() async {
-      await filterSearchResults(editingController.text);
+    editingController.addListener(() {
+      filterSearchResults(editingController.text);
     });
     return Scaffold(
       appBar: AppBar(
@@ -188,9 +164,20 @@ class _Baptis extends State<Baptis> {
             ),
 
             /////////
-            FutureBuilder(
-                future: callDb(),
-                builder: (context, AsyncSnapshot snapshot) {
+            StreamBuilder(
+                stream: _controller.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error: ${snapshot.error}'),
+                    );
+                  }
+
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
                   try {
                     return Column(children: [
                       for (var i in hasil)
