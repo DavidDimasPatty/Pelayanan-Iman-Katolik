@@ -1368,13 +1368,15 @@ class AgentPencarian extends Agent {
             Tasks('hasil pencarian', conn));
         return message;
       } else if (data[1] == "general") {
+        pelayananCollection = MongoDatabase.db.collection(GEREJA_COLLECTION);
         final pipeline = AggregationPipelineBuilder()
             .addStage(Lookup(
-                from: 'Gereja',
-                localField: 'idGereja',
-                foreignField: '_id',
+                from: 'imam',
+                localField: '_id',
+                foreignField: 'idGereja',
                 as: as))
-            .addStage(Match(where.eq('statusPerkawinan', 0).map['\$query']))
+            .addStage(Match(where.eq("banned", 0).map['\$query']))
+            .addStage(Match(where.eq('${as}.${status}', 0).map['\$query']))
             .build();
         var conn =
             await pelayananCollection.aggregateToStream(pipeline).toList();

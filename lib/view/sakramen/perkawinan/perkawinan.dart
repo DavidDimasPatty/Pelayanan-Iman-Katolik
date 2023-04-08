@@ -97,9 +97,7 @@ class _Perkawinan extends State<Perkawinan> {
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
       for (var item in dummyTemp) {
-        if (item['GerejaImam'][0]['nama']
-            .toLowerCase()
-            .contains(query.toLowerCase())) {
+        if (item['nama'].toLowerCase().contains(query.toLowerCase())) {
           listOMaps.add(item);
         }
       }
@@ -202,10 +200,7 @@ class _Perkawinan extends State<Perkawinan> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ImamPerkawinan(
-                                      names,
-                                      emails,
-                                      idUser,
-                                      i['GerejaImam'][0]['_id'])),
+                                      names, emails, idUser, i['_id'])),
                             );
                           },
                           child: Container(
@@ -223,7 +218,7 @@ class _Perkawinan extends State<Perkawinan> {
                                 //Color(Colors.blue);
 
                                 Text(
-                                  i['GerejaImam'][0]['nama'],
+                                  i['nama'],
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 26.0,
@@ -231,19 +226,18 @@ class _Perkawinan extends State<Perkawinan> {
                                   textAlign: TextAlign.left,
                                 ),
                                 Text(
-                                  'Paroki: ' + i['GerejaImam'][0]['paroki'],
+                                  'Paroki: ' + i['paroki'],
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),
                                 Text(
-                                  'Alamat: ' + i['GerejaImam'][0]['address'],
+                                  'Alamat: ' + i['address'],
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),
 
                                 FutureBuilder(
-                                    future: jarak(i['GerejaImam'][0]['lat'],
-                                        i['GerejaImam'][0]['lng']),
+                                    future: jarak(i['lat'], i['lng']),
                                     builder: (context, AsyncSnapshot snapshot) {
                                       try {
                                         return Column(children: <Widget>[

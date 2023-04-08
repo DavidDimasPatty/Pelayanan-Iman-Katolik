@@ -97,9 +97,7 @@ class _Perminyakan extends State<Perminyakan> {
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
       for (var item in dummyTemp) {
-        if (item['GerejaPerminyakan'][0]['nama']
-            .toLowerCase()
-            .contains(query.toLowerCase())) {
+        if (item['nama'].toLowerCase().contains(query.toLowerCase())) {
           listOMaps.add(item);
         }
       }
@@ -205,7 +203,7 @@ class _Perminyakan extends State<Perminyakan> {
                                         names,
                                         emails,
                                         idUser,
-                                        i['GerejaPerminyakan'][0]['_id'],
+                                        i['_id'],
                                       )),
                             );
                           },
@@ -230,7 +228,7 @@ class _Perminyakan extends State<Perminyakan> {
                                 //Color(Colors.blue);
 
                                 Text(
-                                  i['GerejaPerminyakan'][0]['nama'],
+                                  i['nama'],
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 26.0,
@@ -238,14 +236,12 @@ class _Perminyakan extends State<Perminyakan> {
                                   textAlign: TextAlign.left,
                                 ),
                                 Text(
-                                  'Paroki: ' +
-                                      i['GerejaPerminyakan'][0]['paroki'],
+                                  'Paroki: ' + i['paroki'],
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),
                                 Text(
-                                  'Alamat: ' +
-                                      i['GerejaPerminyakan'][0]['address'],
+                                  'Alamat: ' + i['address'],
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),
@@ -256,9 +252,7 @@ class _Perminyakan extends State<Perminyakan> {
                                       color: Colors.white, fontSize: 12),
                                 ),
                                 FutureBuilder(
-                                    future: jarak(
-                                        i['GerejaPerminyakan'][0]['lat'],
-                                        i['GerejaPerminyakan'][0]['lng']),
+                                    future: jarak(i['lat'], i['lng']),
                                     builder: (context, AsyncSnapshot snapshot) {
                                       try {
                                         return Column(children: <Widget>[

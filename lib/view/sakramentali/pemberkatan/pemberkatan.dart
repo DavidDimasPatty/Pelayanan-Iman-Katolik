@@ -60,6 +60,7 @@ class _Pemberkatan extends State<Pemberkatan> {
     completer.complete();
 
     await completer.future;
+
     return await hasilPencarian;
   }
 
@@ -79,7 +80,7 @@ class _Pemberkatan extends State<Pemberkatan> {
     var distance;
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    print(position.toString());
+
     double distanceInMeters = Geolocator.distanceBetween(
         lat, lang, position.latitude, position.longitude);
     print(distanceInMeters.toString());
@@ -96,9 +97,7 @@ class _Pemberkatan extends State<Pemberkatan> {
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
       for (var item in dummyTemp) {
-        if (item['GerejaImam'][0]['nama']
-            .toLowerCase()
-            .contains(query.toLowerCase())) {
+        if (item['nama'].toLowerCase().contains(query.toLowerCase())) {
           listOMaps.add(item);
         }
       }
@@ -192,7 +191,6 @@ class _Pemberkatan extends State<Pemberkatan> {
                     );
                   }
                   try {
-                    print(snapshot.data);
                     return Column(children: [
                       for (var i in hasil)
                         InkWell(
@@ -202,10 +200,7 @@ class _Pemberkatan extends State<Pemberkatan> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ImamPemberkatan(
-                                      names,
-                                      emails,
-                                      idUser,
-                                      i['GerejaImam'][0]['_id'])),
+                                      names, emails, idUser, i['_id'])),
                             );
                           },
                           child: Container(
@@ -229,7 +224,7 @@ class _Pemberkatan extends State<Pemberkatan> {
                                 //Color(Colors.blue);
 
                                 Text(
-                                  i['GerejaImam'][0]['nama'],
+                                  i['nama'],
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 26.0,
@@ -237,19 +232,18 @@ class _Pemberkatan extends State<Pemberkatan> {
                                   textAlign: TextAlign.left,
                                 ),
                                 Text(
-                                  'Paroki: ' + i['GerejaImam'][0]['paroki'],
+                                  'Paroki: ' + i['paroki'],
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),
                                 Text(
-                                  'Alamat: ' + i['GerejaImam'][0]['address'],
+                                  'Alamat: ' + i['address'],
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 12),
                                 ),
 
                                 FutureBuilder(
-                                    future: jarak(i['GerejaImam'][0]['lat'],
-                                        i['GerejaImam'][0]['lng']),
+                                    future: jarak(i['lat'], i['lng']),
                                     builder: (context, AsyncSnapshot snapshot) {
                                       try {
                                         return Column(children: <Widget>[
