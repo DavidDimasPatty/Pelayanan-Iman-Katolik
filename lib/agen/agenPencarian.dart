@@ -989,9 +989,55 @@ class AgentPencarian extends Agent {
         return cariTampilanHome(data, sender);
       case "check pendaftaran":
         return checkPendaftaran(data, sender);
+      case "cari profile":
+        return cariProfile(data, sender);
       default:
         return rejectTask(data.task, data.sender);
     }
+  }
+
+  Future<Messages> cariProfile(dynamic data, String sender) async {
+    var userKrismaCollection =
+        MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
+    var userBaptisCollection =
+        MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+    var userKomuniCollection =
+        MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+    var userPemberkatanCollection =
+        MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
+    var userKegiatanCollection =
+        MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+    var pemberkatanCollection =
+        MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+    var perkawinanCollection =
+        MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+    var count = 0;
+
+    var countKr = await userKrismaCollection
+        .find({'idUser': data[0], 'status': 0}).length;
+
+    var countB = await userBaptisCollection
+        .find({'idUser': data[0], 'status': 0}).length;
+    var countKo = await userKomuniCollection
+        .find({'idUser': data[0], 'status': 0}).length;
+    var countP = await userPemberkatanCollection
+        .find({'idUser': data, 'status': 0}).length;
+    var countKe = await userKegiatanCollection
+        .find({'idUser': data[0], 'status': 0}).length;
+    var countPem = await pemberkatanCollection
+        .find({'idUser': data[0], 'status': 0}).length;
+    var countPerk = await perkawinanCollection
+        .find({'idUser': data[0], 'status': 0}).length;
+
+    Messages message = Messages(
+        agentName,
+        sender,
+        "INFORM",
+        Tasks("hasil pencarian", [
+          data[1],
+          countKr + countB + countKo + countP + countKe + countPem + countPerk
+        ]));
+    return message;
   }
 
   Future<Messages> checkPendaftaran(dynamic data, String sender) async {
@@ -1135,8 +1181,8 @@ class AgentPencarian extends Agent {
   }
 
   Future<Messages> cariTampilanHome(dynamic data, String sender) async {
-    var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
-    var dataUser = await userCollection.find({'_id': data[0]}).toList();
+    // var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
+    // var dataUser = await userCollection.find({'_id': data[0]}).toList();
 
     var userKrismaCollection =
         MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
@@ -1261,11 +1307,11 @@ class AgentPencarian extends Agent {
       var conn =
           await jadwalCollection.find({'_id': hasil[0]['idGereja']}).toList();
       Messages message = Messages('Agent Pencarian', sender, "INFORM",
-          Tasks('hasil pencarian', [dataUser, conn, hasil, connGambar]));
+          Tasks('hasil pencarian', [data[1], conn, hasil, connGambar]));
       return message;
     } else {
       Messages message = Messages('Agent Pencarian', sender, "INFORM",
-          Tasks('hasil pencarian', [dataUser, null, hasil, connGambar]));
+          Tasks('hasil pencarian', [data[1], null, hasil, connGambar]));
       return message;
     }
   }
@@ -1524,6 +1570,7 @@ class AgentPencarian extends Agent {
       Plan("cari pelayanan", "REQUEST", _estimatedTime),
       Plan("cari tampilan home", "REQUEST", _estimatedTime),
       Plan("check pendaftaran", "REQUEST", _estimatedTime),
+      Plan("cari profile", "REQUEST", _estimatedTime),
     ];
     _goals = [
       Goals("cari pengumuman", List<Map<String, Object?>>, 2),
@@ -1532,6 +1579,7 @@ class AgentPencarian extends Agent {
       Goals("cari pelayanan", List<dynamic>, 2),
       Goals("cari tampilan home", List<dynamic>, 2),
       Goals("check pendaftaran", List<dynamic>, 2),
+      Goals("cari profile", List<dynamic>, 2),
       Goals("check pendaftaran", String, 2),
     ];
   }

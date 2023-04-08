@@ -386,6 +386,8 @@ class AgentAkun extends Agent {
         return cariUser(data, sender);
       case "cari profile":
         return cariProfile(data, sender);
+      case "cari tampilan home":
+        return cariTampilanHome(data, sender);
       case "edit profile":
         return EditProfile(data, sender);
       case "update notification":
@@ -508,41 +510,30 @@ class AgentAkun extends Agent {
   }
 
   Future<Messages> cariProfile(dynamic data, String sender) async {
-    var userKrismaCollection =
-        MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
-    var userBaptisCollection =
-        MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
-    var userKomuniCollection =
-        MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
-    var userPemberkatanCollection =
-        MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
-    var userKegiatanCollection =
-        MongoDatabase.db.collection(USER_UMUM_COLLECTION);
-    var count = 0;
-
-    var countKr =
-        await userKrismaCollection.find({'idUser': data, 'status': 0}).length;
-
-    var countB =
-        await userBaptisCollection.find({'idUser': data, 'status': 0}).length;
-    var countKo =
-        await userKomuniCollection.find({'idUser': data, 'status': 0}).length;
-    var countP = await userPemberkatanCollection
-        .find({'idUser': data, 'status': 0}).length;
-    var countKe =
-        await userKegiatanCollection.find({'idUser': data, 'status': 0}).length;
-
-    // return countKr + countB + countKo + countP + countKe;
-
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var conn = await userCollection.find({'_id': data}).toList();
 
+    Messages message2 = Messages(sender, 'Agent Pencarian', "REQUEST",
+        Tasks('cari profile', [data, conn]));
+    MessagePassing messagePassing2 = MessagePassing();
+    await messagePassing2.sendMessage(message2);
+
     Messages message = Messages(
-        'Agent Pencarian',
-        sender,
-        "INFORM",
-        Tasks("status modifikasi/ pencarian data akun",
-            [conn, countKr + countB + countKo + countP + countKe]));
+        agentName, sender, "INFORM", Tasks("wait agen pencarian", "wait"));
+    return message;
+  }
+
+  Future<Messages> cariTampilanHome(dynamic data, String sender) async {
+    var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
+    var conn = await userCollection.find({'_id': data}).toList();
+
+    Messages message2 = Messages(sender, 'Agent Pencarian', "REQUEST",
+        Tasks('cari tampilan home', [data, conn]));
+    MessagePassing messagePassing2 = MessagePassing();
+    await messagePassing2.sendMessage(message2);
+
+    Messages message = Messages(
+        agentName, sender, "INFORM", Tasks("wait agen pencarian", "wait"));
     return message;
   }
 
@@ -679,6 +670,7 @@ class AgentAkun extends Agent {
       Plan("login", "REQUEST", _estimatedTime),
       Plan("cari user", "REQUEST", _estimatedTime),
       Plan("cari profile", "REQUEST", _estimatedTime),
+      Plan("cari tampilan home", "REQUEST", _estimatedTime),
       Plan("edit profile", "REQUEST", _estimatedTime),
       Plan("update notification", "REQUEST", _estimatedTime),
       Plan("find password", "REQUEST", _estimatedTime),
@@ -690,6 +682,7 @@ class AgentAkun extends Agent {
       Goals("login", List<Map<String, Object?>>, 5),
       Goals("cari user", List<Map<String, Object?>>, 5),
       Goals("cari profile", List<dynamic>, 5),
+      Goals("cari tampilan home", List<dynamic>, 5),
       Goals("edit profile", String, 2),
       Goals("update notification", String, 2),
       Goals("find password", String, 2),

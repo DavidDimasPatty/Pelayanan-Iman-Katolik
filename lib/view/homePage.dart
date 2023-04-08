@@ -52,8 +52,8 @@ class _HomePage extends State<HomePage> {
 
   Future callTampilan() async {
     Completer<void> completer = Completer<void>();
-    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari tampilan home', [iduser]));
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
+        Tasks('cari tampilan home', iduser));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
