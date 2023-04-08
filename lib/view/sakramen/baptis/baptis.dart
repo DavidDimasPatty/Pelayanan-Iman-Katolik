@@ -61,6 +61,7 @@ class _Baptis extends State<Baptis> {
     completer.complete();
 
     await completer.future;
+    print(hasil);
     return await hasil;
   }
 

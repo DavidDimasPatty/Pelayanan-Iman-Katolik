@@ -51,7 +51,7 @@ class confirmBaptis {
     return await hasil;
   }
 
-  daftar(idBaptis, idUser, kapasitas, context) async {
+  Future daftar(idBaptis, idUser, kapasitas, context) async {
     // Messages msg = new Messages();
     // msg.addReceiver("agenPendaftaran");
     // msg.setContent([
@@ -66,15 +66,17 @@ class confirmBaptis {
     // var daftarmisa = await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pelayanan', ["baptis", "detail", idBaptis, idGereja]));
+        Tasks('check pendaftaran', ["baptis", idBaptis, idUser, kapasitas]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
-    completer.complete();
+    var hasilDaftar = await AgentPage.getDataPencarian();
 
+    completer.complete();
+    print(hasilDaftar);
     await completer.future;
-    if (hasil == 'oke') {
+
+    if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Mendaftar Baptis",
           toastLength: Toast.LENGTH_SHORT,
@@ -89,7 +91,7 @@ class confirmBaptis {
       );
     }
 
-    if (hasil == 'sudah') {
+    if (hasilDaftar == 'sudah') {
       Fluttertoast.showToast(
           msg: "Sudah Mendaftar Baptis ini",
           toastLength: Toast.LENGTH_SHORT,

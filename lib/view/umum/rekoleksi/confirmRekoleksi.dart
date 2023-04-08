@@ -48,17 +48,18 @@ class confirmRekoleksi {
 
   Future daftar(idKegiatan, idUser, kapasitas, context) async {
     Completer<void> completer = Completer<void>();
-    Messages message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST",
-        Tasks('enroll pelayanan', ["umum", idKegiatan, idUser, kapasitas]));
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
+        Tasks('check pendaftaran', ["umum", idKegiatan, idUser, kapasitas]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
-    completer.complete();
+    var hasilDaftar = await AgentPage.getDataPencarian();
 
+    completer.complete();
+    print(hasilDaftar);
     await completer.future;
 
-    if (hasil == 'oke') {
+    if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Mendaftar Rekoleksi",
           toastLength: Toast.LENGTH_SHORT,
@@ -75,7 +76,7 @@ class confirmRekoleksi {
       );
     }
 
-    if (hasil == 'sudah') {
+    if (hasilDaftar == 'sudah') {
       Fluttertoast.showToast(
           msg: "Sudah Mendaftar Kegiatan ini",
           toastLength: Toast.LENGTH_SHORT,

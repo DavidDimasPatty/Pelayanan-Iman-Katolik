@@ -149,7 +149,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
           'Agent Pendaftaran',
           "REQUEST",
           Tasks('enroll pelayanan', [
-            "perkawinan",
+            "sakramentali",
             idUser,
             nama,
             paroki,
@@ -232,6 +232,76 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              FutureBuilder<List>(
+                  future: callDb(),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    try {
+                      return Column(
+                        children: <Widget>[
+                          /////////
+                          ///
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            margin: EdgeInsets.symmetric(
+                                horizontal: 20.0, vertical: 5.0),
+                            clipBehavior: Clip.antiAlias,
+                            color: Colors.white,
+                            elevation: 20.0,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 7.0, vertical: 22.0),
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text(
+                                              "Aturan Pemberkatan Gereja: ",
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            Text(
+                                              snapshot.data[0]['pemberkatan'],
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 8.0,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30.0,
+                          ),
+
+                          /////////
+                        ],
+                      );
+                    } catch (e) {
+                      print(e);
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  }),
               Text(
                 "Nama Lengkap",
                 textAlign: TextAlign.left,

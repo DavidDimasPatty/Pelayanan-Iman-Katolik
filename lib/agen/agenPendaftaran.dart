@@ -630,12 +630,12 @@ class AgentPendaftaran extends Agent {
       update1 = await pelayananCollection.updateOne(
           where.eq('_id', data[1]), modify.set('kapasitas', data[3] - 1));
       if (update1.isSuccess && update2.isSuccess) {
-        Messages message = Messages(agentName, sender, "INFORM",
+        Messages message = Messages(agentName, "Agent Page", "INFORM",
             Tasks('status modifikasi data', "oke"));
 
         return message;
       } else {
-        Messages message = Messages(agentName, sender, "INFORM",
+        Messages message = Messages(agentName, "Agent Page", "INFORM",
             Tasks('status modifikasi data', "failed"));
         return message;
       }

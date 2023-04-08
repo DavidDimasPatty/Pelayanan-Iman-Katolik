@@ -987,8 +987,56 @@ class AgentPencarian extends Agent {
         return cariPelayanan(data, sender);
       case "cari tampilan home":
         return cariTampilanHome(data, sender);
+      case "check pendaftaran":
+        return checkPendaftaran(data, sender);
       default:
         return rejectTask(data.task, data.sender);
+    }
+  }
+
+  Future<Messages> checkPendaftaran(dynamic data, String sender) async {
+    var pelayananCollection;
+    String id = "";
+    if (data[0] == "baptis") {
+      pelayananCollection = MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+      id = "idBaptis";
+    }
+
+    if (data[0] == "komuni") {
+      pelayananCollection = MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+      id = "idKomuni";
+    }
+    if (data[0] == "krisma") {
+      pelayananCollection = MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
+      id = "idKrisma";
+    }
+    if (data[0] == "umum") {
+      pelayananCollection = MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+      id = "idKegiatan";
+    }
+
+    var hasil = await pelayananCollection
+        .find(where.eq(id, data[1]).eq("idUser", data[2]).eq("status", 0))
+        .length;
+
+    if (hasil == 0) {
+      Completer<void> completer = Completer<void>();
+      Messages message2 = Messages(sender, 'Agent Pendaftaran', "REQUEST",
+          Tasks('enroll pelayanan', data));
+      MessagePassing messagePassing2 = MessagePassing();
+      await messagePassing2.sendMessage(message2);
+
+      Messages message = Messages(
+          agentName, sender, "INFORM", Tasks('wait', "Wait agent pendaftaran"));
+      // Future.delayed(Duration(seconds: 1));
+      completer.complete();
+
+      await completer.future;
+      return await message;
+    } else {
+      Messages message = Messages('Agent Pencarian', sender, "INFORM",
+          Tasks('hasil pencarian', "sudah"));
+      return message;
     }
   }
 
@@ -1428,6 +1476,7 @@ class AgentPencarian extends Agent {
       Plan("cari jadwal pendaftaran", "REQUEST", _estimatedTime),
       Plan("cari pelayanan", "REQUEST", _estimatedTime),
       Plan("cari tampilan home", "REQUEST", _estimatedTime),
+      Plan("check pendaftaran", "REQUEST", _estimatedTime),
     ];
     _goals = [
       Goals("cari pengumuman", List<Map<String, Object?>>, 2),
@@ -1435,6 +1484,8 @@ class AgentPencarian extends Agent {
       Goals("cari pelayanan", List<Map<String, Object?>>, 2),
       Goals("cari pelayanan", List<dynamic>, 2),
       Goals("cari tampilan home", List<dynamic>, 2),
+      Goals("check pendaftaran", List<dynamic>, 2),
+      Goals("check pendaftaran", String, 2),
     ];
   }
 }

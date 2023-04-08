@@ -52,7 +52,7 @@ class confirmKrisma {
     return await hasil;
   }
 
-  daftar(idKrisma, idUser, kapasitas, context) async {
+  Future daftar(idKrisma, idUser, kapasitas, context) async {
     // Messages msg = new Messages();
     // msg.addReceiver("agenPendaftaran");
     // msg.setContent([
@@ -70,15 +70,16 @@ class confirmKrisma {
     // var daftarmisa = await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pelayanan', ["krisma", "detail", idKrisma, idGereja]));
+        Tasks('check pendaftaran', ["krisma", idKrisma, idUser, kapasitas]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
-    completer.complete();
+    var hasilDaftar = await AgentPage.getDataPencarian();
 
+    completer.complete();
+    print(hasilDaftar);
     await completer.future;
-    if (hasil == 'oke') {
+    if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Mendaftar Krisma",
           toastLength: Toast.LENGTH_SHORT,
@@ -94,7 +95,7 @@ class confirmKrisma {
                 detailDaftarKrisma(name, email, namaGereja, idUser, idGereja)),
       );
     }
-    if (hasil == 'sudah') {
+    if (hasilDaftar == 'sudah') {
       Fluttertoast.showToast(
           msg: "Sudah Mendaftar Krisma ini",
           toastLength: Toast.LENGTH_SHORT,

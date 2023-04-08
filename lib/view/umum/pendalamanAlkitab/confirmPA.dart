@@ -63,19 +63,19 @@ class confirmPA {
     // });
     // await Future.delayed(Duration(seconds: 2));
     // var daftarmisa = await AgenPage().receiverTampilan();
-
     Completer<void> completer = Completer<void>();
-    Messages message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST",
-        Tasks('enroll pelayanan', ["umum", idKegiatan, idUser, kapasitas]));
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
+        Tasks('check pendaftaran', ["umum", idKegiatan, idUser, kapasitas]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
-    completer.complete();
+    var hasilDaftar = await AgentPage.getDataPencarian();
 
+    completer.complete();
+    print(hasilDaftar);
     await completer.future;
 
-    if (hasil == 'oke') {
+    if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Mendaftar Pendalaman Alkitab",
           toastLength: Toast.LENGTH_SHORT,
@@ -91,7 +91,7 @@ class confirmPA {
                 detailDaftarPA(name, email, idUser, idKegiatan)),
       );
     }
-    if (hasil == 'sudah') {
+    if (hasilDaftar == 'sudah') {
       Fluttertoast.showToast(
           msg: "Sudah Mendaftar Kegiatan ini",
           toastLength: Toast.LENGTH_SHORT,

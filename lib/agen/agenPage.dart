@@ -176,7 +176,7 @@ class AgentPage extends Agent {
     return performTask();
   }
 
-  Future<dynamic> performTask() async {
+  Future performTask() async {
     Messages msg = _Message.last;
     String sender = _Sender.last;
     dynamic task = msg.task;
@@ -193,6 +193,10 @@ class AgentPage extends Agent {
   static Future getDataPencarian() async {
     return dataView.last;
   }
+
+  // waitData(data) async {
+  //   await Future.delayed(data);
+  // }
 
   Messages rejectTask(dynamic task, sender) {
     Messages message = Messages(
@@ -216,8 +220,7 @@ class AgentPage extends Agent {
           _estimatedTime), //come from agen Pencarian
       Plan(
           "status aplikasi", "INFORM", _estimatedTime), //come from agen Setting
-      Plan("status modifikasi/ pencarian data akun", "INFORM",
-          _estimatedTime), //come from agen Akun
+      Plan("status modifikasi/ pencarian data akun", "INFORM", _estimatedTime),
     ];
     _goals = [
       Goals("status modifikasi data", String, 5),
