@@ -368,11 +368,59 @@ class _HomePage extends State<HomePage> {
                                                                     .w300),
                                                       ),
                                                     if (snapshot.data[2][0]
+                                                            ['namaLengkap'] !=
+                                                        null)
+                                                      Text(
+                                                        'Pemberkatan',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 20.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300),
+                                                      ),
+                                                    if (snapshot.data[2][0]
+                                                            ['namaPria'] !=
+                                                        null)
+                                                      Text(
+                                                        'Perkawinan',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 20.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300),
+                                                      ),
+                                                    if (snapshot.data[2][0]
                                                             ['tanggalDaftar'] !=
                                                         null)
                                                       Text(
                                                         snapshot.data[2][0][
                                                                 'tanggalDaftar']
+                                                            .toString()
+                                                            .substring(0, 19),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w300),
+                                                      ),
+                                                    if (snapshot.data[2][0]
+                                                                ['tanggal'] !=
+                                                            null &&
+                                                        snapshot.data[2][0]
+                                                                ['idImam'] !=
+                                                            null)
+                                                      Text(
+                                                        snapshot.data[2][0]
+                                                                ['tanggal']
                                                             .toString()
                                                             .substring(0, 19),
                                                         textAlign:

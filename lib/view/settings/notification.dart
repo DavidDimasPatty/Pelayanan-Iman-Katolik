@@ -58,7 +58,7 @@ class _notifClass extends State<notification> {
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
     completer.complete();
-    var checknotif = await await AgentPage.getDataPencarian();
+    var checknotif = await AgentPage.getDataPencarian();
 
     await completer.future;
 
@@ -146,7 +146,7 @@ class _notifClass extends State<notification> {
                 builder: (context, AsyncSnapshot snapshot) {
                   try {
                     print(snapshot.data);
-                    switch1 = checknotif[0]['notifPG'];
+                    switch1 = snapshot.data[0]['notifPG'];
 
                     return Column(
                       children: <Widget>[
@@ -187,7 +187,7 @@ class _notifClass extends State<notification> {
                                   await updateNotifPg(switch1);
                                   // await callDb();
                                   setState(() {
-                                    switch1 = checknotif[0]['notifPG'];
+                                    switch1 = snapshot.data[0]['notifPG'];
                                   });
                                 });
                               },

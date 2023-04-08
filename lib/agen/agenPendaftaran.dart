@@ -728,12 +728,12 @@ class AgentPendaftaran extends Agent {
         id = "idKegiatan";
       }
 
-      update2 = await userPelayananCollection.updateOne(
+      update1 = await userPelayananCollection.updateOne(
           where.eq('_id', data[1]),
           modify
               .set('status', -1)
               .set("updatedAt", DateTime.now())
-              .set("updatedBy", data[1]));
+              .set("updatedBy", data[4]));
 
       update2 = await pelayananCollection.updateOne(
           where.eq('_id', data[2]), modify.set('kapasitas', data[3] + 1));
@@ -756,7 +756,7 @@ class AgentPendaftaran extends Agent {
             modify
                 .set('status', -2)
                 .set("updatedAt", DateTime.now())
-                .set("updatedBy", data[1]));
+                .set("updatedBy", data[2]));
       }
       if (data[0] == "perkawinan") {
         pelayananCollection =
@@ -766,7 +766,7 @@ class AgentPendaftaran extends Agent {
             modify
                 .set('status', -2)
                 .set("updatedAt", DateTime.now())
-                .set("updatedBy", data[1]));
+                .set("updatedBy", data[2]));
       }
       if (update1.isSuccess) {
         Messages message = Messages(agentName, "Agent Page", "INFORM",

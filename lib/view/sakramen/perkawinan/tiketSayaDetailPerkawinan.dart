@@ -11,25 +11,25 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 
 import '../../tiketSaya.dart';
 
-class tiketSayaDetailPemberkatan {
+class tiketSayaDetailPerkawinan {
   var names;
   var idUser;
   var emails;
   var tiket;
   var namaGereja;
-  var idPemberkatan;
+  var idPerkawinan;
   var cancelPemberkatan;
-  tiketSayaDetailPemberkatan(
-      this.names, this.emails, this.idUser, this.idPemberkatan);
+  tiketSayaDetailPerkawinan(
+      this.names, this.emails, this.idUser, this.idPerkawinan);
 
   Future callDb() async {
-    // tiket = await MongoDatabase.pemberkatanSpec(idPemberkatan);
+    // tiket = await MongoDatabase.pemberkatanSpec(idPerkawinan);
     // return tiket;
     // Messages msg = new Messages();
     // msg.addReceiver("agenPencarian");
     // msg.setContent([
     //   ["cari Detail Jadwal Pemberkatan"],
-    //   [idPemberkatan]
+    //   [idPerkawinan]
     // ]);
 
     // await msg.send().then((res) async {
@@ -44,7 +44,7 @@ class tiketSayaDetailPemberkatan {
     // return tiket;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pelayanan', ["sakramentali", "history", idPemberkatan]));
+        Tasks('cari pelayanan', ["perkawinan", "history", idPerkawinan]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -56,12 +56,12 @@ class tiketSayaDetailPemberkatan {
   }
 
   cancelDaftar(context) async {
-    // cancelPemberkatan = await MongoDatabase.cancelPemberkatan(idPemberkatan);
+    // cancelPemberkatan = await MongoDatabase.cancelPemberkatan(idPerkawinan);
     // Messages msg = new Messages();
     // msg.addReceiver("agenPendaftaran");
     // msg.setContent([
     //   ["cancel Pemberkatan"],
-    //   [idPemberkatan]
+    //   [idPerkawinan]
     // ]);
 
     // await msg.send().then((res) async {
@@ -73,7 +73,7 @@ class tiketSayaDetailPemberkatan {
     // cancelKrisma = await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST",
-        Tasks('cancel pelayanan', ["sakramentali", idPemberkatan, idUser]));
+        Tasks('cancel pelayanan', ["perkawinan", idPerkawinan, idUser]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -83,7 +83,7 @@ class tiketSayaDetailPemberkatan {
     await completer.future;
     if (hasil == 'oke') {
       Fluttertoast.showToast(
-          msg: "Berhasil Cancel Pemberkatan",
+          msg: "Berhasil Cancel Perkawinan",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
@@ -119,7 +119,7 @@ class tiketSayaDetailPemberkatan {
   }
 
   void showDialogBox(BuildContext context) async {
-    // await callInfoPembarkatan(idPemberkatan);
+    // await callInfoPembarkatan(idPerkawinan);
     showDialog<void>(
         context: context,
         builder: (BuildContext context) {
@@ -151,8 +151,12 @@ class tiketSayaDetailPemberkatan {
                                         .toString()
                                         .substring(0, 19)),
                                 Text('Alamat: ' + snapshot.data[0]['alamat']),
-                                Text('Nama Kegiatan: Pemberkatan ' +
-                                    snapshot.data[0]['jenis']),
+                                Text(
+                                  "Nama Pasangan : " +
+                                      snapshot.data[0]['namaPria'] +
+                                      " dan " +
+                                      snapshot.data[0]['namaPerempuan'],
+                                ),
                                 if (snapshot.data[0]['status'] == 0)
                                   Text(
                                     "Status : Menunggu",

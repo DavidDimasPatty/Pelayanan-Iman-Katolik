@@ -1144,6 +1144,11 @@ class AgentPencarian extends Agent {
         MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
     var userKomuniCollection =
         MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+    var perkawinanCollection =
+        MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
+
+    var pemberkatanCollection =
+        MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
 
     var userKegiatanCollection =
         MongoDatabase.db.collection(USER_UMUM_COLLECTION);
@@ -1174,6 +1179,22 @@ class AgentPencarian extends Agent {
             .eq("idUser", data[0])
             .eq("status", 0)
             .sortBy('tanggalDaftar', descending: true)
+            .limit(1))
+        .toList();
+
+    var datePem = await pemberkatanCollection
+        .find(where
+            .eq("idUser", data[0])
+            .eq("status", 0)
+            .sortBy('tanggal', descending: true)
+            .limit(1))
+        .toList();
+
+    var datePerk = await perkawinanCollection
+        .find(where
+            .eq("idUser", data[0])
+            .eq("status", 0)
+            .sortBy('tanggal', descending: true)
             .limit(1))
         .toList();
 
@@ -1210,6 +1231,21 @@ class AgentPencarian extends Agent {
           0) {
         ans = DateTime.parse(dateKri[0]['tanggalDaftar'].toString());
         hasil = dateKri;
+      }
+    } catch (e) {}
+
+    try {
+      if (ans.compareTo(DateTime.parse(datePem[0]['tanggal'].toString())) < 0) {
+        ans = DateTime.parse(datePem[0]['tanggal'].toString());
+        hasil = datePem;
+      }
+    } catch (e) {}
+
+    try {
+      if (ans.compareTo(DateTime.parse(datePerk[0]['tanggal'].toString())) <
+          0) {
+        ans = DateTime.parse(datePerk[0]['tanggal'].toString());
+        hasil = datePerk;
       }
     } catch (e) {}
 
@@ -1339,6 +1375,7 @@ class AgentPencarian extends Agent {
         data[0] == "sakramentali" ||
         data[0] == "tobat" ||
         data[0] == "perminyakan") {
+      var pelayanan2Collection;
       String status = "";
       if (data[0] == "tobat") {
         pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
@@ -1352,18 +1389,20 @@ class AgentPencarian extends Agent {
       }
       if (data[0] == "perkawinan") {
         pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
+        pelayanan2Collection =
+            MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
         as = "GerejaImam";
         status = "statusPerkawinan";
       }
       if (data[0] == "sakramentali") {
         pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
+        pelayanan2Collection =
+            MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
         as = "GerejaImam";
         status = "statusPemberkatan";
       }
       if (data[1] == "history") {
-        var conn = await MongoDatabase.db
-            .collection(PEMBERKATAN_COLLECTION)
-            .find({'_id': data[2]}).toList();
+        var conn = await pelayanan2Collection.find({'_id': data[2]}).toList();
         Messages message = Messages('Agent Pencarian', sender, "INFORM",
             Tasks('hasil pencarian', conn));
         return message;

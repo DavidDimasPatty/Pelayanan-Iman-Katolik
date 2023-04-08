@@ -31,8 +31,8 @@ class _Pengumuman extends State<Pengumuman> {
   // var distance;
   var names;
   var emails;
-  List daftarGereja = [];
-
+  List hasil = [];
+  StreamController _controller = StreamController();
   List dummyTemp = [];
   final idUser;
   _Pengumuman(this.names, this.emails, this.idUser);
@@ -58,9 +58,12 @@ class _Pengumuman extends State<Pengumuman> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
+    var hasilPencarian = await AgentPage.getDataPencarian();
+
     completer.complete();
-    var hasil = await await AgentPage.getDataPencarian();
-    return hasil;
+
+    await completer.future;
+    return await hasilPencarian;
   }
 
   @override
@@ -68,8 +71,9 @@ class _Pengumuman extends State<Pengumuman> {
     super.initState();
     callDb().then((result) {
       setState(() {
-        daftarGereja.addAll(result);
+        hasil.addAll(result);
         dummyTemp.addAll(result);
+        _controller.add(result);
       });
     });
   }
@@ -103,31 +107,19 @@ class _Pengumuman extends State<Pengumuman> {
         }
       }
       setState(() {
-        daftarGereja.clear();
-        daftarGereja.addAll(listOMaps);
+        hasil.clear();
+        hasil.addAll(listOMaps);
       });
-      return daftarGereja;
     } else {
       setState(() {
-        daftarGereja.clear();
-        daftarGereja.addAll(dummyTemp);
+        hasil.clear();
+        hasil.addAll(dummyTemp);
       });
     }
   }
 
   Future pullRefresh() async {
-    setState(() {
-      callDb().then((result) {
-        setState(() {
-          daftarGereja.clear();
-          dummyTemp.clear();
-          daftarGereja.addAll(result);
-          dummyTemp.addAll(result);
-          filterSearchResults(editingController.text);
-        });
-      });
-      ;
-    });
+    callDb();
   }
 
   TextEditingController editingController = TextEditingController();
@@ -193,7 +185,7 @@ class _Pengumuman extends State<Pengumuman> {
                 builder: (context, AsyncSnapshot snapshot) {
                   try {
                     return Column(children: [
-                      for (var i in daftarGereja)
+                      for (var i in hasil)
                         InkWell(
                           borderRadius: new BorderRadius.circular(24),
                           onTap: () {

@@ -79,8 +79,8 @@ class tiketSayaDetailKomuni {
         'Agent Page',
         'Agent Pendaftaran',
         "REQUEST",
-        Tasks(
-            'cancel pelayanan', ["komuni", idUserKomuni, idKomuni, kapasitas]));
+        Tasks('cancel pelayanan',
+            ["komuni", idUserKomuni, idKomuni, kapasitas, idUser]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -170,6 +170,41 @@ class tiketSayaDetailKomuni {
                                       ['address']),
                             ],
                           ),
+                          Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                          RaisedButton(
+                              onPressed: () async {
+                                cancelDaftar(
+                                    snapshot.data[0][0]['kapasitas'], context);
+                              },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(80.0)),
+                              elevation: 10.0,
+                              padding: EdgeInsets.all(0.0),
+                              child: Ink(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topRight,
+                                      end: Alignment.topLeft,
+                                      colors: [
+                                        Colors.blueAccent,
+                                        Colors.lightBlue,
+                                      ]),
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                child: Container(
+                                  constraints: BoxConstraints(
+                                      maxWidth: double.maxFinite,
+                                      minHeight: 50.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Cancel Pendaftaran",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 26.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                ),
+                              )),
                         ]);
                   } catch (e) {
                     print(e);

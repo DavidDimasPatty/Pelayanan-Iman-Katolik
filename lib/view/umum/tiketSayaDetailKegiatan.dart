@@ -70,8 +70,21 @@ class tiketSayaDetailKegiatan {
     // });
     // await Future.delayed(Duration(seconds: 1));
     // cancelUmum = await AgenPage().receiverTampilan();
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages(
+        'Agent Page',
+        'Agent Pendaftaran',
+        "REQUEST",
+        Tasks('cancel pelayanan',
+            ["umum", idUserUmum, idUmum, kapasitas, idUser]));
 
-    if (cancelUmum == 'oke') {
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    var hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+
+    await completer.future;
+    if (hasil == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Cancel Kegiatan",
           toastLength: Toast.LENGTH_SHORT,
@@ -148,6 +161,41 @@ class tiketSayaDetailKegiatan {
                                   snapshot.data[0]['temaKegiatan']),
                             ],
                           ),
+                          Padding(padding: EdgeInsets.symmetric(vertical: 5)),
+                          RaisedButton(
+                              onPressed: () async {
+                                cancelDaftar(
+                                    snapshot.data[0]['kapasitas'], context);
+                              },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(80.0)),
+                              elevation: 10.0,
+                              padding: EdgeInsets.all(0.0),
+                              child: Ink(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                      begin: Alignment.topRight,
+                                      end: Alignment.topLeft,
+                                      colors: [
+                                        Colors.blueAccent,
+                                        Colors.lightBlue,
+                                      ]),
+                                  borderRadius: BorderRadius.circular(30.0),
+                                ),
+                                child: Container(
+                                  constraints: BoxConstraints(
+                                      maxWidth: double.maxFinite,
+                                      minHeight: 50.0),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Cancel Pendaftaran",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 26.0,
+                                        fontWeight: FontWeight.w300),
+                                  ),
+                                ),
+                              )),
                         ]);
                   } catch (e) {
                     print(e);

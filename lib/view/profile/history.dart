@@ -7,6 +7,8 @@ import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
+import 'package:pelayanan_iman_katolik/view/sakramen/perkawinan/tiketSayaDetailPerkawinan.dart';
+import 'package:pelayanan_iman_katolik/view/sakramen/perkawinan/tiketSayaPerkawinanHistory.dart';
 import 'package:pelayanan_iman_katolik/view/umum/tiketSayaDetailKegiatan.dart';
 import 'package:pelayanan_iman_katolik/view/umum/tiketSayaKegiatanHistory.dart';
 
@@ -566,7 +568,111 @@ class _history extends State<history> {
                               /////////
                             ],
                           )
-                        ])
+                        ]),
+                        Column(
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 8),
+                                child: Text(
+                                  "Pernikahan yang Terdaftar",
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 23.0),
+                                )),
+                            if (snapshot.data[5].length == 0)
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 8),
+                                  child: Text(
+                                    "Tidak Ada Pernikahan yang Didaftar",
+                                    style: TextStyle(
+                                        color: Colors.grey, fontSize: 15.0),
+                                  )),
+                            if (snapshot.data[5].length != 0)
+                              for (var i in snapshot.data[5])
+                                InkWell(
+                                    borderRadius: new BorderRadius.circular(24),
+                                    onTap: () {
+                                      tiketSayaPerkawinanHistory(
+                                        names,
+                                        emails,
+                                        idUser,
+                                        i['_id'],
+                                      ).showDialogBox(context);
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.topLeft,
+                                            colors: [
+                                              Colors.blueAccent,
+                                              Colors.lightBlue,
+                                            ]),
+                                        border: Border.all(
+                                          color: Colors.lightBlue,
+                                        ),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                      ),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                            "Jadwal : " +
+                                                i['tanggal']
+                                                    .toString()
+                                                    .substring(0, 19),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w300),
+                                          ),
+                                          Text(
+                                            "Nama Pasangan : " +
+                                                i['namaPria'] +
+                                                " dan " +
+                                                i['namaPerempuan'],
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w300),
+                                          ),
+                                          if (i['status'] == 0)
+                                            Text(
+                                              "Status : Menunggu",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                          if (i['status'] == 1)
+                                            Text(
+                                              "Status : Disetujui",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                          if (i['status'] == -1)
+                                            Text(
+                                              "Status : Ditolak",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                        ],
+                                      ),
+                                    )),
+
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 8),
+                            ),
+                            /////////
+                          ],
+                        )
                       ]);
                     } catch (e) {
                       print(e);
