@@ -21,21 +21,16 @@ import '../settings/setting.dart';
 import '../tiketSaya.dart';
 
 class history extends StatefulWidget {
-  var names;
-  var emails;
-
-  final idUser;
-  history(this.names, this.emails, this.idUser);
+  final iduser;
+  history(this.iduser);
   @override
-  _history createState() => _history(this.names, this.emails, this.idUser);
+  _history createState() => _history(this.iduser);
 }
 
 class _history extends State<history> {
-  var names;
-  var idUser;
-  var emails;
+  var iduser;
 
-  _history(this.names, this.emails, this.idUser);
+  _history(this.iduser);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -55,7 +50,7 @@ class _history extends State<history> {
     // return k;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari jadwal pendaftaran', ["history", idUser]));
+        Tasks('cari jadwal pendaftaran', ["history", iduser]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -86,8 +81,7 @@ class _history extends State<history> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -96,8 +90,7 @@ class _history extends State<history> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -137,9 +130,7 @@ class _history extends State<history> {
                                 borderRadius: new BorderRadius.circular(24),
                                 onTap: () {
                                   tiketSayaBaptisHistory(
-                                          names,
-                                          emails,
-                                          idUser,
+                                          iduser,
                                           i['UserBaptis'][0]['_id'],
                                           i['UserBaptis'][0]['idGereja'],
                                           i['_id'])
@@ -219,9 +210,7 @@ class _history extends State<history> {
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
                                       tiketSayaKomuniHistory(
-                                              names,
-                                              emails,
-                                              idUser,
+                                              iduser,
                                               i['UserKomuni'][0]['_id'],
                                               i['UserKomuni'][0]['idGereja'],
                                               i['_id'])
@@ -313,9 +302,7 @@ class _history extends State<history> {
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
                                       tiketSayaKrismaHistory(
-                                              names,
-                                              emails,
-                                              idUser,
+                                              iduser,
                                               i['UserKrisma'][0]['_id'],
                                               i['UserKrisma'][0]['idGereja'],
                                               i['_id'])
@@ -405,9 +392,7 @@ class _history extends State<history> {
                                   borderRadius: new BorderRadius.circular(24),
                                   onTap: () {
                                     tiketSayaKegiatanHistory(
-                                      names,
-                                      emails,
-                                      idUser,
+                                      iduser,
                                       i['_id'],
                                       i['UserKegiatan'][0]['_id'],
                                     ).showDialogBox(context);
@@ -489,9 +474,7 @@ class _history extends State<history> {
                                           new BorderRadius.circular(24),
                                       onTap: () {
                                         tiketSayaPemberkatanHistory(
-                                          names,
-                                          emails,
-                                          idUser,
+                                          iduser,
                                           i['_id'],
                                         ).showDialogBox(context);
                                       },
@@ -594,9 +577,7 @@ class _history extends State<history> {
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
                                       tiketSayaPerkawinanHistory(
-                                        names,
-                                        emails,
-                                        idUser,
+                                        iduser,
                                         i['_id'],
                                       ).showDialogBox(context);
                                     },
@@ -713,13 +694,13 @@ class _history extends State<history> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

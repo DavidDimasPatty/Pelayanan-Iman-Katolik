@@ -12,9 +12,7 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import '../../tiketSaya.dart';
 
 class tiketSayaDetailKomuni {
-  var names;
-  var idUser;
-  var emails;
+  var iduser;
   var tiketGereja;
   var tiket;
   var namaGereja;
@@ -22,8 +20,8 @@ class tiketSayaDetailKomuni {
   var idGereja;
   var idUserKomuni;
   var cancelKomuni;
-  tiketSayaDetailKomuni(this.names, this.emails, this.idUser, this.idKomuni,
-      this.idGereja, this.idUserKomuni);
+  tiketSayaDetailKomuni(
+      this.iduser, this.idKomuni, this.idGereja, this.idUserKomuni);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -80,7 +78,7 @@ class tiketSayaDetailKomuni {
         'Agent Pendaftaran',
         "REQUEST",
         Tasks('cancel pelayanan',
-            ["komuni", idUserKomuni, idKomuni, kapasitas, idUser]));
+            ["komuni", idUserKomuni, idKomuni, kapasitas, iduser]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -97,10 +95,8 @@ class tiketSayaDetailKomuni {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
-      Navigator.pop(
-          context,
-          MaterialPageRoute(
-              builder: (context) => tiketSaya(names, emails, idUser)));
+      Navigator.pop(context,
+          MaterialPageRoute(builder: (context) => tiketSaya(this.iduser)));
     }
   }
 

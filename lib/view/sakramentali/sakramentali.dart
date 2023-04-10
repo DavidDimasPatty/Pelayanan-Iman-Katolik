@@ -9,10 +9,8 @@ import '../profile/profile.dart';
 import '../tiketSaya.dart';
 
 class Sakramentali extends StatelessWidget {
-  final name;
-  final email;
-  final idUser;
-  Sakramentali(this.name, this.email, this.idUser);
+  final iduser;
+  Sakramentali(this.iduser);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +25,7 @@ class Sakramentali extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -48,8 +45,7 @@ class Sakramentali extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Pemberkatan(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Pemberkatan(iduser)),
               );
             },
             child: Container(
@@ -109,14 +105,12 @@ class Sakramentali extends StatelessWidget {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

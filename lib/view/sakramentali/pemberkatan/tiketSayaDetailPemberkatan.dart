@@ -12,15 +12,12 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import '../../tiketSaya.dart';
 
 class tiketSayaDetailPemberkatan {
-  var names;
-  var idUser;
-  var emails;
+  var iduser;
   var tiket;
   var namaGereja;
   var idPemberkatan;
   var cancelPemberkatan;
-  tiketSayaDetailPemberkatan(
-      this.names, this.emails, this.idUser, this.idPemberkatan);
+  tiketSayaDetailPemberkatan(this.iduser, this.idPemberkatan);
 
   Future callDb() async {
     // tiket = await MongoDatabase.pemberkatanSpec(idPemberkatan);
@@ -73,7 +70,7 @@ class tiketSayaDetailPemberkatan {
     // cancelKrisma = await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST",
-        Tasks('cancel pelayanan', ["sakramentali", idPemberkatan, idUser]));
+        Tasks('cancel pelayanan', ["sakramentali", idPemberkatan, iduser]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -90,10 +87,8 @@ class tiketSayaDetailPemberkatan {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
-      Navigator.pop(
-          context,
-          MaterialPageRoute(
-              builder: (context) => tiketSaya(names, emails, idUser)));
+      Navigator.pop(context,
+          MaterialPageRoute(builder: (context) => tiketSaya(this.iduser)));
     }
   }
 

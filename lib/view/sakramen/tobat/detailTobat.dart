@@ -15,23 +15,19 @@ import '../../settings/setting.dart';
 import '../../tiketSaya.dart';
 
 class detailTobat extends StatefulWidget {
-  final name;
-  final email;
   final idGereja;
-  final idUser;
+  final iduser;
   final idImam;
   @override
-  detailTobat(this.name, this.email, this.idUser, this.idGereja, this.idImam);
+  detailTobat(this.iduser, this.idGereja, this.idImam);
 
-  _detailTobat createState() => _detailTobat(
-      this.name, this.email, this.idUser, this.idGereja, this.idImam);
+  _detailTobat createState() =>
+      _detailTobat(this.iduser, this.idGereja, this.idImam);
 }
 
 class _detailTobat extends State<detailTobat> {
-  final name;
-  final email;
   final idGereja;
-  final idUser;
+  final iduser;
   final idImam;
 
   Future<List> callDb() async {
@@ -77,7 +73,7 @@ class _detailTobat extends State<detailTobat> {
     });
   }
 
-  _detailTobat(this.name, this.email, this.idUser, this.idGereja, this.idImam);
+  _detailTobat(this.iduser, this.idGereja, this.idImam);
 
   @override
   Widget build(BuildContext context) {
@@ -93,8 +89,7 @@ class _detailTobat extends State<detailTobat> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -103,8 +98,7 @@ class _detailTobat extends State<detailTobat> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(iduser)),
               );
             },
           ),
@@ -456,14 +450,12 @@ class _detailTobat extends State<detailTobat> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

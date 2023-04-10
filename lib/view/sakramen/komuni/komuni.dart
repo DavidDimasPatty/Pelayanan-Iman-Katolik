@@ -17,23 +17,19 @@ import '../../profile/profile.dart';
 import '../../tiketSaya.dart';
 
 class Komuni extends StatefulWidget {
-  var names;
-  var emails;
-  final idUser;
-  Komuni(this.names, this.emails, this.idUser);
+  final iduser;
+  Komuni(this.iduser);
   @override
-  _Komuni createState() => _Komuni(this.names, this.emails, this.idUser);
+  _Komuni createState() => _Komuni(this.iduser);
 }
 
 class _Komuni extends State<Komuni> {
-  var names;
-  var emails;
   var distance;
   List hasil = [];
   List dummyTemp = [];
-  final idUser;
+  final iduser;
   StreamController _controller = StreamController();
-  _Komuni(this.names, this.emails, this.idUser);
+  _Komuni(this.iduser);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -136,8 +132,7 @@ class _Komuni extends State<Komuni> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -146,8 +141,7 @@ class _Komuni extends State<Komuni> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -277,10 +271,8 @@ class _Komuni extends State<Komuni> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => detailDaftarKomuni(
-                                        names,
-                                        emails,
                                         i['GerejaKomuni'][0]['_id'],
-                                        idUser,
+                                        iduser,
                                         i['_id'])),
                               );
                             },
@@ -394,13 +386,13 @@ class _Komuni extends State<Komuni> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

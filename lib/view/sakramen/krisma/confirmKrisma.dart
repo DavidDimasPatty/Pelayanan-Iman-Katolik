@@ -12,15 +12,12 @@ import 'package:pelayanan_iman_katolik/view/sakramen/krisma/detailDaftarKrisma.d
 
 class confirmKrisma {
   final idGereja;
-  final idUser;
+  final iduser;
   final idKrisma;
   var hasil;
-  final name;
-  final email;
-  final namaGereja;
+
   var key = 0;
-  confirmKrisma(this.idGereja, this.idUser, this.idKrisma, this.name,
-      this.email, this.namaGereja);
+  confirmKrisma(this.idGereja, this.iduser, this.idKrisma);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -52,7 +49,7 @@ class confirmKrisma {
     return await hasil;
   }
 
-  Future daftar(idKrisma, idUser, kapasitas, context) async {
+  Future daftar(idKrisma, iduser, kapasitas, context) async {
     // Messages msg = new Messages();
     // msg.addReceiver("agenPendaftaran");
     // msg.setContent([
@@ -70,7 +67,7 @@ class confirmKrisma {
     // var daftarmisa = await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('check pendaftaran', ["krisma", idKrisma, idUser, kapasitas]));
+        Tasks('check pendaftaran', ["krisma", idKrisma, iduser, kapasitas]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -92,7 +89,7 @@ class confirmKrisma {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                detailDaftarKrisma(name, email, namaGereja, idUser, idGereja)),
+                detailDaftarKrisma(idGereja, iduser, idGereja)),
       );
     }
     if (hasilDaftar == 'sudah') {
@@ -108,7 +105,7 @@ class confirmKrisma {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                detailDaftarKrisma(name, email, namaGereja, idUser, idGereja)),
+                detailDaftarKrisma(idGereja, iduser, idGereja)),
       );
     }
   }
@@ -163,7 +160,7 @@ class confirmKrisma {
                           textColor: Colors.white,
                           color: Colors.blueAccent,
                           onPressed: () async {
-                            await daftar(idKrisma, idUser,
+                            await daftar(idKrisma, iduser,
                                 hasil[0][0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),

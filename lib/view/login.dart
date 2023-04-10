@@ -211,8 +211,6 @@ class Login extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) => HomePage(
-                                                      ret[0]['name'],
-                                                      ret[0]['email'],
                                                       ret[0]['_id'],
                                                     )),
                                           );

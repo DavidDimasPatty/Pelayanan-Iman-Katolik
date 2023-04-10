@@ -15,23 +15,19 @@ import '../../settings/setting.dart';
 import '../../tiketSaya.dart';
 
 class detailDaftarRetret extends StatefulWidget {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   final idKegiatan;
 
   @override
-  detailDaftarRetret(this.name, this.email, this.idUser, this.idKegiatan);
+  detailDaftarRetret(this.iduser, this.idKegiatan);
 
   _detailDaftarRetret createState() =>
-      _detailDaftarRetret(this.name, this.email, this.idUser, this.idKegiatan);
+      _detailDaftarRetret(this.iduser, this.idKegiatan);
 }
 
 class _detailDaftarRetret extends State<detailDaftarRetret> {
-  final name;
-  final email;
   var hasil;
-  final idUser;
+  final iduser;
   final idKegiatan;
 
   Future<List> callDb() async {
@@ -70,7 +66,7 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
   //   );
   // }
 
-  _detailDaftarRetret(this.name, this.email, this.idUser, this.idKegiatan);
+  _detailDaftarRetret(this.iduser, this.idKegiatan);
   Future pullRefresh() async {
     setState(() {
       callDb();
@@ -91,8 +87,7 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -101,8 +96,7 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(iduser)),
               );
             },
           ),
@@ -476,9 +470,10 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
                               ),
                               RaisedButton(
                                   onPressed: () async {
-                                    confirmRetret(idUser, hasil[0]['_id'],
-                                            this.name, this.email)
-                                        .showDialogBox(context);
+                                    confirmRetret(
+                                      iduser,
+                                      hasil[0]['_id'],
+                                    ).showDialogBox(context);
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
@@ -553,14 +548,12 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

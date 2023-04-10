@@ -15,26 +15,21 @@ import '../../tiketSaya.dart';
 import 'confirmKomuni.dart';
 
 class detailDaftarKomuni extends StatefulWidget {
-  final name;
-  final email;
   final idGereja;
   var detailGereja;
-  final idUser;
+  final iduser;
   final idKomuni;
   @override
-  detailDaftarKomuni(
-      this.name, this.email, this.idGereja, this.idUser, this.idKomuni);
+  detailDaftarKomuni(this.idGereja, this.iduser, this.idKomuni);
 
-  _detailDaftarKomuni createState() => _detailDaftarKomuni(
-      this.name, this.email, this.idGereja, this.idUser, this.idKomuni);
+  _detailDaftarKomuni createState() =>
+      _detailDaftarKomuni(this.idGereja, this.iduser, this.idKomuni);
 }
 
 class _detailDaftarKomuni extends State<detailDaftarKomuni> {
-  final name;
-  final email;
   final idGereja;
   var detailGereja;
-  final idUser;
+  final iduser;
   final idKomuni;
   var hasil;
 
@@ -75,8 +70,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
     );
   }
 
-  _detailDaftarKomuni(
-      this.name, this.email, this.idGereja, this.idUser, this.idKomuni);
+  _detailDaftarKomuni(this.idGereja, this.iduser, this.idKomuni);
 
   Future pullRefresh() async {
     setState(() {
@@ -98,8 +92,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -108,8 +101,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(iduser)),
               );
             },
           ),
@@ -545,11 +537,8 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                                   confirmKomuni(
                                     snapshot.data[0][0]['GerejaKomuni'][0]
                                         ['_id'],
-                                    idUser,
+                                    iduser,
                                     snapshot.data[0][0]['_id'],
-                                    this.name,
-                                    this.email,
-                                    this.idGereja,
                                   ).showDialogBox(context);
                                 },
                                 shape: RoundedRectangleBorder(
@@ -625,14 +614,12 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

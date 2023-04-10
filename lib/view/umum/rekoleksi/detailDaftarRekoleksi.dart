@@ -15,23 +15,19 @@ import '../../settings/setting.dart';
 import '../../tiketSaya.dart';
 
 class detailDaftarRekoleksi extends StatefulWidget {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   final idKegiatan;
 
   @override
-  detailDaftarRekoleksi(this.name, this.email, this.idUser, this.idKegiatan);
+  detailDaftarRekoleksi(this.iduser, this.idKegiatan);
 
-  _detailDaftarRekoleksi createState() => _detailDaftarRekoleksi(
-      this.name, this.email, this.idUser, this.idKegiatan);
+  _detailDaftarRekoleksi createState() =>
+      _detailDaftarRekoleksi(this.iduser, this.idKegiatan);
 }
 
 class _detailDaftarRekoleksi extends State<detailDaftarRekoleksi> {
-  final name;
-  final email;
   var hasil;
-  final idUser;
+  final iduser;
   final idKegiatan;
 
   Future<List> callDb() async {
@@ -70,7 +66,7 @@ class _detailDaftarRekoleksi extends State<detailDaftarRekoleksi> {
   //   );
   // }
 
-  _detailDaftarRekoleksi(this.name, this.email, this.idUser, this.idKegiatan);
+  _detailDaftarRekoleksi(this.iduser, this.idKegiatan);
   Future pullRefresh() async {
     setState(() {
       callDb();
@@ -91,8 +87,7 @@ class _detailDaftarRekoleksi extends State<detailDaftarRekoleksi> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -101,8 +96,7 @@ class _detailDaftarRekoleksi extends State<detailDaftarRekoleksi> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(iduser)),
               );
             },
           ),
@@ -444,11 +438,9 @@ class _detailDaftarRekoleksi extends State<detailDaftarRekoleksi> {
                               RaisedButton(
                                   onPressed: () async {
                                     confirmRekoleksi(
-                                            idUser,
-                                            snapshot.data[0]['_id'],
-                                            this.name,
-                                            this.email)
-                                        .showDialogBox(context);
+                                      iduser,
+                                      snapshot.data[0]['_id'],
+                                    ).showDialogBox(context);
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
@@ -523,14 +515,12 @@ class _detailDaftarRekoleksi extends State<detailDaftarRekoleksi> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

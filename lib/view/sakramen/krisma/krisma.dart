@@ -17,23 +17,19 @@ import '../../profile/profile.dart';
 import '../../tiketSaya.dart';
 
 class Krisma extends StatefulWidget {
-  var names;
-  var emails;
-  final idUser;
-  Krisma(this.names, this.emails, this.idUser);
+  final iduser;
+  Krisma(this.iduser);
   @override
-  _Krisma createState() => _Krisma(this.names, this.emails, this.idUser);
+  _Krisma createState() => _Krisma(this.iduser);
 }
 
 class _Krisma extends State<Krisma> {
-  var names;
-  var emails;
   var distance;
   List hasil = [];
   StreamController _controller = StreamController();
   List dummyTemp = [];
-  final idUser;
-  _Krisma(this.names, this.emails, this.idUser);
+  final iduser;
+  _Krisma(this.iduser);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -135,8 +131,7 @@ class _Krisma extends State<Krisma> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -145,8 +140,7 @@ class _Krisma extends State<Krisma> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -275,10 +269,8 @@ class _Krisma extends State<Krisma> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => detailDaftarKrisma(
-                                        names,
-                                        emails,
                                         i['GerejaKrisma'][0]['_id'],
-                                        idUser,
+                                        iduser,
                                         i['_id'])),
                               );
                             },
@@ -392,13 +384,13 @@ class _Krisma extends State<Krisma> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

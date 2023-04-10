@@ -11,12 +11,10 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/umum/pendalamanAlkitab/detailDaftarPA.dart';
 
 class confirmPA {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   final idKegiatan;
   var hasil;
-  confirmPA(this.idUser, this.idKegiatan, this.name, this.email);
+  confirmPA(this.iduser, this.idKegiatan);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -87,8 +85,7 @@ class confirmPA {
       Navigator.pop(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                detailDaftarPA(name, email, idUser, idKegiatan)),
+            builder: (context) => detailDaftarPA(iduser, idKegiatan)),
       );
     }
     if (hasilDaftar == 'sudah') {
@@ -103,8 +100,7 @@ class confirmPA {
       Navigator.pop(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                detailDaftarPA(name, email, idUser, idKegiatan)),
+            builder: (context) => detailDaftarPA(iduser, idKegiatan)),
       );
     }
   }
@@ -156,7 +152,7 @@ class confirmPA {
                           textColor: Colors.white,
                           color: Colors.blueAccent,
                           onPressed: () async {
-                            await daftar(idKegiatan, idUser,
+                            await daftar(idKegiatan, iduser,
                                 hasil[0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),

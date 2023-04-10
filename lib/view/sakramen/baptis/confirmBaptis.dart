@@ -12,14 +12,10 @@ import 'package:pelayanan_iman_katolik/view/sakramen/baptis/baptis.dart';
 
 class confirmBaptis {
   final idGereja;
-  final idUser;
+  final iduser;
   final idBaptis;
   var hasil;
-  final name;
-  final email;
-  final namaGereja;
-  confirmBaptis(this.idGereja, this.idUser, this.idBaptis, this.name,
-      this.email, this.namaGereja);
+  confirmBaptis(this.idGereja, this.iduser, this.idBaptis);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -87,7 +83,7 @@ class confirmBaptis {
           fontSize: 16.0);
       Navigator.pop(
         context,
-        MaterialPageRoute(builder: (context) => Baptis(name, email, idUser)),
+        MaterialPageRoute(builder: (context) => Baptis(iduser)),
       );
     }
 
@@ -102,7 +98,7 @@ class confirmBaptis {
           fontSize: 16.0);
       Navigator.pop(
         context,
-        MaterialPageRoute(builder: (context) => Baptis(name, email, idUser)),
+        MaterialPageRoute(builder: (context) => Baptis(iduser)),
       );
     }
   }
@@ -157,7 +153,7 @@ class confirmBaptis {
                           textColor: Colors.white,
                           color: Colors.blueAccent,
                           onPressed: () async {
-                            await daftar(idBaptis, idUser,
+                            await daftar(idBaptis, iduser,
                                 hasil[0][0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),

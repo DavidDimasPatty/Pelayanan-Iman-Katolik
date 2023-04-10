@@ -17,10 +17,10 @@
 // class Alkitab extends StatefulWidget {
 //   var names;
 //   var emails;
-//   final idUser;
+//   final iduser;
 
-//   Alkitab(this.names, this.emails, this.idUser);
-//   _Alkitab createState() => _Alkitab(this.names, this.emails, this.idUser);
+//   Alkitab(this.iduser)
+//   _Alkitab createState() => _Alkitab(this.iduser)
 // }
 
 // class _Alkitab extends State<Alkitab> {
@@ -154,8 +154,8 @@
 
 //   var names;
 //   var emails;
-//   final idUser;
-//   _Alkitab(this.names, this.emails, this.idUser);
+//   final iduser;
+//   _Alkitab(this.iduser)
 
 //   TextEditingController editingController = TextEditingController();
 //   @override
@@ -173,7 +173,7 @@
 //               Navigator.push(
 //                 context,
 //                 MaterialPageRoute(
-//                     builder: (context) => Profile(names, emails, idUser)),
+//                     builder: (context) => Profile(this.iduser)),
 //               );
 //             },
 //           ),
@@ -183,7 +183,7 @@
 //               Navigator.push(
 //                 context,
 //                 MaterialPageRoute(
-//                     builder: (context) => Settings(names, emails, idUser)),
+//                     builder: (context) => Settings(this.iduser)),
 //               );
 //             },
 //           ),
@@ -461,13 +461,13 @@
 //                   Navigator.push(
 //                     context,
 //                     MaterialPageRoute(
-//                         builder: (context) => tiketSaya(names, emails, idUser)),
+//                         builder: (context) => tiketSaya(this.iduser)),
 //                   );
 //                 } else if (index == 0) {
 //                   Navigator.push(
 //                     context,
 //                     MaterialPageRoute(
-//                         builder: (context) => HomePage(names, emails, idUser)),
+//                         builder: (context) => HomePage(this.iduser)),
 //                   );
 //                 }
 //               },

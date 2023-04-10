@@ -17,19 +17,14 @@ import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
 import 'package:pelayanan_iman_katolik/view/umum/tiketSayaDetailKegiatan.dart';
 
 class tiketSaya extends StatefulWidget {
-  var names;
-  var emails;
-
-  final idUser;
-  tiketSaya(this.names, this.emails, this.idUser);
+  final iduser;
+  tiketSaya(this.iduser);
   @override
-  _tiketSaya createState() => _tiketSaya(this.names, this.emails, this.idUser);
+  _tiketSaya createState() => _tiketSaya(this.iduser);
 }
 
 class _tiketSaya extends State<tiketSaya> {
-  var names;
-  var idUser;
-  var emails;
+  var iduser;
   // var tiketGereja;
   // var tiket;
   // var namaGereja;
@@ -40,14 +35,14 @@ class _tiketSaya extends State<tiketSaya> {
   // var krismaUser;
   // var pemberkatanUser;
 
-  _tiketSaya(this.names, this.emails, this.idUser);
+  _tiketSaya(this.iduser);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
     // msg.addReceiver("agenPencarian");
     // msg.setContent([
     //   ["cari Enroll History"],
-    //   [idUser]
+    //   [iduser]
     // ]);
     // List k = [];
     // await msg.send().then((res) async {
@@ -60,7 +55,7 @@ class _tiketSaya extends State<tiketSaya> {
     // return k;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari jadwal pendaftaran', ["current", idUser]));
+        Tasks('cari jadwal pendaftaran', ["current", iduser]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -92,8 +87,7 @@ class _tiketSaya extends State<tiketSaya> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -102,8 +96,7 @@ class _tiketSaya extends State<tiketSaya> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -143,9 +136,7 @@ class _tiketSaya extends State<tiketSaya> {
                                 borderRadius: new BorderRadius.circular(24),
                                 onTap: () {
                                   tiketSayaDetailBaptis(
-                                          names,
-                                          emails,
-                                          idUser,
+                                          iduser,
                                           i['UserBaptis'][0]['_id'],
                                           i['UserBaptis'][0]['idGereja'],
                                           i['_id'])
@@ -225,9 +216,7 @@ class _tiketSaya extends State<tiketSaya> {
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
                                       tiketSayaDetailKomuni(
-                                              names,
-                                              emails,
-                                              idUser,
+                                              iduser,
                                               i['UserKomuni'][0]['_id'],
                                               i['UserKomuni'][0]['idGereja'],
                                               i['_id'])
@@ -319,9 +308,7 @@ class _tiketSaya extends State<tiketSaya> {
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
                                       tiketSayaDetailKrisma(
-                                              names,
-                                              emails,
-                                              idUser,
+                                              iduser,
                                               i['UserKrisma'][0]['_id'],
                                               i['UserKrisma'][0]['idGereja'],
                                               i['_id'])
@@ -411,9 +398,7 @@ class _tiketSaya extends State<tiketSaya> {
                                   borderRadius: new BorderRadius.circular(24),
                                   onTap: () {
                                     tiketSayaDetailKegiatan(
-                                      names,
-                                      emails,
-                                      idUser,
+                                      iduser,
                                       i['_id'],
                                       i['UserKegiatan'][0]['_id'],
                                     ).showDialogBox(context);
@@ -495,9 +480,7 @@ class _tiketSaya extends State<tiketSaya> {
                                           new BorderRadius.circular(24),
                                       onTap: () {
                                         tiketSayaDetailPemberkatan(
-                                          names,
-                                          emails,
-                                          idUser,
+                                          iduser,
                                           i['_id'],
                                         ).showDialogBox(context);
                                       },
@@ -602,9 +585,7 @@ class _tiketSaya extends State<tiketSaya> {
                                           new BorderRadius.circular(24),
                                       onTap: () {
                                         tiketSayaDetailPerkawinan(
-                                          names,
-                                          emails,
-                                          idUser,
+                                          iduser,
                                           i['_id'],
                                         ).showDialogBox(context);
                                       },
@@ -725,13 +706,13 @@ class _tiketSaya extends State<tiketSaya> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

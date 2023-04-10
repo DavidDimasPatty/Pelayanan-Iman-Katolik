@@ -17,25 +17,20 @@ import '../../settings/setting.dart';
 import '../../tiketSaya.dart';
 
 class Perkawinan extends StatefulWidget {
-  var names;
-  var emails;
-
-  final idUser;
-  Perkawinan(this.names, this.emails, this.idUser);
+  final iduser;
+  Perkawinan(this.iduser);
   @override
-  _Perkawinan createState() =>
-      _Perkawinan(this.names, this.emails, this.idUser);
+  _Perkawinan createState() => _Perkawinan(this.iduser);
 }
 
 class _Perkawinan extends State<Perkawinan> {
   var distance;
-  var names;
-  var emails;
+
   List hasil = [];
   StreamController _controller = StreamController();
   List dummyTemp = [];
-  final idUser;
-  _Perkawinan(this.names, this.emails, this.idUser);
+  final iduser;
+  _Perkawinan(this.iduser);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -136,8 +131,7 @@ class _Perkawinan extends State<Perkawinan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -146,8 +140,7 @@ class _Perkawinan extends State<Perkawinan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -199,8 +192,8 @@ class _Perkawinan extends State<Perkawinan> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ImamPerkawinan(
-                                      names, emails, idUser, i['_id'])),
+                                  builder: (context) =>
+                                      ImamPerkawinan(iduser, i['_id'])),
                             );
                           },
                           child: Container(
@@ -298,13 +291,13 @@ class _Perkawinan extends State<Perkawinan> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

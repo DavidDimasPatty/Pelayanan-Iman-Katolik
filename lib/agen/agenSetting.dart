@@ -291,14 +291,6 @@ class AgentSetting extends Agent {
     }
   }
 
-  messageSetData(task) {
-    pencarianData.add(task);
-  }
-
-  Future<List> getDataPencarian() async {
-    return pencarianData;
-  }
-
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "setting user":
@@ -336,7 +328,7 @@ class AgentSetting extends Agent {
       var path = directory.path;
 
       final file = await File('$path/login.txt');
-
+      // await file.writeAsString("");
       // Read the file
       res = await file.readAsLines();
     } catch (e) {
@@ -374,18 +366,11 @@ class AgentSetting extends Agent {
     if (await File('$path/login.txt').exists()) {
       final file = await File('$path/login.txt');
 
-      await file.writeAsString(data[0]['name']);
-      await file.writeAsString('\n' + data[0]['email'], mode: FileMode.append);
-
-      await file.writeAsString('\n' + data[0]['_id'].toString(),
-          mode: FileMode.append);
+      await file.writeAsString(data[0]['_id'].toString());
     } else {
       final file = await File('$path/login.txt').create(recursive: true);
-      await file.writeAsString(data[0]['name']);
-      await file.writeAsString('\n' + data[0]['email'], mode: FileMode.append);
 
-      await file.writeAsString('\n' + data[0]['_id'].toString(),
-          mode: FileMode.append);
+      await file.writeAsString('\n' + data[0]['_id'].toString());
     }
 
     Messages message = Messages(

@@ -12,17 +12,14 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import '../tiketSaya.dart';
 
 class tiketSayaKegiatanHistory {
-  var names;
-  var idUser;
-  var emails;
+  var iduser;
   var tiketGereja;
   var hasil;
   var idKegiatan;
   var idUmum;
   var idUserUmum;
   var cancelUmum;
-  tiketSayaKegiatanHistory(
-      this.names, this.emails, this.idUser, this.idUserUmum, this.idUmum);
+  tiketSayaKegiatanHistory(this.iduser, this.idUserUmum, this.idUmum);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -80,10 +77,8 @@ class tiketSayaKegiatanHistory {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
-      Navigator.pop(
-          context,
-          MaterialPageRoute(
-              builder: (context) => tiketSaya(names, emails, idUser)));
+      Navigator.pop(context,
+          MaterialPageRoute(builder: (context) => tiketSaya(this.iduser)));
     }
   }
 

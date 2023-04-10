@@ -370,14 +370,6 @@ class AgentAkun extends Agent {
     }
   }
 
-  messageSetData(task) {
-    pencarianData.add(task);
-  }
-
-  Future<List> getDataPencarian() async {
-    return pencarianData;
-  }
-
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "login":

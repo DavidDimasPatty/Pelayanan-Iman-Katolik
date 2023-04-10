@@ -16,22 +16,18 @@ import '../../profile/profile.dart';
 import '../../tiketSaya.dart';
 
 class Rekoleksi extends StatefulWidget {
-  var names;
-  var emails;
-  final idUser;
-  Rekoleksi(this.names, this.emails, this.idUser);
+  final iduser;
+  Rekoleksi(this.iduser);
   @override
-  _Rekoleksi createState() => _Rekoleksi(this.names, this.emails, this.idUser);
+  _Rekoleksi createState() => _Rekoleksi(this.iduser);
 }
 
 class _Rekoleksi extends State<Rekoleksi> {
-  var names;
-  var emails;
   List hasil = [];
   StreamController _controller = StreamController();
   List dummyTemp = [];
-  final idUser;
-  _Rekoleksi(this.names, this.emails, this.idUser);
+  final iduser;
+  _Rekoleksi(this.iduser);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -116,8 +112,7 @@ class _Rekoleksi extends State<Rekoleksi> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -126,8 +121,7 @@ class _Rekoleksi extends State<Rekoleksi> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -235,7 +229,7 @@ class _Rekoleksi extends State<Rekoleksi> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => detailDaftarRekoleksi(
-                                        names, emails, idUser, i['_id'])),
+                                        iduser, i['_id'])),
                               );
                             },
                             child: Container(
@@ -326,13 +320,13 @@ class _Rekoleksi extends State<Rekoleksi> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

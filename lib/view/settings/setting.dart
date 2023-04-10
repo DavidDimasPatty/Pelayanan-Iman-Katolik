@@ -27,9 +27,7 @@ import '../profile/profile.dart';
 import '../tiketSaya.dart';
 
 class Settings extends StatelessWidget {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
 
   //print('Download-Link: $urlDownload');
   Future LogOut(context) async {
@@ -45,7 +43,7 @@ class Settings extends StatelessWidget {
     // k = await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages(
-        'Agent Page', 'Agent Akun', "REQUEST", Tasks('login', [idUser]));
+        'Agent Page', 'Agent Akun', "REQUEST", Tasks('login', [iduser]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -70,7 +68,7 @@ class Settings extends StatelessWidget {
     }
   }
 
-  Settings(this.name, this.email, this.idUser);
+  Settings(this.iduser);
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +84,7 @@ class Settings extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -108,8 +105,7 @@ class Settings extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => privacySafety(
-                              this.name, this.email, this.idUser)));
+                          builder: (context) => privacySafety(this.iduser)));
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),
@@ -145,8 +141,7 @@ class Settings extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => termsCondition(
-                              this.name, this.email, this.idUser)));
+                          builder: (context) => termsCondition(this.iduser)));
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),
@@ -182,8 +177,7 @@ class Settings extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              aboutus(this.name, this.email, this.idUser)));
+                          builder: (context) => aboutus(this.iduser)));
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),
@@ -249,8 +243,7 @@ class Settings extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => customerService(
-                              this.name, this.email, this.idUser)));
+                          builder: (context) => customerService(this.iduser)));
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),
@@ -353,14 +346,12 @@ class Settings extends StatelessWidget {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

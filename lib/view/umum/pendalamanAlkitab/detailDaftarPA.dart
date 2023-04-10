@@ -16,23 +16,19 @@ import '../../settings/setting.dart';
 import '../../tiketSaya.dart';
 
 class detailDaftarPA extends StatefulWidget {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   final idKegiatan;
 
   @override
-  detailDaftarPA(this.name, this.email, this.idUser, this.idKegiatan);
+  detailDaftarPA(this.iduser, this.idKegiatan);
 
   _detailDaftarPA createState() =>
-      _detailDaftarPA(this.name, this.email, this.idUser, this.idKegiatan);
+      _detailDaftarPA(this.iduser, this.idKegiatan);
 }
 
 class _detailDaftarPA extends State<detailDaftarPA> {
-  final name;
-  final email;
   var hasil;
-  final idUser;
+  final iduser;
   final idKegiatan;
 
   Future<List> callDb() async {
@@ -71,7 +67,7 @@ class _detailDaftarPA extends State<detailDaftarPA> {
   //   );
   // }
 
-  _detailDaftarPA(this.name, this.email, this.idUser, this.idKegiatan);
+  _detailDaftarPA(this.iduser, this.idKegiatan);
   Future pullRefresh() async {
     setState(() {
       callDb();
@@ -92,8 +88,7 @@ class _detailDaftarPA extends State<detailDaftarPA> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -102,8 +97,7 @@ class _detailDaftarPA extends State<detailDaftarPA> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(iduser)),
               );
             },
           ),
@@ -477,9 +471,10 @@ class _detailDaftarPA extends State<detailDaftarPA> {
                               ),
                               RaisedButton(
                                   onPressed: () async {
-                                    confirmPA(idUser, hasil[0]['_id'],
-                                            this.name, this.email)
-                                        .showDialogBox(context);
+                                    confirmPA(
+                                      iduser,
+                                      hasil[0]['_id'],
+                                    ).showDialogBox(context);
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
@@ -554,14 +549,12 @@ class _detailDaftarPA extends State<detailDaftarPA> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

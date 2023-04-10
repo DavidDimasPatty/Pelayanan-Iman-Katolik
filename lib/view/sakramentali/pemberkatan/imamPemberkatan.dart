@@ -16,25 +16,21 @@ import '../../settings/setting.dart';
 import '../../tiketSaya.dart';
 
 class ImamPemberkatan extends StatefulWidget {
-  var names;
-  var emails;
-  final idUser;
+  final iduser;
   final idGereja;
-  ImamPemberkatan(this.names, this.emails, this.idUser, this.idGereja);
+  ImamPemberkatan(this.iduser, this.idGereja);
   @override
   _ImamPemberkatan createState() =>
-      _ImamPemberkatan(this.names, this.emails, this.idUser, this.idGereja);
+      _ImamPemberkatan(this.iduser, this.idGereja);
 }
 
 class _ImamPemberkatan extends State<ImamPemberkatan> {
-  var names;
-  var emails;
   List hasil = [];
   StreamController _controller = StreamController();
   List dummyTemp = [];
-  final idUser;
+  final iduser;
   final idGereja;
-  _ImamPemberkatan(this.names, this.emails, this.idUser, this.idGereja);
+  _ImamPemberkatan(this.iduser, this.idGereja);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -120,8 +116,7 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -130,8 +125,7 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -184,11 +178,7 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => FormulirPemberkatan(
-                                      names,
-                                      emails,
-                                      idUser,
-                                      i['idGereja'],
-                                      i['_id'])),
+                                      iduser, i['idGereja'], i['_id'])),
                             );
                           },
                           child: Container(
@@ -274,13 +264,13 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

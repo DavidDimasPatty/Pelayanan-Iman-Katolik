@@ -15,20 +15,16 @@ import '../profile/profile.dart';
 import '../tiketSaya.dart';
 
 class notification extends StatefulWidget {
-  final name;
-  final email;
-  final idUser;
-  notification(this.name, this.email, this.idUser);
+  final iduser;
+  notification(this.iduser);
   @override
-  _notifClass createState() => _notifClass(this.name, this.email, this.idUser);
+  _notifClass createState() => _notifClass(this.iduser);
 }
 
 class _notifClass extends State<notification> {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   var checknotif;
-  _notifClass(this.name, this.email, this.idUser);
+  _notifClass(this.iduser);
   bool switch1 = false;
   void isSwitch() {
     switch1 = true;
@@ -53,7 +49,7 @@ class _notifClass extends State<notification> {
     // return checknotif;
     Completer<void> completer = Completer<void>();
     Messages message = Messages(
-        'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', idUser));
+        'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', iduser));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -79,7 +75,7 @@ class _notifClass extends State<notification> {
     // var daftarmisa = await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-        Tasks('update notification', [idUser, notifPg]));
+        Tasks('update notification', [iduser, notifPg]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -124,8 +120,7 @@ class _notifClass extends State<notification> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -238,14 +233,12 @@ class _notifClass extends State<notification> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

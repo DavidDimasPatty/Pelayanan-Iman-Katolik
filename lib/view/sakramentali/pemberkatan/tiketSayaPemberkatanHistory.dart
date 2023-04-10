@@ -12,14 +12,11 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import '../../tiketSaya.dart';
 
 class tiketSayaPemberkatanHistory {
-  var names;
-  var idUser;
-  var emails;
+  var iduser;
   var tiket;
   var namaGereja;
   var idPemberkatan;
-  tiketSayaPemberkatanHistory(
-      this.names, this.emails, this.idUser, this.idPemberkatan);
+  tiketSayaPemberkatanHistory(this.iduser, this.idPemberkatan);
 
   Future<List> callDb() async {
     // tiket = await MongoDatabase.pemberkatanSpec(idPemberkatan);
@@ -75,10 +72,8 @@ class tiketSayaPemberkatanHistory {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
-      Navigator.pop(
-          context,
-          MaterialPageRoute(
-              builder: (context) => tiketSaya(names, emails, idUser)));
+      Navigator.pop(context,
+          MaterialPageRoute(builder: (context) => tiketSaya(this.iduser)));
     }
   }
 

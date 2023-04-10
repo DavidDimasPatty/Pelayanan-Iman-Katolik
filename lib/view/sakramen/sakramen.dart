@@ -14,10 +14,8 @@ import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 import '../profile/profile.dart';
 
 class Sakramen extends StatelessWidget {
-  final name;
-  final email;
-  final idUser;
-  Sakramen(this.name, this.email, this.idUser);
+  final iduser;
+  Sakramen(this.iduser);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +30,7 @@ class Sakramen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -53,8 +50,7 @@ class Sakramen extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Baptis(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Baptis(iduser)),
               );
             },
             child: Container(
@@ -86,8 +82,7 @@ class Sakramen extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Komuni(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Komuni(iduser)),
               );
             },
             child: Container(
@@ -119,8 +114,7 @@ class Sakramen extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Krisma(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Krisma(iduser)),
               );
             },
             child: Container(
@@ -152,8 +146,7 @@ class Sakramen extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Perminyakan(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Perminyakan(iduser)),
               );
             },
             child: Container(
@@ -185,8 +178,7 @@ class Sakramen extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Perkawinan(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Perkawinan(iduser)),
               );
             },
             child: Container(
@@ -218,8 +210,7 @@ class Sakramen extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Tobat(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Tobat(iduser)),
               );
             },
             child: Container(
@@ -279,14 +270,12 @@ class Sakramen extends StatelessWidget {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

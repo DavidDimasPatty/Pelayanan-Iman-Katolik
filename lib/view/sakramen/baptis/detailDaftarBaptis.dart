@@ -16,25 +16,20 @@ import '../../profile/profile.dart';
 import '../../tiketSaya.dart';
 
 class detailDaftarBaptis extends StatefulWidget {
-  final name;
-  final email;
   final idGereja;
-  final idUser;
+  final iduser;
   final idBaptis;
   @override
-  detailDaftarBaptis(
-      this.name, this.email, this.idGereja, this.idUser, this.idBaptis);
+  detailDaftarBaptis(this.idGereja, this.iduser, this.idBaptis);
 
-  _detailDaftarBaptis createState() => _detailDaftarBaptis(
-      this.name, this.email, this.idGereja, this.idUser, this.idBaptis);
+  _detailDaftarBaptis createState() =>
+      _detailDaftarBaptis(this.idGereja, this.iduser, this.idBaptis);
 }
 
 class _detailDaftarBaptis extends State<detailDaftarBaptis> {
-  final name;
-  final email;
   final idGereja;
   var detailGereja;
-  final idUser;
+  final iduser;
   final idBaptis;
   var hasil;
 
@@ -81,8 +76,7 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
     });
   }
 
-  _detailDaftarBaptis(
-      this.name, this.email, this.idGereja, this.idUser, this.idBaptis);
+  _detailDaftarBaptis(this.idGereja, this.iduser, this.idBaptis);
 
   @override
   Widget build(BuildContext context) {
@@ -98,8 +92,7 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -108,8 +101,7 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(iduser)),
               );
             },
           ),
@@ -562,14 +554,11 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                               RaisedButton(
                                   onPressed: () async {
                                     confirmBaptis(
-                                            snapshot.data[0][0]['GerejaBaptis']
-                                                [0]['_id'],
-                                            idUser,
-                                            snapshot.data[0][0]['_id'],
-                                            this.name,
-                                            this.email,
-                                            this.idGereja)
-                                        .showDialogBox(context);
+                                      snapshot.data[0][0]['GerejaBaptis'][0]
+                                          ['_id'],
+                                      iduser,
+                                      snapshot.data[0][0]['_id'],
+                                    ).showDialogBox(context);
                                   },
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
@@ -647,14 +636,12 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

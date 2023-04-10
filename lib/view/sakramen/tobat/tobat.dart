@@ -17,24 +17,20 @@ import '../../settings/setting.dart';
 import '../../tiketSaya.dart';
 
 class Tobat extends StatefulWidget {
-  var names;
-  var emails;
-
-  final idUser;
-  Tobat(this.names, this.emails, this.idUser);
+  final iduser;
+  Tobat(this.iduser);
   @override
-  _Tobat createState() => _Tobat(this.names, this.emails, this.idUser);
+  _Tobat createState() => _Tobat(this.iduser);
 }
 
 class _Tobat extends State<Tobat> {
   var distance;
-  var names;
-  var emails;
+
   List hasil = [];
   StreamController _controller = StreamController();
   List dummyTemp = [];
-  final idUser;
-  _Tobat(this.names, this.emails, this.idUser);
+  final iduser;
+  _Tobat(this.iduser);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -135,8 +131,7 @@ class _Tobat extends State<Tobat> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -145,8 +140,7 @@ class _Tobat extends State<Tobat> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -199,9 +193,7 @@ class _Tobat extends State<Tobat> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ImamTobat(
-                                        names,
-                                        emails,
-                                        idUser,
+                                        iduser,
                                         i['_id'],
                                       )),
                             );
@@ -307,13 +299,13 @@ class _Tobat extends State<Tobat> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

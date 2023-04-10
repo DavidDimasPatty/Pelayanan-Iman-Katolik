@@ -19,28 +19,22 @@ import '../../profile/profile.dart';
 import '../../tiketSaya.dart';
 
 class FormulirPerkawinan extends StatefulWidget {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   final idGereja;
   final idImam;
 
-  FormulirPerkawinan(
-      this.name, this.email, this.idUser, this.idGereja, this.idImam);
+  FormulirPerkawinan(this.iduser, this.idGereja, this.idImam);
   @override
-  _FormulirPerkawinan createState() => _FormulirPerkawinan(
-      this.name, this.email, this.idUser, this.idGereja, this.idImam);
+  _FormulirPerkawinan createState() =>
+      _FormulirPerkawinan(this.iduser, this.idGereja, this.idImam);
 }
 
 class _FormulirPerkawinan extends State<FormulirPerkawinan> {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   final idGereja;
   final idImam;
   var ready = false;
-  _FormulirPerkawinan(
-      this.name, this.email, this.idUser, this.idGereja, this.idImam);
+  _FormulirPerkawinan(this.iduser, this.idGereja, this.idImam);
 
   @override
   TextEditingController namaPriaController = new TextEditingController();
@@ -141,7 +135,7 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
           "REQUEST",
           Tasks('enroll pelayanan', [
             "perkawinan",
-            idUser,
+            iduser,
             namap,
             namaw,
             notelp,
@@ -170,8 +164,7 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
             fontSize: 16.0);
         Navigator.pop(
           context,
-          MaterialPageRoute(
-              builder: (context) => Perkawinan(name, email, idUser)),
+          MaterialPageRoute(builder: (context) => Perkawinan(iduser)),
         );
       }
     } else {
@@ -199,8 +192,7 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -619,14 +611,12 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

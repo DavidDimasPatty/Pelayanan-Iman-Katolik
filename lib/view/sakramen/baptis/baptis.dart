@@ -17,24 +17,20 @@ import '../../profile/profile.dart';
 import '../../tiketSaya.dart';
 
 class Baptis extends StatefulWidget {
-  var names;
-  var emails;
-
-  final idUser;
-  Baptis(this.names, this.emails, this.idUser);
+  final iduser;
+  Baptis(this.iduser);
   @override
-  _Baptis createState() => _Baptis(this.names, this.emails, this.idUser);
+  _Baptis createState() => _Baptis(this.iduser);
 }
 
 class _Baptis extends State<Baptis> {
   var distance;
-  var names;
-  var emails;
+
   List hasil = [];
   StreamController _controller = StreamController();
   List dummyTemp = [];
-  final idUser;
-  _Baptis(this.names, this.emails, this.idUser);
+  final iduser;
+  _Baptis(this.iduser);
 
   callDb() async {
     Completer<void> completer = Completer<void>();
@@ -124,8 +120,7 @@ class _Baptis extends State<Baptis> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -134,8 +129,7 @@ class _Baptis extends State<Baptis> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -265,10 +259,8 @@ class _Baptis extends State<Baptis> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => detailDaftarBaptis(
-                                        names,
-                                        emails,
                                         i['GerejaBaptis'][0]['_id'],
-                                        idUser,
+                                        iduser,
                                         i['_id'])),
                               );
                             },
@@ -382,13 +374,13 @@ class _Baptis extends State<Baptis> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

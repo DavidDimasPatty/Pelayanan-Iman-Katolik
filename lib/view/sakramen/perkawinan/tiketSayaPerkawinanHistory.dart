@@ -12,15 +12,12 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import '../../tiketSaya.dart';
 
 class tiketSayaPerkawinanHistory {
-  var names;
-  var idUser;
-  var emails;
+  var iduser;
   var tiket;
   var namaGereja;
   var idPerkawinan;
   var cancelPemberkatan;
-  tiketSayaPerkawinanHistory(
-      this.names, this.emails, this.idUser, this.idPerkawinan);
+  tiketSayaPerkawinanHistory(this.iduser, this.idPerkawinan);
 
   Future callDb() async {
     // tiket = await MongoDatabase.pemberkatanSpec(idPerkawinan);
@@ -93,7 +90,7 @@ class tiketSayaPerkawinanHistory {
   //     Navigator.pop(
   //         context,
   //         MaterialPageRoute(
-  //             builder: (context) => tiketSaya(names, emails, idUser)));
+  //             builder: (context) => tiketSaya(this.iduser)));
   //   }
   // }
 

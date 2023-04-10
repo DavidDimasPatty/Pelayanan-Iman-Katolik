@@ -11,15 +11,11 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/sakramen/komuni/detailDaftarKomuni.dart';
 
 class confirmKomuni {
-  final name;
-  final email;
-  final namaGereja;
   final idGereja;
-  final idUser;
+  final iduser;
   final idKomuni;
   var hasil;
-  confirmKomuni(this.idGereja, this.idUser, this.idKomuni, this.name,
-      this.email, this.namaGereja);
+  confirmKomuni(this.idGereja, this.iduser, this.idKomuni);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -92,7 +88,7 @@ class confirmKomuni {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                detailDaftarKomuni(name, email, namaGereja, idUser, idKomuni)),
+                detailDaftarKomuni(idGereja, idUser, idKomuni)),
       );
     }
     if (hasilDaftar == 'sudah') {
@@ -108,7 +104,7 @@ class confirmKomuni {
         context,
         MaterialPageRoute(
             builder: (context) =>
-                detailDaftarKomuni(name, email, namaGereja, idUser, idKomuni)),
+                detailDaftarKomuni(idGereja, idUser, idKomuni)),
       );
     }
   }
@@ -163,7 +159,7 @@ class confirmKomuni {
                           textColor: Colors.white,
                           color: Colors.blueAccent,
                           onPressed: () async {
-                            await daftar(idKomuni, idUser,
+                            await daftar(idKomuni, iduser,
                                 hasil[0][0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),

@@ -8,10 +8,8 @@ import '../profile/profile.dart';
 import '../tiketSaya.dart';
 
 class aboutus extends StatelessWidget {
-  final name;
-  final email;
-  final idUser;
-  aboutus(this.name, this.email, this.idUser);
+  final iduser;
+  aboutus(this.iduser);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +24,7 @@ class aboutus extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -171,14 +168,12 @@ class aboutus extends StatelessWidget {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

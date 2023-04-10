@@ -16,26 +16,22 @@ import '../../settings/setting.dart';
 import '../../tiketSaya.dart';
 
 class ImamPerminyakan extends StatefulWidget {
-  var names;
-  var emails;
-  final idUser;
+  final iduser;
   final idGereja;
-  ImamPerminyakan(this.names, this.emails, this.idUser, this.idGereja);
+  ImamPerminyakan(this.iduser, this.idGereja);
   @override
   _ImamPerminyakan createState() =>
-      _ImamPerminyakan(this.names, this.emails, this.idUser, this.idGereja);
+      _ImamPerminyakan(this.iduser, this.idGereja);
 }
 
 class _ImamPerminyakan extends State<ImamPerminyakan> {
-  var names;
-  var emails;
   var distance;
   List hasil = [];
   StreamController _controller = StreamController();
   List dummyTemp = [];
-  final idUser;
+  final iduser;
   final idGereja;
-  _ImamPerminyakan(this.names, this.emails, this.idUser, this.idGereja);
+  _ImamPerminyakan(this.iduser, this.idGereja);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -121,8 +117,7 @@ class _ImamPerminyakan extends State<ImamPerminyakan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -131,8 +126,7 @@ class _ImamPerminyakan extends State<ImamPerminyakan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -184,8 +178,8 @@ class _ImamPerminyakan extends State<ImamPerminyakan> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => detailPerminyakan(names,
-                                      emails, idUser, i['idGereja'], i['_id'])),
+                                  builder: (context) => detailPerminyakan(
+                                      iduser, i['idGereja'], i['_id'])),
                             );
                           },
                           child: Container(
@@ -271,13 +265,13 @@ class _ImamPerminyakan extends State<ImamPerminyakan> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

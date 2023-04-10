@@ -16,22 +16,18 @@ import '../../profile/profile.dart';
 import '../../tiketSaya.dart';
 
 class Retret extends StatefulWidget {
-  var names;
-  var emails;
-  final idUser;
-  Retret(this.names, this.emails, this.idUser);
+  final iduser;
+  Retret(this.iduser);
   @override
-  _Retret createState() => _Retret(this.names, this.emails, this.idUser);
+  _Retret createState() => _Retret(this.iduser);
 }
 
 class _Retret extends State<Retret> {
-  var names;
-  var emails;
   List hasil = [];
   StreamController _controller = StreamController();
   List dummyTemp = [];
-  final idUser;
-  _Retret(this.names, this.emails, this.idUser);
+  final iduser;
+  _Retret(this.iduser);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -116,8 +112,7 @@ class _Retret extends State<Retret> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -126,8 +121,7 @@ class _Retret extends State<Retret> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -232,8 +226,8 @@ class _Retret extends State<Retret> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => detailDaftarRetret(
-                                        names, emails, idUser, i['_id'])),
+                                    builder: (context) =>
+                                        detailDaftarRetret(iduser, i['_id'])),
                               );
                             },
                             child: Container(
@@ -324,13 +318,13 @@ class _Retret extends State<Retret> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

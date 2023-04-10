@@ -17,11 +17,9 @@ import '../profile/profile.dart';
 import '../tiketSaya.dart';
 
 class gantiPassword extends StatelessWidget {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   var status;
-  gantiPassword(this.name, this.email, this.idUser);
+  gantiPassword(this.iduser);
 
   @override
   TextEditingController passLamaController = new TextEditingController();
@@ -60,7 +58,7 @@ class gantiPassword extends StatelessWidget {
 
       Completer<void> completer = Completer<void>();
       Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-          Tasks('find password', [idUser, passLamaController.text]));
+          Tasks('find password', [iduser, passLamaController.text]));
 
       MessagePassing messagePassing = MessagePassing();
       var data = await messagePassing.sendMessage(message);
@@ -98,7 +96,7 @@ class gantiPassword extends StatelessWidget {
         // var value = await AgenPage().receiverTampilan();
         Completer<void> completer = Completer<void>();
         Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-            Tasks('change password', [idUser, passBaruController.text]));
+            Tasks('change password', [iduser, passBaruController.text]));
 
         MessagePassing messagePassing = MessagePassing();
         var data = await messagePassing.sendMessage(message);
@@ -120,8 +118,7 @@ class gantiPassword extends StatelessWidget {
             fontSize: 16.0);
         Navigator.pop(
           context,
-          MaterialPageRoute(
-              builder: (context) => privacySafety(name, email, idUser)),
+          MaterialPageRoute(builder: (context) => privacySafety(iduser)),
         );
       }
     }
@@ -140,8 +137,7 @@ class gantiPassword extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -262,14 +258,12 @@ class gantiPassword extends StatelessWidget {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

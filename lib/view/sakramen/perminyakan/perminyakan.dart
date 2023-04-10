@@ -17,25 +17,20 @@ import '../../settings/setting.dart';
 import '../../tiketSaya.dart';
 
 class Perminyakan extends StatefulWidget {
-  var names;
-  var emails;
-
-  final idUser;
-  Perminyakan(this.names, this.emails, this.idUser);
+  final iduser;
+  Perminyakan(this.iduser);
   @override
-  _Perminyakan createState() =>
-      _Perminyakan(this.names, this.emails, this.idUser);
+  _Perminyakan createState() => _Perminyakan(this.iduser);
 }
 
 class _Perminyakan extends State<Perminyakan> {
   var distance;
-  var names;
-  var emails;
+
   List hasil = [];
   StreamController _controller = StreamController();
   List dummyTemp = [];
-  final idUser;
-  _Perminyakan(this.names, this.emails, this.idUser);
+  final iduser;
+  _Perminyakan(this.iduser);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -136,8 +131,7 @@ class _Perminyakan extends State<Perminyakan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -146,8 +140,7 @@ class _Perminyakan extends State<Perminyakan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -200,9 +193,7 @@ class _Perminyakan extends State<Perminyakan> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ImamPerminyakan(
-                                        names,
-                                        emails,
-                                        idUser,
+                                        iduser,
                                         i['_id'],
                                       )),
                             );
@@ -313,13 +304,13 @@ class _Perminyakan extends State<Perminyakan> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

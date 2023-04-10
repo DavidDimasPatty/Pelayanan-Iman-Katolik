@@ -15,14 +15,12 @@ import '../profile/profile.dart';
 import '../tiketSaya.dart';
 
 class privacySafety extends StatelessWidget {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   var dataUser;
 
   //print('Download-Link: $urlDownload');
 
-  privacySafety(this.name, this.email, this.idUser);
+  privacySafety(this.iduser);
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +36,7 @@ class privacySafety extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -60,8 +57,7 @@ class privacySafety extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>
-                            gantiPassword(this.name, this.email, this.idUser)),
+                        builder: (context) => gantiPassword(this.iduser)),
                   );
                 },
                 shape: RoundedRectangleBorder(
@@ -98,8 +94,7 @@ class privacySafety extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => notification(
-                              this.name, this.email, this.idUser)));
+                          builder: (context) => notification(this.iduser)));
                 },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(80.0)),
@@ -165,14 +160,12 @@ class privacySafety extends StatelessWidget {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

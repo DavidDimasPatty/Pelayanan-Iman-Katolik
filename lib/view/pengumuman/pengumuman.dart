@@ -17,25 +17,20 @@ import '../tiketSaya.dart';
 import 'detailPengumuman.dart';
 
 class Pengumuman extends StatefulWidget {
-  var names;
-  var emails;
-
-  final idUser;
-  Pengumuman(this.names, this.emails, this.idUser);
+  final iduser;
+  Pengumuman(this.iduser);
   @override
-  _Pengumuman createState() =>
-      _Pengumuman(this.names, this.emails, this.idUser);
+  _Pengumuman createState() => _Pengumuman(this.iduser);
 }
 
 class _Pengumuman extends State<Pengumuman> {
   // var distance;
-  var names;
-  var emails;
+
   List hasil = [];
   StreamController _controller = StreamController();
   List dummyTemp = [];
-  final idUser;
-  _Pengumuman(this.names, this.emails, this.idUser);
+  final iduser;
+  _Pengumuman(this.iduser);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -140,8 +135,7 @@ class _Pengumuman extends State<Pengumuman> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -150,8 +144,7 @@ class _Pengumuman extends State<Pengumuman> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -192,8 +185,8 @@ class _Pengumuman extends State<Pengumuman> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => detailPengumuman(
-                                      names, emails, idUser, i['_id'])),
+                                  builder: (context) =>
+                                      detailPengumuman(iduser, i['_id'])),
                             );
                           },
                           child: Container(
@@ -277,13 +270,13 @@ class _Pengumuman extends State<Pengumuman> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },

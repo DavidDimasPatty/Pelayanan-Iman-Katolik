@@ -19,28 +19,22 @@ import '../../profile/profile.dart';
 import '../../tiketSaya.dart';
 
 class FormulirPemberkatan extends StatefulWidget {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   final idGereja;
   final idImam;
 
-  FormulirPemberkatan(
-      this.name, this.email, this.idUser, this.idGereja, this.idImam);
+  FormulirPemberkatan(this.iduser, this.idGereja, this.idImam);
   @override
-  _FormulirPemberkatan createState() => _FormulirPemberkatan(
-      this.name, this.email, this.idUser, this.idGereja, this.idImam);
+  _FormulirPemberkatan createState() =>
+      _FormulirPemberkatan(this.iduser, this.idGereja, this.idImam);
 }
 
 class _FormulirPemberkatan extends State<FormulirPemberkatan> {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   final idGereja;
   final idImam;
   var ready = false;
-  _FormulirPemberkatan(
-      this.name, this.email, this.idUser, this.idGereja, this.idImam);
+  _FormulirPemberkatan(this.iduser, this.idGereja, this.idImam);
 
   @override
   var jenisPemberkatan = ['Gedung', 'Rumah', 'Barang'];
@@ -150,7 +144,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
           "REQUEST",
           Tasks('enroll pelayanan', [
             "sakramentali",
-            idUser,
+            iduser,
             nama,
             paroki,
             lingkungan,
@@ -181,8 +175,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
             fontSize: 16.0);
         Navigator.pop(
           context,
-          MaterialPageRoute(
-              builder: (context) => Pemberkatan(name, email, idUser)),
+          MaterialPageRoute(builder: (context) => Pemberkatan(iduser)),
         );
       }
     } else {
@@ -210,8 +203,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -668,14 +660,12 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

@@ -10,10 +10,8 @@ import '../profile/profile.dart';
 import '../tiketSaya.dart';
 
 class Umum extends StatelessWidget {
-  final name;
-  final email;
-  final idUser;
-  Umum(this.name, this.email, this.idUser);
+  final iduser;
+  Umum(this.iduser);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +26,7 @@ class Umum extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -50,8 +47,7 @@ class Umum extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        PendalamanAlkitab(name, email, idUser)),
+                    builder: (context) => PendalamanAlkitab(iduser)),
               );
             },
             child: Container(
@@ -83,8 +79,7 @@ class Umum extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Rekoleksi(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Rekoleksi(iduser)),
               );
             },
             child: Container(
@@ -116,8 +111,7 @@ class Umum extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Retret(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Retret(iduser)),
               );
             },
             child: Container(
@@ -177,14 +171,12 @@ class Umum extends StatelessWidget {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

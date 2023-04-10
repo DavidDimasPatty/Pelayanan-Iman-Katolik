@@ -11,12 +11,10 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/umum/retret/detailDaftarRetret.dart';
 
 class confirmRetret {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   final idKegiatan;
   var hasil;
-  confirmRetret(this.idUser, this.idKegiatan, this.name, this.email);
+  confirmRetret(this.iduser, this.idKegiatan);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -86,8 +84,7 @@ class confirmRetret {
       Navigator.pop(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                detailDaftarRetret(name, email, idUser, idKegiatan)),
+            builder: (context) => detailDaftarRetret(iduser, idKegiatan)),
       );
     }
     if (hasilDaftar == 'sudah') {
@@ -102,8 +99,7 @@ class confirmRetret {
       Navigator.pop(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                detailDaftarRetret(name, email, idUser, idKegiatan)),
+            builder: (context) => detailDaftarRetret(iduser, idKegiatan)),
       );
     }
   }
@@ -152,7 +148,7 @@ class confirmRetret {
                           textColor: Colors.white,
                           color: Colors.blueAccent,
                           onPressed: () async {
-                            await daftar(idKegiatan, idUser,
+                            await daftar(idKegiatan, iduser,
                                 hasil[0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),

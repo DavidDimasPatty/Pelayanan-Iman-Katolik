@@ -16,26 +16,21 @@ import '../../profile/profile.dart';
 import '../../tiketSaya.dart';
 
 class detailDaftarKrisma extends StatefulWidget {
-  final name;
-  final email;
   final idGereja;
   var detailGereja;
-  final idUser;
+  final iduser;
   final idKrisma;
   @override
-  detailDaftarKrisma(
-      this.name, this.email, this.idGereja, this.idUser, this.idKrisma);
+  detailDaftarKrisma(this.idGereja, this.iduser, this.idKrisma);
 
-  _detailDaftarKrisma createState() => _detailDaftarKrisma(
-      this.name, this.email, this.idGereja, this.idUser, this.idKrisma);
+  _detailDaftarKrisma createState() =>
+      _detailDaftarKrisma(this.idGereja, this.iduser, this.idKrisma);
 }
 
 class _detailDaftarKrisma extends State<detailDaftarKrisma> {
-  final name;
-  final email;
   final idGereja;
   var detailGereja;
-  final idUser;
+  final iduser;
   final idKrisma;
   var hasil;
 
@@ -76,8 +71,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
     );
   }
 
-  _detailDaftarKrisma(
-      this.name, this.email, this.idGereja, this.idUser, this.idKrisma);
+  _detailDaftarKrisma(this.idGereja, this.iduser, this.idKrisma);
   Future pullRefresh() async {
     setState(() {
       callDb();
@@ -98,8 +92,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -108,8 +101,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(iduser)),
               );
             },
           ),
@@ -563,11 +555,8 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                     confirmKrisma(
                                       snapshot.data[0][0]['GerejaKrisma'][0]
                                           ['_id'],
-                                      idUser,
+                                      idGereja,
                                       snapshot.data[0][0]['_id'],
-                                      this.name,
-                                      this.email,
-                                      this.idGereja,
                                     ).showDialogBox(context);
                                   },
                                   shape: RoundedRectangleBorder(
@@ -646,14 +635,12 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

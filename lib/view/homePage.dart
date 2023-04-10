@@ -28,18 +28,14 @@ Future<void> openCamera() async {
 }
 
 class HomePage extends StatefulWidget {
-  var names;
-  var emails;
   var iduser;
   @override
-  HomePage(this.names, this.emails, this.iduser);
+  HomePage(this.iduser);
 
-  _HomePage createState() => _HomePage(this.names, this.emails, this.iduser);
+  _HomePage createState() => _HomePage(this.iduser);
 }
 
 class _HomePage extends State<HomePage> {
-  var names;
-  var emails;
   var iduser;
 
   // int indexCaption = -1;
@@ -99,13 +95,12 @@ class _HomePage extends State<HomePage> {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => HomePage(names, emails, iduser)),
+        MaterialPageRoute(builder: (context) => HomePage(this.iduser)),
       );
     });
   }
 
-  _HomePage(this.names, this.emails, this.iduser);
+  _HomePage(this.iduser);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,8 +116,7 @@ class _HomePage extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, iduser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -131,8 +125,7 @@ class _HomePage extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, iduser)),
+                MaterialPageRoute(builder: (context) => Settings(iduser)),
               );
             },
           ),
@@ -177,8 +170,8 @@ class _HomePage extends State<HomePage> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => Profile(
-                                                    names, emails, iduser)),
+                                                builder: (context) =>
+                                                    Profile(iduser)),
                                           );
                                         },
                                         child: Row(
@@ -267,8 +260,7 @@ class _HomePage extends State<HomePage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      tiketSaya(names, emails,
-                                                          iduser)),
+                                                      tiketSaya(iduser)),
                                             );
                                           },
                                           child: Container(
@@ -470,8 +462,8 @@ class _HomePage extends State<HomePage> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Sakramen(
-                                                  names, emails, iduser)),
+                                              builder: (context) =>
+                                                  Sakramen(iduser)),
                                         );
                                       }, // button pressed
                                       child: Column(
@@ -509,8 +501,7 @@ class _HomePage extends State<HomePage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  Sakramentali(
-                                                      names, emails, iduser)),
+                                                  Sakramentali(iduser)),
                                         );
                                       }, // button pressed
                                       child: Column(
@@ -548,7 +539,7 @@ class _HomePage extends State<HomePage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  Umum(names, emails, iduser)),
+                                                  Umum(iduser)),
                                         );
                                       }, // button pressed
                                       child: Column(
@@ -588,7 +579,7 @@ class _HomePage extends State<HomePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          Pengumuman(names, emails, iduser)),
+                                          Pengumuman(this.iduser)),
                                 );
                               },
                               child: Text(
@@ -623,8 +614,6 @@ class _HomePage extends State<HomePage> {
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   detailPengumuman(
-                                                      names,
-                                                      emails,
                                                       iduser,
                                                       idImage[cardList
                                                           .indexOf(item)])),
@@ -680,7 +669,7 @@ class _HomePage extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, iduser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {}
               },

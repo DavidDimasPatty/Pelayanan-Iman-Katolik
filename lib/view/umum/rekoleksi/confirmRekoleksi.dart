@@ -10,12 +10,10 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/umum/rekoleksi/detailDaftarRekoleksi.dart';
 
 class confirmRekoleksi {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
   final idKegiatan;
   var hasil;
-  confirmRekoleksi(this.idUser, this.idKegiatan, this.name, this.email);
+  confirmRekoleksi(this.iduser, this.idKegiatan);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -71,8 +69,7 @@ class confirmRekoleksi {
       Navigator.pop(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                detailDaftarRekoleksi(name, email, idUser, idKegiatan)),
+            builder: (context) => detailDaftarRekoleksi(iduser, idKegiatan)),
       );
     }
 
@@ -88,8 +85,7 @@ class confirmRekoleksi {
       Navigator.pop(
         context,
         MaterialPageRoute(
-            builder: (context) =>
-                detailDaftarRekoleksi(name, email, idUser, idKegiatan)),
+            builder: (context) => detailDaftarRekoleksi(iduser, idKegiatan)),
       );
     }
   }
@@ -138,7 +134,7 @@ class confirmRekoleksi {
                           textColor: Colors.white,
                           color: Colors.blueAccent,
                           onPressed: () async {
-                            await daftar(idKegiatan, idUser,
+                            await daftar(idKegiatan, iduser,
                                 hasil[0]['kapasitas'], context);
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),

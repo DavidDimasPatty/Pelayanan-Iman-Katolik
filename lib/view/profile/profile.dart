@@ -16,18 +16,14 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class Profile extends StatefulWidget {
-  final name;
-  final email;
-  final idUser;
-  Profile(this.name, this.email, this.idUser);
+  final iduser;
+  Profile(this.iduser);
 
-  _Profile createState() => _Profile(this.name, this.email, this.idUser);
+  _Profile createState() => _Profile(this.iduser);
 }
 
 class _Profile extends State<Profile> {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
 
   Future selectFile(context) async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
@@ -43,7 +39,7 @@ class _Profile extends State<Profile> {
     // msg.addReceiver("agenPencarian");
     // msg.setContent([
     //   ["cari tampilan Profile"],
-    //   [idUser]
+    //   [iduser]
     // ]);
     // List k = [];
     // await msg.send().then((res) async {
@@ -56,7 +52,7 @@ class _Profile extends State<Profile> {
     // return k;
     Completer<void> completer = Completer<void>();
     Messages message = Messages(
-        'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari profile', idUser));
+        'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari profile', iduser));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -72,7 +68,7 @@ class _Profile extends State<Profile> {
     // msg.addReceiver("agenAkun");
     // msg.setContent([
     //   ["change Picture"],
-    //   [idUser],
+    //   [iduser],
     //   [file]
     // ]);
     // var k;
@@ -84,7 +80,7 @@ class _Profile extends State<Profile> {
     // k = await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-        Tasks('change profile picture', [idUser, file]));
+        Tasks('change profile picture', [iduser, file]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -103,12 +99,12 @@ class _Profile extends State<Profile> {
           fontSize: 16.0);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Profile(name, email, idUser)),
+        MaterialPageRoute(builder: (context) => Profile(iduser)),
       );
     }
   }
 
-  _Profile(this.name, this.email, this.idUser);
+  _Profile(this.iduser);
   Future pullRefresh() async {
     setState(() {
       callDb();
@@ -133,8 +129,7 @@ class _Profile extends State<Profile> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(iduser)),
               );
             },
           ),
@@ -513,7 +508,7 @@ class _Profile extends State<Profile> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              EditProfile(name, email, idUser)),
+                                              EditProfile(iduser)),
                                     );
                                   },
                                   shape: RoundedRectangleBorder(
@@ -556,7 +551,7 @@ class _Profile extends State<Profile> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              history(name, email, idUser)),
+                                              history(iduser)),
                                     );
                                   },
                                   shape: RoundedRectangleBorder(
@@ -632,14 +627,12 @@ class _Profile extends State<Profile> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

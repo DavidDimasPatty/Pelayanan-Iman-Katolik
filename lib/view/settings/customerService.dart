@@ -8,10 +8,8 @@ import '../profile/profile.dart';
 import '../tiketSaya.dart';
 
 class customerService extends StatelessWidget {
-  final name;
-  final email;
-  final idUser;
-  customerService(this.name, this.email, this.idUser);
+  final iduser;
+  customerService(this.iduser);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +24,7 @@ class customerService extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -177,14 +174,12 @@ class customerService extends StatelessWidget {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

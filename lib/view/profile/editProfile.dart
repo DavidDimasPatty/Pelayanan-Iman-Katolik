@@ -18,21 +18,16 @@ import '../homePage.dart';
 import '../tiketSaya.dart';
 
 class EditProfile extends StatefulWidget {
-  final name;
-  final email;
-  final idUser;
+  final iduser;
 
-  EditProfile(this.name, this.email, this.idUser);
+  EditProfile(this.iduser);
   @override
-  _EditProfile createState() =>
-      _EditProfile(this.name, this.email, this.idUser);
+  _EditProfile createState() => _EditProfile(this.iduser);
 }
 
 class _EditProfile extends State<EditProfile> {
-  final name;
-  final email;
-  final idUser;
-  _EditProfile(this.name, this.email, this.idUser);
+  final iduser;
+  _EditProfile(this.iduser);
 
   @override
   TextEditingController namaController = new TextEditingController();
@@ -60,7 +55,7 @@ class _EditProfile extends State<EditProfile> {
     // return k;
     Completer<void> completer = Completer<void>();
     Messages message = Messages(
-        'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', idUser));
+        'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', iduser));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -105,7 +100,7 @@ class _EditProfile extends State<EditProfile> {
           'Agent Akun',
           "REQUEST",
           Tasks('edit profile',
-              [idUser, nama, email, paroki, lingkungan, notelp, alamat]));
+              [iduser, nama, email, paroki, lingkungan, notelp, alamat]));
 
       MessagePassing messagePassing = MessagePassing();
       var data = await messagePassing.sendMessage(message);
@@ -122,7 +117,7 @@ class _EditProfile extends State<EditProfile> {
             fontSize: 16.0);
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Profile(name, email, idUser)),
+          MaterialPageRoute(builder: (context) => Profile(iduser)),
         );
       }
     } else {
@@ -156,8 +151,7 @@ class _EditProfile extends State<EditProfile> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(name, email, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(iduser)),
               );
             },
           ),
@@ -515,14 +509,12 @@ class _EditProfile extends State<EditProfile> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => HomePage(name, email, idUser)),
+                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
                   );
                 }
               },

@@ -16,26 +16,21 @@ import '../../settings/setting.dart';
 import '../../tiketSaya.dart';
 
 class ImamTobat extends StatefulWidget {
-  var names;
-  var emails;
-  final idUser;
+  final iduser;
   final idGereja;
-  ImamTobat(this.names, this.emails, this.idUser, this.idGereja);
+  ImamTobat(this.iduser, this.idGereja);
   @override
-  _ImamTobat createState() =>
-      _ImamTobat(this.names, this.emails, this.idUser, this.idGereja);
+  _ImamTobat createState() => _ImamTobat(this.iduser, this.idGereja);
 }
 
 class _ImamTobat extends State<ImamTobat> {
-  var names;
-  var emails;
   var distance;
   List hasil = [];
   StreamController _controller = StreamController();
   List dummyTemp = [];
-  final idUser;
+  final iduser;
   final idGereja;
-  _ImamTobat(this.names, this.emails, this.idUser, this.idGereja);
+  _ImamTobat(this.iduser, this.idGereja);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();
@@ -121,8 +116,7 @@ class _ImamTobat extends State<ImamTobat> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Profile(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
               );
             },
           ),
@@ -131,8 +125,7 @@ class _ImamTobat extends State<ImamTobat> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => Settings(names, emails, idUser)),
+                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
               );
             },
           ),
@@ -184,8 +177,8 @@ class _ImamTobat extends State<ImamTobat> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => detailTobat(names,
-                                      emails, idUser, i['idGereja'], i['_id'])),
+                                  builder: (context) => detailTobat(
+                                      iduser, i['idGereja'], i['_id'])),
                             );
                           },
                           child: Container(
@@ -271,13 +264,13 @@ class _ImamTobat extends State<ImamTobat> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(names, emails, idUser)),
+                        builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(names, emails, idUser)),
+                        builder: (context) => HomePage(this.iduser)),
                   );
                 }
               },
