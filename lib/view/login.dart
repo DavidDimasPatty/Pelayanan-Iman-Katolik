@@ -9,7 +9,6 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
-import 'package:pelayanan_iman_katolik/view/settings/forgetPassword.dart';
 import 'package:pelayanan_iman_katolik/view/singup.dart';
 
 class Login extends StatelessWidget {
