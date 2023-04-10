@@ -101,7 +101,7 @@ void main() async {
   //   print(permission2);
   // }
   print(tampilan);
-  if (tampilan[1] == "pagi") {
+  if (tampilan[1][0] == "pagi") {
     try {
       if (tampilan[0][0].length != 0 && tampilan[0][0] != "nothing") {
         var object = tampilan[0][0][0]

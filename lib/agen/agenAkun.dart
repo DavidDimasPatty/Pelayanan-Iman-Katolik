@@ -279,6 +279,7 @@
 // }
 import 'dart:async';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/fireBase.dart';
@@ -463,7 +464,11 @@ class AgentAkun extends Agent {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var conn = await userCollection
         .find({'email': data[0], 'password': data[1]}).toList();
-
+    if (conn.length != 0) {
+      var conn = await userCollection.updateOne(
+          where.eq('email', data[0]).eq('password', data[1]),
+          modify.set('token', await FirebaseMessaging.instance.getToken()));
+    }
     sendToAgenSettingLogin(conn, agentName);
     Messages message = Messages(agentName, sender, "INFORM",
         Tasks("status modifikasi/ pencarian data akun", conn));
@@ -473,7 +478,7 @@ class AgentAkun extends Agent {
   Future<Messages> logout(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var update = await userCollection.updateOne(
-        where.eq('_id', data[0]), modify.set('token', ""));
+        where.eq('_id', data), modify.set('token', ""));
 
     sendToAgenSettingLogout(null, agentName);
     if (update.isSuccess) {

@@ -84,11 +84,11 @@ class _Profile extends State<Profile> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasilDaftar = await await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
-    if (hasil == 'oke') {
+    if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Ganti Profile Picture",
           toastLength: Toast.LENGTH_SHORT,
