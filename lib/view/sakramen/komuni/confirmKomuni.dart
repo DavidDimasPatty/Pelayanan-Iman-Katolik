@@ -15,7 +15,7 @@ class confirmKomuni {
   final iduser;
   final idKomuni;
   var hasil;
-  confirmKomuni(this.idGereja, this.iduser, this.idKomuni);
+  confirmKomuni(this.iduser, this.idGereja, this.idKomuni);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();

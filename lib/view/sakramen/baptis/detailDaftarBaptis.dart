@@ -20,10 +20,10 @@ class detailDaftarBaptis extends StatefulWidget {
   final iduser;
   final idBaptis;
   @override
-  detailDaftarBaptis(this.idGereja, this.iduser, this.idBaptis);
+  detailDaftarBaptis(this.iduser, this.idGereja, this.idBaptis);
 
   _detailDaftarBaptis createState() =>
-      _detailDaftarBaptis(this.idGereja, this.iduser, this.idBaptis);
+      _detailDaftarBaptis(this.iduser, this.idGereja, this.idBaptis);
 }
 
 class _detailDaftarBaptis extends State<detailDaftarBaptis> {
@@ -32,7 +32,7 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
   final iduser;
   final idBaptis;
   var hasil;
-
+  _detailDaftarBaptis(this.iduser, this.idGereja, this.idBaptis);
   Future<List> callDb() async {
     // Messages msg = new Messages();
     // msg.addReceiver("agenPencarian");
@@ -75,8 +75,6 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
       callDb();
     });
   }
-
-  _detailDaftarBaptis(this.idGereja, this.iduser, this.idBaptis);
 
   @override
   Widget build(BuildContext context) {
@@ -554,9 +552,9 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                               RaisedButton(
                                   onPressed: () async {
                                     confirmBaptis(
+                                      iduser,
                                       snapshot.data[0][0]['GerejaBaptis'][0]
                                           ['_id'],
-                                      iduser,
                                       snapshot.data[0][0]['_id'],
                                     ).showDialogBox(context);
                                   },

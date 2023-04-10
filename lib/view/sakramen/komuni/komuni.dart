@@ -271,8 +271,8 @@ class _Komuni extends State<Komuni> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => detailDaftarKomuni(
-                                        i['GerejaKomuni'][0]['_id'],
                                         iduser,
+                                        i['GerejaKomuni'][0]['_id'],
                                         i['_id'])),
                               );
                             },

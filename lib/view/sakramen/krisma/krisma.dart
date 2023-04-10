@@ -269,8 +269,8 @@ class _Krisma extends State<Krisma> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => detailDaftarKrisma(
-                                        i['GerejaKrisma'][0]['_id'],
                                         iduser,
+                                        i['GerejaKrisma'][0]['_id'],
                                         i['_id'])),
                               );
                             },

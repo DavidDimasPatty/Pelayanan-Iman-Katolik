@@ -21,10 +21,10 @@ class detailDaftarKrisma extends StatefulWidget {
   final iduser;
   final idKrisma;
   @override
-  detailDaftarKrisma(this.idGereja, this.iduser, this.idKrisma);
+  detailDaftarKrisma(this.iduser, this.idGereja, this.idKrisma);
 
   _detailDaftarKrisma createState() =>
-      _detailDaftarKrisma(this.idGereja, this.iduser, this.idKrisma);
+      _detailDaftarKrisma(this.iduser, this.idGereja, this.idKrisma);
 }
 
 class _detailDaftarKrisma extends State<detailDaftarKrisma> {
@@ -71,7 +71,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
     );
   }
 
-  _detailDaftarKrisma(this.idGereja, this.iduser, this.idKrisma);
+  _detailDaftarKrisma(this.iduser, this.idGereja, this.idKrisma);
   Future pullRefresh() async {
     setState(() {
       callDb();
@@ -553,9 +553,9 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                               RaisedButton(
                                   onPressed: () async {
                                     confirmKrisma(
+                                      iduser,
                                       snapshot.data[0][0]['GerejaKrisma'][0]
                                           ['_id'],
-                                      idGereja,
                                       snapshot.data[0][0]['_id'],
                                     ).showDialogBox(context);
                                   },

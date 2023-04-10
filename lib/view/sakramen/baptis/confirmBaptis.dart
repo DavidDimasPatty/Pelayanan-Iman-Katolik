@@ -15,7 +15,7 @@ class confirmBaptis {
   final iduser;
   final idBaptis;
   var hasil;
-  confirmBaptis(this.idGereja, this.iduser, this.idBaptis);
+  confirmBaptis(this.iduser, this.idGereja, this.idBaptis);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();

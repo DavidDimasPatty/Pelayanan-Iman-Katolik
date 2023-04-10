@@ -17,7 +17,7 @@ class confirmKrisma {
   var hasil;
 
   var key = 0;
-  confirmKrisma(this.idGereja, this.iduser, this.idKrisma);
+  confirmKrisma(this.iduser, this.idGereja, this.idKrisma);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();

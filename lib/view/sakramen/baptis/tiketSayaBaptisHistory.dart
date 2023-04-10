@@ -19,7 +19,7 @@ class tiketSayaBaptisHistory {
   var idGereja;
   var idUserBaptis;
   tiketSayaBaptisHistory(
-      this.iduser, this.idBaptis, this.idGereja, this.idUserBaptis);
+      this.iduser, this.idGereja, this.idBaptis, this.idUserBaptis);
 
   Future<List> callDb() async {
     // Messages msg = new Messages();

@@ -20,10 +20,10 @@ class detailDaftarKomuni extends StatefulWidget {
   final iduser;
   final idKomuni;
   @override
-  detailDaftarKomuni(this.idGereja, this.iduser, this.idKomuni);
+  detailDaftarKomuni(this.iduser, this.idGereja, this.idKomuni);
 
   _detailDaftarKomuni createState() =>
-      _detailDaftarKomuni(this.idGereja, this.iduser, this.idKomuni);
+      _detailDaftarKomuni(this.iduser, this.idGereja, this.idKomuni);
 }
 
 class _detailDaftarKomuni extends State<detailDaftarKomuni> {
@@ -32,7 +32,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
   final iduser;
   final idKomuni;
   var hasil;
-
+  _detailDaftarKomuni(this.iduser, this.idGereja, this.idKomuni);
   Future<List> callDb() async {
     // Messages msg = new Messages();
     // msg.addReceiver("agenPencarian");
@@ -69,8 +69,6 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
       destination: coordinates,
     );
   }
-
-  _detailDaftarKomuni(this.idGereja, this.iduser, this.idKomuni);
 
   Future pullRefresh() async {
     setState(() {
@@ -535,9 +533,9 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                             RaisedButton(
                                 onPressed: () async {
                                   confirmKomuni(
+                                    iduser,
                                     snapshot.data[0][0]['GerejaKomuni'][0]
                                         ['_id'],
-                                    iduser,
                                     snapshot.data[0][0]['_id'],
                                   ).showDialogBox(context);
                                 },

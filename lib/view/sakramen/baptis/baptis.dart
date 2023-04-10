@@ -259,8 +259,8 @@ class _Baptis extends State<Baptis> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => detailDaftarBaptis(
-                                        i['GerejaBaptis'][0]['_id'],
                                         iduser,
+                                        i['GerejaBaptis'][0]['_id'],
                                         i['_id'])),
                               );
                             },

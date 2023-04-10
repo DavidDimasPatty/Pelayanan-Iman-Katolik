@@ -137,8 +137,8 @@ class _tiketSaya extends State<tiketSaya> {
                                 onTap: () {
                                   tiketSayaDetailBaptis(
                                           iduser,
-                                          i['UserBaptis'][0]['_id'],
                                           i['UserBaptis'][0]['idGereja'],
+                                          i['UserBaptis'][0]['_id'],
                                           i['_id'])
                                       .showDialogBox(context);
                                 },
@@ -217,8 +217,8 @@ class _tiketSaya extends State<tiketSaya> {
                                     onTap: () {
                                       tiketSayaDetailKomuni(
                                               iduser,
-                                              i['UserKomuni'][0]['_id'],
                                               i['UserKomuni'][0]['idGereja'],
+                                              i['UserKomuni'][0]['_id'],
                                               i['_id'])
                                           .showDialogBox(context);
                                     },
@@ -309,8 +309,8 @@ class _tiketSaya extends State<tiketSaya> {
                                     onTap: () {
                                       tiketSayaDetailKrisma(
                                               iduser,
-                                              i['UserKrisma'][0]['_id'],
                                               i['UserKrisma'][0]['idGereja'],
+                                              i['UserKrisma'][0]['_id'],
                                               i['_id'])
                                           .showDialogBox(context);
                                     },
