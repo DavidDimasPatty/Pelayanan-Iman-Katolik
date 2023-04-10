@@ -16,8 +16,6 @@ import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/login.dart';
 
-var tampilan;
-
 Future callDb() async {
   // Messages msg = new Messages();
   // await msg.addReceiver("agenSetting");
@@ -39,68 +37,7 @@ Future callDb() async {
   return hasil;
 }
 
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   // If you're going to use other Firebase services in the background, such as Firestore,
-//   // make sure you call `initializeApp` before using other Firebase services.
-//   await Firebase.initializeApp();
-//   // print(message.from);
-//   // print(message.data);
-
-//   print('Handling a background message ${message.messageId}');
-// }
-
-/// Create a [AndroidNotificationChannel] for heads up notifications
-AndroidNotificationChannel? channel;
-
-/// Initialize the [FlutterLocalNotificationsPlugin] package.
-FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
-
-void main() async {
-  var tampilan = await callDb();
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await dotenv.load(fileName: ".env");
-  // await Firebase.initializeApp();
-
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-  if (!kIsWeb) {
-    channel = const AndroidNotificationChannel(
-      'high_importance_channel', // id
-      'High Importance Notifications', // title
-      // 'This channel is used for important notifications.', // description
-      importance: Importance.high,
-    );
-
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-    /// Create an Android Notification Channel.
-    ///
-    /// We use this channel in the `AndroidManifest.xml` file to override the
-    /// default FCM channel to enable heads up notifications.
-    await flutterLocalNotificationsPlugin!
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(channel!);
-
-    /// Update the iOS foreground notification presentation options to allow
-    /// heads up notifications.
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-      alert: true,
-      badge: true,
-      sound: true,
-    );
-  }
-
-  // await MongoDatabase.connect();
-  // LocationPermission permission = await Geolocator.checkPermission();
-  // print(permission);
-  // if (permission == LocationPermission.denied) {
-  //   LocationPermission permission = await Geolocator.requestPermission();
-  //   LocationPermission permission2 = await Geolocator.checkPermission();
-  //   print(permission2);
-  // }
-  print(tampilan);
+callTampilan(tampilan) {
   if (tampilan[1][0] == "pagi") {
     try {
       if (tampilan[0][0].length != 0 && tampilan[0][0] != "nothing") {
@@ -187,4 +124,90 @@ void main() async {
       ));
     }
   }
+}
+
+// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+//   // If you're going to use other Firebase services in the background, such as Firestore,
+//   // make sure you call `initializeApp` before using other Firebase services.
+//   await Firebase.initializeApp();
+//   // print(message.from);
+//   // print(message.data);
+
+//   print('Handling a background message ${message.messageId}');
+// }
+
+/// Create a [AndroidNotificationChannel] for heads up notifications
+AndroidNotificationChannel? channel;
+
+/// Initialize the [FlutterLocalNotificationsPlugin] package.
+FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
+
+void main() async {
+  var data = await callDb();
+  callTampilan(data);
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await dotenv.load(fileName: ".env");
+  // await Firebase.initializeApp();
+
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  if (!kIsWeb) {
+    channel = const AndroidNotificationChannel(
+      'high_importance_channel', // id
+      'High Importance Notifications', // title
+      // 'This channel is used for important notifications.', // description
+      importance: Importance.high,
+    );
+
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    /// Create an Android Notification Channel.
+    ///
+    /// We use this channel in the `AndroidManifest.xml` file to override the
+    /// default FCM channel to enable heads up notifications.
+    await flutterLocalNotificationsPlugin!
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel!);
+
+    /// Update the iOS foreground notification presentation options to allow
+    /// heads up notifications.
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+  }
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    RemoteNotification? notification = message.notification!;
+    AndroidNotification? android = message.notification?.android;
+
+    if (notification != null && android != null && !kIsWeb) {
+      flutterLocalNotificationsPlugin!.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(
+              channel!.id,
+              channel!.name,
+              icon: 'launch_background',
+            ),
+          ));
+    }
+  });
+
+  FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+    print("Receive data from FCM");
+    callTampilan(data);
+  });
+  // await MongoDatabase.connect();
+  // LocationPermission permission = await Geolocator.checkPermission();
+  // print(permission);
+  // if (permission == LocationPermission.denied) {
+  //   LocationPermission permission = await Geolocator.requestPermission();
+  //   LocationPermission permission2 = await Geolocator.checkPermission();
+  //   print(permission2);
+  // }
 }
