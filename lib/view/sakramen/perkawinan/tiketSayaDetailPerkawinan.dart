@@ -20,25 +20,6 @@ class tiketSayaDetailPerkawinan {
   tiketSayaDetailPerkawinan(this.iduser, this.idPerkawinan);
 
   Future callDb() async {
-    // tiket = await MongoDatabase.pemberkatanSpec(idPerkawinan);
-    // return tiket;
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari Detail Jadwal Pemberkatan"],
-    //   [idPerkawinan]
-    // ]);
-
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // tiket = await AgenPage().receiverTampilan();
-
-    // return tiket;
-    // tiket = await MongoDatabase.jadwalBaptis(idBaptis);
-    // return tiket;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["perkawinan", "history", idPerkawinan]));
@@ -53,21 +34,6 @@ class tiketSayaDetailPerkawinan {
   }
 
   cancelDaftar(context) async {
-    // cancelPemberkatan = await MongoDatabase.cancelPemberkatan(idPerkawinan);
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPendaftaran");
-    // msg.setContent([
-    //   ["cancel Pemberkatan"],
-    //   [idPerkawinan]
-    // ]);
-
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // cancelPemberkatan = await AgenPage().receiverTampilan();
-    // cancelKrisma = await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST",
         Tasks('cancel pelayanan', ["perkawinan", idPerkawinan, iduser]));

@@ -33,21 +33,6 @@ class _history extends State<history> {
   _history(this.iduser);
 
   Future<List> callDb() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari Enroll History Done"],
-    //   [idUser]
-    // ]);
-    // List k = [];
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // k = await AgenPage().receiverTampilan();
-
-    // return k;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari jadwal pendaftaran', ["history", iduser]));
@@ -341,14 +326,6 @@ class _history extends State<history> {
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.w300),
                                           ),
-                                          // Text(
-                                          //   "Nama Gereja : " +
-                                          //       snapshot.data[0]['nama'],
-                                          //   style: TextStyle(
-                                          //       color: Colors.white,
-                                          //       fontSize: 15.0,
-                                          //       fontWeight: FontWeight.w300),
-                                          // ),
                                           Text(
                                             i['status'] == 0
                                                 ? ' Status : Belum Hadir'
@@ -548,7 +525,6 @@ class _history extends State<history> {
                                 padding: EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 8),
                               ),
-                              /////////
                             ],
                           )
                         ]),
@@ -646,12 +622,10 @@ class _history extends State<history> {
                                         ],
                                       ),
                                     )),
-
                             Padding(
                               padding: EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 8),
                             ),
-                            /////////
                           ],
                         )
                       ]);
@@ -706,14 +680,6 @@ class _history extends State<history> {
               },
             ),
           )),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: new FloatingActionButton(
-      //   onPressed: () {
-      //     openCamera();
-      //   },
-      //   tooltip: 'Increment',
-      //   child: new Icon(Icons.camera_alt_rounded),
-      // ),
     );
   }
 }

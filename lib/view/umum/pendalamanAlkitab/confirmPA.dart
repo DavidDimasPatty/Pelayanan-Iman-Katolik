@@ -17,21 +17,6 @@ class confirmPA {
   confirmPA(this.iduser, this.idKegiatan);
 
   Future<List> callDb() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari Detail Kegiatan"],
-    //   [idKegiatan]
-    // ]);
-    // List k = [];
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // detailGereja = await AgenPage().receiverTampilan();
-
-    // return detailGereja;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["umum", "detail", idKegiatan]));
@@ -46,21 +31,6 @@ class confirmPA {
   }
 
   Future daftar(idKegiatan, idUser, kapasitas, context) async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPendaftaran");
-    // msg.setContent([
-    //   ["enroll Kegiatan"],
-    //   [idKegiatan],
-    //   [idUser],
-    //   [kapasitas]
-    // ]);
-
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 2));
-    // var daftarmisa = await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('check pendaftaran', ["umum", idKegiatan, idUser, kapasitas]));

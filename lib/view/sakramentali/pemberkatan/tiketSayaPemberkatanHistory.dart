@@ -19,25 +19,6 @@ class tiketSayaPemberkatanHistory {
   tiketSayaPemberkatanHistory(this.iduser, this.idPemberkatan);
 
   Future<List> callDb() async {
-    // tiket = await MongoDatabase.pemberkatanSpec(idPemberkatan);
-    // return tiket;
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari Detail Jadwal Pemberkatan"],
-    //   [idPemberkatan]
-    // ]);
-
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // tiket = await AgenPage().receiverTampilan();
-
-    // return tiket;
-    // tiket = await MongoDatabase.jadwalBaptis(idBaptis);
-    // return tiket;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["sakramentali", "history", idPemberkatan]));
@@ -52,8 +33,6 @@ class tiketSayaPemberkatanHistory {
   }
 
   cancelDaftar(idMisa, context) async {
-    // cancelPemberkatan = await MongoDatabase.cancelPemberkatan(idPemberkatan);
-
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST",
         Tasks('cancel pelayanan', ["sakramentali", idPemberkatan]));
@@ -99,7 +78,6 @@ class tiketSayaPemberkatanHistory {
   }
 
   void showDialogBox(BuildContext context) async {
-    // await callInfoPembarkatan(idPemberkatan);
     showDialog<void>(
         context: context,
         builder: (BuildContext context) {

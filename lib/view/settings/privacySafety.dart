@@ -18,8 +18,6 @@ class privacySafety extends StatelessWidget {
   final iduser;
   var dataUser;
 
-  //print('Download-Link: $urlDownload');
-
   privacySafety(this.iduser);
 
   @override
@@ -171,14 +169,6 @@ class privacySafety extends StatelessWidget {
               },
             ),
           )),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: new FloatingActionButton(
-      //   onPressed: () {
-      //     openCamera();
-      //   },
-      //   tooltip: 'Increment',
-      //   child: new Icon(Icons.camera_alt_rounded),
-      // ),
     );
   }
 }

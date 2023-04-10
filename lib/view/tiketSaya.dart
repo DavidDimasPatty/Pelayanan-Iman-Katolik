@@ -25,34 +25,10 @@ class tiketSaya extends StatefulWidget {
 
 class _tiketSaya extends State<tiketSaya> {
   var iduser;
-  // var tiketGereja;
-  // var tiket;
-  // var namaGereja;
-  // var hasil;
-  // var baptisUser;
-  // var kegiatanUser;
-  // var komuniUser;
-  // var krismaUser;
-  // var pemberkatanUser;
 
   _tiketSaya(this.iduser);
 
   Future<List> callDb() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari Enroll History"],
-    //   [iduser]
-    // ]);
-    // List k = [];
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // k = await AgenPage().receiverTampilan();
-
-    // return k;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari jadwal pendaftaran', ["current", iduser]));
@@ -255,15 +231,6 @@ class _tiketSaya extends State<tiketSaya> {
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.w300),
                                           ),
-                                          // Text(
-                                          //   "Nama Gereja : " +
-                                          //       snapshot.data[0]['nama']
-                                          //           .toString(),
-                                          //   style: TextStyle(
-                                          //       color: Colors.white,
-                                          //       fontSize: 15.0,
-                                          //       fontWeight: FontWeight.w300),
-                                          // ),
                                           Text(
                                             i['status'] == 0
                                                 ? ' Status : Belum Hadir'
@@ -718,14 +685,6 @@ class _tiketSaya extends State<tiketSaya> {
               },
             ),
           )),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: new FloatingActionButton(
-      //   onPressed: () {
-      //     openCamera();
-      //   },
-      //   tooltip: 'Increment',
-      //   child: new Icon(Icons.camera_alt_rounded),
-      // ),
     );
   }
 }

@@ -30,21 +30,6 @@ class _detailPengumuman extends State<detailPengumuman> {
   final idPengumuman;
 
   Future<List> callDb() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari Detail Pengumuman"],
-    //   [idPengumuman]
-    // ]);
-    // List k = [];
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // k = await AgenPage().receiverTampilan();
-
-    // return k;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pengumuman', ["detail", idPengumuman]));
@@ -55,13 +40,6 @@ class _detailPengumuman extends State<detailPengumuman> {
     var hasil = await await AgentPage.getDataPencarian();
     return hasil;
   }
-
-  // showDirectionWithFirstMap(coordinates) async {
-  //   final List<AvailableMap> availableMaps = await MapLauncher.installedMaps;
-  //   await availableMaps.first.showDirections(
-  //     destination: coordinates,
-  //   );
-  // }
 
   Future pullRefresh() async {
     setState(() {
@@ -346,14 +324,6 @@ class _detailPengumuman extends State<detailPengumuman> {
               },
             ),
           )),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: new FloatingActionButton(
-      //   onPressed: () {
-      //     openCamera();
-      //   },
-      //   tooltip: 'Increment',
-      //   child: new Icon(Icons.camera_alt_rounded),
-      // ),
     );
   }
 }

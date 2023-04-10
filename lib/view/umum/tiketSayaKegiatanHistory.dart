@@ -22,23 +22,6 @@ class tiketSayaKegiatanHistory {
   tiketSayaKegiatanHistory(this.iduser, this.idUserUmum, this.idUmum);
 
   Future<List> callDb() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari Detail Jadwal Umum"],
-    //   [idUmum]
-    // ]);
-
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // tiket = await AgenPage().receiverTampilan();
-
-    // return tiket;
-    // tiket = await MongoDatabase.jadwalBaptis(idBaptis);
-    // return tiket;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["umum", "detail", idUmum]));
@@ -53,21 +36,6 @@ class tiketSayaKegiatanHistory {
   }
 
   cancelDaftar(kapasitas, context) async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cancel Umum"],
-    //   [idUserUmum],
-    //   [idUmum],
-    //   [kapasitas]
-    // ]);
-
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // cancelUmum = await AgenPage().receiverTampilan();
     if (cancelUmum == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Cancel Kegiatan",

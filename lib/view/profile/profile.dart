@@ -35,21 +35,6 @@ class _Profile extends State<Profile> {
   }
 
   Future<List> callDb() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari tampilan Profile"],
-    //   [iduser]
-    // ]);
-    // List k = [];
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // k = await AgenPage().receiverTampilan();
-
-    // return k;
     Completer<void> completer = Completer<void>();
     Messages message = Messages(
         'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari profile', iduser));
@@ -64,20 +49,6 @@ class _Profile extends State<Profile> {
   }
 
   Future uploadFile(File file, context) async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenAkun");
-    // msg.setContent([
-    //   ["change Picture"],
-    //   [iduser],
-    //   [file]
-    // ]);
-    // var k;
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // k = await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
         Tasks('change profile picture', [iduser, file]));

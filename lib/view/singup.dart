@@ -80,23 +80,6 @@ class SignUp extends StatelessWidget {
       } else if (emailValid == true &&
           namaValid == true &&
           passwordController.text == repasswordController.text) {
-        // Messages msg = new Messages();
-        // msg.addReceiver("agenAkun");
-        // msg.setContent([
-        //   ["add User"],
-        //   [nameController.text],
-        //   [emailController.text],
-        //   [passwordController.text],
-        // ]);
-
-        // await msg.send().then((res) async {
-        //   print("masuk");
-        //   print(await AgenPage().receiverTampilan());
-        // });
-        // await Future.delayed(Duration(seconds: 1));
-        // var add = await AgenPage().receiverTampilan();
-        // var add = await MongoDatabase.addUser(
-        //     nameController.text, emailController.text, passwordController.text);
         Completer<void> completer = Completer<void>();
         Messages message = Messages(
             'Agent Page',

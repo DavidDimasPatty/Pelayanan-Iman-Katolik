@@ -20,25 +20,6 @@ class tiketSayaPerkawinanHistory {
   tiketSayaPerkawinanHistory(this.iduser, this.idPerkawinan);
 
   Future callDb() async {
-    // tiket = await MongoDatabase.pemberkatanSpec(idPerkawinan);
-    // return tiket;
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari Detail Jadwal Pemberkatan"],
-    //   [idPerkawinan]
-    // ]);
-
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // tiket = await AgenPage().receiverTampilan();
-
-    // return tiket;
-    // tiket = await MongoDatabase.jadwalBaptis(idBaptis);
-    // return tiket;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["perkawinan", "history", idPerkawinan]));
@@ -51,48 +32,6 @@ class tiketSayaPerkawinanHistory {
     await completer.future;
     return await hasil;
   }
-
-  // cancelDaftar(context) async {
-  //   // cancelPemberkatan = await MongoDatabase.cancelPemberkatan(idPerkawinan);
-  //   // Messages msg = new Messages();
-  //   // msg.addReceiver("agenPendaftaran");
-  //   // msg.setContent([
-  //   //   ["cancel Pemberkatan"],
-  //   //   [idPerkawinan]
-  //   // ]);
-
-  //   // await msg.send().then((res) async {
-  //   //   print("masuk");
-  //   //   print(await AgenPage().receiverTampilan());
-  //   // });
-  //   // await Future.delayed(Duration(seconds: 1));
-  //   // cancelPemberkatan = await AgenPage().receiverTampilan();
-  //   // cancelKrisma = await AgenPage().receiverTampilan();
-  //   Completer<void> completer = Completer<void>();
-  //   Messages message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST",
-  //       Tasks('cancel pelayanan', ["perkawinan", idPerkawinan, idUser]));
-
-  //   MessagePassing messagePassing = MessagePassing();
-  //   var data = await messagePassing.sendMessage(message);
-  //   var hasil = await await AgentPage.getDataPencarian();
-  //   completer.complete();
-
-  //   await completer.future;
-  //   if (hasil == 'oke') {
-  //     Fluttertoast.showToast(
-  //         msg: "Berhasil Cancel Perkawinan",
-  //         toastLength: Toast.LENGTH_SHORT,
-  //         gravity: ToastGravity.CENTER,
-  //         timeInSecForIosWeb: 2,
-  //         backgroundColor: Colors.green,
-  //         textColor: Colors.white,
-  //         fontSize: 16.0);
-  //     Navigator.pop(
-  //         context,
-  //         MaterialPageRoute(
-  //             builder: (context) => tiketSaya(this.iduser)));
-  //   }
-  // }
 
   _getCloseButton(context) {
     return Padding(
@@ -169,39 +108,6 @@ class tiketSayaPerkawinanHistory {
                               ],
                             ),
                             Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                            // RaisedButton(
-                            //     onPressed: () async {
-                            //       cancelDaftar(context);
-                            //     },
-                            //     shape: RoundedRectangleBorder(
-                            //         borderRadius: BorderRadius.circular(80.0)),
-                            //     elevation: 10.0,
-                            //     padding: EdgeInsets.all(0.0),
-                            //     child: Ink(
-                            //       decoration: BoxDecoration(
-                            //         gradient: LinearGradient(
-                            //             begin: Alignment.topRight,
-                            //             end: Alignment.topLeft,
-                            //             colors: [
-                            //               Colors.blueAccent,
-                            //               Colors.lightBlue,
-                            //             ]),
-                            //         borderRadius: BorderRadius.circular(30.0),
-                            //       ),
-                            //       child: Container(
-                            //         constraints: BoxConstraints(
-                            //             maxWidth: double.maxFinite,
-                            //             minHeight: 50.0),
-                            //         alignment: Alignment.center,
-                            //         child: Text(
-                            //           "Cancel Pendaftaran",
-                            //           style: TextStyle(
-                            //               color: Colors.white,
-                            //               fontSize: 26.0,
-                            //               fontWeight: FontWeight.w300),
-                            //         ),
-                            //       ),
-                            //     )),
                           ]);
                     } catch (e) {
                       print(e);

@@ -17,14 +17,6 @@ import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/login.dart';
 
 Future callDb() async {
-  // Messages msg = new Messages();
-  // await msg.addReceiver("agenSetting");
-  // await msg.setContent([
-  //   ["setting User"]
-  // ]);
-  // await msg.send().then((res) async {});
-  // await Future.delayed(Duration(seconds: 2));
-  // return await AgenPage().receiverTampilan();
   Completer<void> completer = Completer<void>();
   Messages message = Messages(
       'Agent Page', 'Agent Setting', "REQUEST", Tasks('setting user', null));
@@ -47,20 +39,8 @@ callTampilan(tampilan) {
         runApp(MaterialApp(
           title: 'Navigation Basics',
           theme: ThemeData(
-            // Define the default brightness and colors.
             brightness: Brightness.light,
             primaryColor: Colors.grey,
-
-            // Define the default font family.
-            // fontFamily: 'Georgia',
-
-            // Define the default `TextTheme`. Use this to specify the default
-            // text styling for headlines, titles, bodies of text, and more.
-            // textTheme: const TextTheme(
-            //   displayLarge: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-            //   titleLarge: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-            //   bodyMedium: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
-            // ),
           ),
           home: HomePage(ObjectId.parse(object)),
         ));
@@ -69,7 +49,6 @@ callTampilan(tampilan) {
         runApp(MaterialApp(
           title: 'Navigation Basics',
           theme: ThemeData(
-            // Define the default brightness and colors.
             brightness: Brightness.light,
             primaryColor: Colors.grey,
           ),
@@ -80,7 +59,6 @@ callTampilan(tampilan) {
       runApp(MaterialApp(
         title: 'Navigation Basics',
         theme: ThemeData(
-          // Define the default brightness and colors.
           brightness: Brightness.light,
           primaryColor: Colors.grey,
         ),
@@ -99,7 +77,6 @@ callTampilan(tampilan) {
           theme: ThemeData(
             brightness: Brightness.dark,
             primaryColor: Colors.grey,
-            // ),
           ),
           home: HomePage(ObjectId.parse(object)),
         ));
@@ -126,16 +103,6 @@ callTampilan(tampilan) {
   }
 }
 
-// Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-//   // If you're going to use other Firebase services in the background, such as Firestore,
-//   // make sure you call `initializeApp` before using other Firebase services.
-//   await Firebase.initializeApp();
-//   // print(message.from);
-//   // print(message.data);
-
-//   print('Handling a background message ${message.messageId}');
-// }
-
 /// Create a [AndroidNotificationChannel] for heads up notifications
 AndroidNotificationChannel? channel;
 
@@ -145,33 +112,21 @@ FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 void main() async {
   var data = await callDb();
   callTampilan(data);
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await dotenv.load(fileName: ".env");
-  // await Firebase.initializeApp();
-
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   if (!kIsWeb) {
     channel = const AndroidNotificationChannel(
-      'high_importance_channel', // id
-      'High Importance Notifications', // title
-      // 'This channel is used for important notifications.', // description
+      'high_importance_channel',
+      'High Importance Notifications',
       importance: Importance.high,
     );
 
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-    /// Create an Android Notification Channel.
-    ///
-    /// We use this channel in the `AndroidManifest.xml` file to override the
-    /// default FCM channel to enable heads up notifications.
     await flutterLocalNotificationsPlugin!
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel!);
 
-    /// Update the iOS foreground notification presentation options to allow
-    /// heads up notifications.
     await FirebaseMessaging.instance
         .setForegroundNotificationPresentationOptions(
       alert: true,
@@ -202,12 +157,4 @@ void main() async {
     print("Receive data from FCM");
     callTampilan(data);
   });
-  // await MongoDatabase.connect();
-  // LocationPermission permission = await Geolocator.checkPermission();
-  // print(permission);
-  // if (permission == LocationPermission.denied) {
-  //   LocationPermission permission = await Geolocator.requestPermission();
-  //   LocationPermission permission2 = await Geolocator.checkPermission();
-  //   print(permission2);
-  // }
 }

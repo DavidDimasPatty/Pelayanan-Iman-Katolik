@@ -38,21 +38,6 @@ class _EditProfile extends State<EditProfile> {
   TextEditingController emailController = new TextEditingController();
 
   Future<List> callDb() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari tampilan Profile"],
-    //   [idUser]
-    // ]);
-    // List k = [];
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // k = await AgenPage().receiverTampilan();
-
-    // return k;
     Completer<void> completer = Completer<void>();
     Messages message = Messages(
         'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', iduser));
@@ -72,28 +57,6 @@ class _EditProfile extends State<EditProfile> {
         lingkunganController.text != "" &&
         notelpController.text != "" &&
         alamatController.text != "") {
-      // var add = await MongoDatabase.addPemberkatan(idUser, nama, paroki,
-      //     lingkungan, notelp, alamat, jenis, tanggal, idGereja, note, idImam);
-
-      // Messages msg = new Messages();
-      // msg.addReceiver("agenAkun");
-      // msg.setContent([
-      //   ["edit Profile"],
-      //   [idUser],
-      //   [nama],
-      //   [email],
-      //   [paroki],
-      //   [lingkungan],
-      //   [notelp],
-      //   [alamat],
-      // ]);
-
-      // await msg.send().then((res) async {
-      //   print("masuk");
-      //   print(await AgenPage().receiverTampilan());
-      // });
-      // await Future.delayed(Duration(seconds: 1));
-      // var daftarmisa = await AgenPage().receiverTampilan();
       Completer<void> completer = Completer<void>();
       Messages message = Messages(
           'Agent Page',

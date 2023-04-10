@@ -31,21 +31,6 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
   final idKegiatan;
 
   Future<List> callDb() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari Detail Kegiatan"],
-    //   [idKegiatan]
-    // ]);
-    // List k = [];
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // hasil = await AgenPage().receiverTampilan();
-
-    // return hasil;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["umum", "detail", idKegiatan]));
@@ -58,13 +43,6 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
     await completer.future;
     return await hasil;
   }
-
-  // showDirectionWithFirstMap(coordinates) async {
-  //   final List<AvailableMap> availableMaps = await MapLauncher.installedMaps;
-  //   await availableMaps.first.showDirections(
-  //     destination: coordinates,
-  //   );
-  // }
 
   _detailDaftarRetret(this.iduser, this.idKegiatan);
   Future pullRefresh() async {
@@ -387,33 +365,7 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
                                                                   MainAxisAlignment
                                                                       .center,
                                                               children: <
-                                                                  Widget>[
-                                                                // Text(
-                                                                //   "Tanggal Penutupan: ",
-                                                                //   style: TextStyle(
-                                                                //       color:
-                                                                //           Colors.black,
-                                                                //       fontSize: 15.0,
-                                                                //       fontWeight:
-                                                                //           FontWeight
-                                                                //               .w300),
-                                                                // ),
-                                                                // Text(
-                                                                //   hasil[0][
-                                                                //               'GerejaBaptis'][0]
-                                                                //           [
-                                                                //           'jadwalTutup']
-                                                                //       .toString()
-                                                                //       .substring(0, 19),
-                                                                //   style: TextStyle(
-                                                                //       color:
-                                                                //           Colors.black,
-                                                                //       fontSize: 15.0,
-                                                                //       fontWeight:
-                                                                //           FontWeight
-                                                                //               .w300),
-                                                                // ),
-                                                              ],
+                                                                  Widget>[],
                                                             ),
                                                           ],
                                                         ),
@@ -429,42 +381,6 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
                               SizedBox(
                                 height: 20.0,
                               ),
-                              // RaisedButton(
-                              //     onPressed: ()
-                              //         // async
-                              //         {
-                              //       // showDirectionWithFirstMap(Coords(
-                              //       //     hasil[0]['lat'],
-                              //       //     hasil[0]['lng']));
-                              //     },
-                              //     shape: RoundedRectangleBorder(
-                              //         borderRadius: BorderRadius.circular(80.0)),
-                              //     elevation: 0.0,
-                              //     padding: EdgeInsets.all(0.0),
-                              //     child: Ink(
-                              //       decoration: BoxDecoration(
-                              //         gradient: LinearGradient(
-                              //             begin: Alignment.topRight,
-                              //             end: Alignment.topLeft,
-                              //             colors: [
-                              //               Colors.blueAccent,
-                              //               Colors.lightBlue,
-                              //             ]),
-                              //         borderRadius: BorderRadius.circular(30.0),
-                              //       ),
-                              //       child: Container(
-                              //         constraints: BoxConstraints(
-                              //             maxWidth: 300.0, minHeight: 50.0),
-                              //         alignment: Alignment.center,
-                              //         child: Text(
-                              //           "Lokasi Gereja",
-                              //           style: TextStyle(
-                              //               color: Colors.white,
-                              //               fontSize: 26.0,
-                              //               fontWeight: FontWeight.w300),
-                              //         ),
-                              //       ),
-                              //     )),
                               SizedBox(
                                 height: 20.0,
                               ),
@@ -559,14 +475,6 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
               },
             ),
           )),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: new FloatingActionButton(
-      //   onPressed: () {
-      //     openCamera();
-      //   },
-      //   tooltip: 'Increment',
-      //   child: new Icon(Icons.camera_alt_rounded),
-      // ),
     );
   }
 }

@@ -51,43 +51,14 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
 
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
-      // if (args.value is PickerDateRange) {
-      //   _range = '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} -'
-      //       // ignore: lines_longer_than_80_chars
-      //       ' ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
-      // }
-      //  else if (args.value is DateTime) {
-      //   _selectedDate = args.value.toString();
-      // }
       if (args.value is DateTime) {
         _selectedDate = args.value.toString();
       }
-      // else if (args.value is List<DateTime>) {
-      //   _dateCount = args.value.length.toString();
-      // } else {
-      //   _rangeCount = args.value.length.toString();
-      // }
     });
     print(_selectedDate);
   }
 
   Future<List> callDb() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari Detail Imam"],
-    //   [idImam],
-    //   [idGereja]
-    // ]);
-    // List k = [];
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // k = await AgenPage().receiverTampilan();
-
-    // return k;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["sakramentali", "detail", idGereja]));
@@ -111,32 +82,6 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
         ddValue != "" &&
         _selectedDate != "" &&
         noteController.text != "") {
-      // var add = await MongoDatabase.addPemberkatan(idUser, nama, paroki,
-      //     lingkungan, notelp, alamat, jenis, tanggal, idGereja, note, idImam);
-
-      // Messages msg = new Messages();
-      // msg.addReceiver("agenPendaftaran");
-      // msg.setContent([
-      //   ["add Pemberkatan"],
-      //   [idUser],
-      //   [nama],
-      //   [paroki],
-      //   [lingkungan],
-      //   [notelp],
-      //   [alamat],
-      //   [jenis],
-      //   [tanggal],
-      //   [note],
-      //   [idGereja],
-      //   [idImam],
-      // ]);
-
-      // await msg.send().then((res) async {
-      //   print("masuk");
-      //   print(await AgenPage().receiverTampilan());
-      // });
-      // await Future.delayed(Duration(seconds: 1));
-      // var daftarmisa = await AgenPage().receiverTampilan();
       Completer<void> completer = Completer<void>();
       Messages message = Messages(
           'Agent Page',
@@ -671,14 +616,6 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
               },
             ),
           )),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: new FloatingActionButton(
-      //   onPressed: () {
-      //     openCamera();
-      //   },
-      //   tooltip: 'Increment',
-      //   child: new Icon(Icons.camera_alt_rounded),
-      // ),
     );
   }
 }

@@ -65,22 +65,6 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
   }
 
   Future<List> callDb() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenPencarian");
-    // msg.setContent([
-    //   ["cari Detail Imam"],
-    //   [idImam],
-    //   [idGereja]
-    // ]);
-    // List k = [];
-    // await msg.send().then((res) async {
-    //   print("masuk");
-    //   print(await AgenPage().receiverTampilan());
-    // });
-    // await Future.delayed(Duration(seconds: 1));
-    // k = await AgenPage().receiverTampilan();
-
-    // return k;
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["perkawinan", "detail", idGereja]));
@@ -103,31 +87,6 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
         alamatController.text != "" &&
         _selectedDate != "" &&
         noteController.text != "") {
-      // var add = await MongoDatabase.addPemberkatan(idUser, nama, paroki,
-      //     lingkungan, notelp, alamat, jenis, tanggal, idGereja, note, idImam);
-
-      // Messages msg = new Messages();
-      // msg.addReceiver("agenPendaftaran");
-      // msg.setContent([
-      //   ["add Perkawinan"],
-      //   [idUser],
-      //   [namap],
-      //   [namaw],
-      //   [notelp],
-      //   [alamat],
-      //   [email],
-      //   [tanggal],
-      //   [note],
-      //   [idGereja],
-      //   [idImam],
-      // ]);
-
-      // await msg.send().then((res) async {
-      //   print("masuk");
-      //   print(await AgenPage().receiverTampilan());
-      // });
-      // await Future.delayed(Duration(seconds: 1));
-      // var daftarmisa = await AgenPage().receiverTampilan();
       Completer<void> completer = Completer<void>();
       Messages message = Messages(
           'Agent Page',
@@ -215,8 +174,6 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
                 try {
                   return Column(
                     children: <Widget>[
-                      /////////
-                      ///
                       Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),

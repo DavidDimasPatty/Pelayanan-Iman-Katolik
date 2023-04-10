@@ -36,17 +36,6 @@ class _notifClass extends State<notification> {
   }
 
   Future callDb() async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenAkun");
-    // msg.setContent([
-    //   ["cari data user"],
-    //   [idUser]
-    // ]);
-    // await msg.send();
-    // await Future.delayed(Duration(seconds: 2));
-    // checknotif = await AgenPage().receiverTampilan();
-
-    // return checknotif;
     Completer<void> completer = Completer<void>();
     Messages message = Messages(
         'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', iduser));
@@ -62,17 +51,6 @@ class _notifClass extends State<notification> {
   }
 
   Future updateNotifPg(notifPg) async {
-    // Messages msg = new Messages();
-    // msg.addReceiver("agenAkun");
-    // msg.setContent([
-    //   ["update NotifPG"],
-    //   [idUser],
-    //   [notifPg]
-    // ]);
-
-    // await msg.send();
-    // await Future.delayed(Duration(seconds: 2));
-    // var daftarmisa = await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
         Tasks('update notification', [iduser, notifPg]));
@@ -94,11 +72,6 @@ class _notifClass extends State<notification> {
           fontSize: 16.0);
     }
   }
-
-  // void initState() {
-  //   super.initState();
-  //   callDb();
-  // }
 
   Future pullRefresh() async {
     setState(() {
@@ -244,14 +217,6 @@ class _notifClass extends State<notification> {
               },
             ),
           )),
-      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: new FloatingActionButton(
-      //   onPressed: () {
-      //     openCamera();
-      //   },
-      //   tooltip: 'Increment',
-      //   child: new Icon(Icons.camera_alt_rounded),
-      // ),
     );
   }
 }

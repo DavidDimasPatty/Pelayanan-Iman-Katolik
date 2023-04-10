@@ -72,32 +72,6 @@ class _HomePage extends State<HomePage> {
     setState(() {
       callTampilan();
     });
-
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   RemoteNotification? notification = message.notification!;
-    //   AndroidNotification? android = message.notification?.android;
-
-    //   if (notification != null && android != null && !kIsWeb) {
-    //     flutterLocalNotificationsPlugin!.show(
-    //         notification.hashCode,
-    //         notification.title,
-    //         notification.body,
-    //         NotificationDetails(
-    //           android: AndroidNotificationDetails(
-    //             channel!.id,
-    //             channel!.name,
-    //             icon: 'launch_background',
-    //           ),
-    //         ));
-    //   }
-    // });
-
-    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-    //   Navigator.push(
-    //     context,
-    //     MaterialPageRoute(builder: (context) => HomePage(this.iduser)),
-    //   );
-    // });
   }
 
   _HomePage(this.iduser);
@@ -676,13 +650,6 @@ class _HomePage extends State<HomePage> {
             ),
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      // floatingActionButton: new FloatingActionButton(
-      //   onPressed: () {
-      //     openCamera();
-      //   },
-      //   tooltip: 'Increment',
-      //   child: new Icon(Icons.camera_alt_rounded),
-      // ),
     );
   }
 }

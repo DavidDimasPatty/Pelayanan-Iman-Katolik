@@ -14,17 +14,6 @@ import 'package:pelayanan_iman_katolik/view/singup.dart';
 
 class Login extends StatelessWidget {
   Future login(id, password) async {
-    // Messages msg = new Messages();
-    // await msg.addReceiver("agenAkun");
-    // await msg.setContent([
-    //   ["cari user"],
-    //   [id],
-    //   [password]
-    // ]);
-    // var hasil;
-    // await msg.send();
-    // await Future.delayed(Duration(seconds: 3));
-    // return await AgenPage().receiverTampilan();
     Completer<void> completer = Completer<void>();
     Messages message = Messages(
         'Agent Page', 'Agent Akun', "REQUEST", Tasks('login', [id, password]));
@@ -266,20 +255,6 @@ class Login extends StatelessWidget {
                       SizedBox(
                         height: 10,
                       ),
-                      // FadeAnimation(
-                      //     1.5,
-                      //     GestureDetector(
-                      //         onTap: () {
-                      //           Navigator.push(
-                      //             context,
-                      //             MaterialPageRoute(
-                      //                 builder: (context) => ForgetPassword()),
-                      //           );
-                      //         },
-                      //         child: Text(
-                      //           "Forgot Password?",
-                      //           style: TextStyle(color: Colors.lightBlue),
-                      //         ))),
                     ],
                   ),
                 )
