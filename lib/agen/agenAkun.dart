@@ -47,45 +47,47 @@ class AgentAkun extends Agent {
     Messages msg = _Message.last;
     String sender = _Sender.last;
     dynamic task = msg.task;
-    for (var p in _plan) {
-      if (p.goals == task.action) {
-        Timer timer = Timer.periodic(Duration(seconds: p.time), (timer) {
-          stop = true;
-          timer.cancel();
+    var planQuest =
+        _plan.where((element) => element.goals == task.action).toList();
+    Plan p = planQuest[0];
+    var goalsQuest =
+        _goals.where((element) => element.request == p.goals).toList();
+    int clock = goalsQuest[0].time;
+    Goals goalquest = goalsQuest[0];
 
+    Timer timer = Timer.periodic(Duration(seconds: clock), (timer) {
+      stop = true;
+      timer.cancel();
+
+      MessagePassing messagePassing = MessagePassing();
+      Messages msg = rejectTask(task, sender);
+      messagePassing.sendMessage(msg);
+      return;
+    });
+
+    Messages message = await action(p.goals, task.data, sender);
+
+    if (stop == false) {
+      if (timer.isActive) {
+        timer.cancel();
+        bool checkGoals = false;
+        if (message.task.data.runtimeType == String &&
+            message.task.data == "failed") {
           MessagePassing messagePassing = MessagePassing();
           Messages msg = rejectTask(task, sender);
           messagePassing.sendMessage(msg);
-        });
+        } else {
+          if (goalquest.request == p.goals &&
+              goalquest.goals == message.task.data.runtimeType) {
+            checkGoals = true;
+          }
 
-        Messages message = await action(p.goals, task.data, sender);
-
-        if (stop == false) {
-          if (timer.isActive) {
-            timer.cancel();
-            bool checkGoals = false;
-            if (message.task.data.runtimeType == String &&
-                message.task.data == "failed") {
-              MessagePassing messagePassing = MessagePassing();
-              Messages msg = rejectTask(task, sender);
-              messagePassing.sendMessage(msg);
-            } else {
-              for (var g in _goals) {
-                if (g.request == p.goals &&
-                    g.goals == message.task.data.runtimeType) {
-                  checkGoals = true;
-                }
-              }
-              if (checkGoals == true) {
-                print(agentName + ' returning data to ${message.receiver}');
-                MessagePassing messagePassing = MessagePassing();
-                messagePassing.sendMessage(message);
-                break;
-              } else {
-                rejectTask(task, sender);
-              }
-              break;
-            }
+          if (checkGoals == true) {
+            print(agentName + ' returning data to ${message.receiver}');
+            MessagePassing messagePassing = MessagePassing();
+            messagePassing.sendMessage(message);
+          } else {
+            rejectTask(task, sender);
           }
         }
       }
@@ -385,16 +387,16 @@ class AgentAkun extends Agent {
   void _initAgent() {
     this.agentName = "Agent Akun";
     _plan = [
-      Plan("login", "REQUEST", _estimatedTime),
-      Plan("cari user", "REQUEST", _estimatedTime),
-      Plan("cari profile", "REQUEST", _estimatedTime),
-      Plan("cari tampilan home", "REQUEST", _estimatedTime),
-      Plan("edit profile", "REQUEST", _estimatedTime),
-      Plan("update notification", "REQUEST", _estimatedTime),
-      Plan("find password", "REQUEST", _estimatedTime),
-      Plan("change password", "REQUEST", _estimatedTime),
-      Plan("change profile picture", "REQUEST", _estimatedTime),
-      Plan("log out", "REQUEST", _estimatedTime),
+      Plan("login", "REQUEST"),
+      Plan("cari user", "REQUEST"),
+      Plan("cari profile", "REQUEST"),
+      Plan("cari tampilan home", "REQUEST"),
+      Plan("edit profile", "REQUEST"),
+      Plan("update notification", "REQUEST"),
+      Plan("find password", "REQUEST"),
+      Plan("change password", "REQUEST"),
+      Plan("change profile picture", "REQUEST"),
+      Plan("log out", "REQUEST"),
     ];
     _goals = [
       Goals("login", List<Map<String, Object?>>, 5),
