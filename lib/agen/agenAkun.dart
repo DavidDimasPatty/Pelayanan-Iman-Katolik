@@ -47,13 +47,10 @@ class AgentAkun extends Agent {
     Messages msg = _Message.last;
     String sender = _Sender.last;
     dynamic task = msg.task;
-    var planQuest =
-        _plan.where((element) => element.goals == task.action).toList();
-    Plan p = planQuest[0];
+
     var goalsQuest =
-        _goals.where((element) => element.request == p.goals).toList();
+        _goals.where((element) => element.request == task.action).toList();
     int clock = goalsQuest[0].time;
-    Goals goalquest = goalsQuest[0];
 
     Timer timer = Timer.periodic(Duration(seconds: clock), (timer) {
       stop = true;
@@ -65,7 +62,7 @@ class AgentAkun extends Agent {
       return;
     });
 
-    Messages message = await action(p.goals, task.data, sender);
+    Messages message = await action(task.action, task.data, sender);
 
     if (stop == false) {
       if (timer.isActive) {
@@ -78,7 +75,7 @@ class AgentAkun extends Agent {
           messagePassing.sendMessage(msg);
         } else {
           for (var g in _goals) {
-            if (g.request == p.goals &&
+            if (g.request == task.action &&
                 g.goals == message.task.data.runtimeType) {
               checkGoals = true;
               break;
