@@ -156,7 +156,8 @@ class AgentAkun extends Agent {
           "alamat": "",
           "lingkungan": "",
           "notelp": "",
-          "token": ""
+          "token": "",
+          "updatedAt": ""
         });
         if (insert.isSuccess) {
           Messages message = Messages(agentName, sender, "INFORM",
@@ -389,6 +390,7 @@ class AgentAkun extends Agent {
     this.agentName = "Agent Akun";
     _plan = [
       Plan("login", "REQUEST"),
+      Plan("sign up", "REQUEST"),
       Plan("cari user", "REQUEST"),
       Plan("cari profile", "REQUEST"),
       Plan("cari tampilan home", "REQUEST"),
@@ -410,6 +412,7 @@ class AgentAkun extends Agent {
       Goals("change password", String, 2),
       Goals("change profile picture", String, 2),
       Goals("log out", String, 2),
+      Goals("sign up", String, 5),
     ];
   }
 }

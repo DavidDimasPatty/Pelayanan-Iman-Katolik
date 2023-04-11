@@ -100,7 +100,7 @@ class _history extends State<history> {
                               style: TextStyle(
                                   color: Colors.black, fontSize: 23.0),
                             )),
-                        if (snapshot.data.length == 0)
+                        if (snapshot.data[0].length == 0)
                           Padding(
                               padding: EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 8),
