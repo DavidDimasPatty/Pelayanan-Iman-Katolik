@@ -227,6 +227,11 @@ class _Baptis extends State<Baptis> {
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),
+                                  Text(
+                                    'Jenis: ' + i['jenis'],
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
                                   FutureBuilder(
                                       future: jarak(i['GerejaBaptis'][0]['lat'],
                                           i['GerejaBaptis'][0]['lng']),
@@ -306,6 +311,11 @@ class _Baptis extends State<Baptis> {
                                   Text(
                                     'Kapasitas Tersedia: ' +
                                         i['kapasitas'].toString(),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                  Text(
+                                    'Jenis: ' + i['jenis'],
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),

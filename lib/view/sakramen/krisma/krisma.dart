@@ -223,6 +223,11 @@ class _Krisma extends State<Krisma> {
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),
+                                  Text(
+                                    'Jenis: ' + i['jenis'],
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
                                   FutureBuilder(
                                       future: jarak(i['GerejaKrisma'][0]['lat'],
                                           i['GerejaKrisma'][0]['lng']),
@@ -302,6 +307,11 @@ class _Krisma extends State<Krisma> {
                                   Text(
                                     'Kapasitas Tersedia: ' +
                                         i['kapasitas'].toString(),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                  Text(
+                                    'Jenis: ' + i['jenis'],
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),

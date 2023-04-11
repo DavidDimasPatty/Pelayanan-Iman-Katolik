@@ -349,6 +349,47 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                               children: <
                                                                   Widget>[
                                                                 Text(
+                                                                  "Jenis: ",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          15.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w300),
+                                                                ),
+                                                                Text(
+                                                                  snapshot.data[
+                                                                          0][0]
+                                                                      ['jenis'],
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          15.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w300),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            SizedBox(
+                                                              height: 8.0,
+                                                            ),
+                                                            Row(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: <
+                                                                  Widget>[
+                                                                Text(
                                                                   "Tanggal Pembukaan: ",
                                                                   style: TextStyle(
                                                                       color: Colors

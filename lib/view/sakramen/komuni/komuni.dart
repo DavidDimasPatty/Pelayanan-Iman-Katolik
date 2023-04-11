@@ -225,6 +225,11 @@ class _Komuni extends State<Komuni> {
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),
+                                  Text(
+                                    'Jenis: ' + i['jenis'],
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
                                   FutureBuilder(
                                       future: jarak(i['GerejaKomuni'][0]['lat'],
                                           i['GerejaKomuni'][0]['lng']),
@@ -304,6 +309,11 @@ class _Komuni extends State<Komuni> {
                                   Text(
                                     'Kapasitas Tersedia: ' +
                                         i['kapasitas'].toString(),
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 12),
+                                  ),
+                                  Text(
+                                    'Jenis: ' + i['jenis'],
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                   ),
