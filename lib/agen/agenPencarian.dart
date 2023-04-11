@@ -72,9 +72,12 @@ class AgentPencarian extends Agent {
           Messages msg = rejectTask(task, sender);
           messagePassing.sendMessage(msg);
         } else {
-          if (goalquest.request == p.goals &&
-              goalquest.goals == message.task.data.runtimeType) {
-            checkGoals = true;
+          for (var g in _goals) {
+            if (g.request == p.goals &&
+                g.goals == message.task.data.runtimeType) {
+              checkGoals = true;
+              break;
+            }
           }
 
           if (checkGoals == true) {
@@ -496,12 +499,6 @@ class AgentPencarian extends Agent {
                 localField: 'idGereja',
                 foreignField: '_id',
                 as: as))
-            // .addStage(Match({
-            //   '${as}.nama': {
-            //     '\$regex': '.*${data[2]}.*',
-            //     '\$options': 'i',
-            //   }
-            // }))
             .build();
         var conn =
             await pelayananCollection.aggregateToStream(pipeline).toList();
@@ -685,14 +682,14 @@ class AgentPencarian extends Agent {
       Plan("cari profile", "REQUEST"),
     ];
     _goals = [
-      Goals("cari pengumuman", List<Map<String, Object?>>, 2),
-      Goals("cari jadwal pendaftaran", List<dynamic>, 2),
-      Goals("cari pelayanan", List<Map<String, Object?>>, 2),
-      Goals("cari pelayanan", List<dynamic>, 2),
-      Goals("cari tampilan home", List<dynamic>, 2),
-      Goals("check pendaftaran", List<dynamic>, 2),
-      Goals("cari profile", List<dynamic>, 2),
-      Goals("check pendaftaran", String, 2),
+      Goals("cari pengumuman", List<Map<String, Object?>>, 5),
+      Goals("cari jadwal pendaftaran", List<dynamic>, 5),
+      Goals("cari pelayanan", List<Map<String, Object?>>, 5),
+      Goals("cari pelayanan", List<dynamic>, 5),
+      Goals("cari tampilan home", List<dynamic>, 5),
+      Goals("check pendaftaran", List<dynamic>, 5),
+      Goals("cari profile", List<dynamic>, 5),
+      Goals("check pendaftaran", String, 5),
     ];
   }
 }

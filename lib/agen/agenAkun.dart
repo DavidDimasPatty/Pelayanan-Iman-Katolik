@@ -77,9 +77,12 @@ class AgentAkun extends Agent {
           Messages msg = rejectTask(task, sender);
           messagePassing.sendMessage(msg);
         } else {
-          if (goalquest.request == p.goals &&
-              goalquest.goals == message.task.data.runtimeType) {
-            checkGoals = true;
+          for (var g in _goals) {
+            if (g.request == p.goals &&
+                g.goals == message.task.data.runtimeType) {
+              checkGoals = true;
+              break;
+            }
           }
 
           if (checkGoals == true) {
@@ -188,11 +191,12 @@ class AgentAkun extends Agent {
     var conn = await userCollection
         .find({'email': data[0], 'password': data[1]}).toList();
     if (conn.length != 0) {
-      var conn = await userCollection.updateOne(
+      var conn2 = await userCollection.updateOne(
           where.eq('email', data[0]).eq('password', data[1]),
           modify.set('token', await FirebaseMessaging.instance.getToken()));
+      sendToAgenSettingLogin(conn, agentName);
     }
-    sendToAgenSettingLogin(conn, agentName);
+
     Messages message = Messages(agentName, sender, "INFORM",
         Tasks("status modifikasi/ pencarian data akun", conn));
     return message;
@@ -215,7 +219,7 @@ class AgentAkun extends Agent {
     }
   }
 
-  void sendToAgenSettingLogin(dynamic data, String sender) async {
+  sendToAgenSettingLogin(dynamic data, String sender) async {
     Messages message =
         Messages(sender, "Agent Setting", "REQUEST", Tasks('save data', data));
     MessagePassing messagePassing = MessagePassing();

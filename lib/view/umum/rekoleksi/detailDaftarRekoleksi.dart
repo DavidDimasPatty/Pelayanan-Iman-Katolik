@@ -328,7 +328,7 @@ class _detailDaftarRekoleksi extends State<detailDaftarRekoleksi> {
                                                               children: <
                                                                   Widget>[
                                                                 Text(
-                                                                  "Tanggal Pembukaan: ",
+                                                                  "Tanggal: ",
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .black,

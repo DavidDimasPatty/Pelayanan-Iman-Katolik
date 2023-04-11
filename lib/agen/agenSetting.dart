@@ -81,11 +81,13 @@ class AgentSetting extends Agent {
           Messages msg = rejectTask(task, sender);
           messagePassing.sendMessage(msg);
         } else {
-          if (goalquest.request == p.goals &&
-              goalquest.goals == message.task.data.runtimeType) {
-            checkGoals = true;
+          for (var g in _goals) {
+            if (g.request == p.goals &&
+                g.goals == message.task.data.runtimeType) {
+              checkGoals = true;
+              break;
+            }
           }
-
           if (checkGoals == true) {
             print(agentName + ' returning data to ${message.receiver}');
             MessagePassing messagePassing = MessagePassing();
@@ -176,6 +178,8 @@ class AgentSetting extends Agent {
     var path = directory.path;
 
     try {
+      print("HEREEEEEEE");
+      print(data);
       if (await File('$path/login.txt').exists()) {
         final file = await File('$path/login.txt');
 

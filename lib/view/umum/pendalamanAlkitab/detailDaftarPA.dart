@@ -324,7 +324,7 @@ class _detailDaftarPA extends State<detailDaftarPA> {
                                                               children: <
                                                                   Widget>[
                                                                 Text(
-                                                                  "Tanggal Pembukaan: ",
+                                                                  "Tanggal: ",
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .black,

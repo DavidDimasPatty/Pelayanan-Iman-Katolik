@@ -323,7 +323,7 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
                                                               children: <
                                                                   Widget>[
                                                                 Text(
-                                                                  "Tanggal Pembukaan: ",
+                                                                  "Tanggal: ",
                                                                   style: TextStyle(
                                                                       color: Colors
                                                                           .black,

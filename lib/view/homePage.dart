@@ -5,12 +5,14 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/main.dart';
+import 'package:pelayanan_iman_katolik/view/login.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/detailPengumuman.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/pengumuman.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
@@ -58,6 +60,34 @@ class _HomePage extends State<HomePage> {
 
     await completer.future;
     return hasil;
+  }
+
+  Future LogOut(context) async {
+    Completer<void> completer = Completer<void>();
+    Messages message = Messages(
+        'Agent Page', 'Agent Akun', "REQUEST", Tasks('log out', iduser));
+
+    MessagePassing messagePassing = MessagePassing();
+    var data = await messagePassing.sendMessage(message);
+    var hasil = await await AgentPage.getDataPencarian();
+    completer.complete();
+
+    await completer.future;
+    if (hasil == 'oke') {
+      Fluttertoast.showToast(
+          msg: "Akun anda telah dibanned",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Login()),
+      );
+    }
   }
 
   Future pullRefresh() async {
@@ -118,6 +148,10 @@ class _HomePage extends State<HomePage> {
                     future: callTampilan(),
                     builder: (context, AsyncSnapshot snapshot) {
                       try {
+                        if (snapshot.data[0][0]['banned'] == 1) {
+                          LogOut(context);
+                        }
+
                         for (var i = 0; i < snapshot.data[3].length; i++) {
                           cardList.add(snapshot.data[3][i]['gambar']);
                           caption.add(snapshot.data[3][i]['title']);
