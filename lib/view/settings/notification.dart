@@ -113,7 +113,6 @@ class _notifClass extends State<notification> {
                 future: callDb(),
                 builder: (context, AsyncSnapshot snapshot) {
                   try {
-                    print(snapshot.data);
                     switch1 = snapshot.data[0]['notifPG'];
 
                     return Column(

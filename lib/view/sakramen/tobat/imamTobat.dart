@@ -27,6 +27,8 @@ class _ImamTobat extends State<ImamTobat> {
   var distance;
   List hasil = [];
   StreamController _controller = StreamController();
+  ScrollController _scrollController = ScrollController();
+  int data = 5;
   List dummyTemp = [];
   final iduser;
   final idGereja;
@@ -81,7 +83,17 @@ class _ImamTobat extends State<ImamTobat> {
   }
 
   Future pullRefresh() async {
-    callDb();
+    callDb().then((result) {
+      setState(() {
+        data = 5;
+        hasil.clear();
+        dummyTemp.clear();
+        hasil.clear();
+        hasil.addAll(result);
+        dummyTemp.addAll(result);
+        _controller.add(result);
+      });
+    });
   }
 
   TextEditingController editingController = TextEditingController();
@@ -120,6 +132,7 @@ class _ImamTobat extends State<ImamTobat> {
       body: RefreshIndicator(
         onRefresh: pullRefresh,
         child: ListView(
+          controller: _scrollController,
           shrinkWrap: true,
           padding: EdgeInsets.only(right: 15, left: 15),
           children: <Widget>[
@@ -156,7 +169,7 @@ class _ImamTobat extends State<ImamTobat> {
                   }
                   try {
                     return Column(children: [
-                      for (var i in hasil)
+                      for (var i in hasil.take(data))
                         InkWell(
                           borderRadius: new BorderRadius.circular(24),
                           onTap: () {

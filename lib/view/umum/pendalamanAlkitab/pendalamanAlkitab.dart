@@ -25,6 +25,9 @@ class PendalamanAlkitab extends StatefulWidget {
 class _PendalamanAlkitab extends State<PendalamanAlkitab> {
   List hasil = [];
   StreamController _controller = StreamController();
+  ScrollController _scrollController = ScrollController();
+  int data = 5;
+
   List dummyTemp = [];
   final iduser;
   _PendalamanAlkitab(this.iduser);
@@ -77,7 +80,17 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
   }
 
   Future pullRefresh() async {
-    callDb();
+    callDb().then((result) {
+      setState(() {
+        data = 5;
+        hasil.clear();
+        dummyTemp.clear();
+        hasil.clear();
+        hasil.addAll(result);
+        dummyTemp.addAll(result);
+        _controller.add(result);
+      });
+    });
   }
 
   TextEditingController editingController = TextEditingController();
@@ -85,6 +98,14 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
   Widget build(BuildContext context) {
     editingController.addListener(() async {
       await filterSearchResults(editingController.text);
+    });
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        setState(() {
+          data = data + 5;
+        });
+      }
     });
     return Scaffold(
       appBar: AppBar(
@@ -116,6 +137,7 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
       body: RefreshIndicator(
         onRefresh: pullRefresh,
         child: ListView(
+          controller: _scrollController,
           shrinkWrap: true,
           padding: EdgeInsets.only(right: 15, left: 15),
           children: <Widget>[
@@ -152,7 +174,7 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
                   }
                   try {
                     return Column(children: [
-                      for (var i in hasil)
+                      for (var i in hasil.take(data))
                         if (i['kapasitas'] <= 0)
                           InkWell(
                             borderRadius: new BorderRadius.circular(24),
@@ -206,7 +228,7 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
                                   ),
                                 ])),
                           ),
-                      for (var i in hasil)
+                      for (var i in hasil.take(data))
                         if (i['kapasitas'] > 0)
                           InkWell(
                             borderRadius: new BorderRadius.circular(24),

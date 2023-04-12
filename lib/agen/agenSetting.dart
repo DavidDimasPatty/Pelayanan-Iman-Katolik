@@ -123,11 +123,10 @@ class AgentSetting extends Agent {
     await MongoDatabase.connect();
 
     LocationPermission permission = await Geolocator.checkPermission();
-    print(permission);
+
     if (permission == LocationPermission.denied) {
       LocationPermission permission = await Geolocator.requestPermission();
       LocationPermission permission2 = await Geolocator.checkPermission();
-      print(permission2);
     }
     var res;
     try {
@@ -135,22 +134,15 @@ class AgentSetting extends Agent {
       var path = directory.path;
 
       final file = await File('$path/login.txt');
-      // await file.writeAsString("");
-      // Read the file
+
       res = await file.readAsLines();
     } catch (e) {
-      // If encountering an error, return 0
       res = "nothing";
     }
 
-    //   Messages message2 = Messages(sender, 'Agent Akun', "REQUEST",
-    //     Tasks('ganti token', null));
-    // MessagePassing messagePassing2 = MessagePassing();
-    // await messagePassing2.sendMessage(message2);
-
     if (hour >= 5 && hour <= 17) {
       Messages message = Messages(
-          'Agent Setting',
+          agentName,
           sender,
           "INFORM",
           Tasks('status aplikasi', [
@@ -160,7 +152,7 @@ class AgentSetting extends Agent {
       return message;
     } else {
       Messages message = Messages(
-          'Agent Setting',
+          agentName,
           sender,
           "INFORM",
           Tasks('status aplikasi', [
@@ -176,23 +168,21 @@ class AgentSetting extends Agent {
     var path = directory.path;
 
     try {
-      print("HEREEEEEEE");
-      print(data);
       if (await File('$path/login.txt').exists()) {
         final file = await File('$path/login.txt');
-
+        await file.writeAsString("");
         await file.writeAsString(data[0]['_id'].toString());
       } else {
         final file = await File('$path/login.txt').create(recursive: true);
-
+        await file.writeAsString("");
         await file.writeAsString('\n' + data[0]['_id'].toString());
       }
     } catch (e) {
       rejectTask(data, sender);
     }
 
-    Messages message = Messages(
-        'Agent Setting', sender, "INFORM", Tasks('status aplikasi', "oke"));
+    Messages message =
+        Messages(agentName, sender, "INFORM", Tasks('status aplikasi', "oke"));
     return message;
   }
 
@@ -203,8 +193,8 @@ class AgentSetting extends Agent {
     final file = await File('$path/login.txt');
     await file.writeAsString("");
 
-    Messages message = Messages(
-        'Agent Setting', sender, "INFORM", Tasks('status aplikasi', "oke"));
+    Messages message =
+        Messages(agentName, sender, "INFORM", Tasks('status aplikasi', "oke"));
     return message;
   }
 

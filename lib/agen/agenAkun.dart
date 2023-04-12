@@ -224,7 +224,7 @@ class AgentAkun extends Agent {
     messagePassing.sendMessage(message);
   }
 
-  void sendToAgenSettingLogout(dynamic data, String sender) async {
+  sendToAgenSettingLogout(dynamic data, String sender) async {
     Messages message =
         Messages(sender, "Agent Setting", "REQUEST", Tasks('log out', data));
     MessagePassing messagePassing = MessagePassing();

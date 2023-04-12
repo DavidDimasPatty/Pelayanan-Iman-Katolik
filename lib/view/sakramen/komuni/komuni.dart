@@ -29,6 +29,8 @@ class _Komuni extends State<Komuni> {
   List dummyTemp = [];
   final iduser;
   StreamController _controller = StreamController();
+  ScrollController _scrollController = ScrollController();
+  int data = 5;
   _Komuni(this.iduser);
 
   Future<List> callDb() async {
@@ -97,7 +99,17 @@ class _Komuni extends State<Komuni> {
   }
 
   Future pullRefresh() async {
-    callDb();
+    callDb().then((result) {
+      setState(() {
+        data = 5;
+        hasil.clear();
+        dummyTemp.clear();
+        hasil.clear();
+        hasil.addAll(result);
+        dummyTemp.addAll(result);
+        _controller.add(result);
+      });
+    });
   }
 
   TextEditingController editingController = TextEditingController();
@@ -105,6 +117,14 @@ class _Komuni extends State<Komuni> {
   Widget build(BuildContext context) {
     editingController.addListener(() async {
       await filterSearchResults(editingController.text);
+    });
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        setState(() {
+          data = data + 5;
+        });
+      }
     });
     return Scaffold(
       appBar: AppBar(
@@ -136,6 +156,7 @@ class _Komuni extends State<Komuni> {
       body: RefreshIndicator(
         onRefresh: pullRefresh,
         child: ListView(
+          controller: _scrollController,
           shrinkWrap: true,
           padding: EdgeInsets.only(right: 15, left: 15),
           children: <Widget>[
@@ -172,7 +193,7 @@ class _Komuni extends State<Komuni> {
                   }
                   try {
                     return Column(children: [
-                      for (var i in hasil)
+                      for (var i in hasil.take(data))
                         if (i['kapasitas'] <= 0)
                           InkWell(
                             borderRadius: new BorderRadius.circular(24),
@@ -253,7 +274,7 @@ class _Komuni extends State<Komuni> {
                                       }),
                                 ])),
                           ),
-                      for (var i in hasil)
+                      for (var i in hasil.take(data))
                         if ((i['kapasitas'] > 0))
                           InkWell(
                             borderRadius: new BorderRadius.circular(24),

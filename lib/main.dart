@@ -26,6 +26,7 @@ Future callDb() async {
   completer.complete();
   var hasil = await await AgentPage.getDataPencarian();
   await completer.future;
+  print(hasil);
   return hasil;
 }
 
