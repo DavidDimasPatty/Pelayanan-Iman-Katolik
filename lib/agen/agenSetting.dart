@@ -22,17 +22,11 @@ class AgentSetting extends Agent {
   AgentSetting() {
     _initAgent();
   }
-  List<Plan> _plan = [];
-  List<Goals> _goals = [];
-  List<dynamic> pencarianData = [];
-  String agentName = "";
-  bool stop = false;
+
   static int _estimatedTime = 10;
-  List _Message = [];
-  List _Sender = [];
 
   bool canPerformTask(dynamic message) {
-    for (var p in _plan) {
+    for (var p in plan) {
       if (p.goals == message.task.action && p.protocol == message.protocol) {
         return true;
       }
@@ -42,19 +36,19 @@ class AgentSetting extends Agent {
 
   Future<dynamic> receiveMessage(Messages msg, String sender) {
     print(agentName + ' received message from $sender');
-    _Message.add(msg);
-    _Sender.add(sender);
+    Message.add(msg);
+    Sender.add(sender);
     return performTask();
   }
 
   Future<dynamic> performTask() async {
-    Messages msgCome = _Message.last;
+    Messages msgCome = Message.last;
 
-    String sender = _Sender.last;
+    String sender = Sender.last;
     dynamic task = msgCome.task;
 
     var goalsQuest =
-        _goals.where((element) => element.request == task.action).toList();
+        goals.where((element) => element.request == task.action).toList();
     int clock = goalsQuest[0].time;
 
     Timer timer = Timer.periodic(Duration(seconds: clock), (timer) {
@@ -62,7 +56,7 @@ class AgentSetting extends Agent {
       timer.cancel();
       _estimatedTime++;
       MessagePassing messagePassing = MessagePassing();
-      Messages msg = overTime(task, sender);
+      Messages msg = overTime(msgCome, sender);
       messagePassing.sendMessage(msg);
     });
 
@@ -84,7 +78,7 @@ class AgentSetting extends Agent {
           Messages msg = rejectTask(msgCome, sender);
           return messagePassing.sendMessage(msg);
         } else {
-          for (var g in _goals) {
+          for (var g in goals) {
             if (g.request == task.action &&
                 g.goals == message.task.data.runtimeType) {
               checkGoals = true;
@@ -230,12 +224,12 @@ class AgentSetting extends Agent {
 
   void _initAgent() {
     this.agentName = "Agent Setting";
-    _plan = [
+    plan = [
       Plan("setting user", "REQUEST"),
       Plan("log out", "REQUEST"),
       Plan("save data", "REQUEST"),
     ];
-    _goals = [
+    goals = [
       Goals("setting user", List<List<dynamic>>, _estimatedTime),
       Goals("log out", String, _estimatedTime),
       Goals("save data", String, _estimatedTime),

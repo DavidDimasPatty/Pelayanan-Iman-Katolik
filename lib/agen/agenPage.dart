@@ -11,16 +11,12 @@ class AgentPage extends Agent {
     _initAgent();
   }
 
-  List<Plan> _plan = [];
-  List<Goals> _goals = [];
   static List<dynamic> dataView = [];
-  String agentName = "";
+
   int _estimatedTime = 1;
-  List _Message = [];
-  List _Sender = [];
 
   bool canPerformTask(dynamic message) {
-    for (var p in _plan) {
+    for (var p in plan) {
       if (p.goals == message.task.action && p.protocol == message.protocol) {
         return true;
       }
@@ -30,16 +26,16 @@ class AgentPage extends Agent {
 
   Future<dynamic> receiveMessage(Messages msg, String sender) {
     print(agentName + ' received message from $sender');
-    _Message.add(msg);
-    _Sender.add(sender);
+    Message.add(msg);
+    Sender.add(sender);
     return performTask();
   }
 
   Future performTask() async {
-    Messages msgCome = _Message.last;
-    String sender = _Sender.last;
+    Messages msgCome = Message.last;
+    String sender = Sender.last;
     dynamic task = msgCome.task;
-    for (var p in _plan) {
+    for (var p in plan) {
       action(p.goals, task.data, sender);
       print("View can use data store in " + agentName);
     }
@@ -72,7 +68,7 @@ class AgentPage extends Agent {
 
   void _initAgent() {
     this.agentName = "Agent Page";
-    _plan = [
+    plan = [
       Plan(
         "status modifikasi data",
         "INFORM",
@@ -84,7 +80,7 @@ class AgentPage extends Agent {
       Plan("status aplikasi", "INFORM"), //come from agen Setting
       Plan("status modifikasi/ pencarian data akun", "INFORM"),
     ];
-    _goals = [
+    goals = [
       Goals("status modifikasi data", String, 5),
       Goals("hasil pencarian", String, 5),
       Goals("status aplikasi", String, 5),
@@ -95,5 +91,11 @@ class AgentPage extends Agent {
   @override
   void action(String goals, data, String sender) {
     messageSetData(data);
+  }
+
+  @override
+  Messages overTime(task, sender) {
+    // TODO: implement overTime
+    throw UnimplementedError();
   }
 }
