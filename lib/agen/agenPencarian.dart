@@ -47,9 +47,9 @@ class AgentPencarian extends Agent {
     var userKegiatanCollection =
         MongoDatabase.db.collection(USER_UMUM_COLLECTION);
     var pemberkatanCollection =
-        MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+        MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
     var perkawinanCollection =
-        MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+        MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
     var count = 0;
 
     var countKr = await userKrismaCollection
