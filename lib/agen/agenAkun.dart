@@ -25,7 +25,7 @@ class AgentAkun extends Agent {
   List _Message = [];
   List _Sender = [];
   bool stop = false;
-  static  static int _estimatedTime = 5;
+  static int _estimatedTime = 5;
 
   bool canPerformTask(dynamic message) {
     for (var p in _plan) {
