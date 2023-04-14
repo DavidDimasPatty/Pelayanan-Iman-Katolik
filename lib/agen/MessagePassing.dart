@@ -22,7 +22,7 @@ class MessagePassing {
       if (agent!.canPerformTask(message)) {
         return await agent.receiveMessage(message, message.sender);
       } else {
-        agent.rejectTask(message.task, message.sender);
+        agent.rejectTask(message, message.sender);
       }
       return null;
     }
