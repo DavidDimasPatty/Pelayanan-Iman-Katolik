@@ -27,7 +27,7 @@ class AgentSetting extends Agent {
   List<dynamic> pencarianData = [];
   String agentName = "";
   bool stop = false;
-  int _estimatedTime = 10;
+  static int _estimatedTime = 10;
   List _Message = [];
   List _Sender = [];
 
@@ -48,9 +48,10 @@ class AgentSetting extends Agent {
   }
 
   Future<dynamic> performTask() async {
-    Messages msg = _Message.last;
+    Messages msgCome = _Message.last;
+
     String sender = _Sender.last;
-    dynamic task = msg.task;
+    dynamic task = msgCome.task;
 
     var goalsQuest =
         _goals.where((element) => element.request == task.action).toList();
@@ -59,16 +60,15 @@ class AgentSetting extends Agent {
     Timer timer = Timer.periodic(Duration(seconds: clock), (timer) {
       stop = true;
       timer.cancel();
-
+      _estimatedTime++;
       MessagePassing messagePassing = MessagePassing();
       Messages msg = overTime(task, sender);
       messagePassing.sendMessage(msg);
-      return;
     });
 
     Messages message;
     try {
-      message = await action(task.action, task.data, sender);
+      message = await action(task.action, msgCome, sender);
     } catch (e) {
       message = Messages(
           agentName, sender, "INFORM", Tasks('lack of parameters', "failed"));
@@ -81,8 +81,8 @@ class AgentSetting extends Agent {
         if (message.task.data.runtimeType == String &&
             message.task.data == "failed") {
           MessagePassing messagePassing = MessagePassing();
-          Messages msg = rejectTask(task, sender);
-          messagePassing.sendMessage(msg);
+          Messages msg = rejectTask(msgCome, sender);
+          return messagePassing.sendMessage(msg);
         } else {
           for (var g in _goals) {
             if (g.request == task.action &&
@@ -97,7 +97,7 @@ class AgentSetting extends Agent {
             MessagePassing messagePassing = MessagePassing();
             messagePassing.sendMessage(message);
           } else {
-            rejectTask(task, sender);
+            rejectTask(message, sender);
           }
         }
       }
@@ -107,16 +107,16 @@ class AgentSetting extends Agent {
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "setting user":
-        return settingUser(data, sender);
+        return settingUser(data.task.data, sender);
 
       case "save data":
-        return saveData(data, sender);
+        return saveData(data.task.data, sender);
 
       case "log out":
-        return logOut(data, sender);
+        return logOut(data.task.data, sender);
 
       default:
-        return rejectTask(data, sender);
+        return rejectTask(data.task.data, sender);
     }
   }
 
@@ -173,18 +173,14 @@ class AgentSetting extends Agent {
     final directory = await getApplicationDocumentsDirectory();
     var path = directory.path;
 
-    try {
-      if (await File('$path/login.txt').exists()) {
-        final file = await File('$path/login.txt');
-        await file.writeAsString("");
-        await file.writeAsString(data[0]['_id'].toString());
-      } else {
-        final file = await File('$path/login.txt').create(recursive: true);
-        await file.writeAsString("");
-        await file.writeAsString('\n' + data[0]['_id'].toString());
-      }
-    } catch (e) {
-      rejectTask(data, sender);
+    if (await File('$path/login.txt').exists()) {
+      final file = await File('$path/login.txt');
+      await file.writeAsString("");
+      await file.writeAsString(data[0]['_id'].toString());
+    } else {
+      final file = await File('$path/login.txt').create(recursive: true);
+      await file.writeAsString("");
+      await file.writeAsString('\n' + data[0]['_id'].toString());
     }
 
     Messages message =
@@ -214,7 +210,7 @@ class AgentSetting extends Agent {
         ]));
 
     print(this.agentName +
-        ' rejected task form $sender because not capable of doing: ${task.action}');
+        ' rejected task from $sender because not capable of doing: ${task.task.action} with protocol ${task.protocol}');
     return message;
   }
 
@@ -228,7 +224,7 @@ class AgentSetting extends Agent {
         ]));
 
     print(this.agentName +
-        ' rejected task form $sender because takes time too long: ${task.action}');
+        ' rejected task from $sender because takes time too long: ${task.task.action}');
     return message;
   }
 
@@ -240,9 +236,9 @@ class AgentSetting extends Agent {
       Plan("save data", "REQUEST"),
     ];
     _goals = [
-      Goals("setting user", List<List<dynamic>>, 12),
-      Goals("log out", String, 6),
-      Goals("save data", String, 6),
+      Goals("setting user", List<List<dynamic>>, _estimatedTime),
+      Goals("log out", String, _estimatedTime),
+      Goals("save data", String, _estimatedTime),
     ];
   }
 }

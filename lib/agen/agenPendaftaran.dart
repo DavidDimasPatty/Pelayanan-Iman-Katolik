@@ -25,7 +25,7 @@ class AgentPendaftaran extends Agent {
   List<dynamic> pencarianData = [];
   String agentName = "";
   bool stop = false;
-  int _estimatedTime = 5;
+   static int _estimatedTime = 5;
   List _Message = [];
   List _Sender = [];
   bool canPerformTask(dynamic message) {
@@ -45,9 +45,10 @@ class AgentPendaftaran extends Agent {
   }
 
   Future<dynamic> performTask() async {
-    Messages msg = _Message.last;
+    Messages msgCome = _Message.last;
+
     String sender = _Sender.last;
-    dynamic task = msg.task;
+    dynamic task = msgCome.task;
 
     var goalsQuest =
         _goals.where((element) => element.request == task.action).toList();
@@ -56,17 +57,15 @@ class AgentPendaftaran extends Agent {
     Timer timer = Timer.periodic(Duration(seconds: clock), (timer) {
       stop = true;
       timer.cancel();
-
+      _estimatedTime++;
       MessagePassing messagePassing = MessagePassing();
       Messages msg = overTime(task, sender);
-
       messagePassing.sendMessage(msg);
-      return;
     });
 
     Messages message;
     try {
-      message = await action(task.action, task.data, sender);
+      message = await action(task.action, msgCome, sender);
     } catch (e) {
       message = Messages(
           agentName, sender, "INFORM", Tasks('lack of parameters', "failed"));
@@ -79,8 +78,8 @@ class AgentPendaftaran extends Agent {
         if (message.task.data.runtimeType == String &&
             message.task.data == "failed") {
           MessagePassing messagePassing = MessagePassing();
-          Messages msg = rejectTask(task, sender);
-          messagePassing.sendMessage(msg);
+          Messages msg = rejectTask(msgCome, sender);
+          return messagePassing.sendMessage(msg);
         } else {
           for (var g in _goals) {
             if (g.request == task.action &&
@@ -95,7 +94,7 @@ class AgentPendaftaran extends Agent {
             MessagePassing messagePassing = MessagePassing();
             messagePassing.sendMessage(message);
           } else {
-            rejectTask(task, sender);
+            rejectTask(message, sender);
           }
         }
       }
@@ -105,12 +104,12 @@ class AgentPendaftaran extends Agent {
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "enroll pelayanan":
-        return enrollPelayanan(data, sender);
+        return enrollPelayanan(data.task.data, sender);
       case "cancel pelayanan":
-        return cancelPelayanan(data, sender);
+        return cancelPelayanan(data.task.data, sender);
 
       default:
-        return rejectTask(data, sender);
+        return rejectTask(data.task.data, sender);
     }
   }
 
@@ -319,7 +318,7 @@ class AgentPendaftaran extends Agent {
         ]));
 
     print(this.agentName +
-        ' rejected task form $sender because not capable of doing: ${task.action}');
+        ' rejected task from $sender because not capable of doing: ${task.task.action} with protocol ${task.protocol}');
     return message;
   }
 
@@ -333,7 +332,7 @@ class AgentPendaftaran extends Agent {
         ]));
 
     print(this.agentName +
-        ' rejected task form $sender because takes time too long: ${task.action}');
+        ' rejected task from $sender because takes time too long: ${task.task.action}');
     return message;
   }
 
@@ -344,8 +343,8 @@ class AgentPendaftaran extends Agent {
       Plan("cancel pelayanan", "REQUEST"),
     ];
     _goals = [
-      Goals("enroll pelayanan", String, 2),
-      Goals("cancel pelayanan", String, 2),
+      Goals("enroll pelayanan", String, _estimatedTime),
+      Goals("cancel pelayanan", String, _estimatedTime),
     ];
   }
 }

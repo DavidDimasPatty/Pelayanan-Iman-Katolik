@@ -16,7 +16,7 @@ class AgentPencarian extends Agent {
 
   List<Plan> _plan = [];
   List<Goals> _goals = [];
-  int _estimatedTime = 5;
+   static int _estimatedTime = 5;
   bool stop = false;
   String agentName = "";
   List _Message = [];
@@ -39,9 +39,10 @@ class AgentPencarian extends Agent {
   }
 
   Future<dynamic> performTask() async {
-    Messages msg = _Message.last;
+    Messages msgCome = _Message.last;
+
     String sender = _Sender.last;
-    dynamic task = msg.task;
+    dynamic task = msgCome.task;
 
     var goalsQuest =
         _goals.where((element) => element.request == task.action).toList();
@@ -50,7 +51,7 @@ class AgentPencarian extends Agent {
     Timer timer = Timer.periodic(Duration(seconds: clock), (timer) {
       stop = true;
       timer.cancel();
-
+      _estimatedTime++;
       MessagePassing messagePassing = MessagePassing();
       Messages msg = overTime(task, sender);
       messagePassing.sendMessage(msg);
@@ -58,7 +59,7 @@ class AgentPencarian extends Agent {
 
     Messages message;
     try {
-      message = await action(task.action, task.data, sender);
+      message = await action(task.action, msgCome, sender);
     } catch (e) {
       message = Messages(
           agentName, sender, "INFORM", Tasks('lack of parameters', "failed"));
@@ -71,7 +72,7 @@ class AgentPencarian extends Agent {
         if (message.task.data.runtimeType == String &&
             message.task.data == "failed") {
           MessagePassing messagePassing = MessagePassing();
-          Messages msg = rejectTask(task, sender);
+          Messages msg = rejectTask(msgCome, sender);
           return messagePassing.sendMessage(msg);
         } else {
           for (var g in _goals) {
@@ -87,7 +88,7 @@ class AgentPencarian extends Agent {
             MessagePassing messagePassing = MessagePassing();
             messagePassing.sendMessage(message);
           } else {
-            rejectTask(task, sender);
+            rejectTask(message, sender);
           }
         }
       }
@@ -97,19 +98,19 @@ class AgentPencarian extends Agent {
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "cari pengumuman":
-        return cariPengumuman(data, sender);
+        return cariPengumuman(data.task.data, sender);
       case "cari jadwal pendaftaran":
-        return cariJadwalPendaftaran(data, sender);
+        return cariJadwalPendaftaran(data.task.data, sender);
       case "cari pelayanan":
-        return cariPelayanan(data, sender);
+        return cariPelayanan(data.task.data, sender);
       case "cari tampilan home":
-        return cariTampilanHome(data, sender);
+        return cariTampilanHome(data.task.data, sender);
       case "check pendaftaran":
-        return checkPendaftaran(data, sender);
+        return checkPendaftaran(data.task.data, sender);
       case "cari profile":
-        return cariProfile(data, sender);
+        return cariProfile(data.task.data, sender);
       default:
-        return rejectTask(data, data);
+        return rejectTask(data, sender);
     }
   }
 
@@ -659,7 +660,7 @@ class AgentPencarian extends Agent {
         ]));
 
     print(this.agentName +
-        ' rejected task form $sender because not capable of doing: ${task.action}');
+        ' rejected task from $sender because not capable of doing: ${task.task.action} with protocol ${task.protocol}');
     return message;
   }
 
@@ -673,7 +674,7 @@ class AgentPencarian extends Agent {
         ]));
 
     print(this.agentName +
-        ' rejected task form $sender because takes time too long: ${task.action}');
+        ' rejected task from $sender because takes time too long: ${task.task.action}');
     return message;
   }
 
@@ -688,14 +689,14 @@ class AgentPencarian extends Agent {
       Plan("cari profile", "REQUEST"),
     ];
     _goals = [
-      Goals("cari pengumuman", List<Map<String, Object?>>, 5),
-      Goals("cari jadwal pendaftaran", List<dynamic>, 5),
-      Goals("cari pelayanan", List<Map<String, Object?>>, 5),
-      Goals("cari pelayanan", List<dynamic>, 5),
-      Goals("cari tampilan home", List<dynamic>, 5),
-      Goals("check pendaftaran", List<dynamic>, 5),
-      Goals("cari profile", List<dynamic>, 5),
-      Goals("check pendaftaran", String, 5),
+      Goals("cari pengumuman", List<Map<String, Object?>>, _estimatedTime),
+      Goals("cari jadwal pendaftaran", List<dynamic>, _estimatedTime),
+      Goals("cari pelayanan", List<Map<String, Object?>>, _estimatedTime),
+      Goals("cari pelayanan", List<dynamic>, _estimatedTime),
+      Goals("cari tampilan home", List<dynamic>, _estimatedTime),
+      Goals("check pendaftaran", List<dynamic>, _estimatedTime),
+      Goals("cari profile", List<dynamic>, _estimatedTime),
+      Goals("check pendaftaran", String, _estimatedTime),
     ];
   }
 }

@@ -25,7 +25,7 @@ class AgentAkun extends Agent {
   List _Message = [];
   List _Sender = [];
   bool stop = false;
-  int _estimatedTime = 5;
+  static  static int _estimatedTime = 5;
 
   bool canPerformTask(dynamic message) {
     for (var p in _plan) {
@@ -44,9 +44,10 @@ class AgentAkun extends Agent {
   }
 
   Future<dynamic> performTask() async {
-    Messages msg = _Message.last;
+    Messages msgCome = _Message.last;
+
     String sender = _Sender.last;
-    dynamic task = msg.task;
+    dynamic task = msgCome.task;
 
     var goalsQuest =
         _goals.where((element) => element.request == task.action).toList();
@@ -55,16 +56,15 @@ class AgentAkun extends Agent {
     Timer timer = Timer.periodic(Duration(seconds: clock), (timer) {
       stop = true;
       timer.cancel();
-
+      _estimatedTime++;
       MessagePassing messagePassing = MessagePassing();
       Messages msg = overTime(task, sender);
       messagePassing.sendMessage(msg);
-      return;
     });
 
     Messages message;
     try {
-      message = await action(task.action, task.data, sender);
+      message = await action(task.action, msgCome, sender);
     } catch (e) {
       message = Messages(
           agentName, sender, "INFORM", Tasks('lack of parameters', "failed"));
@@ -77,8 +77,8 @@ class AgentAkun extends Agent {
         if (message.task.data.runtimeType == String &&
             message.task.data == "failed") {
           MessagePassing messagePassing = MessagePassing();
-          Messages msg = rejectTask(task, sender);
-          messagePassing.sendMessage(msg);
+          Messages msg = rejectTask(msgCome, sender);
+          return messagePassing.sendMessage(msg);
         } else {
           for (var g in _goals) {
             if (g.request == task.action &&
@@ -93,7 +93,7 @@ class AgentAkun extends Agent {
             MessagePassing messagePassing = MessagePassing();
             messagePassing.sendMessage(message);
           } else {
-            rejectTask(task, sender);
+            rejectTask(message, sender);
           }
         }
       }
@@ -103,30 +103,30 @@ class AgentAkun extends Agent {
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "login":
-        return login(data, sender);
+        return login(data.task.data, sender);
       case "cari user":
-        return cariUser(data, sender);
+        return cariUser(data.task.data, sender);
       case "cari profile":
-        return cariProfile(data, sender);
+        return cariProfile(data.task.data, sender);
       case "cari tampilan home":
-        return cariTampilanHome(data, sender);
+        return cariTampilanHome(data.task.data, sender);
       case "edit profile":
-        return EditProfile(data, sender);
+        return EditProfile(data.task.data, sender);
       case "update notification":
-        return updateNotification(data, sender);
+        return updateNotification(data.task.data, sender);
       case "find password":
-        return cariPassword(data, sender);
+        return cariPassword(data.task.data, sender);
       case "change password":
-        return gantiPassword(data, sender);
+        return gantiPassword(data.task.data, sender);
       case "change profile picture":
-        return changeProfilePicture(data, sender);
+        return changeProfilePicture(data.task.data, sender);
       case "log out":
-        return logout(data, sender);
+        return logout(data.task.data, sender);
       case "sign up":
-        return signup(data, sender);
+        return signup(data.task.data, sender);
 
       default:
-        return rejectTask(data, data.sender);
+        return rejectTask(data, sender);
     }
   }
 
@@ -378,7 +378,7 @@ class AgentAkun extends Agent {
         ]));
 
     print(this.agentName +
-        ' rejected task form $sender because not capable of doing: ${task.action}');
+        ' rejected task from $sender because not capable of doing: ${task.task.action} with protocol ${task.protocol}');
     return message;
   }
 
@@ -392,7 +392,7 @@ class AgentAkun extends Agent {
         ]));
 
     print(this.agentName +
-        ' rejected task form $sender because takes time too long: ${task.action}');
+        ' rejected task from $sender because takes time too long: ${task.task.action}');
     return message;
   }
 
@@ -412,17 +412,17 @@ class AgentAkun extends Agent {
       Plan("log out", "REQUEST"),
     ];
     _goals = [
-      Goals("login", List<Map<String, Object?>>, 5),
-      Goals("cari user", List<Map<String, Object?>>, 5),
-      Goals("cari profile", List<dynamic>, 5),
-      Goals("cari tampilan home", List<dynamic>, 5),
-      Goals("edit profile", String, 2),
-      Goals("update notification", String, 2),
-      Goals("find password", String, 2),
-      Goals("change password", String, 2),
-      Goals("change profile picture", String, 2),
-      Goals("log out", String, 2),
-      Goals("sign up", String, 5),
+      Goals("login", List<Map<String, Object?>>, _estimatedTime),
+      Goals("cari user", List<Map<String, Object?>>, _estimatedTime),
+      Goals("cari profile", List<dynamic>, _estimatedTime),
+      Goals("cari tampilan home", List<dynamic>, _estimatedTime),
+      Goals("edit profile", String, _estimatedTime),
+      Goals("update notification", String, _estimatedTime),
+      Goals("find password", String, _estimatedTime),
+      Goals("change password", String, _estimatedTime),
+      Goals("change profile picture", String, _estimatedTime),
+      Goals("log out", String, _estimatedTime),
+      Goals("sign up", String, _estimatedTime),
     ];
   }
 }

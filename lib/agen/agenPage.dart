@@ -36,9 +36,9 @@ class AgentPage extends Agent {
   }
 
   Future performTask() async {
-    Messages msg = _Message.last;
+    Messages msgCome = _Message.last;
     String sender = _Sender.last;
-    dynamic task = msg.task;
+    dynamic task = msgCome.task;
     for (var p in _plan) {
       action(p.goals, task.data, sender);
       print("View can use data store in " + agentName);
@@ -66,7 +66,7 @@ class AgentPage extends Agent {
           ['failed']
         ]));
 
-    print(agentName + ' rejected task form $sender: ${task}');
+    print(agentName + ' rejected task from $sender: ${task}');
     return message;
   }
 
