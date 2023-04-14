@@ -61,12 +61,18 @@ class AgentSetting extends Agent {
       timer.cancel();
 
       MessagePassing messagePassing = MessagePassing();
-      Messages msg = rejectTask(task, sender);
+      Messages msg = overTime(task, sender);
       messagePassing.sendMessage(msg);
       return;
     });
 
-    Messages message = await action(task.action, task.data, sender);
+    Messages message;
+    try {
+      message = await action(task.action, task.data, sender);
+    } catch (e) {
+      message = Messages(
+          agentName, sender, "INFORM", Tasks('lack of parameters', "failed"));
+    }
 
     if (stop == false) {
       if (timer.isActive) {
@@ -207,18 +213,22 @@ class AgentSetting extends Agent {
           ['failed']
         ]));
 
-    print(this.agentName + ' rejected task form $sender: ${task.action}');
+    print(this.agentName +
+        ' rejected task form $sender because not capable of doing: ${task.action}');
     return message;
   }
 
-  Messages overTime(sender) {
+  Messages overTime(dynamic task, sender) {
     Messages message = Messages(
+        agentName,
         sender,
-        "Agent Setting",
         "INFORM",
         Tasks('error', [
-          ['reject over time']
+          ['failed']
         ]));
+
+    print(this.agentName +
+        ' rejected task form $sender because takes time too long: ${task.action}');
     return message;
   }
 

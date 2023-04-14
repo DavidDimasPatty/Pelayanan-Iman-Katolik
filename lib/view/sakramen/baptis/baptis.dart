@@ -120,6 +120,14 @@ class _Baptis extends State<Baptis> {
     editingController.addListener(() {
       filterSearchResults(editingController.text);
     });
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        setState(() {
+          data = data + 5;
+        });
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         shape: RoundedRectangleBorder(
