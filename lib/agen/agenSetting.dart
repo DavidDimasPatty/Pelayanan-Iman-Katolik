@@ -6,15 +6,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:mongo_dart/mongo_dart.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
-import '../DatabaseFolder/data.dart';
 import '../DatabaseFolder/mongodb.dart';
-import '../view/login.dart';
 import 'Agent.dart';
 import 'Goals.dart';
-import 'MessagePassing.dart';
 import 'Plan.dart';
 import 'Task.dart';
 

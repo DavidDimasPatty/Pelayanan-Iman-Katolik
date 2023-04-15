@@ -176,7 +176,7 @@ class _Profile extends State<Profile> {
                                               height: 10.0,
                                             ),
                                             Text(
-                                              snapshot.data[0][0]['name'],
+                                              snapshot.data[0][0]['nama'],
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 24.0,

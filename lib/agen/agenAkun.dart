@@ -4,6 +4,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/fireBase.dart';
+import 'package:pelayanan_iman_katolik/DatabaseFolder/modelDB.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 
@@ -70,23 +71,11 @@ class AgentAkun extends Agent {
             Tasks("status modifikasi/ pencarian data akun", "email"));
         return message;
       } else {
-        var insert = await userCollection.insertOne({
-          'name': data[0],
-          'email': data[1],
-          'password': data[2],
-          'picture': "",
-          "banned": 0,
-          "notifGD": false,
-          "notifPG": false,
-          "tanggalDaftar": DateTime.now(),
-          "paroki": "",
-          "alamat": "",
-          "lingkungan": "",
-          "notelp": "",
-          "token": "",
-          "updatedAt": ""
-        });
-        if (insert.isSuccess) {
+        var configJson = modelDB.user(data[0], data[1], data[2], "", 0, false,
+            DateTime.now(), "", "", "", "", "", DateTime.now());
+
+        var add = await userCollection.insertOne(configJson);
+        if (add.isSuccess) {
           Messages message = Messages(agentName, sender, "INFORM",
               Tasks("status modifikasi/ pencarian data akun", "oke"));
           return message;
@@ -266,14 +255,8 @@ class AgentAkun extends Agent {
   }
 
   Future<Messages> changeProfilePicture(dynamic data, String sender) async {
-    DateTime now = new DateTime.now();
-    DateTime date = new DateTime(
-        now.year, now.month, now.day, now.hour, now.minute, now.second);
-    final filename = date.toString();
-    final destination = 'files/Pelayanan Imam Katolik/$filename';
-    UploadTask? task = FirebaseApi.uploadFile(destination, data[1]);
-    final snapshot = await task!.whenComplete(() {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
+    var urlDownload = await FirebaseApi.configureUpload(
+        'files/Pelayanan Imam Katolik/', data[1]);
 
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var conn = await userCollection.updateOne(where.eq('_id', data[0]),

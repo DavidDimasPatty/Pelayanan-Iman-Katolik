@@ -217,7 +217,7 @@ class _HomePage extends State<HomePage> {
                                             Column(
                                               children: <Widget>[
                                                 Text(
-                                                  snapshot.data[0][0]['name'],
+                                                  snapshot.data[0][0]['nama'],
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       color: Colors.white,

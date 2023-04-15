@@ -1,18 +1,11 @@
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:http/http.dart' as http;
-
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:mongo_dart/mongo_dart.dart';
+import 'package:pelayanan_iman_katolik/DatabaseFolder/modelDB.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
-
 import '../DatabaseFolder/data.dart';
-import '../DatabaseFolder/fireBase.dart';
 import '../DatabaseFolder/mongodb.dart';
 import 'Agent.dart';
 import 'Goals.dart';
-import 'MessagePassing.dart';
 import 'Plan.dart';
 import 'Task.dart';
 
@@ -36,8 +29,8 @@ class AgentPendaftaran extends Agent {
   }
 
   Future<Messages> enrollPelayanan(dynamic data, String sender) async {
-    var update1;
-    var update2;
+    var add1;
+    var add2;
     var pelayananCollection;
     String id = "";
     var userPelayananCollection;
@@ -67,18 +60,14 @@ class AgentPendaftaran extends Agent {
         id = "idKegiatan";
       }
 
-      update2 = await userPelayananCollection.insertOne({
-        id: data[1],
-        'idUser': data[2],
-        "tanggalDaftar": DateTime.now(),
-        'status': 0,
-        'updatedAt': DateTime.now(),
-        'updatedBy': data[1]
-      });
+      var configJson = modelDB.userPelayanan(
+          id, data[1], data[2], DateTime.now(), 0, DateTime.now(), data[1]);
 
-      update1 = await pelayananCollection.updateOne(
+      add2 = await userPelayananCollection.insertOne(configJson);
+
+      add1 = await pelayananCollection.updateOne(
           where.eq('_id', data[1]), modify.set('kapasitas', data[3] - 1));
-      if (update1.isSuccess && update2.isSuccess) {
+      if (add1.isSuccess && add2.isSuccess) {
         Messages message = Messages(agentName, "Agent Page", "INFORM",
             Tasks('status modifikasi data', "oke"));
 
@@ -92,47 +81,51 @@ class AgentPendaftaran extends Agent {
       if (data[0] == "sakramentali") {
         pelayananCollection =
             MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
-        update1 = await pelayananCollection.insertOne({
-          'idUser': data[1],
-          'namaLengkap': data[2],
-          'paroki': data[3],
-          'lingkungan': data[4],
-          'notelp': data[5],
-          'alamat': data[6],
-          'jenis': data[7],
-          'tanggal': DateTime.parse(data[8]),
-          'note': data[9],
-          'idGereja': data[10],
-          'idImam': data[11],
-          'status': 0,
-          'updatedAt': DateTime.now(),
-          'updatedBy': data[1],
-          'createdAt': DateTime.now(),
-          'createdBy': data[1]
-        });
+
+        var configJson = modelDB.pemberkatan(
+            data[1],
+            data[10],
+            data[11],
+            data[2],
+            data[3],
+            data[4],
+            data[5],
+            data[6],
+            data[7],
+            DateTime.parse(data[8]),
+            data[9],
+            0,
+            DateTime.now(),
+            data[1],
+            DateTime.now(),
+            data[1]);
+
+        add1 = await pelayananCollection.insertOne(configJson);
       }
       if (data[0] == "perkawinan") {
         pelayananCollection =
             MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
-        update1 = await pelayananCollection.insertOne({
-          'idUser': data[1],
-          'namaPria': data[2],
-          'namaPerempuan': data[3],
-          'notelp': data[4],
-          'alamat': data[5],
-          'email': data[6],
-          'tanggal': DateTime.parse(data[7]),
-          'note': data[8],
-          'idGereja': data[9],
-          'idImam': data[10],
-          'status': 0,
-          'updatedAt': DateTime.now(),
-          'updatedBy': data[1],
-          'createdAt': DateTime.now(),
-          'createdBy': data[1]
-        });
+
+        var configJson = modelDB.perkawinan(
+            data[1],
+            data[9],
+            data[10],
+            data[2],
+            data[3],
+            data[4],
+            data[5],
+            data[6],
+            DateTime.parse(data[7]),
+            data[8],
+            0,
+            DateTime.now(),
+            data[1],
+            DateTime.now(),
+            data[1]);
+
+        add1 = await pelayananCollection.insertOne(configJson);
       }
-      if (update1.isSuccess) {
+      if (add1.isSuccess) {
         Messages message = Messages(agentName, "Agent Page", "INFORM",
             Tasks('status modifikasi data', "oke"));
 

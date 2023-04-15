@@ -365,7 +365,10 @@ class AgentPencarian extends Agent {
               localField: 'idGereja',
               foreignField: '_id',
               as: 'GerejaPengumuman'))
-          .addStage(Match(where.eq('status', 0).map['\$query']))
+          .addStage(Match(where
+              .eq('status', 0)
+              .sortBy("createdAt", descending: true)
+              .map['\$query']))
           .build();
       var conn =
           await pengumumanCollection.aggregateToStream(pipeline).toList();

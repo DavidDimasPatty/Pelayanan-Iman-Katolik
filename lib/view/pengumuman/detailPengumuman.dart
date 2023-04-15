@@ -245,7 +245,7 @@ class _detailPengumuman extends State<detailPengumuman> {
                                                         fit: BoxFit.cover,
                                                         child: Text(
                                                           snapshot.data[0]
-                                                                  ['tanggal']
+                                                                  ['createdAt']
                                                               .toString()
                                                               .substring(0, 19),
                                                           style: TextStyle(

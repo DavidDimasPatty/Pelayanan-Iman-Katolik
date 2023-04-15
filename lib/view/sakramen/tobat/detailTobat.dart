@@ -217,7 +217,7 @@ class _detailTobat extends State<detailTobat> {
                                                 height: 10.0,
                                               ),
                                               Text(
-                                                snapshot.data[0][0]['name'],
+                                                snapshot.data[0][0]['nama'],
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     color: Colors.white,

@@ -64,7 +64,7 @@ class _ImamPerkawinan extends State<ImamPerkawinan> {
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
       for (var item in dummyTemp) {
-        if (item['name'].toLowerCase().contains(query.toLowerCase())) {
+        if (item['nama'].toLowerCase().contains(query.toLowerCase())) {
           listOMaps.add(item);
         }
       }
@@ -208,7 +208,7 @@ class _ImamPerkawinan extends State<ImamPerkawinan> {
                                 //Color(Colors.blue);
 
                                 Text(
-                                  i['name'],
+                                  i['nama'],
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 22.0,
