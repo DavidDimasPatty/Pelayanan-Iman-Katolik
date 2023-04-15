@@ -88,7 +88,6 @@ class _detailDaftarRekoleksi extends State<detailDaftarRekoleksi> {
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
-                      print(snapshot.data);
                       return ListView(
                         shrinkWrap: true,
                         padding: EdgeInsets.all(20.0),

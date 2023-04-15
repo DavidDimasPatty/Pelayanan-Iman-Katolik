@@ -41,7 +41,7 @@ class confirmKomuni {
     var hasilDaftar = await AgentPage.getDataPencarian();
 
     completer.complete();
-    print(hasilDaftar);
+
     await completer.future;
 
     if (hasilDaftar == 'oke') {

@@ -86,7 +86,6 @@ class _detailPengumuman extends State<detailPengumuman> {
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
-                      print(snapshot.data);
                       return Column(
                         children: <Widget>[
                           Padding(

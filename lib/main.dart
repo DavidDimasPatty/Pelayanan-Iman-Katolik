@@ -26,7 +26,7 @@ Future callDb() async {
   completer.complete();
   var hasil = await await AgentPage.getDataPencarian();
   await completer.future;
-  print(hasil);
+
   return hasil;
 }
 
@@ -46,7 +46,6 @@ callTampilan(tampilan) {
           home: HomePage(ObjectId.parse(object)),
         ));
       } else {
-        print("Morning!");
         runApp(MaterialApp(
           title: 'Navigation Basics',
           theme: ThemeData(
@@ -72,7 +71,7 @@ callTampilan(tampilan) {
         var object = tampilan[0][0][0]
             .toString()
             .substring(10, tampilan[0][0][0].length - 2);
-        print("Night!");
+
         runApp(MaterialApp(
           title: 'Navigation Basics',
           theme: ThemeData(

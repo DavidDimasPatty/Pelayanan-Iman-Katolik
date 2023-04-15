@@ -55,7 +55,6 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
         _selectedDate = args.value.toString();
       }
     });
-    print(_selectedDate);
   }
 
   Future<List> callDb() async {

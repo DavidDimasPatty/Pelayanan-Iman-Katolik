@@ -132,7 +132,6 @@ class _EditProfile extends State<EditProfile> {
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
-                      print(snapshot.data);
                       if (snapshot.data[0]['nama'] != null) {
                         namaController.text = snapshot.data[0]['nama'];
                       }

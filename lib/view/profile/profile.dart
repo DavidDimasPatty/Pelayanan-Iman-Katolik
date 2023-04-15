@@ -114,8 +114,6 @@ class _Profile extends State<Profile> {
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
-                      // print("work");
-                      // print(snapshot.data[0][0]);
                       return Column(children: <Widget>[
                         Padding(padding: EdgeInsets.symmetric(vertical: 2)),
                         Column(

@@ -193,7 +193,6 @@ class Login extends StatelessWidget {
                                             passwordController.text)
                                         .then((ret) async {
                                       try {
-                                        print(ret);
                                         if (await ret.length > 0) {
                                           Navigator.pushReplacement(
                                             context,

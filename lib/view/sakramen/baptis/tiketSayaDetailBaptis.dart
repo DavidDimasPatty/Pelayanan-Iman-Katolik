@@ -99,7 +99,6 @@ class tiketSayaDetailBaptis {
                 future: callDb(),
                 builder: (context, AsyncSnapshot snapshot) {
                   try {
-                    print(snapshot.data);
                     return Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,

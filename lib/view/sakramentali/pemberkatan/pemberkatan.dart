@@ -65,7 +65,7 @@ class _Pemberkatan extends State<Pemberkatan> {
 
     double distanceInMeters = Geolocator.distanceBetween(
         lat, lang, position.latitude, position.longitude);
-    print(distanceInMeters.toString());
+
     if (distanceInMeters > 1000) {
       distanceInMeters = distanceInMeters / 1000;
       distance = distanceInMeters.toInt().toString() + " KM";

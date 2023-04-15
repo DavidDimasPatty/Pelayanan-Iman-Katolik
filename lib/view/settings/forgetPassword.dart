@@ -49,9 +49,6 @@ class ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(dotenv.env['service_id']);
-    print(dotenv.env['template_id']);
-    print(dotenv.env['user_id']);
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(

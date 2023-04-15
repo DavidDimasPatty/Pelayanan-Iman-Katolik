@@ -62,10 +62,10 @@ class _Komuni extends State<Komuni> {
   Future jarak(lat, lang) async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
-    print(position.toString());
+
     double distanceInMeters = Geolocator.distanceBetween(
         lat, lang, position.latitude, position.longitude);
-    print(distanceInMeters.toString());
+
     if (distanceInMeters > 1000) {
       distanceInMeters = distanceInMeters / 1000;
       distance = distanceInMeters.toInt().toString() + " KM";

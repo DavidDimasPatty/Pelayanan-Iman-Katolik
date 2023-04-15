@@ -61,7 +61,6 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
         _rangeCount = args.value.length.toString();
       }
     });
-    print(_selectedDate);
   }
 
   Future<List> callDb() async {
