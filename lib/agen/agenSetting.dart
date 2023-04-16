@@ -23,20 +23,20 @@ class AgentSetting extends Agent {
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "setting user":
-        return settingUser(data.task.data, sender);
+        return _settingUser(data.task.data, sender);
 
       case "save data":
-        return saveData(data.task.data, sender);
+        return _saveData(data.task.data, sender);
 
       case "log out":
-        return logOut(data.task.data, sender);
+        return _logOut(data.task.data, sender);
 
       default:
         return rejectTask(data.task.data, sender);
     }
   }
 
-  Future<Messages> settingUser(dynamic data, String sender) async {
+  Future<Messages> _settingUser(dynamic data, String sender) async {
     var date = DateTime.now();
     var hour = date.hour;
     WidgetsFlutterBinding.ensureInitialized();
@@ -85,7 +85,7 @@ class AgentSetting extends Agent {
     }
   }
 
-  Future<Messages> saveData(dynamic data, String sender) async {
+  Future<Messages> _saveData(dynamic data, String sender) async {
     final directory = await getApplicationDocumentsDirectory();
     var path = directory.path;
 
@@ -104,7 +104,7 @@ class AgentSetting extends Agent {
     return message;
   }
 
-  Future<Messages> logOut(dynamic data, String sender) async {
+  Future<Messages> _logOut(dynamic data, String sender) async {
     final directory = await getApplicationDocumentsDirectory();
     var path = directory.path;
 

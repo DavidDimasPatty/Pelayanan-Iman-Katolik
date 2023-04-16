@@ -19,16 +19,16 @@ class AgentPendaftaran extends Agent {
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "enroll pelayanan":
-        return enrollPelayanan(data.task.data, sender);
+        return _enrollPelayanan(data.task.data, sender);
       case "cancel pelayanan":
-        return cancelPelayanan(data.task.data, sender);
+        return _cancelPelayanan(data.task.data, sender);
 
       default:
         return rejectTask(data.task.data, sender);
     }
   }
 
-  Future<Messages> enrollPelayanan(dynamic data, String sender) async {
+  Future<Messages> _enrollPelayanan(dynamic data, String sender) async {
     var add1;
     var add2;
     var pelayananCollection;
@@ -138,7 +138,7 @@ class AgentPendaftaran extends Agent {
     }
   }
 
-  Future<Messages> cancelPelayanan(dynamic data, String sender) async {
+  Future<Messages> _cancelPelayanan(dynamic data, String sender) async {
     var update1;
     var update2;
     var pelayananCollection;
