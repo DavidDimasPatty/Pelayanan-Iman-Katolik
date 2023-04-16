@@ -24,10 +24,10 @@ import 'package:pelayanan_iman_katolik/view/umum/umum.dart';
 
 import '../ItemCard.dart';
 
-Future<void> openCamera() async {
-  //fuction openCamera();
-  final pickedImage = await ImagePicker().getImage(source: ImageSource.camera);
-}
+// Future<void> openCamera() async {
+//   //fuction openCamera();
+//   final pickedImage = await ImagePicker().getImage(source: ImageSource.camera);
+// }
 
 class HomePage extends StatefulWidget {
   var iduser;

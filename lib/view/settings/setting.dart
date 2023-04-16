@@ -125,115 +125,115 @@ class Settings extends StatelessWidget {
                   ),
                 )),
             Padding(padding: EdgeInsets.symmetric(vertical: 14)),
-            RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => termsCondition(this.iduser)));
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
-                elevation: 10.0,
-                padding: EdgeInsets.all(0.0),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          Colors.blueAccent,
-                          Colors.lightBlue,
-                        ]),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: Container(
-                    constraints: BoxConstraints(
-                        maxWidth: double.maxFinite, minHeight: 50.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Terms & Conditions",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w300),
-                    ),
-                  ),
-                )),
-            Padding(padding: EdgeInsets.symmetric(vertical: 14)),
-            RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => aboutus(this.iduser)));
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
-                elevation: 10.0,
-                padding: EdgeInsets.all(0.0),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          Colors.blueAccent,
-                          Colors.lightBlue,
-                        ]),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: Container(
-                    constraints: BoxConstraints(
-                        maxWidth: double.maxFinite, minHeight: 50.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "About Us",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w300),
-                    ),
-                  ),
-                )),
-            Padding(padding: EdgeInsets.symmetric(vertical: 14)),
+            // RaisedButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => termsCondition(this.iduser)));
+            //     },
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(80.0)),
+            //     elevation: 10.0,
+            //     padding: EdgeInsets.all(0.0),
+            //     child: Ink(
+            //       decoration: BoxDecoration(
+            //         gradient: LinearGradient(
+            //             begin: Alignment.topRight,
+            //             end: Alignment.topLeft,
+            //             colors: [
+            //               Colors.blueAccent,
+            //               Colors.lightBlue,
+            //             ]),
+            //         borderRadius: BorderRadius.circular(30.0),
+            //       ),
+            //       child: Container(
+            //         constraints: BoxConstraints(
+            //             maxWidth: double.maxFinite, minHeight: 50.0),
+            //         alignment: Alignment.center,
+            //         child: Text(
+            //           "Terms & Conditions",
+            //           style: TextStyle(
+            //               color: Colors.white,
+            //               fontSize: 26.0,
+            //               fontWeight: FontWeight.w300),
+            //         ),
+            //       ),
+            //     )),
+            // Padding(padding: EdgeInsets.symmetric(vertical: 14)),
+            // RaisedButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => aboutus(this.iduser)));
+            //     },
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(80.0)),
+            //     elevation: 10.0,
+            //     padding: EdgeInsets.all(0.0),
+            //     child: Ink(
+            //       decoration: BoxDecoration(
+            //         gradient: LinearGradient(
+            //             begin: Alignment.topRight,
+            //             end: Alignment.topLeft,
+            //             colors: [
+            //               Colors.blueAccent,
+            //               Colors.lightBlue,
+            //             ]),
+            //         borderRadius: BorderRadius.circular(30.0),
+            //       ),
+            //       child: Container(
+            //         constraints: BoxConstraints(
+            //             maxWidth: double.maxFinite, minHeight: 50.0),
+            //         alignment: Alignment.center,
+            //         child: Text(
+            //           "About Us",
+            //           style: TextStyle(
+            //               color: Colors.white,
+            //               fontSize: 26.0,
+            //               fontWeight: FontWeight.w300),
+            //         ),
+            //       ),
+            //     )),
+            // Padding(padding: EdgeInsets.symmetric(vertical: 14)),
 
-            RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => customerService(this.iduser)));
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
-                elevation: 10.0,
-                padding: EdgeInsets.all(0.0),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          Colors.blueAccent,
-                          Colors.lightBlue,
-                        ]),
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  child: Container(
-                    constraints: BoxConstraints(
-                        maxWidth: double.maxFinite, minHeight: 50.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Customer Service",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w300),
-                    ),
-                  ),
-                )),
-            Padding(padding: EdgeInsets.symmetric(vertical: 14)),
+            // RaisedButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //               builder: (context) => customerService(this.iduser)));
+            //     },
+            //     shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(80.0)),
+            //     elevation: 10.0,
+            //     padding: EdgeInsets.all(0.0),
+            //     child: Ink(
+            //       decoration: BoxDecoration(
+            //         gradient: LinearGradient(
+            //             begin: Alignment.topRight,
+            //             end: Alignment.topLeft,
+            //             colors: [
+            //               Colors.blueAccent,
+            //               Colors.lightBlue,
+            //             ]),
+            //         borderRadius: BorderRadius.circular(30.0),
+            //       ),
+            //       child: Container(
+            //         constraints: BoxConstraints(
+            //             maxWidth: double.maxFinite, minHeight: 50.0),
+            //         alignment: Alignment.center,
+            //         child: Text(
+            //           "Customer Service",
+            //           style: TextStyle(
+            //               color: Colors.white,
+            //               fontSize: 26.0,
+            //               fontWeight: FontWeight.w300),
+            //         ),
+            //       ),
+            //     )),
+            // Padding(padding: EdgeInsets.symmetric(vertical: 14)),
             RaisedButton(
                 onPressed: () async {
                   await LogOut(context);
