@@ -2,39 +2,39 @@ import 'dart:async';
 
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
-import 'package:pelayanan_iman_katolik/view/sakramentali/pemberkatan/imamPemberkatan.dart';
+import 'package:pelayanan_iman_katolik/view/homePage.dart';
+import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
+import 'package:pelayanan_iman_katolik/view/sakramentali/formulirPemberkatan.dart';
+import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
+import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 
-import '../../homePage.dart';
-import '../../profile/profile.dart';
-import '../../settings/setting.dart';
-import '../../tiketSaya.dart';
-
-class Pemberkatan extends StatefulWidget {
+class ImamPemberkatan extends StatefulWidget {
   final iduser;
-  Pemberkatan(this.iduser);
+  final idGereja;
+  ImamPemberkatan(this.iduser, this.idGereja);
   @override
-  _Pemberkatan createState() => _Pemberkatan(this.iduser);
+  _ImamPemberkatan createState() =>
+      _ImamPemberkatan(this.iduser, this.idGereja);
 }
 
-class _Pemberkatan extends State<Pemberkatan> {
+class _ImamPemberkatan extends State<ImamPemberkatan> {
   List hasil = [];
   StreamController _controller = StreamController();
   ScrollController _scrollController = ScrollController();
   int data = 5;
   List dummyTemp = [];
   final iduser;
-  _Pemberkatan(this.iduser);
+  final idGereja;
+  _ImamPemberkatan(this.iduser, this.idGereja);
 
   Future<List> callDb() async {
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pelayanan', ["sakramentali", "general"]));
+        Tasks('cari pelayanan', ["sakramentali", "imam", idGereja]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -42,7 +42,6 @@ class _Pemberkatan extends State<Pemberkatan> {
     completer.complete();
 
     await completer.future;
-
     return await hasilPencarian;
   }
 
@@ -56,23 +55,6 @@ class _Pemberkatan extends State<Pemberkatan> {
         _controller.add(result);
       });
     });
-  }
-
-  Future jarak(lat, lang) async {
-    var distance;
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-
-    double distanceInMeters = Geolocator.distanceBetween(
-        lat, lang, position.latitude, position.longitude);
-
-    if (distanceInMeters > 1000) {
-      distanceInMeters = distanceInMeters / 1000;
-      distance = distanceInMeters.toInt().toString() + " KM";
-    } else {
-      distance = distanceInMeters.toInt().toString() + " M";
-    }
-    return distance;
   }
 
   filterSearchResults(String query) {
@@ -110,11 +92,11 @@ class _Pemberkatan extends State<Pemberkatan> {
     });
   }
 
-  TextEditingController editingController = TextEditingController();
+  TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    editingController.addListener(() async {
-      await filterSearchResults(editingController.text);
+    _searchController.addListener(() async {
+      await filterSearchResults(_searchController.text);
     });
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -129,7 +111,7 @@ class _Pemberkatan extends State<Pemberkatan> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        title: Text('Pemberkatan'),
+        title: Text('Imam Pemberkatan'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.account_circle_rounded),
@@ -165,10 +147,10 @@ class _Pemberkatan extends State<Pemberkatan> {
                 width: 400,
                 rtl: true,
                 helpText: 'Cari Gereja',
-                textController: editingController,
+                textController: _searchController,
                 onSuffixTap: () {
                   setState(() {
-                    editingController.clear();
+                    _searchController.clear();
                   });
                 },
               ),
@@ -198,8 +180,8 @@ class _Pemberkatan extends State<Pemberkatan> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      ImamPemberkatan(iduser, i['_id'])),
+                                  builder: (context) => FormulirPemberkatan(
+                                      iduser, i['idGereja'], i['_id'])),
                             );
                           },
                           child: Container(
@@ -226,39 +208,21 @@ class _Pemberkatan extends State<Pemberkatan> {
                                   i['nama'],
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 26.0,
+                                      fontSize: 22.0,
                                       fontWeight: FontWeight.w300),
                                   textAlign: TextAlign.left,
                                 ),
                                 Text(
-                                  'Paroki: ' + i['paroki'],
+                                  i['statusPemberkatan'] == 0
+                                      ? ' Status : Bersedia'
+                                      : i['status'] == -1
+                                          ? ' Status : Tidak Bersedia'
+                                          : ' Status : Sedang Melakukan Pelayanan',
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w300),
                                 ),
-                                Text(
-                                  'Alamat: ' + i['address'],
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-
-                                FutureBuilder(
-                                    future: jarak(i['lat'], i['lng']),
-                                    builder: (context, AsyncSnapshot snapshot) {
-                                      try {
-                                        return Column(children: <Widget>[
-                                          Text(
-                                            snapshot.data,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12),
-                                          )
-                                        ]);
-                                      } catch (e) {
-                                        print(e);
-                                        return Center(
-                                            child: CircularProgressIndicator());
-                                      }
-                                    }),
                               ])),
                         ),
                     ]);

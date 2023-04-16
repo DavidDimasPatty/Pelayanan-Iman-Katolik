@@ -114,11 +114,11 @@ class _Baptis extends State<Baptis> {
     });
   }
 
-  TextEditingController editingController = TextEditingController();
+  TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    editingController.addListener(() {
-      filterSearchResults(editingController.text);
+    _searchController.addListener(() {
+      filterSearchResults(_searchController.text);
     });
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -169,10 +169,10 @@ class _Baptis extends State<Baptis> {
                 width: 400,
                 rtl: true,
                 helpText: 'Cari Gereja',
-                textController: editingController,
+                textController: _searchController,
                 onSuffixTap: () {
                   setState(() {
-                    editingController.clear();
+                    _searchController.clear();
                   });
                 },
               ),

@@ -9,6 +9,7 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
 import 'package:pelayanan_iman_katolik/view/sakramen/perkawinan/tiketSayaDetailPerkawinan.dart';
 import 'package:pelayanan_iman_katolik/view/sakramen/perkawinan/tiketSayaPerkawinanHistory.dart';
+import 'package:pelayanan_iman_katolik/view/sakramentali/tiketSayaPemberkatanHistory.dart';
 import 'package:pelayanan_iman_katolik/view/umum/tiketSayaDetailKegiatan.dart';
 import 'package:pelayanan_iman_katolik/view/umum/tiketSayaKegiatanHistory.dart';
 
@@ -16,7 +17,6 @@ import '../homePage.dart';
 import '../sakramen/baptis/tiketSayaBaptisHistory.dart';
 import '../sakramen/komuni/tiketSayaKomuniHistory.dart';
 import '../sakramen/krisma/tiketSayaKrismaHistory.dart';
-import '../sakramentali/pemberkatan/tiketSayaPemberkatanHistory.dart';
 import '../settings/setting.dart';
 import '../tiketSaya.dart';
 

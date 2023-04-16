@@ -8,42 +8,37 @@ import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
+import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 
-import '../../tiketSaya.dart';
-
-class tiketSayaDetailPemberkatan {
+class tiketSayaPemberkatanHistory {
   var iduser;
-  var tiket;
-  var namaGereja;
   var idPemberkatan;
-  var cancelPemberkatan;
-  tiketSayaDetailPemberkatan(this.iduser, this.idPemberkatan);
+  tiketSayaPemberkatanHistory(this.iduser, this.idPemberkatan);
 
-  Future callDb() async {
+  Future<List> callDb() async {
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["sakramentali", "history", idPemberkatan]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
     return await hasil;
   }
 
-  cancelDaftar(context) async {
+  cancelDaftar(idMisa, context) async {
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST",
-        Tasks('cancel pelayanan', ["sakramentali", idPemberkatan, iduser]));
+        Tasks('cancel pelayanan', ["sakramentali", idPemberkatan]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getDataPencarian();
     completer.complete();
-
-    await completer.future;
+    await Future.delayed(Duration(seconds: 1));
     if (hasil == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Cancel Pemberkatan",
@@ -80,7 +75,6 @@ class tiketSayaDetailPemberkatan {
   }
 
   void showDialogBox(BuildContext context) async {
-    // await callInfoPembarkatan(idPemberkatan);
     showDialog<void>(
         context: context,
         builder: (BuildContext context) {
@@ -88,7 +82,7 @@ class tiketSayaDetailPemberkatan {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
               alignment: Alignment.center,
-              content: FutureBuilder(
+              content: FutureBuilder<List>(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
@@ -126,41 +120,7 @@ class tiketSayaDetailPemberkatan {
                                     "Status : Ditolak",
                                   ),
                               ],
-                            ),
-                            Padding(padding: EdgeInsets.symmetric(vertical: 5)),
-                            RaisedButton(
-                                onPressed: () async {
-                                  cancelDaftar(context);
-                                },
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(80.0)),
-                                elevation: 10.0,
-                                padding: EdgeInsets.all(0.0),
-                                child: Ink(
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topRight,
-                                        end: Alignment.topLeft,
-                                        colors: [
-                                          Colors.blueAccent,
-                                          Colors.lightBlue,
-                                        ]),
-                                    borderRadius: BorderRadius.circular(30.0),
-                                  ),
-                                  child: Container(
-                                    constraints: BoxConstraints(
-                                        maxWidth: double.maxFinite,
-                                        minHeight: 50.0),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "Cancel Pendaftaran",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 26.0,
-                                          fontWeight: FontWeight.w300),
-                                    ),
-                                  ),
-                                )),
+                            )
                           ]);
                     } catch (e) {
                       print(e);

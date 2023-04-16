@@ -12,7 +12,8 @@ import 'package:pelayanan_iman_katolik/view/sakramen/baptis/tiketSayaDetailBapti
 import 'package:pelayanan_iman_katolik/view/sakramen/komuni/tiketSayaDetailKomuni.dart';
 import 'package:pelayanan_iman_katolik/view/sakramen/krisma/tiketSayaDetailKrisma.dart';
 import 'package:pelayanan_iman_katolik/view/sakramen/perkawinan/tiketSayaDetailPerkawinan.dart';
-import 'package:pelayanan_iman_katolik/view/sakramentali/pemberkatan/tiketSayaDetailPemberkatan.dart';
+import 'package:pelayanan_iman_katolik/view/sakramentali/tiketSayaDetailPemberkatan.dart';
+
 import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
 import 'package:pelayanan_iman_katolik/view/umum/tiketSayaDetailKegiatan.dart';
 

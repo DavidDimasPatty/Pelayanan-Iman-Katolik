@@ -2,7 +2,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 import 'package:flutter/material.dart';
-import 'package:pelayanan_iman_katolik/view/sakramentali/pemberkatan/pemberkatan.dart';
+import 'package:pelayanan_iman_katolik/view/sakramentali/pemberkatan.dart';
 
 import '../homePage.dart';
 import '../profile/profile.dart';

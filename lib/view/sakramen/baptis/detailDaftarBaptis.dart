@@ -28,7 +28,6 @@ class detailDaftarBaptis extends StatefulWidget {
 
 class _detailDaftarBaptis extends State<detailDaftarBaptis> {
   final idGereja;
-  var detailGereja;
   final iduser;
   final idBaptis;
   var hasil;

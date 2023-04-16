@@ -23,7 +23,7 @@ class AgentPage extends Agent {
     }
   }
 
-  static _messageSetData(task) {
+  static void _messageSetData(task) {
     dataView.add(task);
   }
 
@@ -49,7 +49,7 @@ class AgentPage extends Agent {
   }
 
   @override
-  action(String goals, data, String sender) {
+  void action(String goals, data, String sender) {
     _messageSetData(data);
   }
 

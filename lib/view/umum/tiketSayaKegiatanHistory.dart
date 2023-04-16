@@ -13,12 +13,8 @@ import '../tiketSaya.dart';
 
 class tiketSayaKegiatanHistory {
   var iduser;
-  var tiketGereja;
-  var hasil;
-  var idKegiatan;
   var idUmum;
   var idUserUmum;
-  var cancelUmum;
   tiketSayaKegiatanHistory(this.iduser, this.idUserUmum, this.idUmum);
 
   Future<List> callDb() async {
@@ -28,26 +24,11 @@ class tiketSayaKegiatanHistory {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
     return await hasil;
-  }
-
-  cancelDaftar(kapasitas, context) async {
-    if (cancelUmum == 'oke') {
-      Fluttertoast.showToast(
-          msg: "Berhasil Cancel Kegiatan",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 2,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0);
-      Navigator.pop(context,
-          MaterialPageRoute(builder: (context) => tiketSaya(this.iduser)));
-    }
   }
 
   _getCloseButton(context) {

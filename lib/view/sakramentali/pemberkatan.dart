@@ -8,36 +8,32 @@ import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
-import 'package:pelayanan_iman_katolik/view/sakramentali/pemberkatan/formulirPemberkatan.dart';
+import 'package:pelayanan_iman_katolik/view/homePage.dart';
+import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
+import 'package:pelayanan_iman_katolik/view/sakramentali/imamPemberkatan.dart';
+import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
+import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 
-import '../../homePage.dart';
-import '../../profile/profile.dart';
-import '../../settings/setting.dart';
-import '../../tiketSaya.dart';
-
-class ImamPemberkatan extends StatefulWidget {
+class Pemberkatan extends StatefulWidget {
   final iduser;
-  final idGereja;
-  ImamPemberkatan(this.iduser, this.idGereja);
+  Pemberkatan(this.iduser);
   @override
-  _ImamPemberkatan createState() =>
-      _ImamPemberkatan(this.iduser, this.idGereja);
+  _Pemberkatan createState() => _Pemberkatan(this.iduser);
 }
 
-class _ImamPemberkatan extends State<ImamPemberkatan> {
+class _Pemberkatan extends State<Pemberkatan> {
   List hasil = [];
   StreamController _controller = StreamController();
   ScrollController _scrollController = ScrollController();
   int data = 5;
   List dummyTemp = [];
   final iduser;
-  final idGereja;
-  _ImamPemberkatan(this.iduser, this.idGereja);
+  _Pemberkatan(this.iduser);
 
   Future<List> callDb() async {
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pelayanan', ["sakramentali", "imam", idGereja]));
+        Tasks('cari pelayanan', ["sakramentali", "general"]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -45,6 +41,7 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
     completer.complete();
 
     await completer.future;
+
     return await hasilPencarian;
   }
 
@@ -58,6 +55,23 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
         _controller.add(result);
       });
     });
+  }
+
+  Future jarak(lat, lang) async {
+    var distance;
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+
+    double distanceInMeters = Geolocator.distanceBetween(
+        lat, lang, position.latitude, position.longitude);
+
+    if (distanceInMeters > 1000) {
+      distanceInMeters = distanceInMeters / 1000;
+      distance = distanceInMeters.toInt().toString() + " KM";
+    } else {
+      distance = distanceInMeters.toInt().toString() + " M";
+    }
+    return distance;
   }
 
   filterSearchResults(String query) {
@@ -95,11 +109,11 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
     });
   }
 
-  TextEditingController editingController = TextEditingController();
+  TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    editingController.addListener(() async {
-      await filterSearchResults(editingController.text);
+    _searchController.addListener(() async {
+      await filterSearchResults(_searchController.text);
     });
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -114,7 +128,7 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        title: Text('Imam Pemberkatan'),
+        title: Text('Pemberkatan'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.account_circle_rounded),
@@ -150,10 +164,10 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
                 width: 400,
                 rtl: true,
                 helpText: 'Cari Gereja',
-                textController: editingController,
+                textController: _searchController,
                 onSuffixTap: () {
                   setState(() {
-                    editingController.clear();
+                    _searchController.clear();
                   });
                 },
               ),
@@ -183,8 +197,8 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => FormulirPemberkatan(
-                                      iduser, i['idGereja'], i['_id'])),
+                                  builder: (context) =>
+                                      ImamPemberkatan(iduser, i['_id'])),
                             );
                           },
                           child: Container(
@@ -211,21 +225,39 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
                                   i['nama'],
                                   style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 22.0,
+                                      fontSize: 26.0,
                                       fontWeight: FontWeight.w300),
                                   textAlign: TextAlign.left,
                                 ),
                                 Text(
-                                  i['statusPemberkatan'] == 0
-                                      ? ' Status : Bersedia'
-                                      : i['status'] == -1
-                                          ? ' Status : Tidak Bersedia'
-                                          : ' Status : Sedang Melakukan Pelayanan',
+                                  'Paroki: ' + i['paroki'],
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w300),
+                                      color: Colors.white, fontSize: 12),
                                 ),
+                                Text(
+                                  'Alamat: ' + i['address'],
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
+
+                                FutureBuilder(
+                                    future: jarak(i['lat'], i['lng']),
+                                    builder: (context, AsyncSnapshot snapshot) {
+                                      try {
+                                        return Column(children: <Widget>[
+                                          Text(
+                                            snapshot.data,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12),
+                                          )
+                                        ]);
+                                      } catch (e) {
+                                        print(e);
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      }
+                                    }),
                               ])),
                         ),
                     ]);

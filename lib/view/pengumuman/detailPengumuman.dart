@@ -15,7 +15,6 @@ import '../homePage.dart';
 import '../tiketSaya.dart';
 
 class detailPengumuman extends StatefulWidget {
-  var detailGereja;
   final iduser;
   final idPengumuman;
   @override

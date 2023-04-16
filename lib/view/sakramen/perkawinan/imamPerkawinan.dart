@@ -95,11 +95,11 @@ class _ImamPerkawinan extends State<ImamPerkawinan> {
     });
   }
 
-  TextEditingController editingController = TextEditingController();
+  TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    editingController.addListener(() async {
-      await filterSearchResults(editingController.text);
+    _searchController.addListener(() async {
+      await filterSearchResults(_searchController.text);
     });
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
@@ -150,10 +150,10 @@ class _ImamPerkawinan extends State<ImamPerkawinan> {
                 width: 400,
                 rtl: true,
                 helpText: 'Cari Gereja',
-                textController: editingController,
+                textController: _searchController,
                 onSuffixTap: () {
                   setState(() {
-                    editingController.clear();
+                    _searchController.clear();
                   });
                 },
               ),

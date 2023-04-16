@@ -13,11 +13,8 @@ import '../tiketSaya.dart';
 
 class tiketSayaDetailKegiatan {
   var iduser;
-  var hasil;
-  var tiket;
   var idUmum;
   var idUserUmum;
-  var cancelUmum;
   tiketSayaDetailKegiatan(this.iduser, this.idUserUmum, this.idUmum);
 
   Future<List> callDb() async {
@@ -27,7 +24,7 @@ class tiketSayaDetailKegiatan {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
@@ -45,11 +42,11 @@ class tiketSayaDetailKegiatan {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasilDaftar = await await AgentPage.getDataPencarian();
     completer.complete();
 
     await completer.future;
-    if (hasil == 'oke') {
+    if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Cancel Kegiatan",
           toastLength: Toast.LENGTH_SHORT,

@@ -13,7 +13,6 @@ import '../../tiketSaya.dart';
 
 class tiketSayaDetailBaptis {
   var iduser;
-  var tiket;
   var idBaptis;
   var idGereja;
   var idUserBaptis;
