@@ -116,8 +116,8 @@ class _history extends State<history> {
                                 onTap: () {
                                   tiketSayaBaptisHistory(
                                           iduser,
-                                          i['UserBaptis'][0]['_id'],
                                           i['UserBaptis'][0]['idGereja'],
+                                          i['UserBaptis'][0]['_id'],
                                           i['_id'])
                                       .showDialogBox(context);
                                 },
@@ -196,8 +196,8 @@ class _history extends State<history> {
                                     onTap: () {
                                       tiketSayaKomuniHistory(
                                               iduser,
-                                              i['UserKomuni'][0]['_id'],
                                               i['UserKomuni'][0]['idGereja'],
+                                              i['UserKomuni'][0]['_id'],
                                               i['_id'])
                                           .showDialogBox(context);
                                     },
@@ -288,8 +288,8 @@ class _history extends State<history> {
                                     onTap: () {
                                       tiketSayaKrismaHistory(
                                               iduser,
-                                              i['UserKrisma'][0]['_id'],
                                               i['UserKrisma'][0]['idGereja'],
+                                              i['UserKrisma'][0]['_id'],
                                               i['_id'])
                                           .showDialogBox(context);
                                     },
@@ -518,6 +518,24 @@ class _history extends State<history> {
                                                     fontWeight:
                                                         FontWeight.w300),
                                               ),
+                                            if (i['status'] == 2)
+                                              Text(
+                                                "Status : Selesai",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16.0,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
+                                            if (i['status'] == -2)
+                                              Text(
+                                                "Status : Dibatalkan",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16.0,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
                                           ],
                                         ),
                                       )),
@@ -614,6 +632,22 @@ class _history extends State<history> {
                                           if (i['status'] == -1)
                                             Text(
                                               "Status : Ditolak",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                          if (i['status'] == 2)
+                                            Text(
+                                              "Status : Selesai",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.w300),
+                                            ),
+                                          if (i['status'] == -2)
+                                            Text(
+                                              "Status : Dibatalkan",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 16.0,

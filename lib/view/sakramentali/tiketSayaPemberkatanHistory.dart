@@ -119,6 +119,10 @@ class tiketSayaPemberkatanHistory {
                                   Text(
                                     "Status : Ditolak",
                                   ),
+                                if (snapshot.data[0]['status'] == 2)
+                                  Text(
+                                    "Status : Selesai",
+                                  ),
                               ],
                             )
                           ]);

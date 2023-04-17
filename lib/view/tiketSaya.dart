@@ -515,6 +515,24 @@ class _tiketSaya extends State<tiketSaya> {
                                                     fontWeight:
                                                         FontWeight.w300),
                                               ),
+                                            if (i['status'] == 2)
+                                              Text(
+                                                "Status : Selesai",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16.0,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
+                                            if (i['status'] == -2)
+                                              Text(
+                                                "Status : Dibatalkan",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16.0,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
                                           ],
                                         ),
                                       )),
@@ -616,6 +634,24 @@ class _tiketSaya extends State<tiketSaya> {
                                             if (i['status'] == -1)
                                               Text(
                                                 "Status : Ditolak",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16.0,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
+                                            if (i['status'] == 2)
+                                              Text(
+                                                "Status : Selesai",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16.0,
+                                                    fontWeight:
+                                                        FontWeight.w300),
+                                              ),
+                                            if (i['status'] == -2)
+                                              Text(
+                                                "Status : Dibatalkan",
                                                 style: TextStyle(
                                                     color: Colors.white,
                                                     fontSize: 16.0,

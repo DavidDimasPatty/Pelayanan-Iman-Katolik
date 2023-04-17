@@ -104,6 +104,10 @@ class tiketSayaPerkawinanHistory {
                                   Text(
                                     "Status : Ditolak",
                                   ),
+                                if (snapshot.data[0]['status'] == 2)
+                                  Text(
+                                    "Status : Selesai",
+                                  ),
                               ],
                             ),
                             Padding(padding: EdgeInsets.symmetric(vertical: 5)),
