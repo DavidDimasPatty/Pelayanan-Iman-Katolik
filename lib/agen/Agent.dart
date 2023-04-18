@@ -38,12 +38,12 @@ abstract class Agent {
 
     var goalsQuest =
         goals.where((element) => element.request == task.action).toList();
-    int clock = goalsQuest[0].time;
+    int clock = goalsQuest[0].time as int;
 
     Timer timer = Timer.periodic(Duration(seconds: clock), (timer) {
       stop = true;
       timer.cancel();
-      addEstimatedTime();
+      addEstimatedTime(task.action);
       MessagePassing messagePassing = MessagePassing();
       Messages msg = overTime(msgCome, sender);
       messagePassing.sendMessage(msg);
@@ -117,5 +117,5 @@ abstract class Agent {
   }
 
   action(String goals, dynamic data, String sender);
-  addEstimatedTime();
+  addEstimatedTime(String goals);
 }

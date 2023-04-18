@@ -50,10 +50,10 @@ class _notifClass extends State<notification> {
     return checknotif;
   }
 
-  Future updateNotifPg(notifPg) async {
+  Future updateNotifGd(notifGd) async {
     Completer<void> completer = Completer<void>();
     Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-        Tasks('update notification', [iduser, notifPg]));
+        Tasks('update notification', [iduser, notifGd]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
@@ -113,7 +113,7 @@ class _notifClass extends State<notification> {
                 future: callDb(),
                 builder: (context, AsyncSnapshot snapshot) {
                   try {
-                    switch1 = snapshot.data[0]['notifPG'];
+                    switch1 = snapshot.data[0]['notifGD'];
 
                     return Column(
                       children: <Widget>[
@@ -151,10 +151,10 @@ class _notifClass extends State<notification> {
                               onChanged: (value) {
                                 setState(() async {
                                   switch1 = value;
-                                  await updateNotifPg(switch1);
+                                  await updateNotifGd(switch1);
                                   // await callDb();
                                   setState(() {
-                                    switch1 = snapshot.data[0]['notifPG'];
+                                    switch1 = snapshot.data[0]['notifGD'];
                                   });
                                 });
                               },

@@ -21,6 +21,19 @@ class AgentAkun extends Agent {
   }
 
   static int _estimatedTime = 5;
+  static Map<String, int> _timeAction = {
+    "login": _estimatedTime,
+    "sign up": _estimatedTime,
+    "cari user": _estimatedTime,
+    "cari profile": _estimatedTime,
+    "cari tampilan home": _estimatedTime,
+    "edit profile": _estimatedTime,
+    "update notification": _estimatedTime,
+    "find password": _estimatedTime,
+    "change password": _estimatedTime,
+    "change profile picture": _estimatedTime,
+    "log out": _estimatedTime
+  };
 
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
@@ -205,7 +218,7 @@ class AgentAkun extends Agent {
   Future<Messages> _updateNotification(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var update = await userCollection.updateOne(where.eq('_id', data[0]),
-        modify.set('notifPG', data[1]).set('updatedAt', DateTime.now()));
+        modify.set('notifGD', data[1]).set('updatedAt', DateTime.now()));
     if (update.isSuccess) {
       Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "oke"));
@@ -272,8 +285,9 @@ class AgentAkun extends Agent {
     }
   }
 
-  void addEstimatedTime() {
-    _estimatedTime++;
+  @override
+  addEstimatedTime(String goals) {
+    _timeAction[goals] = _timeAction[goals]! + 1;
   }
 
   void _initAgent() {
@@ -292,17 +306,19 @@ class AgentAkun extends Agent {
       Plan("log out", "REQUEST"),
     ];
     goals = [
-      Goals("login", List<Map<String, Object?>>, _estimatedTime),
-      Goals("cari user", List<Map<String, Object?>>, _estimatedTime),
-      Goals("cari profile", List<dynamic>, _estimatedTime),
-      Goals("cari tampilan home", List<dynamic>, _estimatedTime),
-      Goals("edit profile", String, _estimatedTime),
-      Goals("update notification", String, _estimatedTime),
-      Goals("find password", String, _estimatedTime),
-      Goals("change password", String, _estimatedTime),
-      Goals("change profile picture", String, _estimatedTime),
-      Goals("log out", String, _estimatedTime),
-      Goals("sign up", String, _estimatedTime),
+      Goals("login", List<Map<String, Object?>>, _timeAction["login"]),
+      Goals("cari user", List<Map<String, Object?>>, _timeAction["cari user"]),
+      Goals("cari profile", List<dynamic>, _timeAction["cari profile"]),
+      Goals("cari tampilan home", List<dynamic>,
+          _timeAction["cari tampilan home"]),
+      Goals("edit profile", String, _timeAction["edit profile"]),
+      Goals("update notification", String, _timeAction["update notification"]),
+      Goals("find password", String, _timeAction["find password"]),
+      Goals("change password", String, _timeAction["change password"]),
+      Goals("change profile picture", String,
+          _timeAction["change profile picture"]),
+      Goals("log out", String, _timeAction["log out"]),
+      Goals("sign up", String, _timeAction["sign up"]),
     ];
   }
 }

@@ -15,6 +15,14 @@ class AgentPencarian extends Agent {
   }
 
   static int _estimatedTime = 5;
+  static Map<String, int> _timeAction = {
+    "cari pengumuman": _estimatedTime,
+    "cari jadwal pendaftaran": _estimatedTime,
+    "cari pelayanan": _estimatedTime,
+    "cari tampilan home": _estimatedTime,
+    "cari profile": _estimatedTime,
+    "check pendaftaran": _estimatedTime,
+  };
 
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
@@ -574,8 +582,9 @@ class AgentPencarian extends Agent {
     }
   }
 
-  addEstimatedTime() {
-    _estimatedTime++;
+  @override
+  addEstimatedTime(String goals) {
+    _timeAction[goals] = _timeAction[goals]! + 1;
   }
 
   void _initAgent() {
@@ -589,14 +598,19 @@ class AgentPencarian extends Agent {
       Plan("cari profile", "REQUEST"),
     ];
     goals = [
-      Goals("cari pengumuman", List<Map<String, Object?>>, _estimatedTime),
-      Goals("cari jadwal pendaftaran", List<dynamic>, _estimatedTime),
-      Goals("cari pelayanan", List<Map<String, Object?>>, _estimatedTime),
-      Goals("cari pelayanan", List<dynamic>, _estimatedTime),
-      Goals("cari tampilan home", List<dynamic>, _estimatedTime),
-      Goals("check pendaftaran", List<dynamic>, _estimatedTime),
-      Goals("cari profile", List<dynamic>, _estimatedTime),
-      Goals("check pendaftaran", String, _estimatedTime),
+      Goals("cari pengumuman", List<Map<String, Object?>>,
+          _timeAction["cari pengumuman"]),
+      Goals("cari jadwal pendaftaran", List<dynamic>,
+          _timeAction["cari jadwal pendaftaran"]),
+      Goals("cari pelayanan", List<Map<String, Object?>>,
+          _timeAction["cari pelayanan"]),
+      Goals("cari pelayanan", List<dynamic>, _timeAction["cari pelayanan"]),
+      Goals("cari tampilan home", List<dynamic>,
+          _timeAction["cari tampilan home"]),
+      Goals(
+          "check pendaftaran", List<dynamic>, _timeAction["check pendaftaran"]),
+      Goals("cari profile", List<dynamic>, _timeAction["cari profile"]),
+      Goals("check pendaftaran", String, _timeAction["check pendaftaran"]),
     ];
   }
 }

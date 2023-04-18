@@ -59,7 +59,7 @@ class _history extends State<history> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        title: Text('Jadwal Saya'),
+        title: Text('History Pendaftaran'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.account_circle_rounded),

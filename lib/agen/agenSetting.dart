@@ -19,6 +19,11 @@ class AgentSetting extends Agent {
   }
 
   static int _estimatedTime = 10;
+  static Map<String, int> _timeAction = {
+    "setting user": _estimatedTime,
+    "log out": _estimatedTime,
+    "save data": _estimatedTime,
+  };
 
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
@@ -116,8 +121,9 @@ class AgentSetting extends Agent {
     return message;
   }
 
-  addEstimatedTime() {
-    _estimatedTime++;
+  @override
+  addEstimatedTime(String goals) {
+    _timeAction[goals] = _timeAction[goals]! + 1;
   }
 
   _initAgent() {
@@ -128,9 +134,9 @@ class AgentSetting extends Agent {
       Plan("save data", "REQUEST"),
     ];
     goals = [
-      Goals("setting user", List<List<dynamic>>, _estimatedTime),
-      Goals("log out", String, _estimatedTime),
-      Goals("save data", String, _estimatedTime),
+      Goals("setting user", List<List<dynamic>>, _timeAction["setting user"]),
+      Goals("log out", String, _timeAction["log out"]),
+      Goals("save data", String, _timeAction["save data"]),
     ];
   }
 }

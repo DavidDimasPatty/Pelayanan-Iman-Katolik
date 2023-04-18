@@ -15,7 +15,10 @@ class AgentPendaftaran extends Agent {
   }
 
   static int _estimatedTime = 5;
-
+  static Map<String, int> _timeAction = {
+    "enroll pelayanan": _estimatedTime,
+    "cancel pelayanan": _estimatedTime,
+  };
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
       case "enroll pelayanan":
@@ -223,8 +226,9 @@ class AgentPendaftaran extends Agent {
     }
   }
 
-  addEstimatedTime() {
-    _estimatedTime++;
+  @override
+  addEstimatedTime(String goals) {
+    _timeAction[goals] = _timeAction[goals]! + 1;
   }
 
   _initAgent() {
@@ -234,8 +238,8 @@ class AgentPendaftaran extends Agent {
       Plan("cancel pelayanan", "REQUEST"),
     ];
     goals = [
-      Goals("enroll pelayanan", String, _estimatedTime),
-      Goals("cancel pelayanan", String, _estimatedTime),
+      Goals("enroll pelayanan", String, _timeAction["enroll pelayanan"]),
+      Goals("cancel pelayanan", String, _timeAction["cancel pelayanan"]),
     ];
   }
 }
