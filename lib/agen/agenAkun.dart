@@ -69,7 +69,7 @@ class AgentAkun extends Agent {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var checkEmail;
     var checkName;
-    await userCollection.find({'name': data[0]}).toList().then((res) async {
+    await userCollection.find({'nama': data[0]}).toList().then((res) async {
           checkName = res;
           checkEmail = await userCollection.find({'email': data[1]}).toList();
         });
@@ -193,7 +193,7 @@ class AgentAkun extends Agent {
     var update = await userCollection.updateOne(
         where.eq('_id', data[0]),
         modify
-            .set('name', data[1])
+            .set('nama', data[1])
             .set('email', data[2])
             .set('paroki', data[3])
             .set(
