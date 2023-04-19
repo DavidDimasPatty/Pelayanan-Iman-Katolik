@@ -505,7 +505,10 @@ class AgentPencarian extends Agent {
                 foreignField: 'idGereja',
                 as: as))
             .addStage(Match(where.eq("banned", 0).map['\$query']))
-            .addStage(Match(where.eq('${as}.${status}', 0).map['\$query']))
+            .addStage(Match(where
+                .eq('${as}.${status}', 0)
+                .eq('${as}.role', 0)
+                .map['\$query']))
             .build();
         var conn =
             await pelayananCollection.aggregateToStream(pipeline).toList();
@@ -513,8 +516,8 @@ class AgentPencarian extends Agent {
             Tasks('hasil pencarian', conn));
         return message;
       } else if (data[1] == "imam") {
-        var conn = await pelayananCollection
-            .find({'idGereja': data[2], status: 0, "banned": 0}).toList();
+        var conn = await pelayananCollection.find(
+            {'idGereja': data[2], status: 0, "banned": 0, "role": 0}).toList();
         Messages message = Messages('Agent Pencarian', sender, "INFORM",
             Tasks('hasil pencarian', conn));
         return message;
