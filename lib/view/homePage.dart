@@ -12,7 +12,7 @@ import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/main.dart';
-import 'package:pelayanan_iman_katolik/view/login.dart';
+import 'package:pelayanan_iman_katolik/view/logIn.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/detailPengumuman.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/pengumuman.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
@@ -29,15 +29,15 @@ import '../ItemCard.dart';
 //   final pickedImage = await ImagePicker().getImage(source: ImageSource.camera);
 // }
 
-class HomePage extends StatefulWidget {
+class homePage extends StatefulWidget {
   var iduser;
   @override
-  HomePage(this.iduser);
+  homePage(this.iduser);
 
-  _HomePage createState() => _HomePage(this.iduser);
+  _homePage createState() => _homePage(this.iduser);
 }
 
-class _HomePage extends State<HomePage> {
+class _homePage extends State<homePage> {
   var iduser;
 
   // int indexCaption = -1;
@@ -55,7 +55,7 @@ class _HomePage extends State<HomePage> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await AgentPage.getDataPencarian();
+    var hasil = await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -69,7 +69,7 @@ class _HomePage extends State<HomePage> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -85,7 +85,7 @@ class _HomePage extends State<HomePage> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Login()),
+        MaterialPageRoute(builder: (context) => logIn()),
       );
     }
   }
@@ -104,7 +104,7 @@ class _HomePage extends State<HomePage> {
     });
   }
 
-  _HomePage(this.iduser);
+  _homePage(this.iduser);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +120,7 @@ class _HomePage extends State<HomePage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -179,7 +179,7 @@ class _HomePage extends State<HomePage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    Profile(iduser)),
+                                                    profile(iduser)),
                                           );
                                         },
                                         child: Row(
@@ -587,11 +587,11 @@ class _HomePage extends State<HomePage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          Pengumuman(this.iduser)),
+                                          pengumuman(this.iduser)),
                                 );
                               },
                               child: Text(
-                                "Pengumuman",
+                                "pengumuman",
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,

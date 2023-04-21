@@ -42,7 +42,7 @@ class _ImamTobat extends State<ImamTobat> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasilPencarian = await AgentPage.getDataPencarian();
+    var hasilPencarian = await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -122,7 +122,7 @@ class _ImamTobat extends State<ImamTobat> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
+                MaterialPageRoute(builder: (context) => profile(this.iduser)),
               );
             },
           ),
@@ -277,7 +277,7 @@ class _ImamTobat extends State<ImamTobat> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(this.iduser)),
+                        builder: (context) => homePage(this.iduser)),
                   );
                 }
               },

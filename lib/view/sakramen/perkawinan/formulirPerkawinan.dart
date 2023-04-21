@@ -53,7 +53,7 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -90,7 +90,7 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
 
       MessagePassing messagePassing = MessagePassing();
       var data = await messagePassing.sendMessage(message);
-      var hasil = await await AgentPage.getDataPencarian();
+      var hasil = await await AgentPage.getData();
       completer.complete();
 
       await completer.future;
@@ -133,7 +133,7 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -555,7 +555,7 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

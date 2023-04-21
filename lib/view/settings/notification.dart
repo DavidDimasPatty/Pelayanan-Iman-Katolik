@@ -43,7 +43,7 @@ class _notifClass extends State<notification> {
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
     completer.complete();
-    var checknotif = await AgentPage.getDataPencarian();
+    var checknotif = await AgentPage.getData();
 
     await completer.future;
 
@@ -58,7 +58,7 @@ class _notifClass extends State<notification> {
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
     completer.complete();
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getData();
 
     await completer.future;
     if (hasil == 'oke') {
@@ -93,7 +93,7 @@ class _notifClass extends State<notification> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -210,7 +210,7 @@ class _notifClass extends State<notification> {
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

@@ -17,17 +17,17 @@ import 'package:intl/intl.dart';
 import '../homePage.dart';
 import '../tiketSaya.dart';
 
-class EditProfile extends StatefulWidget {
+class editProfile extends StatefulWidget {
   final iduser;
 
-  EditProfile(this.iduser);
+  editProfile(this.iduser);
   @override
-  _EditProfile createState() => _EditProfile(this.iduser);
+  _editProfile createState() => _editProfile(this.iduser);
 }
 
-class _EditProfile extends State<EditProfile> {
+class _editProfile extends State<editProfile> {
   final iduser;
-  _EditProfile(this.iduser);
+  _editProfile(this.iduser);
 
   @override
   TextEditingController namaController = new TextEditingController();
@@ -44,7 +44,7 @@ class _EditProfile extends State<EditProfile> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getData();
     completer.complete();
     await completer.future;
     return hasil;
@@ -67,7 +67,7 @@ class _EditProfile extends State<EditProfile> {
 
       MessagePassing messagePassing = MessagePassing();
       var data = await messagePassing.sendMessage(message);
-      var hasil = await await AgentPage.getDataPencarian();
+      var hasil = await await AgentPage.getData();
       completer.complete();
       if (hasil == 'oke') {
         Fluttertoast.showToast(
@@ -80,7 +80,7 @@ class _EditProfile extends State<EditProfile> {
             fontSize: 16.0);
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => Profile(iduser)),
+          MaterialPageRoute(builder: (context) => profile(iduser)),
         );
       }
     } else {
@@ -114,7 +114,7 @@ class _EditProfile extends State<EditProfile> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -476,7 +476,7 @@ class _EditProfile extends State<EditProfile> {
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

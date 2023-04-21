@@ -14,7 +14,7 @@ import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
-import 'package:pelayanan_iman_katolik/view/login.dart';
+import 'package:pelayanan_iman_katolik/view/logIn.dart';
 
 Future callDb() async {
   Completer<void> completer = Completer<void>();
@@ -24,7 +24,7 @@ Future callDb() async {
   MessagePassing messagePassing = MessagePassing();
   var data = await messagePassing.sendMessage(message);
   completer.complete();
-  var hasil = await await AgentPage.getDataPencarian();
+  var hasil = await await AgentPage.getData();
   await completer.future;
 
   return hasil;
@@ -43,7 +43,7 @@ callTampilan(tampilan) {
             brightness: Brightness.light,
             primaryColor: Colors.grey,
           ),
-          home: HomePage(ObjectId.parse(object)),
+          home: homePage(ObjectId.parse(object)),
         ));
       } else {
         runApp(MaterialApp(
@@ -52,7 +52,7 @@ callTampilan(tampilan) {
             brightness: Brightness.light,
             primaryColor: Colors.grey,
           ),
-          home: Login(),
+          home: logIn(),
         ));
       }
     } catch (e) {
@@ -62,7 +62,7 @@ callTampilan(tampilan) {
           brightness: Brightness.light,
           primaryColor: Colors.grey,
         ),
-        home: Login(),
+        home: logIn(),
       ));
     }
   } else {
@@ -78,7 +78,7 @@ callTampilan(tampilan) {
             brightness: Brightness.dark,
             primaryColor: Colors.grey,
           ),
-          home: HomePage(ObjectId.parse(object)),
+          home: homePage(ObjectId.parse(object)),
         ));
       } else {
         runApp(MaterialApp(
@@ -87,7 +87,7 @@ callTampilan(tampilan) {
             brightness: Brightness.dark,
             primaryColor: Colors.grey,
           ),
-          home: Login(),
+          home: logIn(),
         ));
       }
     } catch (e) {
@@ -97,7 +97,7 @@ callTampilan(tampilan) {
           brightness: Brightness.dark,
           primaryColor: Colors.grey,
         ),
-        home: Login(),
+        home: logIn(),
       ));
     }
   }

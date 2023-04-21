@@ -39,7 +39,7 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasilPencarian = await AgentPage.getDataPencarian();
+    var hasilPencarian = await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -119,7 +119,7 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
+                MaterialPageRoute(builder: (context) => profile(this.iduser)),
               );
             },
           ),
@@ -334,7 +334,7 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(this.iduser)),
+                        builder: (context) => homePage(this.iduser)),
                   );
                 }
               },

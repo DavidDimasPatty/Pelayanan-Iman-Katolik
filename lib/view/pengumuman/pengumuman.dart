@@ -16,14 +16,14 @@ import '../settings/setting.dart';
 import '../tiketSaya.dart';
 import 'detailPengumuman.dart';
 
-class Pengumuman extends StatefulWidget {
+class pengumuman extends StatefulWidget {
   final iduser;
-  Pengumuman(this.iduser);
+  pengumuman(this.iduser);
   @override
   _Pengumuman createState() => _Pengumuman(this.iduser);
 }
 
-class _Pengumuman extends State<Pengumuman> {
+class _Pengumuman extends State<pengumuman> {
   // var distance;
 
   List hasil = [];
@@ -41,7 +41,7 @@ class _Pengumuman extends State<Pengumuman> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasilPencarian = await AgentPage.getDataPencarian();
+    var hasilPencarian = await AgentPage.getData();
 
     completer.complete();
 
@@ -118,14 +118,14 @@ class _Pengumuman extends State<Pengumuman> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        title: Text('Daftar Pengumuman'),
+        title: Text('Daftar pengumuman'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.account_circle_rounded),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
+                MaterialPageRoute(builder: (context) => profile(this.iduser)),
               );
             },
           ),
@@ -267,7 +267,7 @@ class _Pengumuman extends State<Pengumuman> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(this.iduser)),
+                        builder: (context) => homePage(this.iduser)),
                   );
                 }
               },

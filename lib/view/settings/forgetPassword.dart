@@ -6,7 +6,7 @@
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'package:http/http.dart' as http;
 
-// import '../login.dart';
+// import '../logIn.dart';
 
 // class ForgetPassword extends StatelessWidget {
 //   TextEditingController emailController = new TextEditingController();
@@ -38,7 +38,7 @@
 //           TextButton(
 //             onPressed: () => Navigator.pushReplacement(
 //               context,
-//               MaterialPageRoute(builder: (context) => Login()),
+//               MaterialPageRoute(builder: (context) => logIn()),
 //             ),
 //             child: const Text('OK'),
 //           ),
@@ -168,7 +168,7 @@
 //                               Navigator.push(
 //                                 context,
 //                                 MaterialPageRoute(
-//                                     builder: (context) => Login()),
+//                                     builder: (context) => logIn()),
 //                               );
 //                             },
 //                             child: Text(

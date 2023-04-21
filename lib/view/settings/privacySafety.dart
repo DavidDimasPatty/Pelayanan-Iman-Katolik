@@ -34,7 +34,7 @@ class privacySafety extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -163,7 +163,7 @@ class privacySafety extends StatelessWidget {
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

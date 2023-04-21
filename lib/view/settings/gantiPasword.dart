@@ -49,7 +49,7 @@ class gantiPassword extends StatelessWidget {
       MessagePassing messagePassing = MessagePassing();
       var data = await messagePassing.sendMessage(message);
       completer.complete();
-      var value = await await AgentPage.getDataPencarian();
+      var value = await await AgentPage.getData();
 
       await completer.future;
 
@@ -73,7 +73,7 @@ class gantiPassword extends StatelessWidget {
         MessagePassing messagePassing = MessagePassing();
         var data = await messagePassing.sendMessage(message);
         completer.complete();
-        var value = await await AgentPage.getDataPencarian();
+        var value = await await AgentPage.getData();
 
         await completer.future;
 
@@ -109,7 +109,7 @@ class gantiPassword extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -235,7 +235,7 @@ class gantiPassword extends StatelessWidget {
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

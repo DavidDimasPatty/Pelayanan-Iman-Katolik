@@ -59,7 +59,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -98,7 +98,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
 
       MessagePassing messagePassing = MessagePassing();
       var data = await messagePassing.sendMessage(message);
-      var hasil = await await AgentPage.getDataPencarian();
+      var hasil = await await AgentPage.getData();
       completer.complete();
 
       await completer.future;
@@ -142,7 +142,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -604,7 +604,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

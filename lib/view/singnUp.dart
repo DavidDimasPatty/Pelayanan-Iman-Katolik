@@ -1,25 +1,22 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/FadeAnimation.dart';
 import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
-import 'package:pelayanan_iman_katolik/view/login.dart';
+import 'package:pelayanan_iman_katolik/view/logIn.dart';
 
-class SignUp extends StatelessWidget {
+class signUp extends StatelessWidget {
   TextEditingController nameController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
   TextEditingController repasswordController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
 
-  checkSignUp(context) async {
+  checksignUp(context) async {
     if (nameController.text == "" ||
         emailController.text == "" ||
         passwordController.text == "" ||
@@ -93,7 +90,7 @@ class SignUp extends StatelessWidget {
 
         MessagePassing messagePassing = MessagePassing();
         var data = await messagePassing.sendMessage(message);
-        var hasil = await await AgentPage.getDataPencarian();
+        var hasil = await await AgentPage.getData();
         completer.complete();
 
         await completer.future;
@@ -132,7 +129,7 @@ class SignUp extends StatelessWidget {
               fontSize: 16.0);
           Navigator.pop(
             context,
-            MaterialPageRoute(builder: (context) => Login()),
+            MaterialPageRoute(builder: (context) => logIn()),
           );
         }
       }
@@ -328,7 +325,7 @@ class SignUp extends StatelessWidget {
                                         child: IconButton(
                                             color: Colors.white,
                                             onPressed: () async {
-                                              checkSignUp(context);
+                                              checksignUp(context);
                                             },
                                             icon: Icon(
                                               Icons.arrow_forward,
@@ -348,7 +345,7 @@ class SignUp extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => Login()),
+                                            builder: (context) => logIn()),
                                       );
                                     },
                                     child: FadeAnimation(

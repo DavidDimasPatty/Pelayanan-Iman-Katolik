@@ -22,7 +22,7 @@ class AgentAkun extends Agent {
 
   static int _estimatedTime = 5;
   static Map<String, int> _timeAction = {
-    "login": _estimatedTime,
+    "logIn": _estimatedTime,
     "sign up": _estimatedTime,
     "cari user": _estimatedTime,
     "cari profile": _estimatedTime,
@@ -37,8 +37,8 @@ class AgentAkun extends Agent {
 
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
-      case "login":
-        return _login(data.task.data, sender);
+      case "logIn":
+        return _logIn(data.task.data, sender);
       case "cari user":
         return _cariUser(data.task.data, sender);
       case "cari profile":
@@ -46,7 +46,7 @@ class AgentAkun extends Agent {
       case "cari tampilan home":
         return _cariTampilanHome(data.task.data, sender);
       case "edit profile":
-        return _EditProfile(data.task.data, sender);
+        return _editProfile(data.task.data, sender);
       case "update notification":
         return _updateNotification(data.task.data, sender);
       case "find password":
@@ -113,7 +113,7 @@ class AgentAkun extends Agent {
     return message;
   }
 
-  Future<Messages> _login(dynamic data, String sender) async {
+  Future<Messages> _logIn(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var conn = await userCollection
         .find({'email': data[0], 'password': data[1]}).toList();
@@ -121,7 +121,7 @@ class AgentAkun extends Agent {
       var conn2 = await userCollection.updateOne(
           where.eq('email', data[0]).eq('password', data[1]),
           modify.set('token', await FirebaseMessaging.instance.getToken()));
-      sendToAgenSettingLogin(conn, agentName);
+      sendToAgenSettinglogIn(conn, agentName);
     }
 
     Messages message = Messages(agentName, sender, "INFORM",
@@ -146,7 +146,7 @@ class AgentAkun extends Agent {
     }
   }
 
-  sendToAgenSettingLogin(dynamic data, String sender) async {
+  sendToAgenSettinglogIn(dynamic data, String sender) async {
     Messages message =
         Messages(sender, "Agent Setting", "REQUEST", Tasks('save data', data));
     MessagePassing messagePassing = MessagePassing();
@@ -188,7 +188,7 @@ class AgentAkun extends Agent {
     return message;
   }
 
-  Future<Messages> _EditProfile(dynamic data, String sender) async {
+  Future<Messages> _editProfile(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var update = await userCollection.updateOne(
         where.eq('_id', data[0]),
@@ -293,7 +293,7 @@ class AgentAkun extends Agent {
   void _initAgent() {
     this.agentName = "Agent Akun";
     plan = [
-      Plan("login", "REQUEST"),
+      Plan("logIn", "REQUEST"),
       Plan("sign up", "REQUEST"),
       Plan("cari user", "REQUEST"),
       Plan("cari profile", "REQUEST"),
@@ -306,7 +306,7 @@ class AgentAkun extends Agent {
       Plan("log out", "REQUEST"),
     ];
     goals = [
-      Goals("login", List<Map<String, Object?>>, _timeAction["login"]),
+      Goals("logIn", List<Map<String, Object?>>, _timeAction["logIn"]),
       Goals("cari user", List<Map<String, Object?>>, _timeAction["cari user"]),
       Goals("cari profile", List<dynamic>, _timeAction["cari profile"]),
       Goals("cari tampilan home", List<dynamic>,

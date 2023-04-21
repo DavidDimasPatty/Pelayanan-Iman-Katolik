@@ -37,7 +37,7 @@ class _detailTobat extends State<detailTobat> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -73,7 +73,7 @@ class _detailTobat extends State<detailTobat> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -439,7 +439,7 @@ class _detailTobat extends State<detailTobat> {
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

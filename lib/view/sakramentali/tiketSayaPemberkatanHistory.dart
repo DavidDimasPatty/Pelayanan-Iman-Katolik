@@ -22,7 +22,7 @@ class tiketSayaPemberkatanHistory {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await AgentPage.getDataPencarian();
+    var hasil = await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -36,7 +36,7 @@ class tiketSayaPemberkatanHistory {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getData();
     completer.complete();
     await Future.delayed(Duration(seconds: 1));
     if (hasil == 'oke') {

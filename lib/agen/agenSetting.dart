@@ -60,7 +60,7 @@ class AgentSetting extends Agent {
       final directory = await getApplicationDocumentsDirectory();
       var path = directory.path;
 
-      final file = await File('$path/login.txt');
+      final file = await File('$path/logIn.txt');
 
       res = await file.readAsLines();
     } catch (e) {
@@ -94,12 +94,12 @@ class AgentSetting extends Agent {
     final directory = await getApplicationDocumentsDirectory();
     var path = directory.path;
 
-    if (await File('$path/login.txt').exists()) {
-      final file = await File('$path/login.txt');
+    if (await File('$path/logIn.txt').exists()) {
+      final file = await File('$path/logIn.txt');
       await file.writeAsString("");
       await file.writeAsString(data[0]['_id'].toString());
     } else {
-      final file = await File('$path/login.txt').create(recursive: true);
+      final file = await File('$path/logIn.txt').create(recursive: true);
       await file.writeAsString("");
       await file.writeAsString('\n' + data[0]['_id'].toString());
     }
@@ -113,7 +113,7 @@ class AgentSetting extends Agent {
     final directory = await getApplicationDocumentsDirectory();
     var path = directory.path;
 
-    final file = await File('$path/login.txt');
+    final file = await File('$path/logIn.txt');
     await file.writeAsString("");
 
     Messages message =

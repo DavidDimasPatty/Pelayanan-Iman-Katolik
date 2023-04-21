@@ -15,14 +15,14 @@ import '../tiketSaya.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-class Profile extends StatefulWidget {
+class profile extends StatefulWidget {
   final iduser;
-  Profile(this.iduser);
+  profile(this.iduser);
 
-  _Profile createState() => _Profile(this.iduser);
+  _profile createState() => _profile(this.iduser);
 }
 
-class _Profile extends State<Profile> {
+class _profile extends State<profile> {
   final iduser;
 
   Future selectFile(context) async {
@@ -41,7 +41,7 @@ class _Profile extends State<Profile> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -55,7 +55,7 @@ class _Profile extends State<Profile> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasilDaftar = await await AgentPage.getDataPencarian();
+    var hasilDaftar = await await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -70,12 +70,12 @@ class _Profile extends State<Profile> {
           fontSize: 16.0);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Profile(iduser)),
+        MaterialPageRoute(builder: (context) => profile(iduser)),
       );
     }
   }
 
-  _Profile(this.iduser);
+  _profile(this.iduser);
   Future pullRefresh() async {
     setState(() {
       callDb();
@@ -477,7 +477,7 @@ class _Profile extends State<Profile> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              EditProfile(iduser)),
+                                              editProfile(iduser)),
                                     );
                                   },
                                   shape: RoundedRectangleBorder(
@@ -601,7 +601,7 @@ class _Profile extends State<Profile> {
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

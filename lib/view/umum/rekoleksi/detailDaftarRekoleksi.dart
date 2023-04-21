@@ -37,7 +37,7 @@ class _detailDaftarRekoleksi extends State<detailDaftarRekoleksi> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    hasil = await await AgentPage.getDataPencarian();
+    hasil = await await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -65,7 +65,7 @@ class _detailDaftarRekoleksi extends State<detailDaftarRekoleksi> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -461,7 +461,7 @@ class _detailDaftarRekoleksi extends State<detailDaftarRekoleksi> {
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

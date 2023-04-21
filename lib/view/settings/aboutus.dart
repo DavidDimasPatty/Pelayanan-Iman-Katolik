@@ -24,7 +24,7 @@
 //             onPressed: () {
 //               Navigator.push(
 //                 context,
-//                 MaterialPageRoute(builder: (context) => Profile(iduser)),
+//                 MaterialPageRoute(builder: (context) => profile(iduser)),
 //               );
 //             },
 //           ),
@@ -67,7 +67,7 @@
 //           ),
 //           Padding(padding: EdgeInsets.symmetric(vertical: 8)),
 //           Text(
-//             'Profile Pengembang',
+//             'profile Pengembang',
 //             style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
 //             textAlign: TextAlign.center,
 //           ),
@@ -173,7 +173,7 @@
 //                 } else if (index == 0) {
 //                   Navigator.push(
 //                     context,
-//                     MaterialPageRoute(builder: (context) => HomePage(iduser)),
+//                     MaterialPageRoute(builder: (context) => homePage(iduser)),
 //                   );
 //                 }
 //               },

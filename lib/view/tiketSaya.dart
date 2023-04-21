@@ -37,7 +37,7 @@ class _tiketSaya extends State<tiketSaya> {
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
 
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -64,7 +64,7 @@ class _tiketSaya extends State<tiketSaya> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -716,7 +716,7 @@ class _tiketSaya extends State<tiketSaya> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(this.iduser)),
+                        builder: (context) => homePage(this.iduser)),
                   );
                 }
               },

@@ -26,7 +26,7 @@ class confirmKrisma {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    hasil = await await AgentPage.getDataPencarian();
+    hasil = await await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -40,7 +40,7 @@ class confirmKrisma {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasilDaftar = await AgentPage.getDataPencarian();
+    var hasilDaftar = await AgentPage.getData();
 
     completer.complete();
 

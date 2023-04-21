@@ -36,7 +36,7 @@ class _detailPengumuman extends State<detailPengumuman> {
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
     completer.complete();
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getData();
     return hasil;
   }
 
@@ -55,14 +55,14 @@ class _detailPengumuman extends State<detailPengumuman> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        title: const Text('Detail Pengumuman'),
+        title: const Text('Detail pengumuman'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.account_circle_rounded),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -316,7 +316,7 @@ class _detailPengumuman extends State<detailPengumuman> {
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

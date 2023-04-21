@@ -40,7 +40,7 @@ class _Komuni extends State<Komuni> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasilPencarian = await AgentPage.getDataPencarian();
+    var hasilPencarian = await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -138,7 +138,7 @@ class _Komuni extends State<Komuni> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
+                MaterialPageRoute(builder: (context) => profile(this.iduser)),
               );
             },
           ),
@@ -409,7 +409,7 @@ class _Komuni extends State<Komuni> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(this.iduser)),
+                        builder: (context) => homePage(this.iduser)),
                   );
                 }
               },

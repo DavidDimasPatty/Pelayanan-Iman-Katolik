@@ -39,7 +39,7 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    hasil = await await AgentPage.getDataPencarian();
+    hasil = await await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -73,7 +73,7 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -657,7 +657,7 @@ class _detailDaftarBaptis extends State<detailDaftarBaptis> {
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

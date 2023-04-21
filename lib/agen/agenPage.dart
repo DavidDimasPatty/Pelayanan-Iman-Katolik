@@ -27,7 +27,7 @@ class AgentPage extends Agent {
     dataView.add(task);
   }
 
-  static Future getDataPencarian() async {
+  static Future getData() async {
     return dataView.last;
   }
 

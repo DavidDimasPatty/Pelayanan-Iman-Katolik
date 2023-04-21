@@ -24,7 +24,7 @@
 //             onPressed: () {
 //               Navigator.push(
 //                 context,
-//                 MaterialPageRoute(builder: (context) => Profile(iduser)),
+//                 MaterialPageRoute(builder: (context) => profile(iduser)),
 //               );
 //             },
 //           ),
@@ -179,7 +179,7 @@
 //                 } else if (index == 0) {
 //                   Navigator.push(
 //                     context,
-//                     MaterialPageRoute(builder: (context) => HomePage(iduser)),
+//                     MaterialPageRoute(builder: (context) => homePage(iduser)),
 //                   );
 //                 }
 //               },

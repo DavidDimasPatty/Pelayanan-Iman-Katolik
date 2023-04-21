@@ -38,7 +38,7 @@ class _Retret extends State<Retret> {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasilPencarian = await AgentPage.getDataPencarian();
+    var hasilPencarian = await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -118,7 +118,7 @@ class _Retret extends State<Retret> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(this.iduser)),
+                MaterialPageRoute(builder: (context) => profile(this.iduser)),
               );
             },
           ),
@@ -331,7 +331,7 @@ class _Retret extends State<Retret> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomePage(this.iduser)),
+                        builder: (context) => homePage(this.iduser)),
                   );
                 }
               },

@@ -9,17 +9,17 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
-import 'package:pelayanan_iman_katolik/view/singup.dart';
+import 'package:pelayanan_iman_katolik/view/singnUp.dart';
 
-class Login extends StatelessWidget {
-  Future login(id, password) async {
+class logIn extends StatelessWidget {
+  Future logInCheck(id, password) async {
     Completer<void> completer = Completer<void>();
     Messages message = Messages(
-        'Agent Page', 'Agent Akun', "REQUEST", Tasks('login', [id, password]));
+        'Agent Page', 'Agent Akun', "REQUEST", Tasks('logIn', [id, password]));
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -170,7 +170,7 @@ class Login extends StatelessWidget {
                             child: RaisedButton(
                                 textColor: Colors.white,
                                 color: Colors.lightBlue,
-                                child: Text("Login"),
+                                child: Text("logIn"),
                                 shape: new RoundedRectangleBorder(
                                   borderRadius: new BorderRadius.circular(30.0),
                                 ),
@@ -189,7 +189,8 @@ class Login extends StatelessWidget {
                                     emailController.clear();
                                     passwordController.clear();
                                   } else {
-                                    var ret = await login(emailController.text,
+                                    var ret = await logInCheck(
+                                            emailController.text,
                                             passwordController.text)
                                         .then((ret) async {
                                       try {
@@ -197,7 +198,7 @@ class Login extends StatelessWidget {
                                           Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) => HomePage(
+                                                builder: (context) => homePage(
                                                       ret[0]['_id'],
                                                     )),
                                           );
@@ -239,7 +240,7 @@ class Login extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SignUp()),
+                                    builder: (context) => signUp()),
                               );
                             },
                             child: Text(

@@ -22,7 +22,7 @@ import 'package:pelayanan_iman_katolik/view/settings/privacySafety.dart';
 import 'package:pelayanan_iman_katolik/view/settings/termsCondition.dart';
 
 import '../homePage.dart';
-import '../login.dart';
+import '../logIn.dart';
 import '../profile/profile.dart';
 import '../tiketSaya.dart';
 
@@ -36,7 +36,7 @@ class Settings extends StatelessWidget {
 
     MessagePassing messagePassing = MessagePassing();
     var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getDataPencarian();
+    var hasil = await await AgentPage.getData();
     completer.complete();
 
     await completer.future;
@@ -52,7 +52,7 @@ class Settings extends StatelessWidget {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => Login()),
+        MaterialPageRoute(builder: (context) => logIn()),
       );
     }
   }
@@ -73,7 +73,7 @@ class Settings extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Profile(iduser)),
+                MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
@@ -239,7 +239,7 @@ class Settings extends StatelessWidget {
                   await LogOut(context);
                   // Navigator.pushReplacement(
                   //   context,
-                  //   MaterialPageRoute(builder: (context) => Login()),
+                  //   MaterialPageRoute(builder: (context) => logIn()),
                   // );
                 },
                 shape: RoundedRectangleBorder(
@@ -311,7 +311,7 @@ class Settings extends StatelessWidget {
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => HomePage(iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },
