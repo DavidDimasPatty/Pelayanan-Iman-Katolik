@@ -1,8 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
@@ -11,7 +8,6 @@ import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/settings/privacySafety.dart';
 
-import '../../DatabaseFolder/mongodb.dart';
 import '../homePage.dart';
 import '../profile/profile.dart';
 import '../tiketSaya.dart';
@@ -39,9 +35,19 @@ class gantiPassword extends StatelessWidget {
       passLamaController.text = "";
       passBaruController.text = "";
       passUlBaruController.text = "";
+    } else if (passBaruController.text == passLamaController.text) {
+      Fluttertoast.showToast(
+          msg: "Password Baru Tidak Boleh Sama dengan Password Lama",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      passLamaController.text = "";
+      passBaruController.text = "";
+      passUlBaruController.text = "";
     } else {
-      print(passLamaController.text);
-
       Completer<void> completer = Completer<void>();
       Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
           Tasks('find password', [iduser, passLamaController.text]));

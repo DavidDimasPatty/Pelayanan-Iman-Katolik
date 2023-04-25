@@ -50,13 +50,9 @@ class _editProfile extends State<editProfile> {
     return hasil;
   }
 
-  submitForm(nama, email, paroki, lingkungan, notelp, alamat, context) async {
-    if (namaController.text != "" &&
-        emailController.text != "" &&
-        parokiController.text != "" &&
-        lingkunganController.text != "" &&
-        notelpController.text != "" &&
-        alamatController.text != "") {
+  Future submitForm(
+      nama, email, paroki, lingkungan, notelp, alamat, context) async {
+    if (namaController.text != "" && emailController.text != "") {
       Completer<void> completer = Completer<void>();
       Messages message = Messages(
           'Agent Page',
@@ -67,9 +63,28 @@ class _editProfile extends State<editProfile> {
 
       MessagePassing messagePassing = MessagePassing();
       var data = await messagePassing.sendMessage(message);
-      var hasil = await await AgentPage.getData();
+      var hasilDaftar = await AgentPage.getData();
       completer.complete();
-      if (hasil == 'oke') {
+      if (hasilDaftar == 'nama') {
+        Fluttertoast.showToast(
+            msg: "Nama sudah digunakan",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+      if (hasilDaftar == 'email') {
+        Fluttertoast.showToast(
+            msg: "Email sudah digunakan",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else if (hasilDaftar == 'oke') {
         Fluttertoast.showToast(
             msg: "Berhasil Edit Profile",
             toastLength: Toast.LENGTH_SHORT,

@@ -22,7 +22,7 @@ class signUp extends StatelessWidget {
         passwordController.text == "" ||
         repasswordController.text == "") {
       Fluttertoast.showToast(
-          msg: "Mohon Mengisi Semua Data",
+          msg: "Mohon Mengisi Semua Bidang",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,

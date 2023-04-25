@@ -190,6 +190,26 @@ class AgentAkun extends Agent {
 
   Future<Messages> _editProfile(dynamic data, String sender) async {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
+    var checkEmail;
+    var checkName;
+    checkName = await userCollection
+        .find(where.eq('nama', data[1]).ne('_id', data[0]))
+        .toList();
+
+    checkEmail = await userCollection
+        .find(where.eq('email', data[2]).ne('_id', data[0]))
+        .toList();
+
+  
+    if (checkName.length > 0) {
+      Messages message = Messages(agentName, sender, "INFORM",
+          Tasks("status modifikasi/ pencarian data akun", "nama"));
+      return message;
+    } else if (checkEmail.length > 0) {
+      Messages message = Messages(agentName, sender, "INFORM",
+          Tasks("status modifikasi/ pencarian data akun", "email"));
+      return message;
+    }
     var update = await userCollection.updateOne(
         where.eq('_id', data[0]),
         modify

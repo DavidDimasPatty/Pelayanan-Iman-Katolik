@@ -8,14 +8,14 @@ import '../homePage.dart';
 import '../profile/profile.dart';
 import '../tiketSaya.dart';
 
-class Sakramentali extends StatelessWidget {
+class sakramentali extends StatelessWidget {
   final iduser;
-  Sakramentali(this.iduser);
+  sakramentali(this.iduser);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sakramentali'),
+        title: Text('sakramentali'),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),

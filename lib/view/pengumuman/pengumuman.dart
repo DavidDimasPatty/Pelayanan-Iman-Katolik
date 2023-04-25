@@ -163,10 +163,20 @@ class _Pengumuman extends State<pengumuman> {
               ),
             ),
 
-            /////////
-            FutureBuilder(
-                future: callDb(),
-                builder: (context, AsyncSnapshot snapshot) {
+            StreamBuilder(
+                stream: _controller.stream,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error: ${snapshot.error}'),
+                    );
+                  }
+
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
                   try {
                     return Column(children: [
                       for (var i in hasil.take(data))

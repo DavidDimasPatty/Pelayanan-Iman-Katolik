@@ -29,30 +29,6 @@ class tiketSayaPemberkatanHistory {
     return await hasil;
   }
 
-  cancelDaftar(idMisa, context) async {
-    Completer<void> completer = Completer<void>();
-    Messages message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST",
-        Tasks('cancel pelayanan', ["sakramentali", idPemberkatan]));
-
-    MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getData();
-    completer.complete();
-    await Future.delayed(Duration(seconds: 1));
-    if (hasil == 'oke') {
-      Fluttertoast.showToast(
-          msg: "Berhasil Cancel Pemberkatan",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 2,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0);
-      Navigator.pop(context,
-          MaterialPageRoute(builder: (context) => tiketSaya(this.iduser)));
-    }
-  }
-
   _getCloseButton(context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),

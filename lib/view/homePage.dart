@@ -509,7 +509,7 @@ class _homePage extends State<homePage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  Sakramentali(iduser)),
+                                                  sakramentali(iduser)),
                                         );
                                       }, // button pressed
                                       child: Column(
@@ -519,7 +519,7 @@ class _homePage extends State<homePage> {
                                           Icon(Icons.sign_language,
                                               size: 30), // icon
                                           Text(
-                                            "Sakramentali",
+                                            "sakramentali",
                                             style: TextStyle(
                                               fontSize: 10.5,
                                               fontWeight: FontWeight.bold,
