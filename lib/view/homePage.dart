@@ -54,7 +54,7 @@ class _homePage extends State<homePage> {
         Tasks('cari tampilan home', iduser));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await AgentPage.getData();
     completer.complete();
 
@@ -68,7 +68,7 @@ class _homePage extends State<homePage> {
         'Agent Page', 'Agent Akun', "REQUEST", Tasks('log out', iduser));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 

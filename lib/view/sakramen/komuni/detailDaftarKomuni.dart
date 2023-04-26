@@ -39,7 +39,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
         Tasks('cari pelayanan', ["komuni", "detail", idKomuni, idGereja]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     hasil = await await AgentPage.getData();
     completer.complete();
 

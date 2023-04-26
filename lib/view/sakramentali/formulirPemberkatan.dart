@@ -58,7 +58,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
         Tasks('cari pelayanan', ["sakramentali", "detail", idGereja]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 
@@ -97,7 +97,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
           ]));
 
       MessagePassing messagePassing = MessagePassing();
-      var data = await messagePassing.sendMessage(message);
+      await messagePassing.sendMessage(message);
       var hasil = await await AgentPage.getData();
       completer.complete();
 

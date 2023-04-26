@@ -40,7 +40,7 @@ class _Pengumuman extends State<pengumuman> {
         Tasks('cari pengumuman', ["general"]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasilPencarian = await AgentPage.getData();
 
     completer.complete();

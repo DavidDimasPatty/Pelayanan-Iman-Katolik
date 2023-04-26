@@ -34,7 +34,7 @@ class _detailPengumuman extends State<detailPengumuman> {
         Tasks('cari pengumuman', ["detail", idPengumuman]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     completer.complete();
     var hasil = await await AgentPage.getData();
     return hasil;

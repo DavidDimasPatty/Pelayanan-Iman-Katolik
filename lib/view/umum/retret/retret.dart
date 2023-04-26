@@ -37,7 +37,7 @@ class _Retret extends State<Retret> {
         Tasks('cari pelayanan', ["umum", "general", "Retret"]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasilPencarian = await AgentPage.getData();
     completer.complete();
 

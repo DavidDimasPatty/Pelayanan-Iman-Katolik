@@ -40,7 +40,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
         Tasks('cari pelayanan', ["krisma", "detail", idKrisma, idGereja]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     hasil = await await AgentPage.getData();
     completer.complete();
 

@@ -25,7 +25,7 @@ class tiketSayaDetailBaptis {
         Tasks('cari pelayanan', ["baptis", "detail", idBaptis, idGereja]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 
@@ -43,7 +43,7 @@ class tiketSayaDetailBaptis {
             ["baptis", idUserBaptis, idBaptis, kapasitas, iduser]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 

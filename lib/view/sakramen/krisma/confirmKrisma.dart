@@ -25,7 +25,7 @@ class confirmKrisma {
         Tasks('cari pelayanan', ["krisma", "detail", idKrisma, idGereja]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     hasil = await await AgentPage.getData();
     completer.complete();
 
@@ -39,7 +39,7 @@ class confirmKrisma {
         Tasks('check pendaftaran', ["krisma", idKrisma, iduser, kapasitas]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasilDaftar = await AgentPage.getData();
 
     completer.complete();

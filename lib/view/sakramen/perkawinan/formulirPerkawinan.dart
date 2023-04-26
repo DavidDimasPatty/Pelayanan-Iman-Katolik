@@ -52,7 +52,7 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
         Tasks('cari pelayanan', ["perkawinan", "detail", idGereja]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 
@@ -89,7 +89,7 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
           ]));
 
       MessagePassing messagePassing = MessagePassing();
-      var data = await messagePassing.sendMessage(message);
+      await messagePassing.sendMessage(message);
       var hasil = await await AgentPage.getData();
       completer.complete();
 

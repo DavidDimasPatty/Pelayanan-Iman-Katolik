@@ -40,7 +40,7 @@ class _Baptis extends State<Baptis> {
         Tasks('cari pelayanan', ["baptis", "general"]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasilPencarian = await AgentPage.getData();
 
     completer.complete();

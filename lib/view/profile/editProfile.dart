@@ -43,7 +43,7 @@ class _editProfile extends State<editProfile> {
         'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', iduser));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
     await completer.future;
@@ -62,7 +62,7 @@ class _editProfile extends State<editProfile> {
               [iduser, nama, email, paroki, lingkungan, notelp, alamat]));
 
       MessagePassing messagePassing = MessagePassing();
-      var data = await messagePassing.sendMessage(message);
+      await messagePassing.sendMessage(message);
       var hasilDaftar = await AgentPage.getData();
       completer.complete();
       if (hasilDaftar == 'nama') {

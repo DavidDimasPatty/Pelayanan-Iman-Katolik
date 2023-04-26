@@ -53,7 +53,7 @@ class gantiPassword extends StatelessWidget {
           Tasks('find password', [iduser, passLamaController.text]));
 
       MessagePassing messagePassing = MessagePassing();
-      var data = await messagePassing.sendMessage(message);
+      await messagePassing.sendMessage(message);
       completer.complete();
       var value = await await AgentPage.getData();
 
@@ -77,7 +77,7 @@ class gantiPassword extends StatelessWidget {
             Tasks('change password', [iduser, passBaruController.text]));
 
         MessagePassing messagePassing = MessagePassing();
-        var data = await messagePassing.sendMessage(message);
+        await messagePassing.sendMessage(message);
         completer.complete();
         var value = await await AgentPage.getData();
 

@@ -41,7 +41,7 @@ class _notifClass extends State<notification> {
         'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', iduser));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     completer.complete();
     var checknotif = await AgentPage.getData();
 
@@ -56,7 +56,7 @@ class _notifClass extends State<notification> {
         Tasks('update notification', [iduser, notifGd]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     completer.complete();
     var hasil = await await AgentPage.getData();
 

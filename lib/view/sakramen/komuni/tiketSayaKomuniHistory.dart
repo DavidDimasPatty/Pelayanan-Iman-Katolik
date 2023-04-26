@@ -29,7 +29,7 @@ class tiketSayaKomuniHistory {
         Tasks('cari pelayanan', ["komuni", "detail", idKomuni, idGereja]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 
@@ -47,7 +47,7 @@ class tiketSayaKomuniHistory {
             'cancel pelayanan', ["komuni", idUserKomuni, idKomuni, kapasitas]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 

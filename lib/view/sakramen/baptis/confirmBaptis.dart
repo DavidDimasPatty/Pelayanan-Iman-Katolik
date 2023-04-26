@@ -23,7 +23,7 @@ class confirmBaptis {
         Tasks('cari pelayanan', ["baptis", "detail", idBaptis, idGereja]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     hasil = await await AgentPage.getData();
     completer.complete();
 
@@ -37,7 +37,7 @@ class confirmBaptis {
         Tasks('check pendaftaran', ["baptis", idBaptis, idUser, kapasitas]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasilDaftar = await AgentPage.getData();
 
     completer.complete();

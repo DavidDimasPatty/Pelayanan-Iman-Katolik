@@ -37,7 +37,7 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
         Tasks('cari pelayanan', ["sakramentali", "imam", idGereja]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasilPencarian = await AgentPage.getData();
     completer.complete();
 

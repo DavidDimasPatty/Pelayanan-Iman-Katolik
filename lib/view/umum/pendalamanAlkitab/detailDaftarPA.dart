@@ -37,7 +37,7 @@ class _detailDaftarPA extends State<detailDaftarPA> {
         Tasks('cari pelayanan', ["umum", "detail", idKegiatan]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     hasil = await await AgentPage.getData();
     completer.complete();
 

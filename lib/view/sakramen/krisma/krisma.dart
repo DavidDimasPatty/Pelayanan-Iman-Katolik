@@ -38,7 +38,7 @@ class _Krisma extends State<Krisma> {
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["krisma", "general"]));
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasilPencarian = await AgentPage.getData();
     completer.complete();
 

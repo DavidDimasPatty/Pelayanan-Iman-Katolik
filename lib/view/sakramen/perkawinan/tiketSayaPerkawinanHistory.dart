@@ -25,7 +25,7 @@ class tiketSayaPerkawinanHistory {
         Tasks('cari pelayanan', ["perkawinan", "history", idPerkawinan]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 

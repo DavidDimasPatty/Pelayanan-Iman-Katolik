@@ -21,7 +21,7 @@ class tiketSayaPemberkatanHistory {
         Tasks('cari pelayanan', ["sakramentali", "history", idPemberkatan]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await AgentPage.getData();
     completer.complete();
 

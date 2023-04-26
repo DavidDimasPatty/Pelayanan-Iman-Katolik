@@ -40,7 +40,7 @@ class _profile extends State<profile> {
         'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari profile', iduser));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 
@@ -54,7 +54,7 @@ class _profile extends State<profile> {
         Tasks('change profile picture', [iduser, file]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasilDaftar = await await AgentPage.getData();
     completer.complete();
 

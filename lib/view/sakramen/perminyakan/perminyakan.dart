@@ -41,7 +41,7 @@ class _Perminyakan extends State<Perminyakan> {
         Tasks('cari pelayanan', ["perminyakan", "general"]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasilPencarian = await AgentPage.getData();
     completer.complete();
 

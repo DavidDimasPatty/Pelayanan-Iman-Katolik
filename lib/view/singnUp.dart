@@ -89,7 +89,7 @@ class signUp extends StatelessWidget {
             ]));
 
         MessagePassing messagePassing = MessagePassing();
-        var data = await messagePassing.sendMessage(message);
+       await messagePassing.sendMessage(message);
         var hasil = await await AgentPage.getData();
         completer.complete();
 

@@ -22,7 +22,7 @@ Future callDb() async {
       'Agent Page', 'Agent Setting', "REQUEST", Tasks('setting user', null));
 
   MessagePassing messagePassing = MessagePassing();
-  var data = await messagePassing.sendMessage(message);
+  await messagePassing.sendMessage(message);
   completer.complete();
   var hasil = await await AgentPage.getData();
   await completer.future;

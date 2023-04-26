@@ -18,7 +18,7 @@ class logIn extends StatelessWidget {
         'Agent Page', 'Agent Akun', "REQUEST", Tasks('logIn', [id, password]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await AgentPage.getData();
     completer.complete();
 

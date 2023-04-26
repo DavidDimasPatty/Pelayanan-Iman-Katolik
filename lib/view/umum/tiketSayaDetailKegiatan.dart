@@ -23,7 +23,7 @@ class tiketSayaDetailKegiatan {
         Tasks('cari pelayanan', ["umum", "detail", idUmum]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 
@@ -41,7 +41,7 @@ class tiketSayaDetailKegiatan {
             ["umum", idUserUmum, idUmum, kapasitas, iduser]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasilDaftar = await await AgentPage.getData();
     completer.complete();
 

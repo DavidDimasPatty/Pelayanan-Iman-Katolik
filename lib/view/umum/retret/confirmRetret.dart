@@ -23,7 +23,7 @@ class confirmRetret {
         Tasks('cari pelayanan', ["umum", "detail", idKegiatan]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     hasil = await await AgentPage.getData();
     completer.complete();
 
@@ -37,7 +37,7 @@ class confirmRetret {
         Tasks('check pendaftaran', ["umum", idKegiatan, idUser, kapasitas]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasilDaftar = await AgentPage.getData();
 
     completer.complete();

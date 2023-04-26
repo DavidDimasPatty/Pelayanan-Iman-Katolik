@@ -23,7 +23,7 @@ class confirmKomuni {
         Tasks('cari pelayanan', ["komuni", "detail", idKomuni, idGereja]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     hasil = await await AgentPage.getData();
     completer.complete();
 
@@ -37,7 +37,7 @@ class confirmKomuni {
         Tasks('check pendaftaran', ["komuni", idKomuni, idUser, kapasitas]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasilDaftar = await AgentPage.getData();
 
     completer.complete();

@@ -38,7 +38,7 @@ class _history extends State<history> {
         Tasks('cari jadwal pendaftaran', ["history", iduser]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 

@@ -25,7 +25,7 @@ class tiketSayaDetailPerkawinan {
         Tasks('cari pelayanan', ["perkawinan", "history", idPerkawinan]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 
@@ -39,7 +39,7 @@ class tiketSayaDetailPerkawinan {
         Tasks('cancel pelayanan', ["perkawinan", idPerkawinan, iduser]));
 
     MessagePassing messagePassing = MessagePassing();
-    var data = await messagePassing.sendMessage(message);
+    await messagePassing.sendMessage(message);
     var hasil = await await AgentPage.getData();
     completer.complete();
 
