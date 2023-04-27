@@ -22,7 +22,8 @@ class MessagePassing {
       if (agent!.canPerformTask(message)) {
         return await agent.receiveMessage(message, message.sender);
       } else {
-        agent.rejectTask(message, message.sender);
+        Messages msg = agent.rejectTask(message, message.sender);
+        return await sendMessage(msg);
       }
     } else {
       print("Agen Not Found!");

@@ -15,7 +15,10 @@ abstract class Agent {
   String agentName = "";
   bool stop = false;
 
-  bool canPerformTask(dynamic message) {
+  bool canPerformTask(Messages message) {
+    if (message.task.action == "error") {
+      return false;
+    }
     for (var p in plan) {
       if (p.goals == message.task.action && p.protocol == message.protocol) {
         return true;
@@ -88,14 +91,8 @@ abstract class Agent {
   }
 
   Messages rejectTask(dynamic task, sender) {
-    print(task.task.action);
-    Messages message = Messages(
-        agentName,
-        sender,
-        "INFORM",
-        Tasks('error', [
-          ['failed']
-        ]));
+    Messages message =
+        Messages(agentName, sender, "INFORM", Tasks('error', 'failed'));
 
     print(agentName +
         ' rejected task from $sender because not capable of doing: ${task.task.action} with protocol ${task.protocol}');
@@ -103,13 +100,8 @@ abstract class Agent {
   }
 
   Messages overTime(dynamic task, sender) {
-    Messages message = Messages(
-        agentName,
-        sender,
-        "INFORM",
-        Tasks('error', [
-          ['failed']
-        ]));
+    Messages message =
+        Messages(agentName, sender, "INFORM", Tasks('error', 'failed'));
 
     print(agentName +
         ' rejected task from $sender because takes time too long: ${task.task.action}');

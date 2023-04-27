@@ -39,12 +39,14 @@ class AgentPage extends Agent {
       Plan("status aplikasi", "INFORM"), //come from agen Setting
       Plan("status modifikasi/ pencarian data akun",
           "INFORM"), //come from agen Akun
+      Plan("error", "INFORM")
     ];
     goals = [
       Goals("status modifikasi data", String, 1),
       Goals("hasil pencarian", String, 1),
       Goals("status aplikasi", String, 1),
       Goals("status modifikasi/ pencarian data akun", String, 1),
+      Goals("error", String, 1),
     ];
   }
 
