@@ -10,8 +10,8 @@ import 'Plan.dart';
 abstract class Agent {
   List<Plan> plan = [];
   List<Goals> goals = [];
-  List MessageList = [];
-  List SenderList = [];
+  List<Messages> MessageList = [];
+  List<String> SenderList = [];
   String agentName = "";
   bool stop = false;
 

@@ -48,7 +48,6 @@ class AgentPage extends Agent {
     ];
   }
 
-  @override
   void action(String goals, data, String sender) {
     _messageSetData(data);
   }

@@ -15,7 +15,7 @@ class logIn extends StatelessWidget {
   Future logInCheck(id, password) async {
     Completer<void> completer = Completer<void>();
     Messages message = Messages(
-        'Agent Page', 'Agent Akun', "REQUEST", Tasks('logIn', [id, password]));
+        'Agent Page', 'Agent Akun', "REQUEST", Tasks('login', [id, password]));
 
     MessagePassing messagePassing = MessagePassing();
     await messagePassing.sendMessage(message);

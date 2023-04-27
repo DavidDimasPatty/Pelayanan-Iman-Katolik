@@ -22,7 +22,7 @@ class AgentAkun extends Agent {
 
   static int _estimatedTime = 5;
   static Map<String, int> _timeAction = {
-    "logIn": _estimatedTime,
+    "login": _estimatedTime,
     "sign up": _estimatedTime,
     "cari user": _estimatedTime,
     "cari profile": _estimatedTime,
@@ -37,7 +37,7 @@ class AgentAkun extends Agent {
 
   Future<Messages> action(String goals, dynamic data, String sender) async {
     switch (goals) {
-      case "logIn":
+      case "login":
         return _logIn(data.task.data, sender);
       case "cari user":
         return _cariUser(data.task.data, sender);
@@ -200,7 +200,6 @@ class AgentAkun extends Agent {
         .find(where.eq('email', data[2]).ne('_id', data[0]))
         .toList();
 
-  
     if (checkName.length > 0) {
       Messages message = Messages(agentName, sender, "INFORM",
           Tasks("status modifikasi/ pencarian data akun", "nama"));
@@ -313,7 +312,7 @@ class AgentAkun extends Agent {
   void _initAgent() {
     this.agentName = "Agent Akun";
     plan = [
-      Plan("logIn", "REQUEST"),
+      Plan("login", "REQUEST"),
       Plan("sign up", "REQUEST"),
       Plan("cari user", "REQUEST"),
       Plan("cari profile", "REQUEST"),
@@ -326,7 +325,7 @@ class AgentAkun extends Agent {
       Plan("log out", "REQUEST"),
     ];
     goals = [
-      Goals("logIn", List<Map<String, Object?>>, _timeAction["logIn"]),
+      Goals("login", List<Map<String, Object?>>, _timeAction["login"]),
       Goals("cari user", List<Map<String, Object?>>, _timeAction["cari user"]),
       Goals("cari profile", List<dynamic>, _timeAction["cari profile"]),
       Goals("cari tampilan home", List<dynamic>,
