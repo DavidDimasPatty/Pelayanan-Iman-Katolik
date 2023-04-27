@@ -192,8 +192,7 @@ class logIn extends StatelessWidget {
                                     var ret = await logInCheck(
                                         emailController.text,
                                         passwordController.text);
-                                    print(ret.runtimeType);
-                                    print(ret);
+
                                     if (ret.runtimeType == String) {
                                       Fluttertoast.showToast(
                                           msg: "Connection Problem",

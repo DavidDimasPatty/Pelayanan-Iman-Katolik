@@ -15,16 +15,18 @@ abstract class Agent {
   String agentName = "";
   bool stop = false;
 
-  bool canPerformTask(Messages message) {
+  int canPerformTask(Messages message) {
     if (message.task.action == "error") {
-      return false;
-    }
-    for (var p in plan) {
-      if (p.goals == message.task.action && p.protocol == message.protocol) {
-        return true;
+      print(this.agentName + " get error messages");
+      return -2;
+    } else {
+      for (var p in plan) {
+        if (p.goals == message.task.action && p.protocol == message.protocol) {
+          return 1;
+        }
       }
     }
-    return false;
+    return -1;
   }
 
   Future<dynamic> receiveMessage(Messages msg, String sender) {
@@ -77,13 +79,18 @@ abstract class Agent {
               break;
             }
           }
-
-          if (checkGoals == true) {
+          if (message.task.action == "done") {
+            print(agentName +
+                " Success doing coordination with another agent for task ${task.action}");
+            return null;
+          } else if (checkGoals == true) {
             print(agentName + ' returning data to ${message.receiver}');
             MessagePassing messagePassing = MessagePassing();
-            messagePassing.sendMessage(message);
-          } else {
-            rejectTask(message, sender);
+            return messagePassing.sendMessage(message);
+          } else if (checkGoals == false) {
+            MessagePassing messagePassing = MessagePassing();
+            Messages msg = failedGoal(msgCome, sender);
+            return messagePassing.sendMessage(msg);
           }
         }
       }
@@ -95,7 +102,7 @@ abstract class Agent {
         Messages(agentName, sender, "INFORM", Tasks('error', 'failed'));
 
     print(agentName +
-        ' rejected task from $sender because not capable of doing: ${task.task.action} with protocol ${task.protocol}');
+        ' rejecting task from $sender because not capable of doing: ${task.task.action} with protocol ${task.protocol}');
     return message;
   }
 
@@ -104,7 +111,16 @@ abstract class Agent {
         Messages(agentName, sender, "INFORM", Tasks('error', 'failed'));
 
     print(agentName +
-        ' rejected task from $sender because takes time too long: ${task.task.action}');
+        ' rejecting task from $sender because takes time too long: ${task.task.action}');
+    return message;
+  }
+
+  Messages failedGoal(dynamic task, sender) {
+    Messages message =
+        Messages(agentName, sender, "INFORM", Tasks('error', 'failed'));
+
+    print(agentName +
+        " rejecting task from $sender because the result of ${task.task.action} dataType does'nt suit the goal from ${agentName}");
     return message;
   }
 

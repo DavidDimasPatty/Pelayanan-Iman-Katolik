@@ -18,8 +18,11 @@ class AgentPage extends Agent {
     String sender = SenderList.last;
     dynamic task = msg.task;
     for (var p in plan) {
-      action(p.goals, task.data, sender);
-      print("View can use data store in " + agentName);
+      if (p.goals == msg.task.action) {
+        action(p.goals, task.data, sender);
+        print("View can use data store in " + agentName);
+        break;
+      }
     }
   }
 

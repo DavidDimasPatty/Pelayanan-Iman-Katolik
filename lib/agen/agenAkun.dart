@@ -167,10 +167,11 @@ class AgentAkun extends Agent {
     Messages message2 = Messages(sender, 'Agent Pencarian', "REQUEST",
         Tasks('cari profile', [data, conn]));
     MessagePassing messagePassing2 = MessagePassing();
+
     await messagePassing2.sendMessage(message2);
 
-    Messages message = Messages(
-        agentName, sender, "INFORM", Tasks("wait agen pencarian", "wait"));
+    Messages message =
+        Messages(agentName, sender, "INFORM", Tasks("done", "wait"));
     return message;
   }
 
@@ -183,8 +184,8 @@ class AgentAkun extends Agent {
     MessagePassing messagePassing2 = MessagePassing();
     await messagePassing2.sendMessage(message2);
 
-    Messages message = Messages(
-        agentName, sender, "INFORM", Tasks("wait agen pencarian", "wait"));
+    Messages message =
+        Messages(agentName, sender, "INFORM", Tasks("done", "wait"));
     return message;
   }
 

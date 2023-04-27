@@ -105,7 +105,7 @@ class AgentSetting extends Agent {
     }
 
     Messages message =
-        Messages(agentName, sender, "INFORM", Tasks('status aplikasi', "oke"));
+        Messages(agentName, sender, "INFORM", Tasks('done', "oke"));
     return message;
   }
 
@@ -117,7 +117,7 @@ class AgentSetting extends Agent {
     await file.writeAsString("");
 
     Messages message =
-        Messages(agentName, sender, "INFORM", Tasks('status aplikasi', "oke"));
+        Messages(agentName, sender, "INFORM", Tasks('done', "oke"));
     return message;
   }
 

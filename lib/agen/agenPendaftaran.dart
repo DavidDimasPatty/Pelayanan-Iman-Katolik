@@ -145,7 +145,7 @@ class AgentPendaftaran extends Agent {
     var update1;
     var update2;
     var pelayananCollection;
-    String id;
+    String id = "";
     var userPelayananCollection;
     if (data[0] != "perkawinan" && data[0] != "sakramentali") {
       if (data[0] == "baptis") {

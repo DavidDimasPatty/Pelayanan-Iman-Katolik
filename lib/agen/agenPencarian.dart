@@ -58,7 +58,6 @@ class AgentPencarian extends Agent {
         MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
     var perkawinanCollection =
         MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
-    var count = 0;
 
     var countKr = await userKrismaCollection
         .find({'idUser': data[0], 'status': 0}).length;
@@ -120,15 +119,15 @@ class AgentPencarian extends Agent {
       await messagePassing2.sendMessage(message2);
 
       Messages message = Messages(
-          agentName, sender, "INFORM", Tasks('wait', "Wait agent pendaftaran"));
+          agentName, sender, "INFORM", Tasks('done', "Wait agent pendaftaran"));
       // Future.delayed(Duration(seconds: 1));
       completer.complete();
 
       await completer.future;
       return await message;
     } else {
-      Messages message = Messages('Agent Pencarian', sender, "INFORM",
-          Tasks('hasil pencarian', "sudah"));
+      Messages message = Messages(
+          agentName, sender, "INFORM", Tasks('hasil pencarian', "sudah"));
       return message;
     }
   }
@@ -213,7 +212,7 @@ class AgentPencarian extends Agent {
     var resPerkawinan = await perkawinanCollection.find(statusPemPer).toList();
 
     Messages message = Messages(
-        'Agent Pencarian',
+        agentName,
         sender,
         "INFORM",
         Tasks('hasil pencarian', [
@@ -353,11 +352,11 @@ class AgentPencarian extends Agent {
       var jadwalCollection = MongoDatabase.db.collection(GEREJA_COLLECTION);
       var conn =
           await jadwalCollection.find({'_id': hasil[0]['idGereja']}).toList();
-      Messages message = Messages('Agent Pencarian', sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks('hasil pencarian', [data[1], conn, hasil, connGambar]));
       return message;
     } else {
-      Messages message = Messages('Agent Pencarian', sender, "INFORM",
+      Messages message = Messages(agentName, sender, "INFORM",
           Tasks('hasil pencarian', [data[1], null, hasil, connGambar]));
       return message;
     }
@@ -380,8 +379,8 @@ class AgentPencarian extends Agent {
           .build();
       var conn =
           await pengumumanCollection.aggregateToStream(pipeline).toList();
-      Messages message = Messages(
-          'Agent Pencarian', sender, "INFORM", Tasks('hasil pencarian', conn));
+      Messages message =
+          Messages(agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
       return message;
     } else {
       var pengumumanCollection =
@@ -396,8 +395,8 @@ class AgentPencarian extends Agent {
           .build();
       var conn =
           await pengumumanCollection.aggregateToStream(pipeline).toList();
-      Messages message = Messages(
-          'Agent Pencarian', sender, "INFORM", Tasks('hasil pencarian', conn));
+      Messages message =
+          Messages(agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
       return message;
     }
   }
@@ -437,8 +436,8 @@ class AgentPencarian extends Agent {
             .build();
         var conn =
             await pelayananCollection.aggregateToStream(pipeline).toList();
-        Messages message = Messages('Agent Pencarian', sender, "INFORM",
-            Tasks('hasil pencarian', conn));
+        Messages message = Messages(
+            agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
         return message;
       } else {
         var aturan =
@@ -454,7 +453,7 @@ class AgentPencarian extends Agent {
             .build();
         var conn =
             await pelayananCollection.aggregateToStream(pipeline).toList();
-        Messages message = Messages('Agent Pencarian', sender, "INFORM",
+        Messages message = Messages(agentName, sender, "INFORM",
             Tasks('hasil pencarian', [conn, aturan]));
         return message;
       }
@@ -493,8 +492,8 @@ class AgentPencarian extends Agent {
       }
       if (data[1] == "history") {
         var conn = await pelayanan2Collection.find({'_id': data[2]}).toList();
-        Messages message = Messages('Agent Pencarian', sender, "INFORM",
-            Tasks('hasil pencarian', conn));
+        Messages message = Messages(
+            agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
         return message;
       } else if (data[1] == "general") {
         pelayananCollection = MongoDatabase.db.collection(GEREJA_COLLECTION);
@@ -512,14 +511,14 @@ class AgentPencarian extends Agent {
             .build();
         var conn =
             await pelayananCollection.aggregateToStream(pipeline).toList();
-        Messages message = Messages('Agent Pencarian', sender, "INFORM",
-            Tasks('hasil pencarian', conn));
+        Messages message = Messages(
+            agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
         return message;
       } else if (data[1] == "imam") {
         var conn = await pelayananCollection.find(
             {'idGereja': data[2], status: 0, "banned": 0, "role": 0}).toList();
-        Messages message = Messages('Agent Pencarian', sender, "INFORM",
-            Tasks('hasil pencarian', conn));
+        Messages message = Messages(
+            agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
         return message;
       } else {
         if (data[0] == "perminyakan" || data[0] == "tobat") {
@@ -537,15 +536,15 @@ class AgentPencarian extends Agent {
               .build();
           var conn =
               await pelayananCollection.aggregateToStream(pipeline).toList();
-          Messages message = Messages('Agent Pencarian', sender, "INFORM",
+          Messages message = Messages(agentName, sender, "INFORM",
               Tasks('hasil pencarian', [conn, aturan]));
           return message;
         } else {
           var aturan = await aturanCollection
               .find(where.eq("idGereja", data[2]))
               .toList();
-          Messages message = Messages('Agent Pencarian', sender, "INFORM",
-              Tasks('hasil pencarian', aturan));
+          Messages message = Messages(
+              agentName, sender, "INFORM", Tasks('hasil pencarian', aturan));
           return message;
         }
       }
@@ -567,8 +566,8 @@ class AgentPencarian extends Agent {
         var conn =
             await pelayananCollection.aggregateToStream(pipeline).toList();
 
-        Messages message = Messages('Agent Pencarian', sender, "INFORM",
-            Tasks('hasil pencarian', conn));
+        Messages message = Messages(
+            agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
         return message;
       } else {
         var conn = await pelayananCollection
@@ -578,8 +577,8 @@ class AgentPencarian extends Agent {
                 .gt("kapasitas", 0)
                 .gte("tanggal", DateTime.now()))
             .toList();
-        Messages message = Messages('Agent Pencarian', sender, "INFORM",
-            Tasks('hasil pencarian', conn));
+        Messages message = Messages(
+            agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
         return message;
       }
     }

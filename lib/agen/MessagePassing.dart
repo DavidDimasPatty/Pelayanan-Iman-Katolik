@@ -19,9 +19,9 @@ class MessagePassing {
   Future<dynamic> sendMessage(Messages message) async {
     if (agents.containsKey(message.receiver)) {
       Agent? agent = agents[message.receiver];
-      if (agent!.canPerformTask(message)) {
+      if (agent!.canPerformTask(message) == 1) {
         return await agent.receiveMessage(message, message.sender);
-      } else {
+      } else if (agent.canPerformTask(message) == -1) {
         Messages msg = agent.rejectTask(message, message.sender);
         return await sendMessage(msg);
       }
