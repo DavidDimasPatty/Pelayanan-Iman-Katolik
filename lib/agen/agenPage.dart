@@ -13,6 +13,20 @@ class AgentPage extends Agent {
   static List<dynamic> dataView = [];
 
   @override
+  int canPerformTask(Messages message) {
+    if (message.task.action == "error") {
+      return 1;
+    } else {
+      for (var p in plan) {
+        if (p.goals == message.task.action && p.protocol == message.protocol) {
+          return 1;
+        }
+      }
+    }
+    return -1;
+  }
+
+  @override
   Future performTask() async {
     Messages msg = MessageList.last;
     String sender = SenderList.last;

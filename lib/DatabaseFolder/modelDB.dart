@@ -314,7 +314,6 @@ class modelDB {
     DateTime updatedAt,
     ObjectId updatedBy,
     DateTime createdAt,
-    ObjectId createdBy,
   ) {
     var model = {
       "idUser": idUser,
@@ -332,7 +331,6 @@ class modelDB {
       "updatedAt": updatedAt,
       "updatedBy": updatedBy,
       "createdAt": createdAt,
-      "createdBy": createdBy,
     };
     return model;
   }
@@ -352,7 +350,6 @@ class modelDB {
     DateTime updatedAt,
     ObjectId updatedBy,
     DateTime createdAt,
-    ObjectId createdBy,
   ) {
     var model = {
       "idUser": idUser,
@@ -369,7 +366,6 @@ class modelDB {
       "updatedAt": updatedAt,
       "updatedBy": updatedBy,
       "createdAt": createdAt,
-      "createdBy": createdBy,
     };
     return model;
   }

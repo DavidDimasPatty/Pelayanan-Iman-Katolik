@@ -21,8 +21,9 @@ class logIn extends StatelessWidget {
     await messagePassing.sendMessage(message);
     var hasil = await AgentPage.getData();
     completer.complete();
-
     await completer.future;
+    print("Success collect data from agent Page");
+    print(hasil);
     return await hasil;
   }
 

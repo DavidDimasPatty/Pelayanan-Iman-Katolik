@@ -97,12 +97,12 @@ class _homePage extends State<homePage> {
     });
   }
 
-  void initState() {
-    super.initState();
-    setState(() {
-      callTampilan();
-    });
-  }
+  // void initState() {
+  //   super.initState();
+  //   setState(() {
+  //     callTampilan();
+  //   });
+  // }
 
   _homePage(this.iduser);
   @override

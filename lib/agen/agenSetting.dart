@@ -103,7 +103,8 @@ class AgentSetting extends Agent {
       await file.writeAsString("");
       await file.writeAsString('\n' + data[0]['_id'].toString());
     }
-
+    print(
+        "Saving data to local file from data that was given by agent akun success");
     Messages message =
         Messages(agentName, sender, "INFORM", Tasks('done', "oke"));
     return message;

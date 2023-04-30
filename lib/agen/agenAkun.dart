@@ -117,10 +117,13 @@ class AgentAkun extends Agent {
     var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
     var conn = await userCollection
         .find({'email': data[0], 'password': data[1]}).toList();
+
     if (conn.length != 0) {
       var conn2 = await userCollection.updateOne(
           where.eq('email', data[0]).eq('password', data[1]),
           modify.set('token', await FirebaseMessaging.instance.getToken()));
+      print(
+          "Get data from collection user and ready to send it to agent setting");
       sendToAgenSettinglogIn(conn, agentName);
     }
 

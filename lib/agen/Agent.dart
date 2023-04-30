@@ -44,7 +44,7 @@ abstract class Agent {
     var goalsQuest =
         goals.where((element) => element.request == task.action).toList();
     int clock = goalsQuest[0].time as int;
-
+    print(goalsQuest[0].time);
     Timer timer = Timer.periodic(Duration(seconds: clock), (timer) {
       stop = true;
       timer.cancel();
@@ -81,7 +81,7 @@ abstract class Agent {
           }
           if (message.task.action == "done") {
             print(agentName +
-                " Success doing coordination with another agent for task ${task.action}");
+                " Success doing collaboration with another agent for task ${task.action}");
             return null;
           } else if (checkGoals == true) {
             print(agentName + ' returning data to ${message.receiver}');

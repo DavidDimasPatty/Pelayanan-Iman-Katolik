@@ -100,8 +100,7 @@ class AgentPendaftaran extends Agent {
             0,
             DateTime.now(),
             data[1],
-            DateTime.now(),
-            data[1]);
+            DateTime.now());
 
         add1 = await pelayananCollection.insertOne(configJson);
       }
@@ -123,8 +122,7 @@ class AgentPendaftaran extends Agent {
             0,
             DateTime.now(),
             data[1],
-            DateTime.now(),
-            data[1]);
+            DateTime.now());
 
         add1 = await pelayananCollection.insertOne(configJson);
       }
