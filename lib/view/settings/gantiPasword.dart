@@ -48,16 +48,22 @@ class gantiPassword extends StatelessWidget {
       passBaruController.text = "";
       passUlBaruController.text = "";
     } else {
-      Completer<void> completer = Completer<void>();
+      Completer<void> completer = Completer<void>(); //variabel untuk menunggu
       Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
           Tasks('find password', [iduser, passLamaController.text]));
 
-      MessagePassing messagePassing = MessagePassing();
-      await messagePassing.sendMessage(message);
-      completer.complete();
-      var value = await await AgentPage.getData();
+      MessagePassing messagePassing =
+          MessagePassing(); //Memanggil distributor pesan
+      await messagePassing
+          .sendMessage(message); //Mengirim pesan ke distributor pesan
+      completer
+          .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+      var value =
+          await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
 
-      await completer.future;
+      await completer
+          .future; //Proses penungguan sudah selesai ketika varibel hasil
+      //memiliki nilai
 
       if (value == "not") {
         Fluttertoast.showToast(
@@ -72,16 +78,22 @@ class gantiPassword extends StatelessWidget {
         passBaruController.text = "";
         passUlBaruController.text = "";
       } else {
-        Completer<void> completer = Completer<void>();
+        Completer<void> completer = Completer<void>(); //variabel untuk menunggu
         Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
             Tasks('change password', [iduser, passBaruController.text]));
 
-        MessagePassing messagePassing = MessagePassing();
-        await messagePassing.sendMessage(message);
-        completer.complete();
-        var value = await await AgentPage.getData();
+        MessagePassing messagePassing =
+            MessagePassing(); //Memanggil distributor pesan
+        await messagePassing
+            .sendMessage(message); //Mengirim pesan ke distributor pesan
+        completer
+            .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+        var value = await AgentPage
+            .getData(); //Memanggil data yang tersedia di agen Page
 
-        await completer.future;
+        await completer
+            .future; //Proses penungguan sudah selesai ketika varibel hasil
+        //memiliki nilai
 
         passLamaController.text = "";
         passBaruController.text = "";

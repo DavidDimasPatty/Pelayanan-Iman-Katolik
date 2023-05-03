@@ -112,7 +112,7 @@ class AgentPencarian extends Agent {
         .length;
 
     if (hasil == 0) {
-      Completer<void> completer = Completer<void>();
+      Completer<void> completer = Completer<void>(); //variabel untuk menunggu
       Messages message2 = Messages(sender, 'Agent Pendaftaran', "REQUEST",
           Tasks('enroll pelayanan', data));
       MessagePassing messagePassing2 = MessagePassing();
@@ -121,9 +121,12 @@ class AgentPencarian extends Agent {
       Messages message = Messages(
           agentName, sender, "INFORM", Tasks('done', "Wait agent pendaftaran"));
       // Future.delayed(Duration(seconds: 1));
-      completer.complete();
+      completer
+          .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
 
-      await completer.future;
+      await completer
+          .future; //Proses penungguan sudah selesai ketika varibel hasil
+      //memiliki nilai
       return await message;
     } else {
       Messages message = Messages(

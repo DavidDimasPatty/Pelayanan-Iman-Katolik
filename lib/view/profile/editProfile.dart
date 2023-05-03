@@ -38,22 +38,28 @@ class _editProfile extends State<editProfile> {
   TextEditingController emailController = new TextEditingController();
 
   Future<List> callDb() async {
-    Completer<void> completer = Completer<void>();
-    Messages message = Messages(
-        'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', iduser));
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
+        Tasks('cari user', iduser)); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getData();
-    completer.complete();
-    await completer.future;
-    return hasil;
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasil =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+    await completer
+        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    //memiliki nilai
+    return hasil; //Mengembalikan variabel hasil
   }
 
   Future submitForm(
       nama, email, paroki, lingkungan, notelp, alamat, context) async {
     if (namaController.text != "" && emailController.text != "") {
-      Completer<void> completer = Completer<void>();
+      Completer<void> completer = Completer<void>(); //variabel untuk menunggu
       Messages message = Messages(
           'Agent Page',
           'Agent Akun',
@@ -61,10 +67,14 @@ class _editProfile extends State<editProfile> {
           Tasks('edit profile',
               [iduser, nama, email, paroki, lingkungan, notelp, alamat]));
 
-      MessagePassing messagePassing = MessagePassing();
-      await messagePassing.sendMessage(message);
-      var hasilDaftar = await AgentPage.getData();
-      completer.complete();
+      MessagePassing messagePassing =
+          MessagePassing(); //Memanggil distributor pesan
+      await messagePassing
+          .sendMessage(message); //Mengirim pesan ke distributor pesan
+      var hasilDaftar =
+          await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+      completer
+          .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
       if (hasilDaftar == 'nama') {
         Fluttertoast.showToast(
             msg: "Nama sudah digunakan",
@@ -111,7 +121,9 @@ class _editProfile extends State<editProfile> {
   }
 
   Future pullRefresh() async {
+    //Fungsi refresh halaman akan memanggil fungsi callDb
     setState(() {
+      //Pemanggilan fungsi secara dinamis agar halaman terupdate secara otomatis
       callDb();
     });
   }

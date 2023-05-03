@@ -49,7 +49,8 @@ abstract class Agent {
       stop = true;
       timer.cancel();
       addEstimatedTime(task.action);
-      MessagePassing messagePassing = MessagePassing();
+      MessagePassing messagePassing =
+          MessagePassing(); //Memanggil distributor pesan
       Messages msg = overTime(msgCome, sender);
       messagePassing.sendMessage(msg);
     });
@@ -68,7 +69,8 @@ abstract class Agent {
         bool checkGoals = false;
         if (message.task.data.runtimeType == String &&
             message.task.data == "failed") {
-          MessagePassing messagePassing = MessagePassing();
+          MessagePassing messagePassing =
+              MessagePassing(); //Memanggil distributor pesan
           Messages msg = rejectTask(msgCome, sender);
           return messagePassing.sendMessage(msg);
         } else {
@@ -85,10 +87,12 @@ abstract class Agent {
             return null;
           } else if (checkGoals == true) {
             print(agentName + ' returning data to ${message.receiver}');
-            MessagePassing messagePassing = MessagePassing();
+            MessagePassing messagePassing =
+                MessagePassing(); //Memanggil distributor pesan
             return messagePassing.sendMessage(message);
           } else if (checkGoals == false) {
-            MessagePassing messagePassing = MessagePassing();
+            MessagePassing messagePassing =
+                MessagePassing(); //Memanggil distributor pesan
             Messages msg = failedGoal(msgCome, sender);
             return messagePassing.sendMessage(msg);
           }

@@ -77,7 +77,7 @@ class signUp extends StatelessWidget {
       } else if (emailValid == true &&
           namaValid == true &&
           passwordController.text == repasswordController.text) {
-        Completer<void> completer = Completer<void>();
+        Completer<void> completer = Completer<void>(); //variabel untuk menunggu
         Messages message = Messages(
             'Agent Page',
             'Agent Akun',
@@ -88,12 +88,18 @@ class signUp extends StatelessWidget {
               passwordController.text
             ]));
 
-        MessagePassing messagePassing = MessagePassing();
-       await messagePassing.sendMessage(message);
-        var hasil = await await AgentPage.getData();
-        completer.complete();
+        MessagePassing messagePassing =
+            MessagePassing(); //Memanggil distributor pesan
+        await messagePassing
+            .sendMessage(message); //Mengirim pesan ke distributor pesan
+        var hasil = await AgentPage
+            .getData(); //Memanggil data yang tersedia di agen Page
+        completer
+            .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
 
-        await completer.future;
+        await completer
+            .future; //Proses penungguan sudah selesai ketika varibel hasil
+        //memiliki nilai
         if (hasil == "nama") {
           nameController.text = "";
           Fluttertoast.showToast(

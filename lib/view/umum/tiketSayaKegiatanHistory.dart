@@ -18,16 +18,22 @@ class tiketSayaKegiatanHistory {
   tiketSayaKegiatanHistory(this.iduser, this.idUserUmum, this.idUmum);
 
   Future<List> callDb() async {
-    Completer<void> completer = Completer<void>();
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pelayanan', ["umum", "detail", idUmum]));
+        Tasks('cari pelayanan', ["umum", "detail", idUmum])); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getData();
-    completer.complete();
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasil =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
 
-    await completer.future;
+    await completer
+        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    //memiliki nilai
     return await hasil;
   }
 

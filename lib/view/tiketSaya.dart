@@ -30,22 +30,34 @@ class _tiketSaya extends State<tiketSaya> {
   _tiketSaya(this.iduser);
 
   Future<List> callDb() async {
-    Completer<void> completer = Completer<void>();
-    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari jadwal pendaftaran', ["current", iduser]));
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+    Messages message = Messages(
+        'Agent Page',
+        'Agent Pencarian',
+        "REQUEST",
+        Tasks(
+            'cari jadwal pendaftaran', ["current", iduser])); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
 
-    var hasil = await await AgentPage.getData();
-    completer.complete();
+    var hasil =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
 
-    await completer.future;
-    return hasil;
+    await completer
+        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    //memiliki nilai
+    return hasil; //Mengembalikan variabel hasil
   }
 
   Future pullRefresh() async {
+    //Fungsi refresh halaman akan memanggil fungsi callDb
     setState(() {
+      //Pemanggilan fungsi secara dinamis agar halaman terupdate secara otomatis
       callDb();
     });
   }

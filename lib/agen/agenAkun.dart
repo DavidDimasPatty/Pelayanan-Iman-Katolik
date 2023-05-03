@@ -152,14 +152,16 @@ class AgentAkun extends Agent {
   sendToAgenSettinglogIn(dynamic data, String sender) async {
     Messages message =
         Messages(sender, "Agent Setting", "REQUEST", Tasks('save data', data));
-    MessagePassing messagePassing = MessagePassing();
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
     messagePassing.sendMessage(message);
   }
 
   sendToAgenSettingLogout(dynamic data, String sender) async {
     Messages message =
         Messages(sender, "Agent Setting", "REQUEST", Tasks('log out', data));
-    MessagePassing messagePassing = MessagePassing();
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
     messagePassing.sendMessage(message);
   }
 

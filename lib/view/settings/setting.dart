@@ -30,16 +30,22 @@ class Settings extends StatelessWidget {
   final iduser;
 
   Future LogOut(context) async {
-    Completer<void> completer = Completer<void>();
-    Messages message = Messages(
-        'Agent Page', 'Agent Akun', "REQUEST", Tasks('log out', iduser));
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
+        Tasks('log out', iduser)); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getData();
-    completer.complete();
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasil =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
 
-    await completer.future;
+    await completer
+        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    //memiliki nilai
     if (hasil == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Log Out",

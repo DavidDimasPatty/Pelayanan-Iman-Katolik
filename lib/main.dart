@@ -15,7 +15,8 @@ import 'package:pelayanan_iman_katolik/view/logIn.dart';
 ////////////Kelas Main
 Future callDb() async {
   //Mengirim pesan untuk settingan aplikasi saat diluncurkan
-  Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+  Completer<void> completer =
+      Completer<void>(); //variabel untuk menunggu //variabel untuk menunggu
 
   Messages message = Messages('Agent Page', 'Agent Setting', "REQUEST",
       Tasks('setting user', null)); //Pembuatan Pesan
@@ -32,7 +33,7 @@ Future callDb() async {
   await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
   //memiliki nilai
 
-  return hasil; //Mengembalikan variabel hasil
+  return hasil; //Mengembalikan variabel hasil //Mengembalikan variabel hasil
 }
 
 callTampilan(tampilan) {

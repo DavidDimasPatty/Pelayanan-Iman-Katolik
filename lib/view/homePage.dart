@@ -49,30 +49,44 @@ class _homePage extends State<homePage> {
   List idImage = [];
 
   Future callTampilan() async {
-    Completer<void> completer = Completer<void>();
+    //Pengiriman pesan untuk mendapatkan data yang diperlukan
+    //untuk tampilan halaman home
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-        Tasks('cari tampilan home', iduser));
+        Tasks('cari tampilan home', iduser)); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
-    var hasil = await AgentPage.getData();
-    completer.complete();
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasil =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
 
-    await completer.future;
-    return hasil;
+    await completer
+        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    //memiliki nilai
+    return hasil; //Mengembalikan variabel hasil
   }
 
   Future LogOut(context) async {
-    Completer<void> completer = Completer<void>();
-    Messages message = Messages(
-        'Agent Page', 'Agent Akun', "REQUEST", Tasks('log out', iduser));
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
+        Tasks('log out', iduser)); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
-    var hasil = await await AgentPage.getData();
-    completer.complete();
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasil =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
 
-    await completer.future;
+    await completer
+        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    //memiliki nilai
     if (hasil == 'oke') {
       Fluttertoast.showToast(
           msg: "Akun anda telah dibanned",
@@ -91,23 +105,19 @@ class _homePage extends State<homePage> {
   }
 
   Future pullRefresh() async {
+    //Fungsi refresh halaman akan memanggil fungsi callDb
     setState(() {
+      //Pemanggilan fungsi secara dinamis agar halaman terupdate secara otomatis
       callTampilan();
-      // indexCaption = -1;
     });
   }
-
-  // void initState() {
-  //   super.initState();
-  //   setState(() {
-  //     callTampilan();
-  //   });
-  // }
 
   _homePage(this.iduser);
   @override
   Widget build(BuildContext context) {
+    //Fungsi untuk membangun halaman home
     return Scaffold(
+      // Widget untuk membangun struktur halaman
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text('Selamat Datang!'),

@@ -29,19 +29,25 @@ class _detailPengumuman extends State<detailPengumuman> {
   final idPengumuman;
 
   Future<List> callDb() async {
-    Completer<void> completer = Completer<void>();
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pengumuman', ["detail", idPengumuman]));
+        Tasks('cari pengumuman', ["detail", idPengumuman])); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
-    completer.complete();
-    var hasil = await await AgentPage.getData();
-    return hasil;
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+    var hasil =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    return hasil; //Mengembalikan variabel hasil
   }
 
   Future pullRefresh() async {
+    //Fungsi refresh halaman akan memanggil fungsi callDb
     setState(() {
+      //Pemanggilan fungsi secara dinamis agar halaman terupdate secara otomatis
       callDb();
     });
   }

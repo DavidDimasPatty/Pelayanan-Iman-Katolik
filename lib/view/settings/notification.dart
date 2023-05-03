@@ -36,31 +36,43 @@ class _notifClass extends State<notification> {
   }
 
   Future callDb() async {
-    Completer<void> completer = Completer<void>();
-    Messages message = Messages(
-        'Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', iduser));
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
+        Tasks('cari user', iduser)); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
-    completer.complete();
-    var checknotif = await AgentPage.getData();
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+    var checknotif =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
 
-    await completer.future;
+    await completer
+        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    //memiliki nilai
 
     return checknotif;
   }
 
   Future updateNotifGd(notifGd) async {
-    Completer<void> completer = Completer<void>();
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-        Tasks('update notification', [iduser, notifGd]));
+        Tasks('update notification', [iduser, notifGd])); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
-    completer.complete();
-    var hasil = await await AgentPage.getData();
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+    var hasil =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
 
-    await completer.future;
+    await completer
+        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    //memiliki nilai
     if (hasil == 'oke') {
       Fluttertoast.showToast(
           msg: "Berhasil Update Notif",
@@ -74,7 +86,9 @@ class _notifClass extends State<notification> {
   }
 
   Future pullRefresh() async {
+    //Fungsi refresh halaman akan memanggil fungsi callDb
     setState(() {
+      //Pemanggilan fungsi secara dinamis agar halaman terupdate secara otomatis
       callDb();
     });
   }

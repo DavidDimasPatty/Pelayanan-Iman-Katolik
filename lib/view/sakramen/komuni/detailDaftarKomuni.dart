@@ -34,16 +34,26 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
   var hasil;
   _detailDaftarKomuni(this.iduser, this.idGereja, this.idKomuni);
   Future<List> callDb() async {
-    Completer<void> completer = Completer<void>();
-    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pelayanan', ["komuni", "detail", idKomuni, idGereja]));
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+    Messages message = Messages(
+        'Agent Page',
+        'Agent Pencarian',
+        "REQUEST",
+        Tasks('cari pelayanan',
+            ["komuni", "detail", idKomuni, idGereja])); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
-    hasil = await await AgentPage.getData();
-    completer.complete();
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    hasil =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
 
-    await completer.future;
+    await completer
+        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    //memiliki nilai
     return await hasil;
   }
 
@@ -55,7 +65,9 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
   }
 
   Future pullRefresh() async {
+    //Fungsi refresh halaman akan memanggil fungsi callDb
     setState(() {
+      //Pemanggilan fungsi secara dinamis agar halaman terupdate secara otomatis
       callDb();
     });
   }

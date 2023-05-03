@@ -16,31 +16,51 @@ class confirmRekoleksi {
   confirmRekoleksi(this.iduser, this.idKegiatan);
 
   Future<List> callDb() async {
-    Completer<void> completer = Completer<void>();
-    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pelayanan', ["umum", "detail", idKegiatan]));
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+    Messages message = Messages(
+        'Agent Page',
+        'Agent Pencarian',
+        "REQUEST",
+        Tasks('cari pelayanan',
+            ["umum", "detail", idKegiatan])); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
-    hasil = await await AgentPage.getData();
-    completer.complete();
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    hasil =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
 
-    await completer.future;
+    await completer
+        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    //memiliki nilai
     return await hasil;
   }
 
   Future daftar(idKegiatan, idUser, kapasitas, context) async {
-    Completer<void> completer = Completer<void>();
-    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('check pendaftaran', ["umum", idKegiatan, idUser, kapasitas]));
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+    Messages message = Messages(
+        'Agent Page',
+        'Agent Pencarian',
+        "REQUEST",
+        Tasks('check pendaftaran',
+            ["umum", idKegiatan, idUser, kapasitas])); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
-    var hasilDaftar = await AgentPage.getData();
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasilDaftar =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
 
-    completer.complete();
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
 
-    await completer.future;
+    await completer
+        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    //memiliki nilai
 
     if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(

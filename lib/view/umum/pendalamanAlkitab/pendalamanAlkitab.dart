@@ -33,16 +33,26 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
   _PendalamanAlkitab(this.iduser);
 
   Future<List> callDb() async {
-    Completer<void> completer = Completer<void>();
-    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pelayanan', ["umum", "general", "Pendalaman Alkitab"]));
+    Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+    Messages message = Messages(
+        'Agent Page',
+        'Agent Pencarian',
+        "REQUEST",
+        Tasks('cari pelayanan',
+            ["umum", "general", "Pendalaman Alkitab"])); //Pembuatan pesan
 
-    MessagePassing messagePassing = MessagePassing();
-    await messagePassing.sendMessage(message);
-    var hasilPencarian = await AgentPage.getData();
-    completer.complete();
+    MessagePassing messagePassing =
+        MessagePassing(); //Memanggil distributor pesan
+    await messagePassing
+        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasilPencarian =
+        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    completer
+        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
 
-    await completer.future;
+    await completer
+        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    //memiliki nilai
     return await hasilPencarian;
   }
 
@@ -70,7 +80,7 @@ class _PendalamanAlkitab extends State<PendalamanAlkitab> {
         hasil.clear();
         hasil.addAll(listOMaps);
       });
-      return hasil;
+      return hasil; //Mengembalikan variabel hasil
     } else {
       setState(() {
         hasil.clear();
