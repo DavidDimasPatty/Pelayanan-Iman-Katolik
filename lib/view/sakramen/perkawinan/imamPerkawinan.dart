@@ -119,6 +119,7 @@ class _ImamPerkawinan extends State<ImamPerkawinan> {
       }
     });
     return Scaffold(
+      // Widget untuk membangun struktur halaman
       //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
         // widget Top Navigation Bar

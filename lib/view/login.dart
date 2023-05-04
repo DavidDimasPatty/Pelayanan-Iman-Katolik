@@ -12,7 +12,15 @@ import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/singnUp.dart';
 
 class logIn extends StatelessWidget {
+  ////////Inisialisasi variabel untuk mengkontrol input field//////////////
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+  //////////////////////////////////////////////////////////////////////////
+
   Future logInCheck(id, password) async {
+    ///Fungsi pengiriman pesan untuk melakukan pengecekan kepada input field
+    ///pegguna dan melakukan pengecekan pada collection user
+    ///
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
         Tasks('login', [id, password])); //Pembuatan pesan
@@ -27,37 +35,44 @@ class logIn extends StatelessWidget {
     await completer
         .future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
-    print("Success collect data from agent Page");
-    print(hasil);
     return await hasil;
   }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = new TextEditingController();
-    TextEditingController passwordController = new TextEditingController();
+    //Fungsi untuk membangun halaman login
     return Scaffold(
+        // Widget untuk membangun struktur halaman
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
+          //Widget SingleChildScrollView digunakan agar halaman login bisa discroll
           child: Container(
             child: Column(
+              //Widget Column digunakan untuk tempat widget berada pada children
               children: <Widget>[
                 Container(
+                  //Container digunakan untuk tempat dekorasi halaman login
                   height: 400,
                   decoration: BoxDecoration(
+                      //Background halaman login
                       image: DecorationImage(
                           image: NetworkImage(
                               'https://firebasestorage.googleapis.com/v0/b/pelayananimankatolik.appspot.com/o/imageedit_2_4702386825.png?alt=media&token=53776f41-1d60-4057-adeb-899f82d0ae67'),
                           fit: BoxFit.fill)),
                   child: Stack(
+                    //Widget Stack agar widget saling bertumpuk satu sama lain
+                    //khususnya dengan background halaman login
                     children: <Widget>[
                       Positioned(
+                        //Widget Positioned untuk memposisikan gambar pada halaman login
                         left: 30,
                         width: 80,
                         height: 200,
                         child: FadeAnimation(
+                            //Animasi  untuk widget
                             1,
                             Container(
+                              //Gambar akan dibungkus dengan container
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: NetworkImage(
@@ -65,12 +80,15 @@ class logIn extends StatelessWidget {
                             )),
                       ),
                       Positioned(
+                        //Widget Positioned untuk memposisikan gambar pada halaman login
                         left: 140,
                         width: 80,
                         height: 150,
                         child: FadeAnimation(
+                            //Animasi  untuk widget
                             1.3,
                             Container(
+                              //Gambar akan dibungkus dengan container
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: NetworkImage(
@@ -78,13 +96,16 @@ class logIn extends StatelessWidget {
                             )),
                       ),
                       Positioned(
+                        //Widget Positioned untuk memposisikan gambar pada halaman login
                         right: 40,
                         top: 40,
                         width: 80,
                         height: 150,
                         child: FadeAnimation(
+                            //Animasi untuk widget
                             1.5,
                             Container(
+                              //Gambar akan dibungkus dengan container
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: NetworkImage(
@@ -92,9 +113,12 @@ class logIn extends StatelessWidget {
                             )),
                       ),
                       Positioned(
+                        //Widget Positioned untuk memposisikan gambar pada halaman login
                         child: FadeAnimation(
+                          //Animasi untuk widget
                           1.6,
                           Container(
+                            //Kontainer berisi text pada halaman login
                             margin: EdgeInsets.only(top: 85),
                             child: Center(
                               child: Text(
@@ -114,9 +138,20 @@ class logIn extends StatelessWidget {
                   ),
                 ),
                 Padding(
+                  //Padding tempat untuk input field
                   padding: EdgeInsets.all(30.0),
                   child: Column(
+                    //Input field akan dibungkus dengan kolom agar
+                    //tampilan input field kebawah
                     children: <Widget>[
+///////////////////////////////////////////Pembuatan Input Field///////////////////////////////////////////////////////////////////////////////
+                      ///Setiap Input Field akan dianimasikan oleh
+                      ///dari itu menggunakan widget FadeAnimation,
+                      ///dimana memiliki parameter waktu animasi dan
+                      ///widget TextField sebagai input field
+                      ///di dalam masing-masing widget textfield terdapat komponen
+                      ///controller untuk mengkontrol input user (mendapatkan nilai,
+                      ///menghapus nilai)
                       FadeAnimation(
                           1.8,
                           Container(
@@ -133,12 +168,14 @@ class logIn extends StatelessWidget {
                             child: Column(
                               children: <Widget>[
                                 Container(
+                                  //Membungkus input field untuk merapihkan posisi
                                   padding: EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
                                       border: Border(
                                           bottom:
                                               BorderSide(color: Colors.grey))),
                                   child: TextField(
+                                    //Dekorasi input field(warna, hint, bentuk, border)
                                     controller: emailController,
                                     style: TextStyle(color: Colors.black),
                                     decoration: InputDecoration(
@@ -149,8 +186,10 @@ class logIn extends StatelessWidget {
                                   ),
                                 ),
                                 Container(
+                                  //Membungkus input field untuk merapihkan posisi
                                   padding: EdgeInsets.all(8.0),
                                   child: TextField(
+                                    //Dekorasi input field(warna, hint, bentuk, border)
                                     style: TextStyle(color: Colors.black),
                                     obscureText: true,
                                     enableSuggestions: false,
@@ -169,7 +208,10 @@ class logIn extends StatelessWidget {
                       SizedBox(
                         height: 30,
                       ),
+///////////////////////////////////////////Batas Akhir Pembuatan Input Field/////////////////////////////////////////////////////////
+
                       FadeAnimation(
+                          //Animasi untuk tombol login
                           2,
                           SizedBox(
                             width: double.infinity,
@@ -181,6 +223,7 @@ class logIn extends StatelessWidget {
                                   borderRadius: new BorderRadius.circular(30.0),
                                 ),
                                 onPressed: () async {
+                                  //Pengecekan jika email dan password kosong
                                   if (emailController.text == "" ||
                                       passwordController.text == "") {
                                     Fluttertoast.showToast(
@@ -196,11 +239,13 @@ class logIn extends StatelessWidget {
                                     emailController.clear();
                                     passwordController.clear();
                                   } else {
+                                    //Jika email dan password tidak kosong
                                     var ret = await logInCheck(
                                         emailController.text,
                                         passwordController.text);
 
                                     if (ret.runtimeType == String) {
+                                      //Jika terjadi error pada pengerjaan
                                       Fluttertoast.showToast(
                                           /////// Widget toast untuk menampilkan pesan pada halaman
                                           msg: "Connection Problem",
@@ -214,6 +259,8 @@ class logIn extends StatelessWidget {
                                       passwordController.clear();
                                     } else if (ret.runtimeType != String &&
                                         ret.length > 0) {
+                                      //Jika berhasil login maka akan
+                                      //dipanggil kelas homePage
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
@@ -222,6 +269,8 @@ class logIn extends StatelessWidget {
                                                 )),
                                       );
                                     } else {
+                                      //Jika terjadi password dan email akun
+                                      //tidak terdaftar
                                       Fluttertoast.showToast(
                                           /////// Widget toast untuk menampilkan pesan pada halaman
                                           msg: "Email dan Password Salah",
@@ -241,6 +290,8 @@ class logIn extends StatelessWidget {
                         height: 50,
                       ),
                       FadeAnimation(
+                        //Widget animasi untuk text yang bisa ditekan dan
+                        //memanggil kelas signUp
                         1.5,
                         new GestureDetector(
                             onTap: () {

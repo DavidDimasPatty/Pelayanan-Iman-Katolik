@@ -66,6 +66,7 @@ class _history extends State<history> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Widget untuk membangun struktur halaman
       //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
         // widget Top Navigation Bar

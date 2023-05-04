@@ -123,6 +123,7 @@ class _Perkawinan extends State<Perkawinan> {
       await filterSearchResults(_searchController.text);
     });
     return Scaffold(
+      // Widget untuk membangun struktur halaman
       //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
         // widget Top Navigation Bar

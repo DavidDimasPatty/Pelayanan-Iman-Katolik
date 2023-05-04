@@ -132,6 +132,7 @@ class _Tobat extends State<Tobat> {
       }
     });
     return Scaffold(
+      // Widget untuk membangun struktur halaman
       //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
         // widget Top Navigation Bar

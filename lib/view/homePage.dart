@@ -1,17 +1,11 @@
 import 'dart:async';
-
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
-import 'package:pelayanan_iman_katolik/main.dart';
 import 'package:pelayanan_iman_katolik/view/logIn.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/detailPengumuman.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/pengumuman.dart';
@@ -21,28 +15,33 @@ import 'package:pelayanan_iman_katolik/view/sakramentali/sakramentali.dart';
 import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
 import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 import 'package:pelayanan_iman_katolik/view/umum/umum.dart';
-
 import '../ItemCard.dart';
 
 class homePage extends StatefulWidget {
   var iduser;
-  @override
+////////////Konstruktor Stateful Widget////////////
   homePage(this.iduser);
-
   _homePage createState() => _homePage(this.iduser);
+///////////////////////////////////
 }
 
 class _homePage extends State<homePage> {
+////////////Konstruktor////////////
+  _homePage(this.iduser);
+///////////////////////////////////
+  ///
+  ///
+//////////Inisialisasi Variabel///////////
   var iduser;
-
-  // int indexCaption = -1;
   List hasil = [];
   List<String> cardList = [];
-
   List<String> caption = [];
-
   List idImage = [];
-
+///////////////////////////////////////////
+  ///
+  ///
+  ///
+///////////////////////Fungsi////////////////////////
   Future callTampilan() async {
     //Pengiriman pesan untuk mendapatkan data yang diperlukan
     //untuk tampilan halaman home
@@ -106,11 +105,15 @@ class _homePage extends State<homePage> {
     });
   }
 
-  _homePage(this.iduser);
+////////////////////////////////Batas Akhir Fungsi////////////////////////////////////////////////
+  ///
+  ///
+  ///
   @override
   Widget build(BuildContext context) {
     //Fungsi untuk membangun halaman home
     return Scaffold(
+      // Widget untuk membangun struktur halaman
       // Widget untuk membangun struktur halaman
       //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(

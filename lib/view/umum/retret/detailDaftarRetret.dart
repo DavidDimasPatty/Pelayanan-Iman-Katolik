@@ -65,6 +65,7 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // Widget untuk membangun struktur halaman
       //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
         // widget Top Navigation Bar

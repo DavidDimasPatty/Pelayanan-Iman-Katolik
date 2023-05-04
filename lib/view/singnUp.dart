@@ -20,7 +20,8 @@ class signUp extends StatelessWidget {
 
   Future checksignUp(context) async {
     ///Fungsi pengiriman pesan untuk melakukan pengecekan kepada input field
-    ///pegguna dan menambahkan data baru pada collection user
+    ///pegguna, melakukan pengecekan pada collection user
+    /// dan menambahkan data baru pada collection user
     ///
     if (nameController.text == "" ||
         emailController.text == "" ||
