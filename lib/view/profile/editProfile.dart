@@ -169,7 +169,9 @@ class _editProfile extends State<editProfile> {
         ],
       ),
       body: RefreshIndicator(
+          //Widget untuk refresh body halaman
           onRefresh: pullRefresh,
+          //Ketika halaman direfresh akan memanggil fungsi pullRefresh
           child: ListView(
             children: <Widget>[
               FutureBuilder(

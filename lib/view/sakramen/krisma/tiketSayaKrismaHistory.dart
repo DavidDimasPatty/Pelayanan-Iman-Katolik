@@ -146,6 +146,9 @@ class tiketSayaKrismaHistory {
                           ),
                         ]);
                   } catch (e) {
+                    //Jika terdapat salah penunjukan key pada map saat
+                    //pengambilan data
+                    //mengembalikan widget loading
                     print(e);
                     return Center(child: CircularProgressIndicator());
                   }

@@ -111,7 +111,9 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
         ],
       ),
       body: RefreshIndicator(
+          //Widget untuk refresh body halaman
           onRefresh: pullRefresh,
+          //Ketika halaman direfresh akan memanggil fungsi pullRefresh
           child: ListView(children: [
             FutureBuilder(
                 future: callDb(),

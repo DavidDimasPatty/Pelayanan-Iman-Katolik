@@ -126,7 +126,9 @@ class _notifClass extends State<notification> {
         ],
       ),
       body: RefreshIndicator(
+        //Widget untuk refresh body halaman
         onRefresh: pullRefresh,
+        //Ketika halaman direfresh akan memanggil fungsi pullRefresh
         child: ListView(
           shrinkWrap: true,
           padding: EdgeInsets.only(right: 15, left: 15),
@@ -188,6 +190,9 @@ class _notifClass extends State<notification> {
                       ],
                     );
                   } catch (e) {
+                    //Jika terdapat salah penunjukan key pada map saat
+                    //pengambilan data
+                    //mengembalikan widget loading
                     print(e);
                     return Center(child: CircularProgressIndicator());
                   }

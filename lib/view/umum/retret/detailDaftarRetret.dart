@@ -102,7 +102,9 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
         ],
       ),
       body: RefreshIndicator(
+          //Widget untuk refresh body halaman
           onRefresh: pullRefresh,
+          //Ketika halaman direfresh akan memanggil fungsi pullRefresh
           child: ListView(
             children: [
               FutureBuilder(

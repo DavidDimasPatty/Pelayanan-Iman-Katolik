@@ -103,7 +103,9 @@ class _detailPerminyakan extends State<detailPerminyakan> {
         ],
       ),
       body: RefreshIndicator(
+          //Widget untuk refresh body halaman
           onRefresh: pullRefresh,
+          //Ketika halaman direfresh akan memanggil fungsi pullRefresh
           child: ListView(
             children: [
               FutureBuilder(

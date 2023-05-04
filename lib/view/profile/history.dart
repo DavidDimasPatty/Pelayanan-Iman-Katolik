@@ -106,7 +106,9 @@ class _history extends State<history> {
 //////
 //////////////////////////////////////Pembuatan Body Halaman////////////////////////////////////////////////////////////////
       body: RefreshIndicator(
+          //Widget untuk refresh body halaman
           onRefresh: pullRefresh,
+          //Ketika halaman direfresh akan memanggil fungsi pullRefresh
           child: ListView(
             shrinkWrap: true,
             padding: EdgeInsets.only(right: 15, top: 10, left: 15),

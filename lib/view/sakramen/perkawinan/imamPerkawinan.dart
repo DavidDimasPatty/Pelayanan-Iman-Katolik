@@ -187,15 +187,22 @@ class _ImamPerkawinan extends State<ImamPerkawinan> {
 //////
 //////////////////////////////////////Pembuatan Body Halaman////////////////////////////////////////////////////////////////
       body: RefreshIndicator(
+        //Widget untuk refresh body halaman
         onRefresh: pullRefresh,
+        //Ketika halaman direfresh akan memanggil fungsi pullRefresh
         child: ListView(
+          //Widget ListView untuk wadah menampilkan data
           controller: _scrollController,
+          //Controller untuk mendeteksi pergerakan pengguna pada listview
           shrinkWrap: true,
+          //Memfitkan listview dengan halaman
           padding: EdgeInsets.only(right: 15, left: 15),
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(right: 10, left: 10),
               child: AnimSearchBar(
+                //Widget AnimSearchBar digunakan untuk menampilkan inputfield
+                //yang dianimasikan pada halaman
                 autoFocus: false,
                 width: 400,
                 rtl: true,
@@ -203,6 +210,8 @@ class _ImamPerkawinan extends State<ImamPerkawinan> {
                 textController: _searchController,
                 onSuffixTap: () {
                   setState(() {
+                    //Jika tombol pada widget ini ditekan maka isi dari variabel
+                    //searchContoller akan dihapus
                     _searchController.clear();
                   });
                 },
@@ -211,17 +220,16 @@ class _ImamPerkawinan extends State<ImamPerkawinan> {
 
             /////////
             StreamBuilder(
+                //Widget stream untuk mendapatkan data jika variabel stream terdapat
+                //penambahan data
                 stream: _controller.stream,
+                //inisialisasi variabel stream sebagai sinyal
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
+                    //Jika terdapat error pada variabel stream
+                    //mengembalikan widget loading
                     return Center(
                       child: Text('Error: ${snapshot.error}'),
-                    );
-                  }
-
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: CircularProgressIndicator(),
                     );
                   }
                   try {
@@ -280,6 +288,9 @@ class _ImamPerkawinan extends State<ImamPerkawinan> {
                         ),
                     ]);
                   } catch (e) {
+                    //Jika terdapat salah penunjukan key pada map saat
+                    //pengambilan data
+                    //mengembalikan widget loading
                     print(e);
                     return Center(child: CircularProgressIndicator());
                   }
