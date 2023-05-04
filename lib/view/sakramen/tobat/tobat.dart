@@ -24,19 +24,27 @@ class Tobat extends StatefulWidget {
 }
 
 class _Tobat extends State<Tobat> {
+  ///////////////////////////////////
+  ////
+  ///
+  //////////Inisialisasi Variabel///////////
   var distance;
 
   List hasil = [];
   StreamController _controller = StreamController();
   ScrollController _scrollController = ScrollController();
   int data = 5;
-
+  TextEditingController _searchController = TextEditingController();
   List dummyTemp = [];
   final iduser;
+  ///////////////////////////////////////////
+  ///
+  ///
+  ///
+  ///
   _Tobat(this.iduser);
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
@@ -146,7 +154,6 @@ class _Tobat extends State<Tobat> {
     });
   }
 
-  TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     _searchController.addListener(() {
@@ -264,6 +271,8 @@ class _Tobat extends State<Tobat> {
                             );
                           },
                           child: Container(
+                              //Widget Container yang membungkus data yang ditampilkan
+                              // pada setiap iterasi
                               margin: EdgeInsets.only(
                                   right: 15, left: 15, bottom: 20),
                               decoration: BoxDecoration(
@@ -280,8 +289,14 @@ class _Tobat extends State<Tobat> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                               ),
+                              //Dekorasi Container(warna, bentuk, gradient, margin)
                               child: Column(children: <Widget>[
-                                //Color(Colors.blue);
+                                //Didalam Container terdapat column agar
+                                //data yang ditampilkan kebawah di dalam Container
+                                //
+                                //
+                                ///Setiap data ditampilkan dalam widget Text
+                                ///dan mempunyai dekorasi(ukuran, warna, posisi)
 
                                 Text(
                                   i['nama'],
@@ -303,11 +318,16 @@ class _Tobat extends State<Tobat> {
                                 ),
 
                                 FutureBuilder(
+                                    //Widget FutureBuilder untuk mendapatkan data
+                                    //dari fungsi jarak
                                     future: jarak(i['lat'], i['lng']),
                                     builder: (context, AsyncSnapshot snapshot) {
                                       try {
                                         return Column(children: <Widget>[
                                           Text(
+                                            //Text yang berisi jarak pengguna dengan
+                                            //lokasi gereja
+
                                             snapshot.data,
                                             style: TextStyle(
                                                 color: Colors.white,
@@ -315,6 +335,7 @@ class _Tobat extends State<Tobat> {
                                           )
                                         ]);
                                       } catch (e) {
+                                        //Jika data error atau masih proses pengerjaan
                                         print(e);
                                         return Center(
                                             child: CircularProgressIndicator());

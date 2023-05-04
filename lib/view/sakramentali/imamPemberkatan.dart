@@ -26,13 +26,18 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
   StreamController _controller = StreamController();
   ScrollController _scrollController = ScrollController();
   int data = 5;
+  TextEditingController _searchController = TextEditingController();
   List dummyTemp = [];
   final iduser;
+  ///////////////////////////////////////////
+  ///
+  ///
+  ///
+  ///
   final idGereja;
   _ImamPemberkatan(this.iduser, this.idGereja);
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(
@@ -127,7 +132,6 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
     });
   }
 
-  TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     _searchController.addListener(() {
@@ -243,6 +247,8 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
                             );
                           },
                           child: Container(
+                              //Widget Container yang membungkus data yang ditampilkan
+                              // pada setiap iterasi
                               margin: EdgeInsets.only(
                                   right: 15, left: 15, bottom: 20),
                               decoration: BoxDecoration(
@@ -259,8 +265,14 @@ class _ImamPemberkatan extends State<ImamPemberkatan> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                               ),
+                              //Dekorasi Container(warna, bentuk, gradient, margin)
                               child: Column(children: <Widget>[
-                                //Color(Colors.blue);
+                                //Didalam Container terdapat column agar
+                                //data yang ditampilkan kebawah di dalam Container
+                                //
+                                //
+                                ///Setiap data ditampilkan dalam widget Text
+                                ///dan mempunyai dekorasi(ukuran, warna, posisi)
 
                                 Text(
                                   i['nama'],

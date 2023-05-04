@@ -30,8 +30,7 @@ class _detailTobat extends State<detailTobat> {
   final iduser;
   final idImam;
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(

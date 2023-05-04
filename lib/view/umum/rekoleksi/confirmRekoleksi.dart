@@ -15,8 +15,7 @@ class confirmRekoleksi {
   var hasil;
   confirmRekoleksi(this.iduser, this.idKegiatan);
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(

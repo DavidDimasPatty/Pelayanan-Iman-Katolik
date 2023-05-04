@@ -46,8 +46,7 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
     });
   }
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(

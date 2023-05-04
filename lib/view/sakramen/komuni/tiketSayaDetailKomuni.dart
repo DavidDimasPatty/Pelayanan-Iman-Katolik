@@ -23,8 +23,7 @@ class tiketSayaDetailKomuni {
   tiketSayaDetailKomuni(
       this.iduser, this.idGereja, this.idKomuni, this.idUserKomuni);
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(

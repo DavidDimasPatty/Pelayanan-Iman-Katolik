@@ -52,8 +52,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
     });
   }
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(

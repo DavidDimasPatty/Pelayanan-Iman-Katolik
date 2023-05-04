@@ -33,8 +33,7 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
   final idKomuni;
   var hasil;
   _detailDaftarKomuni(this.iduser, this.idGereja, this.idKomuni);
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(

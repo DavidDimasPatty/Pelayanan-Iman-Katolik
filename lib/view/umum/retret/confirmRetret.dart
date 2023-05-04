@@ -16,8 +16,7 @@ class confirmRetret {
   var hasil;
   confirmRetret(this.iduser, this.idKegiatan);
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     // return detailGereja;
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu

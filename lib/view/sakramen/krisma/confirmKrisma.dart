@@ -19,8 +19,7 @@ class confirmKrisma {
   var key = 0;
   confirmKrisma(this.iduser, this.idGereja, this.idKrisma);
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(

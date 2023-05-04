@@ -27,12 +27,17 @@ class _Retret extends State<Retret> {
   StreamController _controller = StreamController();
   ScrollController _scrollController = ScrollController();
   int data = 5;
+  TextEditingController _searchController = TextEditingController();
   List dummyTemp = [];
   final iduser;
+  ///////////////////////////////////////////
+  ///
+  ///
+  ///
+  ///
   _Retret(this.iduser);
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(
@@ -127,7 +132,6 @@ class _Retret extends State<Retret> {
     });
   }
 
-  TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     _searchController.addListener(() {
@@ -229,119 +233,76 @@ class _Retret extends State<Retret> {
                   }
                   try {
                     return Column(children: [
+                      //Stream builder akan membangun widget Column dengan
+                      //komponen widget children didalamnya, jika tidak ada error
                       for (var i in hasil.take(data))
-                        if (i['kapasitas'] <= 0)
-                          InkWell(
-                            borderRadius: new BorderRadius.circular(24),
-                            onTap: () {
-                              Fluttertoast.showToast(
-                                  /////// Widget toast untuk menampilkan pesan pada halaman
-                                  msg: "Maaf Kegiatan Penuh",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.CENTER,
-                                  timeInSecForIosWeb: 2,
-                                  backgroundColor: Colors.red,
-                                  textColor: Colors.white,
-                                  fontSize: 16.0);
-                            },
-                            child: Container(
-                                margin: EdgeInsets.only(
-                                    right: 15, left: 15, bottom: 20),
-                                decoration: BoxDecoration(
-                                  color: Colors.redAccent,
-                                  border: Border.all(
-                                    color: Colors.lightBlue,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                        //Iterasi sebanyak data
+                        InkWell(
+                          //Widget InkWell agar widget Container bisa ditekan oleh pengguna
+                          borderRadius: new BorderRadius.circular(24),
+                          onTap: () {
+                            //Jika Container ditekan maka akan dipanggil kelas
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      detailDaftarRetret(iduser, i['_id'])),
+                            );
+                          },
+                          child: Container(
+                              //Widget Container yang membungkus data yang ditampilkan
+                              // pada setiap iterasi
+                              margin: EdgeInsets.only(
+                                  right: 15, left: 15, bottom: 20),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    begin: Alignment.topRight,
+                                    end: Alignment.topLeft,
+                                    colors: [
+                                      Colors.blueGrey,
+                                      Colors.lightBlue,
+                                    ]),
+                                border: Border.all(
+                                  color: Colors.lightBlue,
                                 ),
-                                child: Column(children: <Widget>[
-                                  //Color(Colors.blue);
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              //Dekorasi Container(warna, bentuk, gradient, margin)
+                              child: Column(children: <Widget>[
+                                //Didalam Container terdapat column agar
+                                //data yang ditampilkan kebawah di dalam Container
+                                //
+                                //
+                                ///Setiap data ditampilkan dalam widget Text
+                                ///dan mempunyai dekorasi(ukuran, warna, posisi)
 
-                                  Text(
-                                    i['namaKegiatan'],
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 26.0,
-                                        fontWeight: FontWeight.w300),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                  Text(
-                                    'Tema Kegiatan: ' + i['temaKegiatan'],
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                  ),
-                                  Text(
-                                    'Alamat: ' + i['lokasi'],
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                  ),
-                                  Text(
-                                    'Kapasitas Tersedia: ' +
-                                        i['kapasitas'].toString(),
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                  ),
-                                ])),
-                          ),
-                      for (var i in hasil.take(data))
-                        if (i['kapasitas'] > 0)
-                          InkWell(
-                            borderRadius: new BorderRadius.circular(24),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        detailDaftarRetret(iduser, i['_id'])),
-                              );
-                            },
-                            child: Container(
-                                margin: EdgeInsets.only(
-                                    right: 15, left: 15, bottom: 20),
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topRight,
-                                      end: Alignment.topLeft,
-                                      colors: [
-                                        Colors.blueGrey,
-                                        Colors.lightBlue,
-                                      ]),
-                                  border: Border.all(
-                                    color: Colors.lightBlue,
-                                  ),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
+                                Text(
+                                  i['namaKegiatan'],
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 26.0,
+                                      fontWeight: FontWeight.w300),
+                                  textAlign: TextAlign.left,
                                 ),
-                                child: Column(children: <Widget>[
-                                  //Color(Colors.blue);
-
-                                  Text(
-                                    i['namaKegiatan'],
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 26.0,
-                                        fontWeight: FontWeight.w300),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                  Text(
-                                    'Tema Kegiatan: ' + i['temaKegiatan'],
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                  ),
-                                  Text(
-                                    'Alamat: ' + i['lokasi'],
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                  ),
-                                  Text(
-                                    'Kapasitas Tersedia: ' +
-                                        i['kapasitas'].toString(),
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                  ),
-                                ])),
-                          ),
+                                Text(
+                                  'Tema Kegiatan: ' + i['temaKegiatan'],
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
+                                Text(
+                                  'Alamat: ' + i['lokasi'],
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
+                                Text(
+                                  'Kapasitas Tersedia: ' +
+                                      i['kapasitas'].toString(),
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 12),
+                                ),
+                              ])),
+                        ),
                     ]);
                   } catch (e) {
                     //Jika terdapat salah penunjukan key pada map saat

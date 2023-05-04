@@ -29,8 +29,7 @@ class _tiketSaya extends State<tiketSaya> {
 
   _tiketSaya(this.iduser);
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(

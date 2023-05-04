@@ -34,8 +34,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
   final idKrisma;
   var hasil;
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(

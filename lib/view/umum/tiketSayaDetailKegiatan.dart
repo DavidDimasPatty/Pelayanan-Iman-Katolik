@@ -17,8 +17,7 @@ class tiketSayaDetailKegiatan {
   var idUserUmum;
   tiketSayaDetailKegiatan(this.iduser, this.idUserUmum, this.idUmum);
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",

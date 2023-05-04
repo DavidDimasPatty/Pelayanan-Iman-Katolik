@@ -24,18 +24,27 @@ class pengumuman extends StatefulWidget {
 }
 
 class _Pengumuman extends State<pengumuman> {
-  // var distance;
+  /////////////////////////////////////
+  ////
+  ///
+  //////////Inisialisasi Variabel///////////
+  var distance;
 
   List hasil = [];
   StreamController _controller = StreamController();
   ScrollController _scrollController = ScrollController();
   int data = 5;
+  TextEditingController _searchController = TextEditingController();
   List dummyTemp = [];
   final iduser;
+  ///////////////////////////////////////////
+  ///
+  ///
+  ///
+  ///
   _Pengumuman(this.iduser);
 
-  ///////////////////////Fungsi////////////////////////
-  ///////////////////////Fungsi////////////////////////
+///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
@@ -131,7 +140,6 @@ class _Pengumuman extends State<pengumuman> {
     });
   }
 
-  TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     _searchController.addListener(() {
@@ -246,6 +254,8 @@ class _Pengumuman extends State<pengumuman> {
                             );
                           },
                           child: Container(
+                              //Widget Container yang membungkus data yang ditampilkan
+                              // pada setiap iterasi
                               margin: EdgeInsets.only(
                                   right: 15, left: 15, bottom: 20),
                               decoration: BoxDecoration(
@@ -262,8 +272,15 @@ class _Pengumuman extends State<pengumuman> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                               ),
+                              //Dekorasi Container(warna, bentuk, gradient, margin)
                               child: Column(children: <Widget>[
-                                //Color(Colors.blue);
+                                //Didalam Container terdapat column agar
+                                //data yang ditampilkan kebawah di dalam Container
+                                //
+                                //
+                                ///Setiap data ditampilkan dalam widget Text
+                                ///dan mempunyai dekorasi(ukuran, warna, posisi)
+
                                 CircleAvatar(
                                   backgroundImage: NetworkImage(i['gambar']),
                                   backgroundColor: Colors.greenAccent,
