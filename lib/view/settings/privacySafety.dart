@@ -26,13 +26,18 @@ class privacySafety extends StatelessWidget {
       appBar: AppBar(
         title: Text('Privacy & Safety'),
         shape: RoundedRectangleBorder(
+          //Bentuk Top Navigation Bar: Rounded Rectangle
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
         actions: <Widget>[
+          //Tombol Top Navigation Bar
           IconButton(
+            //Widget icon profile
             icon: const Icon(Icons.account_circle_rounded),
             onPressed: () {
+              //Jika ditekan akan mengarahkan ke halaman profile
               Navigator.push(
+                //Widget navigator untuk memanggil kelas profile
                 context,
                 MaterialPageRoute(builder: (context) => profile(iduser)),
               );

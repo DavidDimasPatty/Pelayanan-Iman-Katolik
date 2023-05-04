@@ -61,8 +61,7 @@ class _homePage extends State<homePage> {
         .sendMessage(message); //Mengirim pesan ke distributor pesan
     var hasil =
         await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
-    completer
-        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+    completer.complete(); //Batas pengerjaan yang memerlukan completer
 
     await completer
         .future; //Proses penungguan sudah selesai ketika varibel hasil
@@ -81,8 +80,7 @@ class _homePage extends State<homePage> {
         .sendMessage(message); //Mengirim pesan ke distributor pesan
     var hasil =
         await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
-    completer
-        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+    completer.complete(); //Batas pengerjaan yang memerlukan completer
 
     await completer
         .future; //Proses penungguan sudah selesai ketika varibel hasil
@@ -118,26 +116,39 @@ class _homePage extends State<homePage> {
     //Fungsi untuk membangun halaman home
     return Scaffold(
       // Widget untuk membangun struktur halaman
+
+//////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
+        // widget Top Navigation Bar
         automaticallyImplyLeading: false,
+        //Tombol back halaman dimatikan
         title: Text('Selamat Datang!'),
+        //Judul Top Navigation Bar
         shape: RoundedRectangleBorder(
+          //Bentuk Top Navigation Bar: Rounded Rectangle
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
         actions: <Widget>[
+          //Tombol Top Navigation Bar
           IconButton(
+            //Widget icon profile
             icon: const Icon(Icons.account_circle_rounded),
             onPressed: () {
+              //Jika ditekan akan mengarahkan ke halaman profile
               Navigator.push(
+                //Widget navigator untuk memanggil kelas profile
                 context,
                 MaterialPageRoute(builder: (context) => profile(iduser)),
               );
             },
           ),
           IconButton(
+            //Widget icon Setting
             icon: const Icon(Icons.settings),
             onPressed: () {
+              //Jika ditekan akan mengarahkan ke halaman setting
               Navigator.push(
+                //Widget navigator untuk memanggil kelas setting
                 context,
                 MaterialPageRoute(builder: (context) => Settings(iduser)),
               );
@@ -145,47 +156,81 @@ class _homePage extends State<homePage> {
           ),
         ],
       ),
+//////////////////////////////////////Batas Akhir Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////Pembuatan Body Halaman////////////////////////////////////////////////////////////////
       body: RefreshIndicator(
+          //Widget untuk refresh body halaman
           onRefresh: pullRefresh,
+          //Ketika halaman direfresh akan memanggil fungsi pullRefresh
           child: ListView(children: <Widget>[
+            //Halaman akan dibungkus dengan widget ListView
             Center(
+                //Adjustment posisi tengah untuk child
                 child: Column(
               children: <Widget>[
                 Padding(
+                  //Padding widget Column
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                 ),
                 FutureBuilder(
+                    //Widget FutureBuilder untuk mengambil data
                     future: callTampilan(),
+                    //Pengambilan data dengan fungsi callTampilan
                     builder: (context, AsyncSnapshot snapshot) {
+                      //komponen builder yang mengambil snapshot/hasil
+                      //dari fungsi callTampilan
                       try {
                         if (snapshot.data[0][0]['banned'] == 1) {
+                          //Jika ternyata pengguna di banned saat penggunaan aplikasi
                           LogOut(context);
                         }
 
                         for (var i = 0; i < snapshot.data[3].length; i++) {
+                          //Mengambil data yang terdapat pada snapshot
+                          //untuk dimasukan ke variabel yang digunakan
+                          //untuk menampilkan halaman
                           cardList.add(snapshot.data[3][i]['gambar']);
                           caption.add(snapshot.data[3][i]['title']);
                           idImage.add(snapshot.data[3][i]['_id']);
                         }
                         return Column(children: [
+                          //Jika widget FutureBuilder berhasil, FutureBuilder
+                          //akan memanggil widget Column beserta
+                          //children widgetnya
+
+/////////////////////////////////////////////////////////Pembuatan Kartu Profile Akun///////////////////////////////////////////////////////////
                           Card(
+                              //Widget card untuk membangun tampilan kartu
+                              //info profile
                               elevation: 20,
                               color: Colors.lightBlue,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
                               ),
+                              //Komponen kartu seperti bayangan, warna, dan bentuk
                               child: SizedBox(
+                                  //widget yang membentuk box yang dapat diatur
+                                  //tinggi dan lebarnya
                                   width: 300,
                                   height: 190,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
+                                    //Penempatan posisi widget children
+                                    // pada widget Column
                                     mainAxisSize: MainAxisSize.max,
+                                    //Batas axis size widget children Column
                                     mainAxisAlignment: MainAxisAlignment.end,
+                                    //Batas axis aligment widget children Column
                                     children: <Widget>[
                                       GestureDetector(
+                                        //Widget yang digunakan untuk mendeteksi
+                                        //jika widget box ditekan
                                         onTap: () {
                                           Navigator.push(
+                                            //Widget yang
+                                            //memanggil kelas profile
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
@@ -195,8 +240,11 @@ class _homePage extends State<homePage> {
                                         child: Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
+                                          //Penempatan posisi widget children
                                           children: <Widget>[
                                             Padding(
+                                              //Widget padding untuk menggeser
+                                              //widget lain
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 4),
                                             ),
@@ -209,6 +257,8 @@ class _homePage extends State<homePage> {
                                                     Colors.greenAccent,
                                                 radius: 35,
                                               ),
+                                            //Jika snapshot tidak mempunyai data
+                                            //picture maka akan ditampilkan default picture
                                             if (snapshot.data[0][0]
                                                     ['picture'] !=
                                                 null)
@@ -220,12 +270,18 @@ class _homePage extends State<homePage> {
                                                     Colors.greenAccent,
                                                 radius: 35,
                                               ),
+                                            //Jika snapshot mempunyai data
+                                            //picture maka akan ditampilkan picture
                                             Padding(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: 5),
                                             ),
                                             Column(
                                               children: <Widget>[
+                                                //Pada widget column ini akan
+                                                //ditampilkan data-data akun pengguna yang dibutuhkan
+                                                //oleh pembuatan kartu pada view
+                                                //dalam widget Text
                                                 Text(
                                                   snapshot.data[0][0]['nama'],
                                                   textAlign: TextAlign.center,
@@ -263,6 +319,7 @@ class _homePage extends State<homePage> {
                                                       fontWeight:
                                                           FontWeight.w500),
                                                 ),
+                                                ////Batas akhir penambilan data pada kartu/////
                                               ],
                                             )
                                           ],
@@ -273,6 +330,8 @@ class _homePage extends State<homePage> {
                                             EdgeInsets.symmetric(vertical: 7),
                                       ),
                                       GestureDetector(
+                                          //Widget yang digunakan untuk mendeteksi
+                                          //jika widget box ditekan
                                           onTap: () {
                                             Navigator.push(
                                               context,
@@ -282,6 +341,10 @@ class _homePage extends State<homePage> {
                                             );
                                           },
                                           child: Container(
+                                            //widget Container digunakan untuk membangun
+                                            //box jadwal terdekat yang didaftar pengguna
+                                            //Pada widget ini data akan dibentuk dengan
+                                            //widget Text
                                             height: 80,
                                             width: double.infinity,
                                             decoration: BoxDecoration(
@@ -292,10 +355,13 @@ class _homePage extends State<homePage> {
                                                 top: Radius.circular(0),
                                               ),
                                             ),
+                                            //Komponen widget Container
                                             child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: <Widget>[
+                                                //Widget Column ini akan menampilkan
+                                                //data tentang jadwal terdekat
                                                 Padding(
                                                   padding: EdgeInsets.symmetric(
                                                       vertical: 4),
@@ -310,6 +376,7 @@ class _homePage extends State<homePage> {
                                                           FontWeight.w300),
                                                 ),
                                                 if (snapshot.data[2] == null)
+                                                  //Jika data tidak mempunyai isi
                                                   Text(
                                                     'Belum ada Pendaftaran',
                                                     textAlign: TextAlign.center,
@@ -319,11 +386,14 @@ class _homePage extends State<homePage> {
                                                         fontWeight:
                                                             FontWeight.w300),
                                                   ),
+
                                                 if (snapshot.data[2] != null)
+                                                  //Jika data mempunyai isi
                                                   Column(children: <Widget>[
                                                     if (snapshot.data[2][0]
                                                             ['idKrisma'] !=
                                                         null)
+                                                      //Jika data berisi idKrisma
                                                       Text(
                                                         'Krisma',
                                                         textAlign:
@@ -338,6 +408,7 @@ class _homePage extends State<homePage> {
                                                     if (snapshot.data[2][0]
                                                             ['idKomuni'] !=
                                                         null)
+                                                      //Jika data berisi idKomuni
                                                       Text(
                                                         'Komuni',
                                                         textAlign:
@@ -352,6 +423,7 @@ class _homePage extends State<homePage> {
                                                     if (snapshot.data[2][0]
                                                             ['idBaptis'] !=
                                                         null)
+                                                      //Jika data berisi idBaptis
                                                       Text(
                                                         'Baptis',
                                                         textAlign:
@@ -366,6 +438,7 @@ class _homePage extends State<homePage> {
                                                     if (snapshot.data[2][0]
                                                             ['idKegiatan'] !=
                                                         null)
+                                                      //Jika data berisi idKegiatan
                                                       Text(
                                                         'Kegiatan Umum',
                                                         textAlign:
@@ -380,6 +453,7 @@ class _homePage extends State<homePage> {
                                                     if (snapshot.data[2][0]
                                                             ['namaLengkap'] !=
                                                         null)
+                                                      //Jika data berisi namaLengkap
                                                       Text(
                                                         'Pemberkatan',
                                                         textAlign:
@@ -394,6 +468,7 @@ class _homePage extends State<homePage> {
                                                     if (snapshot.data[2][0]
                                                             ['namaPria'] !=
                                                         null)
+                                                      //Jika data berisi namaPria
                                                       Text(
                                                         'Perkawinan',
                                                         textAlign:
@@ -408,6 +483,7 @@ class _homePage extends State<homePage> {
                                                     if (snapshot.data[2][0]
                                                             ['tanggalDaftar'] !=
                                                         null)
+                                                      //Jika data berisi tanggalDaftar
                                                       Text(
                                                         snapshot.data[2][0][
                                                                 'tanggalDaftar']
@@ -428,6 +504,7 @@ class _homePage extends State<homePage> {
                                                         snapshot.data[2][0]
                                                                 ['idImam'] !=
                                                             null)
+                                                      //Jika data berisi tanggal dan idImam
                                                       Text(
                                                         snapshot.data[2][0]
                                                                 ['tanggal']
@@ -446,12 +523,18 @@ class _homePage extends State<homePage> {
                                               ],
                                             ),
                                           )),
+                                      ////////Batas Akhir Penampilan Jadwal Terdekat////////
                                     ],
                                   ))),
+///////////////////////////////////////////////////////// Batas Akhir Pembuatan Kartu Profile Akun///////////////////////////////////////////////////////////
+
                           Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 16),
                           ),
+                          //widget Padding untuk membuat ruang kosong antar widget pada halaman
+
+/////////////////////////////////////////////////////////Pembuatan Tombol Menu///////////////////////////////////////////////////////////
                           Text(
                             'Pilihan Layanan Menu',
                             style: TextStyle(
@@ -461,21 +544,22 @@ class _homePage extends State<homePage> {
                             textAlign: TextAlign.center,
                           ),
                           Padding(
+                            //Membuat ruang kosong antar widget
                             padding: EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 10),
                           ),
                           Row(
+                            //Menu akan ditampilkan berdampingan satu sama lain
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               SizedBox.fromSize(
-                                size: Size(75, 75), // button width and height
+                                size: Size(75, 75),
                                 child: ClipOval(
                                   child: Material(
-                                    color:
-                                        Colors.lightBlueAccent, // button color
+                                    color: Colors.lightBlueAccent,
                                     child: InkWell(
-                                      splashColor: Colors.green, // splash color
+                                      splashColor: Colors.green,
                                       onTap: () {
                                         Navigator.push(
                                           context,
@@ -546,12 +630,12 @@ class _homePage extends State<homePage> {
                                 padding: EdgeInsets.symmetric(horizontal: 11),
                               ),
                               SizedBox.fromSize(
-                                size: Size(75, 75), // button width and height
+                                size: Size(75, 75),
                                 child: ClipOval(
                                   child: Material(
-                                    color: Colors.orange, // button color
+                                    color: Colors.orange,
                                     child: InkWell(
-                                      splashColor: Colors.green, // splash color
+                                      splashColor: Colors.green,
                                       onTap: () {
                                         Navigator.push(
                                           context,
@@ -559,7 +643,7 @@ class _homePage extends State<homePage> {
                                               builder: (context) =>
                                                   Umum(iduser)),
                                         );
-                                      }, // button pressed
+                                      },
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -567,7 +651,7 @@ class _homePage extends State<homePage> {
                                           Icon(
                                             Icons.church,
                                             size: 30,
-                                          ), // icon
+                                          ),
                                           Text(
                                             "Umum",
                                             style: TextStyle(
@@ -575,7 +659,7 @@ class _homePage extends State<homePage> {
                                               fontWeight: FontWeight.bold,
                                             ),
                                             textAlign: TextAlign.center,
-                                          ), // text
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -587,11 +671,15 @@ class _homePage extends State<homePage> {
                               ),
                             ],
                           ),
+/////////////////////////////////////////////////////////Batas Akhir Pembuatan Tombol Menu///////////////////////////////////////////////////////////
+
                           Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 7),
                           ),
-                          new GestureDetector(
+
+////////////////////////////////////////////////////////////////////////////Pembuatan Carrousel Pengumuman///////////////////////////////////////////////////////////
+                          GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
@@ -644,6 +732,8 @@ class _homePage extends State<homePage> {
                                                   .toString()));
                                 }).toList(),
                               ),
+
+//////////////////////////////////////Batas Akhir Pembuatan Carrousel Pengumuman///////////////////////////////////////////////////////////
                             ),
                           )
                         ]);
@@ -655,6 +745,11 @@ class _homePage extends State<homePage> {
               ],
             ))
           ])),
+//////////////////////////////////////Batas Akhir Pembuatan Body Halaman/////////////////////////////////////////////////////////////
+      ///
+      ///
+      ///
+/////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -694,6 +789,7 @@ class _homePage extends State<homePage> {
             ),
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+/////////////////////////////////////////////////////////Batas Akhir Pembuatan Bottom Navigation Bar////////////////////////////////////////
     );
   }
 }

@@ -56,8 +56,7 @@ class gantiPassword extends StatelessWidget {
           MessagePassing(); //Memanggil distributor pesan
       await messagePassing
           .sendMessage(message); //Mengirim pesan ke distributor pesan
-      completer
-          .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+      completer.complete(); //Batas pengerjaan yang memerlukan completer
       var value =
           await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
 
@@ -86,8 +85,7 @@ class gantiPassword extends StatelessWidget {
             MessagePassing(); //Memanggil distributor pesan
         await messagePassing
             .sendMessage(message); //Mengirim pesan ke distributor pesan
-        completer
-            .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+        completer.complete(); //Batas pengerjaan yang memerlukan completer
         var value = await AgentPage
             .getData(); //Memanggil data yang tersedia di agen Page
 
@@ -119,13 +117,18 @@ class gantiPassword extends StatelessWidget {
       appBar: AppBar(
         title: Text('Ganti Password'),
         shape: RoundedRectangleBorder(
+          //Bentuk Top Navigation Bar: Rounded Rectangle
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
         actions: <Widget>[
+          //Tombol Top Navigation Bar
           IconButton(
+            //Widget icon profile
             icon: const Icon(Icons.account_circle_rounded),
             onPressed: () {
+              //Jika ditekan akan mengarahkan ke halaman profile
               Navigator.push(
+                //Widget navigator untuk memanggil kelas profile
                 context,
                 MaterialPageRoute(builder: (context) => profile(iduser)),
               );

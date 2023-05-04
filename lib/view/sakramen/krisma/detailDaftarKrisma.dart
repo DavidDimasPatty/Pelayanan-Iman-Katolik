@@ -49,8 +49,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
         .sendMessage(message); //Mengirim pesan ke distributor pesan
     hasil =
         await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
-    completer
-        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+    completer.complete(); //Batas pengerjaan yang memerlukan completer
 
     await completer
         .future; //Proses penungguan sudah selesai ketika varibel hasil
@@ -79,14 +78,19 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
     return Scaffold(
       appBar: AppBar(
         shape: RoundedRectangleBorder(
+          //Bentuk Top Navigation Bar: Rounded Rectangle
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
         title: const Text('Pendaftaran Krisma'),
         actions: <Widget>[
+          //Tombol Top Navigation Bar
           IconButton(
+            //Widget icon profile
             icon: const Icon(Icons.account_circle_rounded),
             onPressed: () {
+              //Jika ditekan akan mengarahkan ke halaman profile
               Navigator.push(
+                //Widget navigator untuk memanggil kelas profile
                 context,
                 MaterialPageRoute(builder: (context) => profile(iduser)),
               );

@@ -37,8 +37,7 @@ class _detailPengumuman extends State<detailPengumuman> {
         MessagePassing(); //Memanggil distributor pesan
     await messagePassing
         .sendMessage(message); //Mengirim pesan ke distributor pesan
-    completer
-        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+    completer.complete(); //Batas pengerjaan yang memerlukan completer
     var hasil =
         await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
     return hasil; //Mengembalikan variabel hasil
@@ -59,14 +58,19 @@ class _detailPengumuman extends State<detailPengumuman> {
     return Scaffold(
       appBar: AppBar(
         shape: RoundedRectangleBorder(
+          //Bentuk Top Navigation Bar: Rounded Rectangle
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
         title: const Text('Detail pengumuman'),
         actions: <Widget>[
+          //Tombol Top Navigation Bar
           IconButton(
+            //Widget icon profile
             icon: const Icon(Icons.account_circle_rounded),
             onPressed: () {
+              //Jika ditekan akan mengarahkan ke halaman profile
               Navigator.push(
+                //Widget navigator untuk memanggil kelas profile
                 context,
                 MaterialPageRoute(builder: (context) => profile(iduser)),
               );

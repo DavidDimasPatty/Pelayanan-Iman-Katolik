@@ -49,8 +49,7 @@ class _ImamPerkawinan extends State<ImamPerkawinan> {
         .sendMessage(message); //Mengirim pesan ke distributor pesan
     var hasilPencarian =
         await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
-    completer
-        .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+    completer.complete(); //Batas pengerjaan yang memerlukan completer
 
     await completer
         .future; //Proses penungguan sudah selesai ketika varibel hasil
@@ -122,6 +121,7 @@ class _ImamPerkawinan extends State<ImamPerkawinan> {
     return Scaffold(
       appBar: AppBar(
         shape: RoundedRectangleBorder(
+          //Bentuk Top Navigation Bar: Rounded Rectangle
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
         title: Text('Imam Perkawinan'),
@@ -136,11 +136,14 @@ class _ImamPerkawinan extends State<ImamPerkawinan> {
             },
           ),
           IconButton(
+            //Widget icon Setting
             icon: const Icon(Icons.settings),
             onPressed: () {
+              //Jika ditekan akan mengarahkan ke halaman setting
               Navigator.push(
+                //Widget navigator untuk memanggil kelas setting
                 context,
-                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
+                MaterialPageRoute(builder: (context) => Settings(iduser)),
               );
             },
           ),

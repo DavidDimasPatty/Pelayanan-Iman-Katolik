@@ -121,8 +121,7 @@ class AgentPencarian extends Agent {
       Messages message = Messages(
           agentName, sender, "INFORM", Tasks('done', "Wait agent pendaftaran"));
       // Future.delayed(Duration(seconds: 1));
-      completer
-          .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+      completer.complete(); //Batas pengerjaan yang memerlukan completer
 
       await completer
           .future; //Proses penungguan sudah selesai ketika varibel hasil

@@ -25,8 +25,7 @@ Future callDb() async {
       MessagePassing(); //Memanggil distributor pesan
   await messagePassing
       .sendMessage(message); //Mengirim pesan ke distributor pesan
-  completer
-      .complete(); //Pengiriman pesan sudah berhasil, tapi masih harus menunggu
+  completer.complete(); //Batas pengerjaan yang memerlukan completer
   // sampai agen Page memiliki data
   var hasil =
       await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
