@@ -63,6 +63,7 @@ class confirmRetret {
     //memiliki nilai
     if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Berhasil Mendaftar Retret",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
@@ -78,13 +79,16 @@ class confirmRetret {
     }
     if (hasilDaftar == 'sudah') {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Sudah Mendaftar Kegiatan ini",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-          fontSize: 16.0);
+          fontSize: 16.0
+          /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+          );
       Navigator.pop(
         context,
         MaterialPageRoute(

@@ -184,6 +184,7 @@ class logIn extends StatelessWidget {
                                   if (emailController.text == "" ||
                                       passwordController.text == "") {
                                     Fluttertoast.showToast(
+                                        /////// Widget toast untuk menampilkan pesan pada halaman
                                         msg:
                                             "Email atau Password Tidak Boleh Kosong",
                                         toastLength: Toast.LENGTH_SHORT,
@@ -201,6 +202,7 @@ class logIn extends StatelessWidget {
 
                                     if (ret.runtimeType == String) {
                                       Fluttertoast.showToast(
+                                          /////// Widget toast untuk menampilkan pesan pada halaman
                                           msg: "Connection Problem",
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.CENTER,
@@ -221,6 +223,7 @@ class logIn extends StatelessWidget {
                                       );
                                     } else {
                                       Fluttertoast.showToast(
+                                          /////// Widget toast untuk menampilkan pesan pada halaman
                                           msg: "Email dan Password Salah",
                                           toastLength: Toast.LENGTH_SHORT,
                                           gravity: ToastGravity.CENTER,

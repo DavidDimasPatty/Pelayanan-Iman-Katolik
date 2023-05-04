@@ -71,6 +71,7 @@ class _profile extends State<profile> {
     //memiliki nilai
     if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Berhasil Ganti Profile Picture",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
@@ -85,13 +86,16 @@ class _profile extends State<profile> {
     }
     if (hasilDaftar == 'failed') {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Gagal Ganti Profile Picture",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-          fontSize: 16.0);
+          fontSize: 16.0
+          /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+          );
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => profile(iduser)),

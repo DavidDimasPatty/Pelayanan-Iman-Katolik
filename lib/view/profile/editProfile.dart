@@ -75,25 +75,32 @@ class _editProfile extends State<editProfile> {
       completer.complete(); //Batas pengerjaan yang memerlukan completer
       if (hasilDaftar == 'nama') {
         Fluttertoast.showToast(
+            /////// Widget toast untuk menampilkan pesan pada halaman
             msg: "Nama sudah digunakan",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 2,
             backgroundColor: Colors.red,
             textColor: Colors.white,
-            fontSize: 16.0);
+            fontSize: 16.0
+            /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+            );
       }
       if (hasilDaftar == 'email') {
         Fluttertoast.showToast(
+            /////// Widget toast untuk menampilkan pesan pada halaman
             msg: "Email sudah digunakan",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 2,
             backgroundColor: Colors.red,
             textColor: Colors.white,
-            fontSize: 16.0);
+            fontSize: 16.0
+            /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+            );
       } else if (hasilDaftar == 'oke') {
         Fluttertoast.showToast(
+            /////// Widget toast untuk menampilkan pesan pada halaman
             msg: "Berhasil Edit Profile",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
@@ -108,13 +115,16 @@ class _editProfile extends State<editProfile> {
       }
     } else {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Lengkapi semua bidang",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-          fontSize: 16.0);
+          fontSize: 16.0
+          /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+          );
     }
   }
 

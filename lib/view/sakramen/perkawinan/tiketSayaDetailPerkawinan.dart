@@ -64,6 +64,7 @@ class tiketSayaDetailPerkawinan {
     //memiliki nilai
     if (hasil == 'oke') {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Berhasil Cancel Perkawinan",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,

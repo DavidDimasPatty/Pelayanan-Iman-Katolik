@@ -58,6 +58,7 @@ class tiketSayaDetailKegiatan {
     //memiliki nilai
     if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Berhasil Cancel Kegiatan",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,

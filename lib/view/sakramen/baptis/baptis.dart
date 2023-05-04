@@ -218,6 +218,7 @@ class _Baptis extends State<Baptis> {
                             borderRadius: new BorderRadius.circular(24),
                             onTap: () {
                               Fluttertoast.showToast(
+                                  /////// Widget toast untuk menampilkan pesan pada halaman
                                   msg: "Maaf Baptis Penuh",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.CENTER,

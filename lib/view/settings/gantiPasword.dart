@@ -25,25 +25,31 @@ class gantiPassword extends StatelessWidget {
   checkPassword(context) async {
     if (passBaruController.text != passUlBaruController.text) {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Password Baru Tidak Cocok",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-          fontSize: 16.0);
+          fontSize: 16.0
+          /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+          );
       passLamaController.text = "";
       passBaruController.text = "";
       passUlBaruController.text = "";
     } else if (passBaruController.text == passLamaController.text) {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Password Baru Tidak Boleh Sama dengan Password Lama",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-          fontSize: 16.0);
+          fontSize: 16.0
+          /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+          );
       passLamaController.text = "";
       passBaruController.text = "";
       passUlBaruController.text = "";
@@ -66,13 +72,16 @@ class gantiPassword extends StatelessWidget {
 
       if (value == "not") {
         Fluttertoast.showToast(
+            /////// Widget toast untuk menampilkan pesan pada halaman
             msg: "Password Lama Tidak Cocok",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 2,
             backgroundColor: Colors.red,
             textColor: Colors.white,
-            fontSize: 16.0);
+            fontSize: 16.0
+            /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+            );
         passLamaController.text = "";
         passBaruController.text = "";
         passUlBaruController.text = "";
@@ -97,6 +106,7 @@ class gantiPassword extends StatelessWidget {
         passBaruController.text = "";
         passUlBaruController.text = "";
         Fluttertoast.showToast(
+            /////// Widget toast untuk menampilkan pesan pada halaman
             msg: "Berhasil Ganti Password",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
@@ -222,7 +232,7 @@ class gantiPassword extends StatelessWidget {
           ),
         ],
       ),
-//////////////////////////////////////Batas Akhir Pembuatan Body Halaman/////////////////////////////////////////////////////////////
+      //////////////////////////////////////Batas Akhir Pembuatan Body Halaman/////////////////////////////////////////////////////////////
       ///
       ///
       ///

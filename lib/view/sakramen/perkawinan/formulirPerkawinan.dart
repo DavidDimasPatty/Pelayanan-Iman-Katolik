@@ -110,6 +110,7 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
       //memiliki nilai
       if (hasil == 'oke') {
         Fluttertoast.showToast(
+            /////// Widget toast untuk menampilkan pesan pada halaman
             msg: "Berhasil Mendaftar Perkawinan",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
@@ -124,13 +125,16 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
       }
     } else {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Lengkapi semua isi form",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-          fontSize: 16.0);
+          fontSize: 16.0
+          /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+          );
     }
   }
 

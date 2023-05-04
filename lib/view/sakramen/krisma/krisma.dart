@@ -213,6 +213,7 @@ class _Krisma extends State<Krisma> {
                             borderRadius: new BorderRadius.circular(24),
                             onTap: () {
                               Fluttertoast.showToast(
+                                  /////// Widget toast untuk menampilkan pesan pada halaman
                                   msg: "Maaf Krisma Penuh",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.CENTER,

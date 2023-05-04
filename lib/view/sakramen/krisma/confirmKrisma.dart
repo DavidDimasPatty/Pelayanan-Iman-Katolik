@@ -65,6 +65,7 @@ class confirmKrisma {
     //memiliki nilai
     if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Berhasil Mendaftar Krisma",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
@@ -81,13 +82,16 @@ class confirmKrisma {
     }
     if (hasilDaftar == 'sudah') {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Sudah Mendaftar Krisma ini",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-          fontSize: 16.0);
+          fontSize: 16.0
+          /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+          );
       Navigator.pop(
         context,
         MaterialPageRoute(

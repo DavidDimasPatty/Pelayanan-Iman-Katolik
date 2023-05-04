@@ -82,6 +82,7 @@ class _homePage extends State<homePage> {
     //memiliki nilai
     if (hasil == 'oke') {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Akun anda telah dibanned",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,

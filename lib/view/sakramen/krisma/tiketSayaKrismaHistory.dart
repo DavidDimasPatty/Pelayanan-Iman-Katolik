@@ -64,6 +64,7 @@ class tiketSayaKrismaHistory {
     completer.complete(); //Batas pengerjaan yang memerlukan completer
     if (hasil == 'oke') {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Berhasil Cancel Krisma",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,

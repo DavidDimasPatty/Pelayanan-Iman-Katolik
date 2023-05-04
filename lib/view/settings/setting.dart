@@ -44,6 +44,7 @@ class Settings extends StatelessWidget {
     //memiliki nilai
     if (hasil == 'oke') {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Berhasil Log Out",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,

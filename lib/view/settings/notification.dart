@@ -73,6 +73,7 @@ class _notifClass extends State<notification> {
     //memiliki nilai
     if (hasil == 'oke') {
       Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
           msg: "Berhasil Update Notif",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,

@@ -215,6 +215,7 @@ class _Komuni extends State<Komuni> {
                             borderRadius: new BorderRadius.circular(24),
                             onTap: () {
                               Fluttertoast.showToast(
+                                  /////// Widget toast untuk menampilkan pesan pada halaman
                                   msg: "Maaf Komuni Penuh",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.CENTER,
