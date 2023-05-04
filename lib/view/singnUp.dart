@@ -11,34 +11,50 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/logIn.dart';
 
 class signUp extends StatelessWidget {
+////////Inisialisasi variabel untuk mengkontrol input field//////////////
   TextEditingController nameController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
   TextEditingController repasswordController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
+//////////////////////////////////////////////////////////////////////////
 
-  checksignUp(context) async {
+  Future checksignUp(context) async {
+    ///Fungsi pengiriman pesan untuk melakukan pengecekan kepada input field
+    ///pegguna dan menambahkan data baru pada collection user
+    ///
     if (nameController.text == "" ||
         emailController.text == "" ||
         passwordController.text == "" ||
         repasswordController.text == "") {
+      //////Jika input field tidak diisi semua
       Fluttertoast.showToast(
-          msg: "Mohon Mengisi Semua Bidang",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0);
+        /////// Widget toast untuk menampilkan pesan pada halaman
+        msg: "Mohon Mengisi Semua Bidang",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 2,
+      );
+      //Menghapus input field pengguna///
+      nameController.clear();
+      repasswordController.clear();
       emailController.clear();
       passwordController.clear();
+      //////////////////////////////////////
     } else {
+      //////Jika input field diisi semua
+      ///Melakukan pengecekan format email dengan regex/////////
       var email = emailController.text;
       bool emailValid = RegExp(
               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
           .hasMatch(email);
+      ////////////////////////////////////////////
+      ///
+      ///Melakukan pengecekan format nama dengan regex/////////
       var nama = nameController.text;
       bool namaValid = RegExp(r'^[a-z A-Z,.\-]+$').hasMatch(nama);
+      ////////////////////////////////////////////
       if (namaValid == false) {
+        /////////Jika nama tidak valid
         nameController.text = "";
         Fluttertoast.showToast(
             msg: "Nama Lengkap Tidak Valid",
@@ -152,7 +168,9 @@ class signUp extends StatelessWidget {
         ),
         child: Scaffold(
             backgroundColor: Colors.transparent,
+            //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
             appBar: AppBar(
+              // widget Top Navigation Bar
               automaticallyImplyLeading: false,
               backgroundColor: Colors.transparent,
               elevation: 0,

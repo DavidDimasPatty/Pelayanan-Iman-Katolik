@@ -129,7 +129,9 @@ class _Pemberkatan extends State<Pemberkatan> {
       }
     });
     return Scaffold(
+      //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
+        // widget Top Navigation Bar
         shape: RoundedRectangleBorder(
           //Bentuk Top Navigation Bar: Rounded Rectangle
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
@@ -159,6 +161,11 @@ class _Pemberkatan extends State<Pemberkatan> {
           ),
         ],
       ),
+//////////////////////////////////////Batas Akhir Pembuatan Top Navigation Bar//////////////////////////////////////////////////////////
+      ///
+//////
+//////
+//////////////////////////////////////Pembuatan Body Halaman////////////////////////////////////////////////////////////////
       body: RefreshIndicator(
         onRefresh: pullRefresh,
         child: ListView(
@@ -279,6 +286,11 @@ class _Pemberkatan extends State<Pemberkatan> {
           ],
         ),
       ),
+//////////////////////////////////////Batas Akhir Pembuatan Body Halaman/////////////////////////////////////////////////////////////
+      ///
+      ///
+      ///
+/////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -323,6 +335,7 @@ class _Pemberkatan extends State<Pemberkatan> {
               },
             ),
           )),
+      /////////////////////////////////////////////////////////Batas Akhir Pembuatan Bottom Navigation Bar////////////////////////////////////////
     );
   }
 }

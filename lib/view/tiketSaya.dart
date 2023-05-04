@@ -64,7 +64,9 @@ class _tiketSaya extends State<tiketSaya> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
+        // widget Top Navigation Bar
         shape: RoundedRectangleBorder(
           //Bentuk Top Navigation Bar: Rounded Rectangle
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
@@ -98,6 +100,11 @@ class _tiketSaya extends State<tiketSaya> {
           ),
         ],
       ),
+//////////////////////////////////////Batas Akhir Pembuatan Top Navigation Bar//////////////////////////////////////////////////////////
+      ///
+//////
+//////
+//////////////////////////////////////Pembuatan Body Halaman////////////////////////////////////////////////////////////////
       body: RefreshIndicator(
           onRefresh: pullRefresh,
           child: ListView(
@@ -697,6 +704,11 @@ class _tiketSaya extends State<tiketSaya> {
                   }),
             ],
           )),
+//////////////////////////////////////Batas Akhir Pembuatan Body Halaman/////////////////////////////////////////////////////////////
+      ///
+      ///
+      ///
+/////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -741,6 +753,7 @@ class _tiketSaya extends State<tiketSaya> {
               },
             ),
           )),
+      /////////////////////////////////////////////////////////Batas Akhir Pembuatan Bottom Navigation Bar////////////////////////////////////////
     );
   }
 }

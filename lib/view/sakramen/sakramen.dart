@@ -19,7 +19,9 @@ class Sakramen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
+        // widget Top Navigation Bar
         title: Text('Sakramen'),
         shape: RoundedRectangleBorder(
           //Bentuk Top Navigation Bar: Rounded Rectangle
@@ -244,6 +246,11 @@ class Sakramen extends StatelessWidget {
           ),
         ],
       ),
+//////////////////////////////////////Batas Akhir Pembuatan Body Halaman/////////////////////////////////////////////////////////////
+      ///
+      ///
+      ///
+/////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(

@@ -145,7 +145,9 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
+        // widget Top Navigation Bar
         title: Text('Formulir Pemberkatan'),
         shape: RoundedRectangleBorder(
           //Bentuk Top Navigation Bar: Rounded Rectangle
@@ -587,6 +589,11 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
           ),
         ],
       ),
+//////////////////////////////////////Batas Akhir Pembuatan Body Halaman/////////////////////////////////////////////////////////////
+      ///
+      ///
+      ///
+/////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(

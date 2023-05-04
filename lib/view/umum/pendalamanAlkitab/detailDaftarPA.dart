@@ -66,7 +66,9 @@ class _detailDaftarPA extends State<detailDaftarPA> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
+        // widget Top Navigation Bar
         shape: RoundedRectangleBorder(
           //Bentuk Top Navigation Bar: Rounded Rectangle
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
@@ -450,6 +452,11 @@ class _detailDaftarPA extends State<detailDaftarPA> {
                   })
             ],
           )),
+//////////////////////////////////////Batas Akhir Pembuatan Body Halaman/////////////////////////////////////////////////////////////
+      ///
+      ///
+      ///
+/////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(

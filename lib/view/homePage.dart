@@ -24,11 +24,6 @@ import 'package:pelayanan_iman_katolik/view/umum/umum.dart';
 
 import '../ItemCard.dart';
 
-// Future<void> openCamera() async {
-//   //fuction openCamera();
-//   final pickedImage = await ImagePicker().getImage(source: ImageSource.camera);
-// }
-
 class homePage extends StatefulWidget {
   var iduser;
   @override
@@ -116,9 +111,9 @@ class _homePage extends State<homePage> {
     //Fungsi untuk membangun halaman home
     return Scaffold(
       // Widget untuk membangun struktur halaman
-
-//////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
+      //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
+        // widget Top Navigation Bar
         // widget Top Navigation Bar
         automaticallyImplyLeading: false,
         //Tombol back halaman dimatikan
@@ -156,8 +151,15 @@ class _homePage extends State<homePage> {
           ),
         ],
       ),
-//////////////////////////////////////Batas Akhir Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
-
+//////////////////////////////////////Batas Akhir Pembuatan Top Navigation Bar//////////////////////////////////////////////////////////
+      ///
+//////
+//////
+//////////////////////////////////////Pembuatan Body Halaman////////////////////////////////////////////////////////////////
+//////////////////////////////////////Batas Akhir Pembuatan Top Navigation Bar//////////////////////////////////////////////////////////
+      ///
+//////
+//////
 //////////////////////////////////////Pembuatan Body Halaman////////////////////////////////////////////////////////////////
       body: RefreshIndicator(
           //Widget untuk refresh body halaman
@@ -554,6 +556,7 @@ class _homePage extends State<homePage> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               SizedBox.fromSize(
+                                //Pembuatan Tombol Menu Sakramen
                                 size: Size(75, 75),
                                 child: ClipOval(
                                   child: Material(
@@ -562,13 +565,16 @@ class _homePage extends State<homePage> {
                                       splashColor: Colors.green,
                                       onTap: () {
                                         Navigator.push(
+                                          //Jika ditekan akan memanggil kelas Sakramen
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   Sakramen(iduser)),
                                         );
-                                      }, // button pressed
+                                      },
                                       child: Column(
+                                        //Mempunyai widget Column agar memiliki icon
+                                        //yang dibawahnya tedapat Text
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
@@ -581,7 +587,7 @@ class _homePage extends State<homePage> {
                                               fontWeight: FontWeight.bold,
                                             ),
                                             textAlign: TextAlign.center,
-                                          ), // text
+                                          ),
                                         ],
                                       ),
                                     ),
@@ -592,26 +598,29 @@ class _homePage extends State<homePage> {
                                 padding: EdgeInsets.symmetric(horizontal: 11),
                               ),
                               SizedBox.fromSize(
-                                size: Size(75, 75), // button width and height
+                                //Pembuatan Tombol Menu Sakramentali
+                                size: Size(75, 75),
                                 child: ClipOval(
                                   child: Material(
-                                    color: Colors.greenAccent, // button color
+                                    color: Colors.greenAccent,
                                     child: InkWell(
-                                      splashColor: Colors.green, // splash color
+                                      splashColor: Colors.green,
                                       onTap: () {
                                         Navigator.push(
+                                          //Jika ditekan akan memanggil kelas sakramentali
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
                                                   sakramentali(iduser)),
                                         );
-                                      }, // button pressed
+                                      },
                                       child: Column(
+                                        //Mempunyai widget Column agar memiliki icon
+                                        //yang dibawahnya tedapat Text
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
-                                          Icon(Icons.sign_language,
-                                              size: 30), // icon
+                                          Icon(Icons.sign_language, size: 30),
                                           Text(
                                             "sakramentali",
                                             style: TextStyle(
@@ -630,6 +639,7 @@ class _homePage extends State<homePage> {
                                 padding: EdgeInsets.symmetric(horizontal: 11),
                               ),
                               SizedBox.fromSize(
+                                //Pembuatan Tombol Menu Kegiatan Umum
                                 size: Size(75, 75),
                                 child: ClipOval(
                                   child: Material(
@@ -638,6 +648,7 @@ class _homePage extends State<homePage> {
                                       splashColor: Colors.green,
                                       onTap: () {
                                         Navigator.push(
+                                          //Jika ditekan akan memanggil kelas Umum
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
@@ -645,6 +656,8 @@ class _homePage extends State<homePage> {
                                         );
                                       },
                                       child: Column(
+                                        //Mempunyai widget Column agar memiliki icon
+                                        //yang dibawahnya tedapat Text
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: <Widget>[
@@ -680,8 +693,11 @@ class _homePage extends State<homePage> {
 
 ////////////////////////////////////////////////////////////////////////////Pembuatan Carrousel Pengumuman///////////////////////////////////////////////////////////
                           GestureDetector(
+                              //Widget akan memanggil kelas jika Text
+                              //pengumuman ditekan oleh pengguna
                               onTap: () {
                                 Navigator.push(
+                                  //widget akan memanggil kelas pengumuman
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
@@ -699,9 +715,13 @@ class _homePage extends State<homePage> {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 5),
                           ),
+
                           Container(
+                            //Container carrousel
                             child: Center(
                               child: CarouselSlider(
+                                //Widget untuk membuat tampilan carrousel pada
+                                //halaman home
                                 options: CarouselOptions(
                                   autoPlay: true,
                                   autoPlayInterval: Duration(seconds: 3),
@@ -712,12 +732,20 @@ class _homePage extends State<homePage> {
                                   enlargeCenterPage: true,
                                   viewportFraction: 0.8,
                                 ),
+                                //Pengaturan carrousel yang ditampilkan
+
                                 items: cardList.map((item) {
+                                  //Setiap isi dari variabel cardlist diiterasi
                                   return GestureDetector(
+                                      //Widget yang akan memanggil kelas jika
+                                      //salah satu pengumuman pada carrousel
+                                      //ditekan oleh pengguna
                                       onTap: () {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
+                                              //Jika card ditekan maka kelas detail
+                                              //Pengumuman dipanggil
                                               builder: (context) =>
                                                   detailPengumuman(
                                                       iduser,
@@ -726,6 +754,8 @@ class _homePage extends State<homePage> {
                                         );
                                       },
                                       child: ItemCard(
+                                          //Setiap item card akan memiliki caption
+                                          //yang tedapat pada variabel caption
                                           images: item.toString(),
                                           captions:
                                               caption[cardList.indexOf(item)]
@@ -749,6 +779,7 @@ class _homePage extends State<homePage> {
       ///
       ///
       ///
+
 /////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
@@ -758,16 +789,22 @@ class _homePage extends State<homePage> {
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
           ),
+          //Dekorasi Kontainer pada Bottom Navigation Bar : posisi, bentuk, dan bayangan.
           child: ClipRRect(
+            //Membentuk posisi Bottom Navigation Bar agar bisa dipasangkan menu
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
             ),
             child: BottomNavigationBar(
+              //Widget untuk membuat tampilan Bottom Navigation Bar
               type: BottomNavigationBarType.fixed,
               showUnselectedLabels: true,
               unselectedItemColor: Colors.blue,
+              //Konfigurasi Bottom Navigation Bar
               items: <BottomNavigationBarItem>[
+                //Item yang terdapat pada Bottom Navigation Bar
+                //Berisikan icon dan label
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
                   label: "Home",
@@ -779,16 +816,18 @@ class _homePage extends State<homePage> {
               ],
               onTap: (index) {
                 if (index == 1) {
+                  //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => tiketSaya(this.iduser)),
                   );
                 } else if (index == 0) {}
+                //Jika item pertama ditekan maka tidak akan memanggil kelas, karena sudah
+                //berada pada halaman home
               },
             ),
           )),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 /////////////////////////////////////////////////////////Batas Akhir Pembuatan Bottom Navigation Bar////////////////////////////////////////
     );
   }

@@ -83,6 +83,20 @@ class _profile extends State<profile> {
         MaterialPageRoute(builder: (context) => profile(iduser)),
       );
     }
+    if (hasilDaftar == 'failed') {
+      Fluttertoast.showToast(
+          msg: "Gagal Ganti Profile Picture",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => profile(iduser)),
+      );
+    }
   }
 
   _profile(this.iduser);
@@ -97,7 +111,9 @@ class _profile extends State<profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
+        // widget Top Navigation Bar
         shape: RoundedRectangleBorder(
           //Bentuk Top Navigation Bar: Rounded Rectangle
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
@@ -578,6 +594,11 @@ class _profile extends State<profile> {
                   })
             ],
           )),
+//////////////////////////////////////Batas Akhir Pembuatan Body Halaman/////////////////////////////////////////////////////////////
+      ///
+      ///
+      ///
+/////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
