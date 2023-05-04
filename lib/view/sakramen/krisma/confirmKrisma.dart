@@ -19,7 +19,9 @@ class confirmKrisma {
   var key = 0;
   confirmKrisma(this.iduser, this.idGereja, this.idKrisma);
 
-  Future<List> callDb() async {
+  ///////////////////////Fungsi////////////////////////
+  ///////////////////////Fungsi////////////////////////
+  Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(
         'Agent Page',
@@ -111,7 +113,7 @@ class confirmKrisma {
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
               alignment: Alignment.center,
               title: Text("Konfirmasi Pendaftaran"),
-              content: FutureBuilder<List>(
+              content: FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {

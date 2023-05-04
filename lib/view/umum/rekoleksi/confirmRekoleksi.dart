@@ -15,7 +15,9 @@ class confirmRekoleksi {
   var hasil;
   confirmRekoleksi(this.iduser, this.idKegiatan);
 
-  Future<List> callDb() async {
+  ///////////////////////Fungsi////////////////////////
+  ///////////////////////Fungsi////////////////////////
+  Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(
         'Agent Page',
@@ -107,7 +109,7 @@ class confirmRekoleksi {
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
               alignment: Alignment.center,
               title: Text("Konfirmasi Pendaftaran"),
-              content: FutureBuilder<List>(
+              content: FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {

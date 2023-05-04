@@ -19,6 +19,7 @@ class tiketSayaPerkawinanHistory {
   var cancelPemberkatan;
   tiketSayaPerkawinanHistory(this.iduser, this.idPerkawinan);
 
+  ///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(

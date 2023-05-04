@@ -23,7 +23,9 @@ class tiketSayaDetailKomuni {
   tiketSayaDetailKomuni(
       this.iduser, this.idGereja, this.idKomuni, this.idUserKomuni);
 
-  Future<List> callDb() async {
+  ///////////////////////Fungsi////////////////////////
+  ///////////////////////Fungsi////////////////////////
+  Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(
         'Agent Page',
@@ -117,7 +119,7 @@ class tiketSayaDetailKomuni {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(32.0))),
             alignment: Alignment.center,
-            content: FutureBuilder<List>(
+            content: FutureBuilder(
                 future: callDb(),
                 builder: (context, AsyncSnapshot snapshot) {
                   try {

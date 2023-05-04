@@ -29,7 +29,9 @@ class _tiketSaya extends State<tiketSaya> {
 
   _tiketSaya(this.iduser);
 
-  Future<List> callDb() async {
+  ///////////////////////Fungsi////////////////////////
+  ///////////////////////Fungsi////////////////////////
+  Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(
         'Agent Page',
@@ -112,7 +114,7 @@ class _tiketSaya extends State<tiketSaya> {
             shrinkWrap: true,
             padding: EdgeInsets.only(right: 15, top: 10, left: 15),
             children: <Widget>[
-              FutureBuilder<List>(
+              FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
@@ -739,16 +741,16 @@ class _tiketSaya extends State<tiketSaya> {
               ],
               onTap: (index) {
                 if (index == 1) {
+                  //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(this.iduser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
+                  //Jika item pertama ditekan maka akan memanggil kelas homePage
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => homePage(this.iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

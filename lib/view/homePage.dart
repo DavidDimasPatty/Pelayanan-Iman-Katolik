@@ -823,8 +823,7 @@ class _homePage extends State<homePage> {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(this.iduser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {}
                 //Jika item pertama ditekan maka tidak akan memanggil kelas, karena sudah

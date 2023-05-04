@@ -30,7 +30,9 @@ class _Pemberkatan extends State<Pemberkatan> {
   final iduser;
   _Pemberkatan(this.iduser);
 
-  Future<List> callDb() async {
+  ///////////////////////Fungsi////////////////////////
+  ///////////////////////Fungsi////////////////////////
+  Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["sakramentali", "general"])); //Pembuatan pesan
@@ -52,12 +54,17 @@ class _Pemberkatan extends State<Pemberkatan> {
 
   @override
   void initState() {
+    //Saat kelas dipanggil fungsi ini akan dijalankan
+    //untuk mendapatkan data halaman yang diperoleh
+    //dari fungsi callDb
     super.initState();
     callDb().then((result) {
       setState(() {
-        hasil.addAll(result);
-        dummyTemp.addAll(result);
-        _controller.add(result);
+        hasil.addAll(result); //variabel hasil akan bernilai hasil dari call db
+        dummyTemp.addAll(
+            result); //variabel dummyTemp akan bernilai hasil dari call db
+        _controller.add(
+            result); //variabel controller akan terisi yang menandakan streamer mendapatkan sinyal data
       });
     });
   }
@@ -80,19 +87,33 @@ class _Pemberkatan extends State<Pemberkatan> {
   }
 
   filterSearchResults(String query) {
+    //Fungsi untuk melakukan filter data berdasarkan input pengguna
+    //yang akan ditampilkan pada halaman
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
+      //variabel untuk menyimpan data sementara
+
       for (var item in dummyTemp) {
+        //Setiap isi pada variabel dummyTemp akan diiterasi dan dicari
+        // berdasarkan parameter pencarian
         if (item['nama'].toLowerCase().contains(query.toLowerCase())) {
           listOMaps.add(item);
+          //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
+          //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
         }
       }
       setState(() {
+        // Secara dinamis data pada halaman akan berubah, caranya
+        // dengan menghapus seluruh nilai pada variabel hasil dan
+        // mengganti nilai dari variabel hasil dengan
+        // nilai pada variabel listOMaps
         hasil.clear();
         hasil.addAll(listOMaps);
       });
       return hasil; //Mengembalikan variabel hasil
     } else {
+      //Jika tidak ada input dari user maka data akan dikembalikan seperti
+      //semula secara dinamis
       setState(() {
         hasil.clear();
         hasil.addAll(dummyTemp);
@@ -101,8 +122,13 @@ class _Pemberkatan extends State<Pemberkatan> {
   }
 
   Future pullRefresh() async {
+    //Fungsi refresh halaman akan memanggil fungsi callDb
     callDb().then((result) {
       setState(() {
+        //Pemanggilan fungsi secara dinamis agar halaman terupdate secara otomatis
+        //Pada pemanggilan ini nilai pada variabel hasil dan dummyTemp dihapus semua
+        //agar dapat diisi dengan data yang baru, dan jumlah data di set menjadi 5
+        // secara default, lalu stream ditambah data agar mendapatkan sinyal
         data = 5;
         hasil.clear();
         dummyTemp.clear();
@@ -117,13 +143,16 @@ class _Pemberkatan extends State<Pemberkatan> {
   TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    _searchController.addListener(() async {
-      await filterSearchResults(_searchController.text);
+    _searchController.addListener(() {
+      //Listener untuk mendengarkan setiap perubahan pada input field
+      filterSearchResults(_searchController.text);
     });
     _scrollController.addListener(() {
+      //Listener untuk mendeteksi jika pengguna sudah sampai batas bawah halaman
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         setState(() {
+          //Jika sudah sampai bawah halaman data akan ditambah 5 secara dinamis
           data = data + 5;
         });
       }
@@ -321,16 +350,16 @@ class _Pemberkatan extends State<Pemberkatan> {
               ],
               onTap: (index) {
                 if (index == 1) {
+                  //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(this.iduser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
+                  //Jika item pertama ditekan maka akan memanggil kelas homePage
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => homePage(this.iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

@@ -13,6 +13,7 @@ import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/logIn.dart';
 
 ////////////Kelas Main
+///////////////////////Fungsi////////////////////////
 Future callDb() async {
   //Mengirim pesan untuk settingan aplikasi saat diluncurkan
   Completer<void> completer =

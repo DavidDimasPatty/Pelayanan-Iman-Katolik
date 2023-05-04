@@ -12,6 +12,7 @@ class tiketSayaDetailPemberkatan {
   var idPemberkatan;
   tiketSayaDetailPemberkatan(this.iduser, this.idPemberkatan);
 
+  ///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(

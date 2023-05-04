@@ -24,17 +24,29 @@ class Baptis extends StatefulWidget {
 }
 
 class _Baptis extends State<Baptis> {
+  /////////Konstruktor/////////////////
+  _Baptis(this.iduser);
+  ///////////////////////////////////
+  ////
+  ///
+  //////////Inisialisasi Variabel///////////
   var distance;
-
   List hasil = [];
   StreamController _controller = StreamController();
   ScrollController _scrollController = ScrollController();
   int data = 5;
   List dummyTemp = [];
   final iduser;
-  _Baptis(this.iduser);
-
-  callDb() async {
+  TextEditingController _searchController = TextEditingController();
+  ///////////////////////////////////////////
+  ///
+  ///
+  ///
+  ///
+  ///////////////////////Fungsi////////////////////////
+  Future callDb() async {
+    //Pengiriman pesan untuk mendapatkan data yang diperlukan
+    //untuk tampilan halaman
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["baptis", "general"])); //Pembuatan pesan
@@ -57,24 +69,32 @@ class _Baptis extends State<Baptis> {
 
   @override
   void initState() {
+    //Saat kelas dipanggil fungsi ini akan dijalankan
+    //untuk mendapatkan data halaman yang diperoleh
+    //dari fungsi callDb
     super.initState();
     callDb().then((result) {
       setState(() {
-        hasil.addAll(result);
-        dummyTemp.addAll(result);
-        _controller.add(result);
+        hasil.addAll(result); //variabel hasil akan bernilai hasil dari call db
+        dummyTemp.addAll(
+            result); //variabel dummyTemp akan bernilai hasil dari call db
+        _controller.add(
+            result); //variabel controller akan terisi yang menandakan streamer mendapatkan sinyal data
       });
     });
   }
 
   Future jarak(lat, lang) async {
+    //Fungsi untuk menghitung jarak pengguna terhadap lokasi Gereja
+    //Berdasarkan GPS Device
     Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+        desiredAccuracy: LocationAccuracy.high); // Mendapatkan posisi pengguna
 
     double distanceInMeters = Geolocator.distanceBetween(
-        lat, lang, position.latitude, position.longitude);
-
+        lat, lang, position.latitude, position.longitude); //Mengkalkulasikan
+    //jarak antara pengguna dengan lokasi Gereja
     if (distanceInMeters > 1000) {
+      //Jarak dijadikan KM atau M jika kurang dari 1 KM
       distanceInMeters = distanceInMeters / 1000;
       distance = distanceInMeters.toInt().toString() + " KM";
     } else {
@@ -84,21 +104,34 @@ class _Baptis extends State<Baptis> {
   }
 
   filterSearchResults(String query) {
+    //Fungsi untuk melakukan filter data berdasarkan input pengguna
+    //yang akan ditampilkan pada halaman
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
+      //variabel untuk menyimpan data sementara
 
       for (var item in dummyTemp) {
+        //Setiap isi pada variabel dummyTemp akan diiterasi dan dicari
+        // berdasarkan parameter pencarian
         if (item['GerejaBaptis'][0]['nama']
             .toLowerCase()
             .contains(query.toLowerCase())) {
           listOMaps.add(item);
+          //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
+          //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
         }
       }
       setState(() {
+        // Secara dinamis data pada halaman akan berubah, caranya
+        // dengan menghapus seluruh nilai pada variabel hasil dan
+        // mengganti nilai dari variabel hasil dengan
+        // nilai pada variabel listOMaps
         hasil.clear();
         hasil.addAll(listOMaps);
       });
     } else {
+      //Jika tidak ada input dari user maka data akan dikembalikan seperti
+      //semula secara dinamis
       setState(() {
         hasil.clear();
         hasil.addAll(dummyTemp);
@@ -107,8 +140,13 @@ class _Baptis extends State<Baptis> {
   }
 
   Future pullRefresh() async {
+    //Fungsi refresh halaman akan memanggil fungsi callDb
     callDb().then((result) {
       setState(() {
+        //Pemanggilan fungsi secara dinamis agar halaman terupdate secara otomatis
+        //Pada pemanggilan ini nilai pada variabel hasil dan dummyTemp dihapus semua
+        //agar dapat diisi dengan data yang baru, dan jumlah data di set menjadi 5
+        // secara default, lalu stream ditambah data agar mendapatkan sinyal
         data = 5;
         hasil.clear();
         dummyTemp.clear();
@@ -120,16 +158,22 @@ class _Baptis extends State<Baptis> {
     });
   }
 
-  TextEditingController _searchController = TextEditingController();
+//////////////////////Batas Akhir Fungsi////////////////////////
+  ///
+  ///
+  ///
   @override
   Widget build(BuildContext context) {
     _searchController.addListener(() {
+      //Listener untuk mendengarkan setiap perubahan pada input field
       filterSearchResults(_searchController.text);
     });
     _scrollController.addListener(() {
+      //Listener untuk mendeteksi jika pengguna sudah sampai batas bawah halaman
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
         setState(() {
+          //Jika sudah sampai bawah halaman data akan ditambah 5 secara dinamis
           data = data + 5;
         });
       }
@@ -405,18 +449,24 @@ class _Baptis extends State<Baptis> {
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
           ),
+          //Dekorasi Kontainer pada Bottom Navigation Bar : posisi, bentuk, dan bayangan.
           child: ClipRRect(
+            //Membentuk posisi Bottom Navigation Bar agar bisa dipasangkan menu
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
             ),
             child: BottomNavigationBar(
+              //Widget untuk membuat tampilan Bottom Navigation Bar
               type: BottomNavigationBarType.fixed,
               showUnselectedLabels: true,
               unselectedItemColor: Colors.blue,
+              //Konfigurasi Bottom Navigation Bar
               items: <BottomNavigationBarItem>[
+                //Item yang terdapat pada Bottom Navigation Bar
+                //Berisikan icon dan label
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home, color: Color.fromARGB(255, 0, 0, 0)),
+                  icon: Icon(Icons.home),
                   label: "Home",
                 ),
                 BottomNavigationBarItem(
@@ -426,16 +476,16 @@ class _Baptis extends State<Baptis> {
               ],
               onTap: (index) {
                 if (index == 1) {
+                  //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(this.iduser)),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
                   );
                 } else if (index == 0) {
+                  //Jika item pertama ditekan maka akan memanggil kelas homePage
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => homePage(this.iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(iduser)),
                   );
                 }
               },

@@ -34,7 +34,9 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
   final idKrisma;
   var hasil;
 
-  Future<List> callDb() async {
+  ///////////////////////Fungsi////////////////////////
+  ///////////////////////Fungsi////////////////////////
+  Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(
         'Agent Page',
@@ -114,7 +116,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
           onRefresh: pullRefresh,
           child: ListView(
             children: [
-              FutureBuilder<List>(
+              FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
                     try {
@@ -661,18 +663,24 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
           ),
+          //Dekorasi Kontainer pada Bottom Navigation Bar : posisi, bentuk, dan bayangan.
           child: ClipRRect(
+            //Membentuk posisi Bottom Navigation Bar agar bisa dipasangkan menu
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
             ),
             child: BottomNavigationBar(
+              //Widget untuk membuat tampilan Bottom Navigation Bar
               type: BottomNavigationBarType.fixed,
               showUnselectedLabels: true,
               unselectedItemColor: Colors.blue,
+              //Konfigurasi Bottom Navigation Bar
               items: <BottomNavigationBarItem>[
+                //Item yang terdapat pada Bottom Navigation Bar
+                //Berisikan icon dan label
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home, color: Color.fromARGB(255, 0, 0, 0)),
+                  icon: Icon(Icons.home),
                   label: "Home",
                 ),
                 BottomNavigationBarItem(
@@ -682,6 +690,7 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
               ],
               onTap: (index) {
                 if (index == 1) {
+                  //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => tiketSaya(iduser)),

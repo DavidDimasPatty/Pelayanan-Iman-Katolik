@@ -17,7 +17,9 @@ class tiketSayaDetailKegiatan {
   var idUserUmum;
   tiketSayaDetailKegiatan(this.iduser, this.idUserUmum, this.idUmum);
 
-  Future<List> callDb() async {
+  ///////////////////////Fungsi////////////////////////
+  ///////////////////////Fungsi////////////////////////
+  Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
         Tasks('cari pelayanan', ["umum", "detail", idUmum])); //Pembuatan pesan
@@ -102,7 +104,7 @@ class tiketSayaDetailKegiatan {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(32.0))),
             alignment: Alignment.center,
-            content: FutureBuilder<List>(
+            content: FutureBuilder(
                 future: callDb(),
                 builder: (context, AsyncSnapshot snapshot) {
                   try {
