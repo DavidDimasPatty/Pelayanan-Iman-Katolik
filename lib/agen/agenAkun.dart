@@ -17,10 +17,12 @@ import 'Plan.dart';
 
 class AgentAkun extends Agent {
   AgentAkun() {
+    //Konstruktor agen memanggil fungsi initAgent
     _initAgent();
   }
 
   static int _estimatedTime = 5;
+  //Batas waktu awal pengerjaan seluruh tugas agen
   static Map<String, int> _timeAction = {
     "login": _estimatedTime,
     "sign up": _estimatedTime,
@@ -35,7 +37,11 @@ class AgentAkun extends Agent {
     "log out": _estimatedTime
   };
 
+  //Daftar batas waktu pengerjaan masing-masing tugas
+
   Future<Messages> action(String goals, dynamic data, String sender) async {
+    //Daftar tindakan yang bisa dilakukan oleh agen, fungsi ini memilih tindakan
+    //berdasarkan tugas yang berada pada isi pesan
     switch (goals) {
       case "login":
         return _logIn(data.task.data, sender);
@@ -312,11 +318,14 @@ class AgentAkun extends Agent {
 
   @override
   addEstimatedTime(String goals) {
+    //Fungsi menambahkan batas waktu pengerjaan tugas dengan 1 detik
     _timeAction[goals] = _timeAction[goals]! + 1;
   }
 
   void _initAgent() {
+    //Inisialisasi identitas agen
     this.agentName = "Agent Akun";
+    //nama agen
     plan = [
       Plan("login", "REQUEST"),
       Plan("sign up", "REQUEST"),
@@ -330,6 +339,7 @@ class AgentAkun extends Agent {
       Plan("change profile picture", "REQUEST"),
       Plan("log out", "REQUEST"),
     ];
+    //Perencanaan agen
     goals = [
       Goals("login", List<Map<String, Object?>>, _timeAction["login"]),
       Goals("cari user", List<Map<String, Object?>>, _timeAction["cari user"]),
@@ -344,6 +354,6 @@ class AgentAkun extends Agent {
           _timeAction["change profile picture"]),
       Goals("log out", String, _timeAction["log out"]),
       Goals("sign up", String, _timeAction["sign up"]),
-    ];
+    ]; //goals agen
   }
 }
