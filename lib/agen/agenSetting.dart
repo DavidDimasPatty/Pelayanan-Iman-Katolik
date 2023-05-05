@@ -47,7 +47,7 @@ class AgentSetting extends Agent {
   }
 
   Future<Messages> _settingUser(dynamic data, String sender) async {
-    //Fungsi untuk mempesiapkan launch aplikasi
+    //Fungsi tindakan untuk mempesiapkan launch aplikasi
     var date = DateTime.now();
     var hour = date.hour;
     WidgetsFlutterBinding.ensureInitialized(); //Karena aplikasi
@@ -102,7 +102,7 @@ class AgentSetting extends Agent {
   }
 
   Future<Messages> _saveData(dynamic data, String sender) async {
-    //Fungsi menyimpan data akun pada lokal file
+    //Fungsi tindakan untuk menyimpan data akun pada lokal file
     //
     ///Mendapatkan path ke lokal file aplikasi//////////
     final directory = await getApplicationDocumentsDirectory();
@@ -130,7 +130,7 @@ class AgentSetting extends Agent {
   }
 
   Future<Messages> _logOut(dynamic data, String sender) async {
-    //Fungsi menghapus data akun pada lokal file
+    //Fungsi tindakan untuk menghapus data akun pada lokal file
     //
     ///Mendapatkan path ke lokal file aplikasi//////////
     final directory = await getApplicationDocumentsDirectory();

@@ -2,7 +2,8 @@ import 'package:mongo_dart/mongo_dart.dart';
 
 //Kelas model collection databse
 class modelDB {
-  //Model disesuaikan dengan nama, tipe data, dan key pada collection di GerejaDB//////
+  //Model disesuaikan dengan nama, tipe data,
+  // dan key pada collection di GerejaDB//////
   static user(
       String nama,
       String email,

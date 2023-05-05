@@ -50,6 +50,10 @@ class AgentPencarian extends Agent {
   }
 
   Future<Messages> _cariProfile(dynamic data, String sender) async {
+    //Fungsi tindakan yang digunakan untuk mencari data halaman profile
+    //dengan koordinasi dengan agen Akun
+    //
+    /////////////INISIALISASI VARIABEL////////////////////
     var userKrismaCollection =
         MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
     var userBaptisCollection =
@@ -64,10 +68,11 @@ class AgentPencarian extends Agent {
         MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
     var perkawinanCollection =
         MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
-
+///////////////////////////////////////////////////////////////
+    ///
+////////CARI JUMLAH PENDAFTARAN YANG MASIH AKTIF YANG DILAKUKAN PENGGUNA//////
     var countKr = await userKrismaCollection
         .find({'idUser': data[0], 'status': 0}).length;
-
     var countB = await userBaptisCollection
         .find({'idUser': data[0], 'status': 0}).length;
     var countKo = await userKomuniCollection
@@ -80,7 +85,7 @@ class AgentPencarian extends Agent {
         .find({'idUser': data[0], 'status': 0}).length;
     var countPerk = await perkawinanCollection
         .find({'idUser': data[0], 'status': 0}).length;
-
+/////////////////////////////////////////////////////////////////////////////
     Messages message = Messages(
         agentName,
         sender,
@@ -89,12 +94,16 @@ class AgentPencarian extends Agent {
           data[1],
           countKr + countB + countKo + countP + countKe + countPem + countPerk
         ]));
+    //mengirim pesan dengan isi data penjumlahan hasil pencarian
     return message;
   }
 
   Future<Messages> _checkPendaftaran(dynamic data, String sender) async {
+    //Fungsi tindakan untuk mengecek apakah pengguna sudah mendaftar pelayanan
+    //berkoordinasi dengan agen Pendaftaran
     var pelayananCollection;
     String id = "";
+    //////Inisialisasi pelayanan berdasarkan data[0]///////////////////////////
     if (data[0] == "baptis") {
       pelayananCollection = MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
       id = "idBaptis";
@@ -112,21 +121,22 @@ class AgentPencarian extends Agent {
       pelayananCollection = MongoDatabase.db.collection(USER_UMUM_COLLECTION);
       id = "idKegiatan";
     }
-
+    //////////////////////////////////////////////////////////////////////////////
     var hasil = await pelayananCollection
         .find(where.eq(id, data[1]).eq("idUser", data[2]).eq("status", 0))
         .length;
-
+    //Mencari jumlah data yang pernah didaftarkan pengguna terhadap suatu pelayanan
     if (hasil == 0) {
+      //Jika belum pernah mendaftar maka akan dikirim pesan pada agen Pendaftaran
+      //dengan isi pesan "enroll pelayanan" dan data
       Completer<void> completer = Completer<void>(); //variabel untuk menunggu
       Messages message2 = Messages(sender, 'Agent Pendaftaran', "REQUEST",
           Tasks('enroll pelayanan', data));
       MessagePassing messagePassing2 = MessagePassing();
       await messagePassing2.sendMessage(message2);
-
+      //Mengirim pesan kepada agen Pendaftaran
       Messages message = Messages(
           agentName, sender, "INFORM", Tasks('done', "Wait agent pendaftaran"));
-      // Future.delayed(Duration(seconds: 1));
       completer.complete(); //Batas pengerjaan yang memerlukan completer
 
       await completer
@@ -134,6 +144,7 @@ class AgentPencarian extends Agent {
       //memiliki nilai
       return await message;
     } else {
+      //Jika pengguna sudah pernah mendaftar kepada suatu pelayanan
       Messages message = Messages(
           agentName, sender, "INFORM", Tasks('hasil pencarian', "sudah"));
       return message;
@@ -141,16 +152,22 @@ class AgentPencarian extends Agent {
   }
 
   Future<Messages> _cariJadwalPendaftaran(dynamic data, String sender) async {
+    //Fungsi tindakan untuk mencari data tampilan halaman jadwal dan history jadwal
     dynamic statusQuery;
     dynamic statusPemPer;
+
     if (data[0] == "current") {
+      //Jika data[0] "current" yang berarti untuk halaman jadwal
       statusQuery = where.eq('idUser', data[1]).eq('status', 0).map['\$query'];
       statusPemPer = {'idUser': data[1], 'status': 0};
     }
     if (data[0] == "history") {
+      //Jika data[0] "history" yang berarti untuk halaman history jadwal
       statusQuery = where.eq('idUser', data[1]).ne('status', 0).map['\$query'];
       statusPemPer = {'idUser': data[1]};
     }
+
+    ////////Melakukan join pada masing masing pelayanan dengan UserPelayanan//////
     var userKegiatanCollection =
         MongoDatabase.db.collection(USER_UMUM_COLLECTION);
     final pipeline1 = AggregationPipelineBuilder()
@@ -218,7 +235,7 @@ class AgentPencarian extends Agent {
     var perkawinanCollection =
         MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
     var resPerkawinan = await perkawinanCollection.find(statusPemPer).toList();
-
+////////////////////////////////////////////////////////////////////////////////////
     Messages message = Messages(
         agentName,
         sender,
@@ -231,13 +248,13 @@ class AgentPencarian extends Agent {
           resPemberkatan,
           resPerkawinan
         ]));
+    //Membuat pesan yang berisikan data hasil pencarian dan pencarian dengan join
     return message;
   }
 
   Future<Messages> _cariTampilanHome(dynamic data, String sender) async {
-    // var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
-    // var dataUser = await userCollection.find({'_id': data[0]}).toList();
-
+    //Fungsi tindakan untuk mencari data yang dibutuhkan oleh halaman home
+    ////////////////////INISIALISASI VARIABEL////////////////////////////
     var userKrismaCollection =
         MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
     var userBaptisCollection =
@@ -246,12 +263,13 @@ class AgentPencarian extends Agent {
         MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
     var perkawinanCollection =
         MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
-
     var pemberkatanCollection =
         MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
-
     var userKegiatanCollection =
         MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+    //////////////////////////////////////////////////////////////////////
+    ///
+////////Mencari pendaftaran masing-masing pelayanan pengguna dengan waktu terdekat///////////
     var dateKri = await userKrismaCollection
         .find(where
             .eq("idUser", data[0])
@@ -297,7 +315,9 @@ class AgentPencarian extends Agent {
             .sortBy('tanggal', descending: true)
             .limit(1))
         .toList();
-
+///////////////////////////////////////////////////////////////////////
+    ///
+//////////Membandingkan masing-masing pelayanan siapa yang paling dekat waktu mulainya/////////
     DateTime ans = DateTime.utc(1989, 11, 9);
     var hasil = null;
     try {
@@ -348,15 +368,18 @@ class AgentPencarian extends Agent {
         hasil = datePerk;
       }
     } catch (e) {}
-
+//////////////////////////////////////////////////////////////////////////////////
+    ///
+    ///Mencari pengumuman data hanya diambil ke 4 terbaru////////////////////
     var gambarGerejaCollection =
         MongoDatabase.db.collection(GAMBAR_GEREJA_COLLECTION);
     var connGambar = await gambarGerejaCollection
         .find(
             where.sortBy('tanggal', descending: false).eq("status", 0).limit(4))
         .toList();
-
+/////////////////////////////////////////////////////////////////////////
     if (hasil != null) {
+      ///Jika pengguna pernah melakukan pendaftaran ke salah satu pelayanan aktif
       var jadwalCollection = MongoDatabase.db.collection(GEREJA_COLLECTION);
       var conn =
           await jadwalCollection.find({'_id': hasil[0]['idGereja']}).toList();
@@ -364,6 +387,7 @@ class AgentPencarian extends Agent {
           Tasks('hasil pencarian', [data[1], conn, hasil, connGambar]));
       return message;
     } else {
+      ///Jika pengguna tidak pernah melakukan pendaftaran ke salah satu pelayanan aktif
       Messages message = Messages(agentName, sender, "INFORM",
           Tasks('hasil pencarian', [data[1], null, hasil, connGambar]));
       return message;
@@ -371,9 +395,11 @@ class AgentPencarian extends Agent {
   }
 
   Future<Messages> _cariPengumuman(dynamic data, String sender) async {
+    //Fungsi tindakan untuk mencari data pada halaman pengumuman dan detail pengumuman
     var pengumumanCollection =
         MongoDatabase.db.collection(GAMBAR_GEREJA_COLLECTION);
     if (data[0] == "general") {
+      //Jika data[0] = general maka untuk halaman pengumuman
       final pipeline = AggregationPipelineBuilder()
           .addStage(Lookup(
               from: 'Gereja',
@@ -391,6 +417,7 @@ class AgentPencarian extends Agent {
           Messages(agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
       return message;
     } else {
+      //Jika data[0] != general maka untuk halaman detail pengumuman
       var pengumumanCollection =
           MongoDatabase.db.collection(GAMBAR_GEREJA_COLLECTION);
       final pipeline = AggregationPipelineBuilder()
@@ -405,11 +432,14 @@ class AgentPencarian extends Agent {
           await pengumumanCollection.aggregateToStream(pipeline).toList();
       Messages message =
           Messages(agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
+      //Membuat pesan yang berisikan hasil pencarian
       return message;
     }
   }
 
   Future<Messages> _cariPelayanan(dynamic data, String sender) async {
+    //Fungsi tindakan agen Pencarian untuk mencari data yang dibutuhkan pada
+    //halaman pelayanan dan detail pelayanan
     var pelayananCollection;
     var aturanCollection =
         MongoDatabase.db.collection(ATURAN_PELAYANAN_COLLECTION);
@@ -430,6 +460,7 @@ class AgentPencarian extends Agent {
         as = "GerejaKrisma";
       }
       if (data[1] == "general") {
+        //Jika data[1] = general maka pencarian pada data halaman pelayanan
         final pipeline = AggregationPipelineBuilder()
             .addStage(Match(where
                 .eq('status', 0)
@@ -448,6 +479,7 @@ class AgentPencarian extends Agent {
             agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
         return message;
       } else {
+        //Jika data[1] != general maka pencarian pada data halaman detail pelayanan
         var aturan =
             await aturanCollection.find(where.eq("idGereja", data[3])).toList();
 
@@ -499,11 +531,13 @@ class AgentPencarian extends Agent {
         status = "statusPemberkatan";
       }
       if (data[1] == "history") {
+        //Jika data[1] = history maka pencarian untuk halaman history pelayanan
         var conn = await pelayanan2Collection.find({'_id': data[2]}).toList();
         Messages message = Messages(
             agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
         return message;
       } else if (data[1] == "general") {
+        //Jika data[1] = general maka pencarian untuk halaman pelayanan
         pelayananCollection = MongoDatabase.db.collection(GEREJA_COLLECTION);
         final pipeline = AggregationPipelineBuilder()
             .addStage(Lookup(

@@ -15,6 +15,8 @@ class AgentPage extends Agent {
 
   @override
   int canPerformTask(Messages message) {
+    //Karena data error tetap diterima oleh agen Page maka
+    //fungsi canPerformTask di override oleh agen Page
     if (message.task.action == "error") {
       return 1;
     } else {
@@ -29,6 +31,8 @@ class AgentPage extends Agent {
 
   @override
   Future performTask() async {
+    //Karena agen page tidak mengecek goals maka
+    //fungsi performTask override fungsi superclass
     Messages msg = MessageList.last;
     String sender = SenderList.last;
     dynamic task = msg.task;
@@ -42,10 +46,13 @@ class AgentPage extends Agent {
   }
 
   static void _messageSetData(task) {
+    //Menyimpan data pada list
     dataView.add(task);
   }
 
   static Future getData() async {
+    //Fungsi untuk view mengambil data yang tersedia
+    //pada agen Page
     return dataView.last;
   }
 
