@@ -150,6 +150,8 @@ class _profile extends State<profile> {
               FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
+                    //Pemanggilan fungsi, untuk mendapatkan data
+                    //yang dibutuhkan oleh tampilan halaman
                     try {
                       return Column(children: <Widget>[
                         Padding(padding: EdgeInsets.symmetric(vertical: 2)),
@@ -469,6 +471,10 @@ class _profile extends State<profile> {
                             Container(
                               width: 300.00,
                               child: RaisedButton(
+                                  //Widget yang membuat tombol, pada widget ini
+                                  //tombol memiliki aksi jika ditekan (onPressed),
+                                  //dan memiliki dekorasi seperti(warna,child yang
+                                  //berupa widgetText, dan bentuk tombol)
                                   onPressed: () async {
                                     await ImagePicker()
                                         .pickImage(source: ImageSource.gallery);
@@ -509,6 +515,10 @@ class _profile extends State<profile> {
                             Container(
                               width: 300.00,
                               child: RaisedButton(
+                                  //Widget yang membuat tombol, pada widget ini
+                                  //tombol memiliki aksi jika ditekan (onPressed),
+                                  //dan memiliki dekorasi seperti(warna,child yang
+                                  //berupa widgetText, dan bentuk tombol)
                                   onPressed: () async {
                                     Navigator.push(
                                       context,
@@ -552,6 +562,10 @@ class _profile extends State<profile> {
                             Container(
                               width: 300.00,
                               child: RaisedButton(
+                                  //Widget yang membuat tombol, pada widget ini
+                                  //tombol memiliki aksi jika ditekan (onPressed),
+                                  //dan memiliki dekorasi seperti(warna,child yang
+                                  //berupa widgetText, dan bentuk tombol)
                                   onPressed: () async {
                                     Navigator.push(
                                       context,
@@ -596,6 +610,8 @@ class _profile extends State<profile> {
                         )
                       ]);
                     } catch (e) {
+                      //Jika data yang ditampilkan masih menunggu/ salah dalam
+                      //pemanggilan data
                       print(e);
                       return Center(child: CircularProgressIndicator());
                     }

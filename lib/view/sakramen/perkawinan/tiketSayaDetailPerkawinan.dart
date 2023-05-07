@@ -100,6 +100,8 @@ class tiketSayaDetailPerkawinan {
   }
 
   void showDialogBox(BuildContext context) async {
+    //Pembuatan dialog box dan pemanggilan data
+    //yang dibutuhkan pada dialog box
     // await callInfoPembarkatan(idPerkawinan);
     showDialog<void>(
         context: context,
@@ -111,6 +113,8 @@ class tiketSayaDetailPerkawinan {
               content: FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
+                    //Pemanggilan fungsi, untuk mendapatkan data
+                    //yang dibutuhkan oleh tampilan halaman
                     try {
                       return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -118,7 +122,9 @@ class tiketSayaDetailPerkawinan {
                           children: <Widget>[
                             Column(
                               children: <Widget>[
-                                _getCloseButton(context),
+                                _getCloseButton(
+                                    context), //Menampilkan tombol close dialog box
+
                                 Text(
                                   "Detail Jadwal",
                                   style: TextStyle(
@@ -157,6 +163,10 @@ class tiketSayaDetailPerkawinan {
                             ),
                             Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                             RaisedButton(
+                                //Widget yang membuat tombol, pada widget ini
+                                //tombol memiliki aksi jika ditekan (onPressed),
+                                //dan memiliki dekorasi seperti(warna,child yang
+                                //berupa widgetText, dan bentuk tombol)
                                 onPressed: () async {
                                   cancelDaftar(context);
                                 },
@@ -191,6 +201,8 @@ class tiketSayaDetailPerkawinan {
                                 )),
                           ]);
                     } catch (e) {
+                      //Jika data yang ditampilkan masih menunggu/ salah dalam
+                      //pemanggilan data
                       print(e);
                       return Center(child: CircularProgressIndicator());
                     }

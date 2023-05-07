@@ -118,6 +118,8 @@ class _tiketSaya extends State<tiketSaya> {
               FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
+                    //Pemanggilan fungsi, untuk mendapatkan data
+                    //yang dibutuhkan oleh tampilan halaman
                     try {
                       return Column(children: <Widget>[
                         Padding(
@@ -702,6 +704,8 @@ class _tiketSaya extends State<tiketSaya> {
                         ])
                       ]);
                     } catch (e) {
+                      //Jika data yang ditampilkan masih menunggu/ salah dalam
+                      //pemanggilan data
                       print(e);
                       return Center(child: CircularProgressIndicator());
                     }

@@ -216,6 +216,10 @@ class logIn extends StatelessWidget {
                           SizedBox(
                             width: double.infinity,
                             child: RaisedButton(
+                                //Widget yang membuat tombol, pada widget ini
+                                //tombol memiliki aksi jika ditekan (onPressed),
+                                //dan memiliki dekorasi seperti(warna,child yang
+                                //berupa widgetText, dan bentuk tombol)
                                 textColor: Colors.white,
                                 color: Colors.lightBlue,
                                 child: Text("logIn"),

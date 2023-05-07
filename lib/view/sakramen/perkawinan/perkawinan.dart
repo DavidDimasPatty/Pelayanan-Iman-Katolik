@@ -246,6 +246,7 @@ class _Perkawinan extends State<Perkawinan> {
                   try {
                     return Column(children: [
                       for (var i in hasil.take(data))
+                        //Iterasi sebanyak nilai variabel data pada nilai hasil
                         InkWell(
                           borderRadius: new BorderRadius.circular(24),
                           onTap: () {

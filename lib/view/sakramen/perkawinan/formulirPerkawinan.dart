@@ -502,6 +502,10 @@ class _FormulirPerkawinan extends State<FormulirPerkawinan> {
             padding: EdgeInsets.symmetric(vertical: 11),
           ),
           RaisedButton(
+              //Widget yang membuat tombol, pada widget ini
+              //tombol memiliki aksi jika ditekan (onPressed),
+              //dan memiliki dekorasi seperti(warna,child yang
+              //berupa widgetText, dan bentuk tombol)
               onPressed: () async {
                 submitForm(
                     namaPriaController.text,

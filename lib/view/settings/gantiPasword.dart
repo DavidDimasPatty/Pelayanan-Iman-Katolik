@@ -220,6 +220,10 @@ class gantiPassword extends StatelessWidget {
                       EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   children: [
                     RaisedButton(
+                        //Widget yang membuat tombol, pada widget ini
+                        //tombol memiliki aksi jika ditekan (onPressed),
+                        //dan memiliki dekorasi seperti(warna,child yang
+                        //berupa widgetText, dan bentuk tombol)
                         child: Text("Ganti Password"),
                         textColor: Colors.white,
                         color: Colors.blueAccent,

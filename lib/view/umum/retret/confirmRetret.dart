@@ -99,6 +99,8 @@ class confirmRetret {
   }
 
   void showDialogBox(BuildContext context) async {
+    //Pembuatan dialog box dan pemanggilan data
+    //yang dibutuhkan pada dialog box
     await callDb();
     showDialog<void>(
         context: context,
@@ -111,6 +113,8 @@ class confirmRetret {
               content: FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
+                    //Pemanggilan fungsi, untuk mendapatkan data
+                    //yang dibutuhkan oleh tampilan halaman
                     try {
                       return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -129,6 +133,8 @@ class confirmRetret {
                               )
                           ]);
                     } catch (e) {
+                      //Jika data yang ditampilkan masih menunggu/ salah dalam
+                      //pemanggilan data
                       print(e);
                       return Center(child: CircularProgressIndicator());
                     }
@@ -138,6 +144,10 @@ class confirmRetret {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RaisedButton(
+                          //Widget yang membuat tombol, pada widget ini
+                          //tombol memiliki aksi jika ditekan (onPressed),
+                          //dan memiliki dekorasi seperti(warna,child yang
+                          //berupa widgetText, dan bentuk tombol)
                           child: Text('Confirm'),
                           textColor: Colors.white,
                           color: Colors.blueAccent,
@@ -147,6 +157,10 @@ class confirmRetret {
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
                       RaisedButton(
+                          //Widget yang membuat tombol, pada widget ini
+                          //tombol memiliki aksi jika ditekan (onPressed),
+                          //dan memiliki dekorasi seperti(warna,child yang
+                          //berupa widgetText, dan bentuk tombol)
                           child: Text('Cancel'),
                           textColor: Colors.white,
                           color: Colors.blueAccent,

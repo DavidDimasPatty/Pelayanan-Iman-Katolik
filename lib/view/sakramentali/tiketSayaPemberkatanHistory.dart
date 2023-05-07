@@ -61,6 +61,8 @@ class tiketSayaPemberkatanHistory {
   }
 
   void showDialogBox(BuildContext context) async {
+    //Pembuatan dialog box dan pemanggilan data
+    //yang dibutuhkan pada dialog box
     showDialog<void>(
         context: context,
         builder: (BuildContext context) {
@@ -71,6 +73,8 @@ class tiketSayaPemberkatanHistory {
               content: FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
+                    //Pemanggilan fungsi, untuk mendapatkan data
+                    //yang dibutuhkan oleh tampilan halaman
                     try {
                       return Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +82,8 @@ class tiketSayaPemberkatanHistory {
                           children: <Widget>[
                             Column(
                               children: <Widget>[
-                                _getCloseButton(context),
+                                _getCloseButton(
+                                    context), //Menampilkan tombol close dialog box
                                 Text(
                                   "Detail Jadwal",
                                   style: TextStyle(
@@ -113,6 +118,8 @@ class tiketSayaPemberkatanHistory {
                             )
                           ]);
                     } catch (e) {
+                      //Jika data yang ditampilkan masih menunggu/ salah dalam
+                      //pemanggilan data
                       print(e);
                       return Center(child: CircularProgressIndicator());
                     }

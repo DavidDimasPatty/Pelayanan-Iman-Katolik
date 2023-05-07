@@ -120,6 +120,8 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
               FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
+                    //Pemanggilan fungsi, untuk mendapatkan data
+                    //yang dibutuhkan oleh tampilan halaman
                     try {
                       return Column(
                         // shrinkWrap: true,
@@ -268,6 +270,8 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                               ],
                                                             ),
                                                             SizedBox(
+                                                              //Untuk memberi jarak
+                                                              //antar widget
                                                               height: 8.0,
                                                             ),
                                                             Row(
@@ -313,6 +317,8 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                               ],
                                                             ),
                                                             SizedBox(
+                                                              //Untuk memberi jarak
+                                                              //antar widget
                                                               height: 8.0,
                                                             ),
                                                             Row(
@@ -356,6 +362,8 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                               ],
                                                             ),
                                                             SizedBox(
+                                                              //Untuk memberi jarak
+                                                              //antar widget
                                                               height: 8.0,
                                                             ),
                                                             Row(
@@ -397,6 +405,8 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                               ],
                                                             ),
                                                             SizedBox(
+                                                              //Untuk memberi jarak
+                                                              //antar widget
                                                               height: 8.0,
                                                             ),
                                                             Row(
@@ -443,6 +453,8 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                                               ],
                                                             ),
                                                             SizedBox(
+                                                              //Untuk memberi jarak
+                                                              //antar widget
                                                               height: 8.0,
                                                             ),
                                                             Row(
@@ -558,6 +570,10 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                 height: 10.0,
                               ),
                               RaisedButton(
+                                  //Widget yang membuat tombol, pada widget ini
+                                  //tombol memiliki aksi jika ditekan (onPressed),
+                                  //dan memiliki dekorasi seperti(warna,child yang
+                                  //berupa widgetText, dan bentuk tombol)
                                   onPressed: () async {
                                     showDirectionWithFirstMap(Coords(
                                         snapshot.data[0][0]['GerejaKrisma'][0]
@@ -598,6 +614,10 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                                 height: 20.0,
                               ),
                               RaisedButton(
+                                  //Widget yang membuat tombol, pada widget ini
+                                  //tombol memiliki aksi jika ditekan (onPressed),
+                                  //dan memiliki dekorasi seperti(warna,child yang
+                                  //berupa widgetText, dan bentuk tombol)
                                   onPressed: () async {
                                     confirmKrisma(
                                       iduser,
@@ -645,6 +665,8 @@ class _detailDaftarKrisma extends State<detailDaftarKrisma> {
                         ],
                       );
                     } catch (e) {
+                      //Jika data yang ditampilkan masih menunggu/ salah dalam
+                      //pemanggilan data
                       print(e);
                       return Center(child: CircularProgressIndicator());
                     }

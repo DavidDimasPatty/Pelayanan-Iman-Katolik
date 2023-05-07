@@ -29,7 +29,7 @@ class AgentSetting extends Agent {
   //Daftar batas waktu pengerjaan masing-masing tugas
 
   Future<Messages> action(String goals, dynamic data, String sender) async {
-    //Daftar tindakan yang bisa dilakukan oleh agen, fungsi ini memilih tindakan
+    //Daftar fungsi tindakan yang bisa dilakukan oleh agen, fungsi ini memilih tindakan
     //berdasarkan tugas yang berada pada isi pesan
     switch (goals) {
       case "setting user":

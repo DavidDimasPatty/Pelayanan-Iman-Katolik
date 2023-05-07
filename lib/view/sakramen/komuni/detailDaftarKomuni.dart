@@ -538,6 +538,10 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                               height: 10.0,
                             ),
                             RaisedButton(
+                                //Widget yang membuat tombol, pada widget ini
+                                //tombol memiliki aksi jika ditekan (onPressed),
+                                //dan memiliki dekorasi seperti(warna,child yang
+                                //berupa widgetText, dan bentuk tombol)
                                 onPressed: () async {
                                   showDirectionWithFirstMap(Coords(
                                       snapshot.data[0][0]['GerejaKomuni'][0]
@@ -577,6 +581,10 @@ class _detailDaftarKomuni extends State<detailDaftarKomuni> {
                               height: 20.0,
                             ),
                             RaisedButton(
+                                //Widget yang membuat tombol, pada widget ini
+                                //tombol memiliki aksi jika ditekan (onPressed),
+                                //dan memiliki dekorasi seperti(warna,child yang
+                                //berupa widgetText, dan bentuk tombol)
                                 onPressed: () async {
                                   confirmKomuni(
                                     iduser,

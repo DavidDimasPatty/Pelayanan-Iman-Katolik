@@ -59,6 +59,8 @@ class tiketSayaKegiatanHistory {
   }
 
   void showDialogBox(BuildContext context) async {
+    //Pembuatan dialog box dan pemanggilan data
+    //yang dibutuhkan pada dialog box
     await callDb();
     // await callInfoGereja(idGereja);
     showDialog<void>(
@@ -78,7 +80,8 @@ class tiketSayaKegiatanHistory {
                         children: <Widget>[
                           Column(
                             children: <Widget>[
-                              _getCloseButton(context),
+                              _getCloseButton(
+                                  context), //Menampilkan tombol close dialog box
                               Text(
                                 "Detail Jadwal",
                                 style: TextStyle(

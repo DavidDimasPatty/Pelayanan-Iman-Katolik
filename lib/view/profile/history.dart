@@ -116,6 +116,8 @@ class _history extends State<history> {
               FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
+                    //Pemanggilan fungsi, untuk mendapatkan data
+                    //yang dibutuhkan oleh tampilan halaman
                     try {
                       return Column(children: <Widget>[
                         Padding(
@@ -127,6 +129,7 @@ class _history extends State<history> {
                                   color: Colors.black, fontSize: 23.0),
                             )),
                         if (snapshot.data[0].length == 0)
+                          //Jika belum pernah mendaftar pelayanan
                           Padding(
                               padding: EdgeInsets.symmetric(
                                   vertical: 10, horizontal: 8),
@@ -137,6 +140,8 @@ class _history extends State<history> {
                               )),
                         if (snapshot.data[0].length != 0)
                           for (var i in snapshot.data[0])
+                            //Iterasi untuk mengambil data pelayanan baptis
+                            //yang pernah didaftar pengguna
                             InkWell(
                                 borderRadius: new BorderRadius.circular(24),
                                 onTap: () {
@@ -206,7 +211,8 @@ class _history extends State<history> {
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 23.0),
                                 )),
-                            if (snapshot.data[1].length == 0)
+                            if (snapshot.data[1].length ==
+                                0) //Jika belum pernah mendaftar pelayanan
                               Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 8),
@@ -217,6 +223,8 @@ class _history extends State<history> {
                                   )),
                             if (snapshot.data[1].length != 0)
                               for (var i in snapshot.data[1])
+                                //Iterasi untuk mengambil data pelayanan Komuni
+                                //yang pernah didaftar pengguna
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
@@ -260,15 +268,6 @@ class _history extends State<history> {
                                                 fontSize: 16.0,
                                                 fontWeight: FontWeight.w300),
                                           ),
-                                          // Text(
-                                          //   "Nama Gereja : " +
-                                          //       snapshot.data[0]['nama']
-                                          //           .toString(),
-                                          //   style: TextStyle(
-                                          //       color: Colors.white,
-                                          //       fontSize: 15.0,
-                                          //       fontWeight: FontWeight.w300),
-                                          // ),
                                           Text(
                                             i['status'] == 0
                                                 ? ' Status : Belum Hadir'
@@ -298,7 +297,8 @@ class _history extends State<history> {
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 23.0),
                                 )),
-                            if (snapshot.data[2].length == 0)
+                            if (snapshot.data[2].length ==
+                                0) //Jika belum pernah mendaftar pelayanan
                               Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 8),
@@ -308,7 +308,9 @@ class _history extends State<history> {
                                         color: Colors.grey, fontSize: 15.0),
                                   )),
                             if (snapshot.data[2].length != 0)
-                              for (var i in snapshot.data[2])
+                              for (var i in snapshot.data[
+                                  2]) //Iterasi untuk mengambil data pelayanan Krisma
+                                //yang pernah didaftar pengguna
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
@@ -380,7 +382,8 @@ class _history extends State<history> {
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 20.0),
                               )),
-                          if (snapshot.data[3].length == 0)
+                          if (snapshot.data[3].length ==
+                              0) //Jika belum pernah mendaftar pelayanan
                             Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 8),
@@ -390,7 +393,9 @@ class _history extends State<history> {
                                       color: Colors.grey, fontSize: 15.0),
                                 )),
                           if (snapshot.data[3].length != 0)
-                            for (var i in snapshot.data[3])
+                            for (var i in snapshot.data[
+                                3]) //Iterasi untuk mengambil data pelayanan Kegiatan Umum
+                              //yang pernah didaftar pengguna
                               InkWell(
                                   borderRadius: new BorderRadius.circular(24),
                                   onTap: () {
@@ -461,7 +466,8 @@ class _history extends State<history> {
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 23.0),
                                   )),
-                              if (snapshot.data[4].length == 0)
+                              if (snapshot.data[4].length ==
+                                  0) //Jika belum pernah mendaftar pelayanan
                                 Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: 10, horizontal: 8),
@@ -472,6 +478,8 @@ class _history extends State<history> {
                                     )),
                               if (snapshot.data[4].length != 0)
                                 for (var i in snapshot.data[4])
+                                  //Iterasi untuk mengambil data pelayanan Sakramentali
+                                  //yang pernah didaftar pengguna
                                   InkWell(
                                       borderRadius:
                                           new BorderRadius.circular(24),
@@ -582,7 +590,8 @@ class _history extends State<history> {
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 23.0),
                                 )),
-                            if (snapshot.data[5].length == 0)
+                            if (snapshot.data[5].length ==
+                                0) //Jika belum pernah mendaftar pelayanan
                               Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 8),
@@ -593,6 +602,8 @@ class _history extends State<history> {
                                   )),
                             if (snapshot.data[5].length != 0)
                               for (var i in snapshot.data[5])
+                                //Iterasi untuk mengambil data pelayanan Perkawinan
+                                //yang pernah didaftar pengguna
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
@@ -690,6 +701,8 @@ class _history extends State<history> {
                         )
                       ]);
                     } catch (e) {
+                      //Jika data yang ditampilkan masih menunggu/ salah dalam
+                      //pemanggilan data
                       print(e);
                       return Center(child: CircularProgressIndicator());
                     }

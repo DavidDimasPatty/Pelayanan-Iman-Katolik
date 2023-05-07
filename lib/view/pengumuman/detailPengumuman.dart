@@ -100,6 +100,8 @@ class _detailPengumuman extends State<detailPengumuman> {
               FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
+                    //Pemanggilan fungsi, untuk mendapatkan data
+                    //yang dibutuhkan oleh tampilan halaman
                     try {
                       return Column(
                         children: <Widget>[
@@ -290,6 +292,8 @@ class _detailPengumuman extends State<detailPengumuman> {
                         /////////
                       );
                     } catch (e) {
+                      //Jika data yang ditampilkan masih menunggu/ salah dalam
+                      //pemanggilan data
                       print(e);
                       return Center(child: CircularProgressIndicator());
                     }

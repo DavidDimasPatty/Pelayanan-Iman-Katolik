@@ -59,6 +59,10 @@ class privacySafety extends StatelessWidget {
           padding: EdgeInsets.all(20.0),
           children: <Widget>[
             RaisedButton(
+                //Widget yang membuat tombol, pada widget ini
+                //tombol memiliki aksi jika ditekan (onPressed),
+                //dan memiliki dekorasi seperti(warna,child yang
+                //berupa widgetText, dan bentuk tombol)
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -96,6 +100,10 @@ class privacySafety extends StatelessWidget {
                 )),
             Padding(padding: EdgeInsets.symmetric(vertical: 14)),
             RaisedButton(
+                //Widget yang membuat tombol, pada widget ini
+                //tombol memiliki aksi jika ditekan (onPressed),
+                //dan memiliki dekorasi seperti(warna,child yang
+                //berupa widgetText, dan bentuk tombol)
                 onPressed: () {
                   Navigator.push(
                       context,

@@ -110,14 +110,18 @@ class _detailPerminyakan extends State<detailPerminyakan> {
               FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
+                    //Pemanggilan fungsi, untuk mendapatkan data
+                    //yang dibutuhkan oleh tampilan halaman
                     try {
                       return ListView(
+                        //Struktur halaman akan dibuat list
+                        //agar halaman bisa di scroll kebawah
                         shrinkWrap: true,
                         padding: EdgeInsets.all(20.0),
                         children: <Widget>[
-                          /////////
-                          ///
                           Card(
+                            //Membuat kartu berbentuk oval
+                            //untuk tempat penampilan data
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30.0),
                             ),
@@ -132,6 +136,7 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                               child: Row(
                                 children: <Widget>[
                                   Expanded(
+                                    //Menampilkan data aturan pelayanan
                                     child: Column(
                                       children: <Widget>[
                                         Column(
@@ -211,6 +216,8 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                               if (snapshot.data[0][0]
                                                       ['picture'] ==
                                                   null)
+                                                //Jika data tidak mempunyai gambar ditampilkan
+                                                //gambar default
                                                 CircleAvatar(
                                                   backgroundImage:
                                                       AssetImage(''),
@@ -221,6 +228,8 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                               if (snapshot.data[0][0]
                                                       ['picture'] !=
                                                   null)
+                                                //Jika data mempunyai gambar ditampilkan
+                                                //gambar
                                                 CircleAvatar(
                                                   backgroundImage: NetworkImage(
                                                       snapshot.data[0][0]
@@ -281,6 +290,8 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                                           .w300),
                                                             ),
                                                             SizedBox(
+                                                              //Untuk memberi jarak
+                                                              //antar widget
                                                               height: 10.0,
                                                             ),
                                                             Text(
@@ -298,6 +309,8 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                                           .w300),
                                                             ),
                                                             SizedBox(
+                                                              //Untuk memberi jarak
+                                                              //antar widget
                                                               height: 10.0,
                                                             ),
                                                             Row(
@@ -342,6 +355,8 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                               ],
                                                             ),
                                                             SizedBox(
+                                                              //Untuk memberi jarak
+                                                              //antar widget
                                                               height: 8.0,
                                                             ),
                                                             Row(
@@ -387,9 +402,13 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                                                               ],
                                                             ),
                                                             SizedBox(
+                                                              //Untuk memberi jarak
+                                                              //antar widget
                                                               height: 8.0,
                                                             ),
                                                             SizedBox(
+                                                              //Untuk memberi jarak
+                                                              //antar widget
                                                               height: 8.0,
                                                             ),
                                                           ],
@@ -413,6 +432,8 @@ class _detailPerminyakan extends State<detailPerminyakan> {
                         ],
                       );
                     } catch (e) {
+                      //Jika data yang ditampilkan masih menunggu/ salah dalam
+                      //pemanggilan data
                       print(e);
                       return Center(child: CircularProgressIndicator());
                     }

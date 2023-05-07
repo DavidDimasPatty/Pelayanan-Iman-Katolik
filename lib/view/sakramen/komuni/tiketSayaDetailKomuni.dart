@@ -109,6 +109,8 @@ class tiketSayaDetailKomuni {
   }
 
   void showDialogBox(BuildContext context) async {
+    //Pembuatan dialog box dan pemanggilan data
+    //yang dibutuhkan pada dialog box
     await callDb();
     // await callInfoGereja(idGereja);
     showDialog<void>(
@@ -128,7 +130,8 @@ class tiketSayaDetailKomuni {
                         children: <Widget>[
                           Column(
                             children: <Widget>[
-                              _getCloseButton(context),
+                              _getCloseButton(
+                                  context), //Menampilkan tombol close dialog box
                               Text(
                                 "Detail Jadwal",
                                 style: TextStyle(
@@ -154,6 +157,10 @@ class tiketSayaDetailKomuni {
                           ),
                           Padding(padding: EdgeInsets.symmetric(vertical: 5)),
                           RaisedButton(
+                              //Widget yang membuat tombol, pada widget ini
+                              //tombol memiliki aksi jika ditekan (onPressed),
+                              //dan memiliki dekorasi seperti(warna,child yang
+                              //berupa widgetText, dan bentuk tombol)
                               onPressed: () async {
                                 cancelDaftar(
                                     snapshot.data[0][0]['kapasitas'], context);

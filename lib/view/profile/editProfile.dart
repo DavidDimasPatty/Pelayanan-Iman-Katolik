@@ -177,6 +177,8 @@ class _editProfile extends State<editProfile> {
               FutureBuilder(
                   future: callDb(),
                   builder: (context, AsyncSnapshot snapshot) {
+                    //Pemanggilan fungsi, untuk mendapatkan data
+                    //yang dibutuhkan oleh tampilan halaman
                     try {
                       if (snapshot.data[0]['nama'] != null) {
                         namaController.text = snapshot.data[0]['nama'];
@@ -438,6 +440,10 @@ class _editProfile extends State<editProfile> {
                           padding: EdgeInsets.symmetric(vertical: 11),
                         ),
                         RaisedButton(
+                            //Widget yang membuat tombol, pada widget ini
+                            //tombol memiliki aksi jika ditekan (onPressed),
+                            //dan memiliki dekorasi seperti(warna,child yang
+                            //berupa widgetText, dan bentuk tombol)
                             onPressed: () async {
                               await submitForm(
                                   namaController.text,
@@ -480,6 +486,8 @@ class _editProfile extends State<editProfile> {
                         Padding(padding: EdgeInsets.symmetric(vertical: 15))
                       ]);
                     } catch (e) {
+                      //Jika data yang ditampilkan masih menunggu/ salah dalam
+                      //pemanggilan data
                       print(e);
                       return Center(child: CircularProgressIndicator());
                     }

@@ -258,6 +258,7 @@ class _Krisma extends State<Krisma> {
                       //Stream builder akan membangun widget Column dengan
                       //komponen widget children didalamnya, jika tidak ada error
                       for (var i in hasil.take(data))
+                        //Iterasi sebanyak nilai variabel data pada nilai hasil
                         //Iterasi sebanyak data
                         InkWell(
                           //Widget InkWell agar widget Container bisa ditekan oleh pengguna
