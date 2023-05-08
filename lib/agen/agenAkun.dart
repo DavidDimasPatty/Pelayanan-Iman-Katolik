@@ -1,13 +1,15 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/fireBase.dart';
 import 'package:pelayanan_iman_katolik/DatabaseFolder/modelDB.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
-
+import 'package:http/http.dart' as http;
 import '../DatabaseFolder/data.dart';
 import '../DatabaseFolder/mongodb.dart';
 import 'Agent.dart';
@@ -34,7 +36,8 @@ class AgentAkun extends Agent {
     "find password": _estimatedTime,
     "change password": _estimatedTime,
     "change profile picture": _estimatedTime,
-    "log out": _estimatedTime
+    "log out": _estimatedTime,
+    "lupa password": _estimatedTime
   };
 
   //Daftar batas waktu pengerjaan masing-masing tugas
@@ -65,9 +68,54 @@ class AgentAkun extends Agent {
         return _logout(data.task.data, sender);
       case "sign up":
         return _signup(data.task.data, sender);
+      case "lupa password":
+        return _lupaPassword(data.task.data, sender);
 
       default:
         return rejectTask(data, sender);
+    }
+  }
+
+  Future<Messages> _lupaPassword(dynamic data, String sender) async {
+    //Fungsi tindakan yang digunakan untuk melakukan pengecekan pada collection imam dan
+    //mengirim email
+    var userCollection = MongoDatabase.db.collection(USER_COLLECTION);
+    var checkEmail;
+    //////////Melakukan pengecekan pada data  email di collection user
+    checkEmail = await userCollection.find({'email': data[0]}).toList();
+    if (checkEmail.length == 0) {
+      //Jika data email sudah digunakan
+      Messages message = Messages(agentName, sender, "INFORM",
+          Tasks("status modifikasi/ pencarian data akun", "email"));
+      return message;
+    }
+
+    try {
+      //Mengirim ke endpoint email js
+      final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+      final response = await http.post(url,
+          headers: {
+            'Content-Type': 'application/json',
+            'origin': 'http://localhost'
+          },
+          body: jsonEncode({
+            'service_id': dotenv.env['service_id'].toString(),
+            'template_id': dotenv.env['template_id'].toString(),
+            'user_id': dotenv.env['user_id'].toString(),
+            'template_params': {
+              'user_name': data[0],
+              'user_email': data[0],
+              'user_subject': 'Lupa Password',
+              'password': checkEmail[0]['password']
+            }
+          }));
+      Messages message = Messages(agentName, sender, "INFORM",
+          Tasks("status modifikasi/ pencarian data akun", "oke"));
+      return message;
+    } catch (e) {
+      Messages message = Messages(agentName, sender, "INFORM",
+          Tasks("status modifikasi/ pencarian data akun", "failed"));
+      return message;
     }
   }
 
@@ -396,6 +444,7 @@ class AgentAkun extends Agent {
       Plan("change password", "REQUEST"),
       Plan("change profile picture", "REQUEST"),
       Plan("log out", "REQUEST"),
+      Plan("lupa password", "REQUEST"),
     ];
     //Perencanaan agen
     goals = [
@@ -412,6 +461,7 @@ class AgentAkun extends Agent {
           _timeAction["change profile picture"]),
       Goals("log out", String, _timeAction["log out"]),
       Goals("sign up", String, _timeAction["sign up"]),
+      Goals("lupa password", String, _timeAction["lupa password"]),
     ]; //goals agen
   }
 }

@@ -1,49 +1,95 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/FadeAnimation.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:pelayanan_iman_katolik/agen/Message.dart';
+import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
+import 'package:pelayanan_iman_katolik/agen/Task.dart';
+import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/view/logIn.dart';
 
 class ForgetPassword extends StatelessWidget {
   TextEditingController emailController = new TextEditingController();
 
   Future send(context) async {
-    final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
-    final response = await http.post(url,
-        headers: {
-          'Content-Type': 'application/json',
-          'origin': 'http://localhost'
-        },
-        body: jsonEncode({
-          'service_id': dotenv.env['service_id'].toString(),
-          'template_id': dotenv.env['template_id'].toString(),
-          'user_id': dotenv.env['user_id'].toString(),
-          'template_params': {
-            'user_name': emailController.text.toString(),
-            'user_email': emailController.text.toString(),
-            'user_subject': 'Lupa Password',
-          }
-        }));
+    ///Fungsi pengiriman pesan untuk melakukan pengecekan kepada input field
+    ///pegguna dan melakukan pengecekan pada collection user lalu mengirim ke
+    ///endpoint API
+    if (emailController.text == "") {
+      Fluttertoast.showToast(
+          /////// Widget toast untuk menampilkan pesan pada halaman
+          msg: "Email Tidak Boleh Kosong",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      emailController.clear();
+    } else {
+      Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+      Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
+          Tasks('lupa password', [emailController.text])); //Pembuatan pesan
 
-    emailController.clear();
-    return showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: const Text('Silahkan Check Email Anda'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => logIn()),
-            ),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
+      MessagePassing messagePassing =
+          MessagePassing(); //Memanggil distributor pesan
+      await messagePassing
+          .sendMessage(message); //Mengirim pesan ke distributor pesan
+      var hasilDaftar =
+          await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+      completer.complete(); //Batas pengerjaan yang memerlukan completer
+      await completer
+          .future; //Proses penungguan sudah selesai ketika varibel hasil
+      //memiliki nilai
+      emailController.clear();
+      if (hasilDaftar == 'oke') {
+        Fluttertoast.showToast(
+            /////// Widget toast untuk menampilkan pesan pada halaman
+            msg: "Silahkan cek email anda",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.green,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => logIn()),
+        );
+      }
+      if (hasilDaftar == 'failed') {
+        Fluttertoast.showToast(
+            /////// Widget toast untuk menampilkan pesan pada halaman
+            msg: "Koneksi bermasalah",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+            /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+            );
+      }
+
+      if (hasilDaftar == 'email') {
+        Fluttertoast.showToast(
+            /////// Widget toast untuk menampilkan pesan pada halaman
+            msg: "Email tidak ditemukan",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+            /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+            );
+      }
+    }
   }
 
   @override
