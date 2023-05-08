@@ -9,7 +9,7 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
-import 'package:pelayanan_iman_katolik/view/singnUp.dart';
+import 'package:pelayanan_iman_katolik/view/signUp.dart';
 
 class logIn extends StatelessWidget {
   ////////Inisialisasi variabel untuk mengkontrol input field//////////////

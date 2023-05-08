@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import '../DatabaseFolder/data.dart';
@@ -8,6 +9,7 @@ import 'Goals.dart';
 import 'MessagePassing.dart';
 import 'Plan.dart';
 import 'Task.dart';
+import 'package:http/http.dart' as http;
 
 class AgentPencarian extends Agent {
   AgentPencarian() {
@@ -24,6 +26,7 @@ class AgentPencarian extends Agent {
     "cari tampilan home": _estimatedTime,
     "cari profile": _estimatedTime,
     "check pendaftaran": _estimatedTime,
+    "cari alkitab": _estimatedTime
   };
 
   //Daftar batas waktu pengerjaan masing-masing tugas
@@ -44,6 +47,8 @@ class AgentPencarian extends Agent {
         return _checkPendaftaran(data.task.data, sender);
       case "cari profile":
         return _cariProfile(data.task.data, sender);
+      case "cari alkitab":
+        return _cariAlkitab(data.task.data, sender);
       default:
         return rejectTask(data, sender);
     }
@@ -626,6 +631,35 @@ class AgentPencarian extends Agent {
     }
   }
 
+  Future<Messages> _cariAlkitab(dynamic data, String sender) async {
+    var hasilPencarian;
+    Map<String, dynamic> jsonResponse;
+    if (data[0] == "load data") {
+      final url = Uri.parse("https://beeble.vercel.app/api/v1/passage/list");
+      hasilPencarian = await http.get(
+        url,
+      );
+      jsonResponse =
+          Map<String, dynamic>.from(json.decode(hasilPencarian.body));
+      hasilPencarian = [jsonResponse];
+    } else if (data[0] == "cari ayat") {
+      final url = Uri.parse("https://beeble.vercel.app/api/v1/passage/" +
+          data[1].toString() +
+          "/" +
+          data[2].toString());
+      hasilPencarian = await http.get(
+        url,
+      );
+
+      jsonResponse =
+          Map<String, dynamic>.from(json.decode(hasilPencarian.body));
+      hasilPencarian = [jsonResponse];
+    }
+    Messages message = Messages(
+        agentName, sender, "INFORM", Tasks('hasil pencarian', hasilPencarian));
+    return message;
+  }
+
   @override
   addEstimatedTime(String goals) {
     //Fungsi menambahkan batas waktu pengerjaan tugas dengan 1 detik
@@ -643,6 +677,7 @@ class AgentPencarian extends Agent {
       Plan("cari tampilan home", "REQUEST"),
       Plan("check pendaftaran", "REQUEST"),
       Plan("cari profile", "REQUEST"),
+      Plan("cari alkitab", "REQUEST"),
     ];
     //Perencanaan agen
     goals = [
@@ -659,6 +694,8 @@ class AgentPencarian extends Agent {
           "check pendaftaran", List<dynamic>, _timeAction["check pendaftaran"]),
       Goals("cari profile", List<dynamic>, _timeAction["cari profile"]),
       Goals("check pendaftaran", String, _timeAction["check pendaftaran"]),
+      Goals("cari alkitab", List<Map<String, dynamic>>,
+          _timeAction["cari alkitab"]),
     ]; //goals agen
   }
 }

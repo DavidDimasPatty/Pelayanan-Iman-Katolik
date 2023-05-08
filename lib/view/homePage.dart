@@ -6,6 +6,7 @@ import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
+import 'package:pelayanan_iman_katolik/view/alkitabMenu.dart';
 import 'package:pelayanan_iman_katolik/view/logIn.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/detailPengumuman.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/pengumuman.dart';
@@ -113,7 +114,6 @@ class _homePage extends State<homePage> {
   Widget build(BuildContext context) {
     //Fungsi untuk membangun halaman home
     return Scaffold(
-      // Widget untuk membangun struktur halaman
       // Widget untuk membangun struktur halaman
       //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
@@ -685,6 +685,47 @@ class _homePage extends State<homePage> {
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 11),
+                              ),
+                              SizedBox.fromSize(
+                                //Pembuatan Tombol Menu Kegiatan Umum
+                                size: Size(75, 75),
+                                child: ClipOval(
+                                  child: Material(
+                                    color: Colors.yellowAccent,
+                                    child: InkWell(
+                                      splashColor: Colors.green,
+                                      onTap: () {
+                                        Navigator.push(
+                                          //Jika ditekan akan memanggil kelas Umum
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Alkitab(iduser)),
+                                        );
+                                      },
+                                      child: Column(
+                                        //Mempunyai widget Column agar memiliki icon
+                                        //yang dibawahnya tedapat Text
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.book,
+                                            size: 30,
+                                          ),
+                                          Text(
+                                            "Alkitab",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
