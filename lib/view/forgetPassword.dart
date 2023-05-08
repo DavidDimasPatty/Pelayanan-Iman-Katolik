@@ -174,10 +174,11 @@ class ForgetPassword extends StatelessWidget {
                                 Container(
                                   padding: EdgeInsets.all(8.0),
                                   child: TextField(
+                                    style: TextStyle(color: Colors.black),
                                     controller: emailController,
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        hintText: "Email",
+                                        hintText: "Masukan Email Akun",
                                         hintStyle:
                                             TextStyle(color: Colors.grey[400])),
                                   ),
