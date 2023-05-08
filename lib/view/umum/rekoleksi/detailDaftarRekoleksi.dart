@@ -13,6 +13,7 @@ import '../../homePage.dart';
 import '../../profile/profile.dart';
 import '../../settings/setting.dart';
 import '../../tiketSaya.dart';
+import 'package:photo_view/photo_view.dart';
 
 class detailDaftarRekoleksi extends StatefulWidget {
   final iduser;
@@ -169,17 +170,15 @@ class _detailDaftarRekoleksi extends State<detailDaftarRekoleksi> {
                                                 ),
                                               if (snapshot.data[0]['picture'] !=
                                                   null)
-                                                CircleAvatar(
-                                                  backgroundImage: NetworkImage(
-                                                      snapshot.data[0]
-                                                          ['picture']),
-                                                  backgroundColor:
-                                                      Colors.greenAccent,
-                                                  radius: 80.0,
-                                                ),
-                                              SizedBox(
-                                                height: 10.0,
-                                              ),
+                                                Container(
+                                                    width: 200,
+                                                    height: 240,
+                                                    child: PhotoView(
+                                                      imageProvider:
+                                                          NetworkImage(
+                                                              snapshot.data[0]
+                                                                  ['picture']),
+                                                    )),
                                               Text(
                                                 snapshot.data[0]
                                                     ['namaKegiatan'],

@@ -9,6 +9,7 @@ import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/umum/retret/confirmRetret.dart';
+import 'package:photo_view/photo_view.dart';
 import '../../homePage.dart';
 import '../../profile/profile.dart';
 import '../../settings/setting.dart';
@@ -169,14 +170,15 @@ class _detailDaftarRetret extends State<detailDaftarRetret> {
                                                 ),
                                               if (snapshot.data[0]['picture'] !=
                                                   null)
-                                                CircleAvatar(
-                                                  backgroundImage: NetworkImage(
-                                                      snapshot.data[0]
-                                                          ['picture']),
-                                                  backgroundColor:
-                                                      Colors.greenAccent,
-                                                  radius: 80.0,
-                                                ),
+                                                Container(
+                                                    width: 200,
+                                                    height: 240,
+                                                    child: PhotoView(
+                                                      imageProvider:
+                                                          NetworkImage(
+                                                              snapshot.data[0]
+                                                                  ['picture']),
+                                                    )),
                                               SizedBox(
                                                 height: 10.0,
                                               ),

@@ -8,6 +8,7 @@ import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:pelayanan_iman_katolik/view/forgetPassword.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/signUp.dart';
 
@@ -315,6 +316,26 @@ class logIn extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 10,
+                      ),
+                      FadeAnimation(
+                        //Widget animasi untuk text yang bisa ditekan dan
+                        //memanggil kelas signUp
+                        1.5,
+                        new GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ForgetPassword()),
+                              );
+                            },
+                            child: Text(
+                              "Lupa Password",
+                              style: TextStyle(
+                                color: Colors.lightBlue,
+                                decoration: TextDecoration.underline,
+                              ),
+                            )),
                       ),
                     ],
                   ),

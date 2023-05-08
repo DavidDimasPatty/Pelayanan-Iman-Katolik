@@ -32,7 +32,7 @@ class _FormulirPemberkatan extends State<FormulirPemberkatan> {
   _FormulirPemberkatan(this.iduser, this.idGereja, this.idImam);
 
   @override
-  var jenisPemberkatan = ['Gedung', 'Rumah', 'Barang'];
+  var jenisPemberkatan = ['Gedung', 'Rumah', 'Barang', 'Doa Arwah'];
   // var selectedJenis;
   String ddValue = "Gedung";
   // var dateValue;
