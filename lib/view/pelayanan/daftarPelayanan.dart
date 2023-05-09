@@ -380,6 +380,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                                 jenisSelectedPelayanan,
                                                 "detail",
                                                 idGereja,
+                                                null,
                                                 i["_id"])));
                               }
                             } else {
@@ -410,7 +411,8 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                                 jenisSelectedPelayanan,
                                                 "detail",
                                                 i['GerejaPelayanan'][0]['_id'],
-                                                i["_id"])));
+                                                i["_id"],
+                                                null)));
                               } else if (jenisPelayanan == "Umum") {
                                 Navigator.push(
                                     context,
@@ -422,7 +424,8 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                                 jenisSelectedPelayanan,
                                                 "detail",
                                                 null,
-                                                i["_id"])));
+                                                i["_id"],
+                                                null)));
                               }
                             }
                           },

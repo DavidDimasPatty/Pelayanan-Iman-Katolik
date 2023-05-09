@@ -103,26 +103,78 @@ class AgentPencarian extends Agent {
     return message;
   }
 
+  // Future<Messages> _checkPendaftaran(dynamic data, String sender) async {
+  //   //Fungsi tindakan untuk mengecek apakah pengguna sudah mendaftar pelayanan
+  //   //berkoordinasi dengan agen Pendaftaran
+  //   var pelayananCollection;
+  //   String id = "";
+  //   //////Inisialisasi pelayanan berdasarkan data[0]///////////////////////////
+  //   if (data[0] == "baptis") {
+  //     pelayananCollection = MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+  //     id = "idBaptis";
+  //   }
+
+  //   if (data[0] == "komuni") {
+  //     pelayananCollection = MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+  //     id = "idKomuni";
+  //   }
+  //   if (data[0] == "krisma") {
+  //     pelayananCollection = MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
+  //     id = "idKrisma";
+  //   }
+  //   if (data[0] == "umum") {
+  //     pelayananCollection = MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+  //     id = "idKegiatan";
+  //   }
+  //   //////////////////////////////////////////////////////////////////////////////
+  //   var hasil = await pelayananCollection
+  //       .find(where.eq(id, data[1]).eq("idUser", data[2]).eq("status", 0))
+  //       .length;
+  //   //Mencari jumlah data yang pernah didaftarkan pengguna terhadap suatu pelayanan
+  //   if (hasil == 0) {
+  //     //Jika belum pernah mendaftar maka akan dikirim pesan pada agen Pendaftaran
+  //     //dengan isi pesan "enroll pelayanan" dan data
+  //     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+  //     Messages message2 = Messages(sender, 'Agent Pendaftaran', "REQUEST",
+  //         Tasks('enroll pelayanan', data));
+  //     MessagePassing messagePassing2 = MessagePassing();
+  //     await messagePassing2.sendMessage(message2);
+  //     //Mengirim pesan kepada agen Pendaftaran
+  //     Messages message = Messages(
+  //         agentName, sender, "INFORM", Tasks('done', "Wait agent pendaftaran"));
+  //     completer.complete(); //Batas pengerjaan yang memerlukan completer
+
+  //     await completer
+  //         .future; //Proses penungguan sudah selesai ketika varibel hasil
+  //     //memiliki nilai
+  //     return await message;
+  //   } else {
+  //     //Jika pengguna sudah pernah mendaftar kepada suatu pelayanan
+  //     Messages message = Messages(
+  //         agentName, sender, "INFORM", Tasks('hasil pencarian', "sudah"));
+  //     return message;
+  //   }
+  // }
   Future<Messages> _checkPendaftaran(dynamic data, String sender) async {
     //Fungsi tindakan untuk mengecek apakah pengguna sudah mendaftar pelayanan
     //berkoordinasi dengan agen Pendaftaran
     var pelayananCollection;
     String id = "";
     //////Inisialisasi pelayanan berdasarkan data[0]///////////////////////////
-    if (data[0] == "baptis") {
+    if (data[0] == "Baptis") {
       pelayananCollection = MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
       id = "idBaptis";
     }
 
-    if (data[0] == "komuni") {
+    if (data[0] == "Komuni") {
       pelayananCollection = MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
       id = "idKomuni";
     }
-    if (data[0] == "krisma") {
+    if (data[0] == "Krisma") {
       pelayananCollection = MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
       id = "idKrisma";
     }
-    if (data[0] == "umum") {
+    if (data[0] == "Umum") {
       pelayananCollection = MongoDatabase.db.collection(USER_UMUM_COLLECTION);
       id = "idKegiatan";
     }

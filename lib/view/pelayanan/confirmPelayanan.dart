@@ -8,17 +8,25 @@ import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
+import 'package:pelayanan_iman_katolik/view/homePage.dart';
+import 'package:pelayanan_iman_katolik/view/pelayanan/daftarPelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/sakramen/baptis/baptis.dart';
 
 class confirmPelayanan {
   final idGereja;
   final iduser;
-  final idBaptis;
+  final idPelayanan;
   var hasil;
   String jenisSelectedPelayanan;
   String jenisPencarian;
-  confirmPelayanan(this.iduser, this.idGereja, this.idBaptis,
-      this.jenisSelectedPelayanan, this.jenisPencarian);
+  String jenisPelayanan;
+  confirmPelayanan(
+      this.iduser,
+      this.jenisPelayanan,
+      this.jenisSelectedPelayanan,
+      this.jenisPencarian,
+      this.idGereja,
+      this.idPelayanan);
 
   ///////////////////////Fungsi////////////////////////
   Future callDb() async {
@@ -30,7 +38,7 @@ class confirmPelayanan {
         Tasks('cari pelayanan', [
           jenisSelectedPelayanan,
           jenisPencarian,
-          idBaptis,
+          idPelayanan,
           idGereja
         ])); //Pembuatan pesan
 
@@ -48,14 +56,32 @@ class confirmPelayanan {
     return await hasil;
   }
 
-  Future daftar(idBaptis, idUser, kapasitas, context) async {
+  Future daftar(kapasitas, context) async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages(
-        'Agent Page',
-        'Agent Pencarian',
-        "REQUEST",
-        Tasks('check pendaftaran',
-            ["baptis", idBaptis, idUser, kapasitas])); //Pembuatan pesan
+    Messages message;
+    if (jenisPelayanan == "Umum") {
+      message = Messages(
+          'Agent Page',
+          'Agent Pencarian',
+          "REQUEST",
+          Tasks('check pendaftaran', [
+            jenisPelayanan,
+            idPelayanan,
+            iduser,
+            kapasitas
+          ])); //Pembuatan pesan
+    } else {
+      message = Messages(
+          'Agent Page',
+          'Agent Pencarian',
+          "REQUEST",
+          Tasks('check pendaftaran', [
+            jenisSelectedPelayanan,
+            idPelayanan,
+            iduser,
+            kapasitas
+          ])); //Pembuatan pesan
+    }
 
     MessagePassing messagePassing =
         MessagePassing(); //Memanggil distributor pesan
@@ -73,7 +99,7 @@ class confirmPelayanan {
     if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(
           /////// Widget toast untuk menampilkan pesan pada halaman
-          msg: "Berhasil Mendaftar Baptis",
+          msg: "Berhasil Mendaftar " + jenisSelectedPelayanan,
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
@@ -82,14 +108,16 @@ class confirmPelayanan {
           fontSize: 16.0);
       Navigator.pop(
         context,
-        MaterialPageRoute(builder: (context) => Baptis(iduser)),
+        MaterialPageRoute(
+            builder: (context) => daftarPelayanan(iduser, jenisPelayanan,
+                jenisSelectedPelayanan, jenisPencarian, idGereja)),
       );
     }
 
     if (hasilDaftar == 'sudah') {
       Fluttertoast.showToast(
           /////// Widget toast untuk menampilkan pesan pada halaman
-          msg: "Sudah Mendaftar Baptis ini",
+          msg: "Sudah Mendaftar " + jenisSelectedPelayanan + " ini",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 2,
@@ -98,10 +126,6 @@ class confirmPelayanan {
           fontSize: 16.0
           /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
           );
-      Navigator.pop(
-        context,
-        MaterialPageRoute(builder: (context) => Baptis(iduser)),
-      );
     }
   }
 
@@ -123,28 +147,53 @@ class confirmPelayanan {
                     //Pemanggilan fungsi, untuk mendapatkan data
                     //yang dibutuhkan oleh tampilan halaman
                     try {
-                      return Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Column(
-                              children: <Widget>[
-                                Text(
-                                    "Konfirmasi Pendaftaran Baptis \n Pada Gereja " +
-                                        hasil[0][0]['GerejaBaptis'][0]['nama'] +
+                      if (jenisPelayanan == "Umum")
+                        return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              for (var i in hasil)
+                                Column(
+                                  children: <Widget>[
+                                    Text("Konfirmasi Pendaftaran " +
+                                        jenisSelectedPelayanan +
+                                        "  \n " +
+                                        i['namaKegiatan'] +
                                         "\n" +
                                         "Pada Tanggal " +
-                                        hasil[0][0]['jadwalBuka']
-                                            .toString()
-                                            .substring(0, 19) +
-                                        " - " +
-                                        hasil[0][0]['jadwalTutup']
+                                        i['tanggal']
                                             .toString()
                                             .substring(0, 19) +
                                         " ?")
-                              ],
-                            )
-                          ]);
+                                  ],
+                                )
+                            ]);
+                      else {
+                        return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Column(
+                                children: <Widget>[
+                                  Text("Konfirmasi Pendaftaran " +
+                                      jenisSelectedPelayanan +
+                                      " \n Pada Gereja " +
+                                      hasil[0][0]['GerejaPelayanan'][0]
+                                          ['nama'] +
+                                      "\n" +
+                                      "Pada Tanggal " +
+                                      hasil[0][0]['jadwalBuka']
+                                          .toString()
+                                          .substring(0, 19) +
+                                      " - " +
+                                      hasil[0][0]['jadwalTutup']
+                                          .toString()
+                                          .substring(0, 19) +
+                                      " ?")
+                                ],
+                              )
+                            ]);
+                      }
                     } catch (e) {
                       //Jika data yang ditampilkan masih menunggu/ salah dalam
                       //pemanggilan data
@@ -165,8 +214,11 @@ class confirmPelayanan {
                           textColor: Colors.white,
                           color: Colors.blueAccent,
                           onPressed: () async {
-                            await daftar(idBaptis, iduser,
-                                hasil[0][0]['kapasitas'], context);
+                            if (jenisPelayanan == "Umum") {
+                              await daftar(hasil[0]['kapasitas'], context);
+                            } else {
+                              await daftar(hasil[0][0]['kapasitas'], context);
+                            }
                           }),
                       Padding(padding: EdgeInsets.symmetric(horizontal: 10)),
                       RaisedButton(
