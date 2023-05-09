@@ -10,6 +10,8 @@ import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
+import 'package:pelayanan_iman_katolik/view/pelayanan/detailDaftarPelayanan.dart';
+import 'package:pelayanan_iman_katolik/view/pelayanan/formulirPelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
 import 'package:pelayanan_iman_katolik/view/sakramen/baptis/detailDaftarBaptis.dart';
 import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
@@ -19,18 +21,23 @@ class daftarPelayanan extends StatefulWidget {
   final iduser;
   String jenisSelectedPelayanan;
   String jenisPencarian;
+  String jenisPelayanan;
   final idGereja;
-  daftarPelayanan(this.iduser, this.jenisSelectedPelayanan, this.jenisPencarian,
-      this.idGereja);
+  daftarPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan,
+      this.jenisPencarian, this.idGereja);
   @override
-  _daftarPelayanan createState() => _daftarPelayanan(this.iduser,
-      this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja);
+  _daftarPelayanan createState() => _daftarPelayanan(
+      this.iduser,
+      this.jenisPelayanan,
+      this.jenisSelectedPelayanan,
+      this.jenisPencarian,
+      this.idGereja);
 }
 
 class _daftarPelayanan extends State<daftarPelayanan> {
   /////////Konstruktor/////////////////
-  _daftarPelayanan(this.iduser, this.jenisSelectedPelayanan,
-      this.jenisPencarian, this.idGereja);
+  _daftarPelayanan(this.iduser, this.jenisPelayanan,
+      this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja);
   ///////////////////////////////////
   ////
   ///
@@ -46,12 +53,15 @@ class _daftarPelayanan extends State<daftarPelayanan> {
   final idGereja;
   String jenisSelectedPelayanan;
   String jenisPencarian;
+  String jenisPelayanan;
+
   ///////////////////////////////////////////
   ///
   ///
   ///
   ///
   ///////////////////////Fungsi////////////////////////
+
   Future callDb() async {
     //Pengiriman pesan untuk mendapatkan data yang diperlukan
     //untuk tampilan halaman
@@ -59,12 +69,21 @@ class _daftarPelayanan extends State<daftarPelayanan> {
     //variabel untuk menunggu
     Messages message;
     if (jenisPencarian == "general") {
-      message = Messages(
-          'Agent Page',
-          'Agent Pencarian',
-          "REQUEST",
-          Tasks('cari pelayanan',
-              [jenisSelectedPelayanan, jenisPencarian])); //Pembuatan pesan
+      if (jenisPelayanan == "Umum") {
+        message = Messages(
+            'Agent Page',
+            'Agent Pencarian',
+            "REQUEST",
+            Tasks('cari pelayanan',
+                [jenisPelayanan, jenisPencarian, jenisSelectedPelayanan]));
+      } else {
+        message = Messages(
+            'Agent Page',
+            'Agent Pencarian',
+            "REQUEST",
+            Tasks('cari pelayanan',
+                [jenisSelectedPelayanan, jenisPencarian])); //Pembuatan pesan
+      }
     } else {
       message = Messages(
           'Agent Page',
@@ -131,23 +150,29 @@ class _daftarPelayanan extends State<daftarPelayanan> {
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
       //variabel untuk menyimpan data sementara
-      if (jenisPencarian == "general") {
+      if (jenisSelectedPelayanan == "Pemberkatan" ||
+          jenisSelectedPelayanan == "Perkawinan" ||
+          jenisSelectedPelayanan == "Tobat" ||
+          jenisSelectedPelayanan == "Perminyakan") {
+        for (var item in dummyTemp) {
+          //Setiap isi pada variabel dummyTemp akan diiterasi dan dicari
+          // berdasarkan parameter pencarian
+          if (item['nama'].toLowerCase().contains(query.toLowerCase())) {
+            listOMaps.add(item);
+            //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
+            //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
+          }
+        }
+      } else if (jenisSelectedPelayanan != "Pemberkatan" &&
+          jenisSelectedPelayanan != "Perkawinan" &&
+          jenisSelectedPelayanan != "Tobat" &&
+          jenisSelectedPelayanan != "Perminyakan") {
         for (var item in dummyTemp) {
           //Setiap isi pada variabel dummyTemp akan diiterasi dan dicari
           // berdasarkan parameter pencarian
           if (item['GerejaPelayanan'][0]['nama']
               .toLowerCase()
               .contains(query.toLowerCase())) {
-            listOMaps.add(item);
-            //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
-            //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
-          }
-        }
-      } else {
-        for (var item in dummyTemp) {
-          //Setiap isi pada variabel dummyTemp akan diiterasi dan dicari
-          // berdasarkan parameter pencarian
-          if (item['nama'].toLowerCase().contains(query.toLowerCase())) {
             listOMaps.add(item);
             //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
             //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
@@ -317,15 +342,63 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                           //Widget InkWell agar widget Container bisa ditekan oleh pengguna
                           borderRadius: new BorderRadius.circular(24),
                           onTap: () {
-                            //Jika Container ditekan maka akan dipanggil kelas
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) => detailDaftarBaptis(
-                            //           iduser,
-                            //           i['GerejaBaptis'][0]['_id'],
-                            //           i['_id'])),
-                            // );
+                            // Jika Container ditekan maka akan dipanggil kelas
+                            if (jenisPencarian == "imam") {
+                              if (jenisSelectedPelayanan == "Pemberkatan" ||
+                                  jenisSelectedPelayanan == "Perkawinan") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => formulirPelayanan(
+                                            iduser,
+                                            jenisSelectedPelayanan,
+                                            "detail",
+                                            idGereja,
+                                            i["_id"])));
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            detailDaftarPelayanan(
+                                                iduser,
+                                                jenisSelectedPelayanan,
+                                                "detail",
+                                                idGereja,
+                                                i["_id"])));
+                              }
+                            } else {
+                              if (jenisSelectedPelayanan == "Pemberkatan" ||
+                                  jenisSelectedPelayanan == "Perkawinan" ||
+                                  jenisSelectedPelayanan == "Tobat" ||
+                                  jenisSelectedPelayanan == "Perminyakan") {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => daftarPelayanan(
+                                          iduser,
+                                          jenisPelayanan,
+                                          jenisSelectedPelayanan,
+                                          "imam",
+                                          i["_id"])),
+                                );
+                              } else if (jenisSelectedPelayanan !=
+                                      "Pemberkatan" &&
+                                  jenisSelectedPelayanan != "Perkawinan" &&
+                                  jenisSelectedPelayanan != "Tobat" &&
+                                  jenisSelectedPelayanan != "Perminyakan") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            detailDaftarPelayanan(
+                                                iduser,
+                                                jenisSelectedPelayanan,
+                                                "detail",
+                                                i['GerejaPelayanan'][0]['_id'],
+                                                i["_id"])));
+                              }
+                            }
                           },
                           child: Container(
                               //Widget Container yang membungkus data yang ditampilkan
@@ -355,75 +428,168 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                 ///Setiap data ditampilkan dalam widget Text
                                 ///dan mempunyai dekorasi(ukuran, warna, posisi)
 
-                                //Didalam Container terdapat column agar
-                                //data yang ditampilkan kebawah di dalam Container
-                                //
-                                //
-                                ///Setiap data ditampilkan dalam widget Text
-                                ///dan mempunyai dekorasi(ukuran, warna, posisi)
-                                Text(
-                                  i['GerejaPelayanan'][0]['nama'],
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 26.0,
-                                      fontWeight: FontWeight.w300),
-                                  textAlign: TextAlign.left,
-                                ),
-                                Text(
-                                  'Paroki: ' +
-                                      i['GerejaPelayanan'][0]['paroki'],
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                                Text(
-                                  'Alamat: ' +
-                                      i['GerejaPelayanan'][0]['address'],
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                                if (i['kapasitas'] != null)
-                                  Text(
-                                    'Kapasitas Tersedia: ' +
-                                        i['kapasitas'].toString(),
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 12),
-                                  ),
-                                Text(
-                                  'Jenis: ' + i['jenis'],
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                                //////Batas akhir penampilan data dalam widget Text
-                                ///
-                                ///
-                                ///
+                                if (jenisSelectedPelayanan == "Pemberkatan" ||
+                                    jenisSelectedPelayanan == "Perkawinan" ||
+                                    jenisSelectedPelayanan == "Tobat" ||
+                                    jenisSelectedPelayanan == "Perminyakan")
+                                  if (jenisPencarian == "imam")
+                                    Column(children: <Widget>[
+                                      //Didalam Container terdapat column agar
+                                      //data yang ditampilkan kebawah di dalam Container
+                                      //
+                                      //
+                                      ///Setiap data ditampilkan dalam widget Text
+                                      ///dan mempunyai dekorasi(ukuran, warna, posisi)
+                                      Text(
+                                        i['nama'],
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 22.0,
+                                            fontWeight: FontWeight.w300),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                      Text(
+                                        i['status' + jenisSelectedPelayanan] ==
+                                                0
+                                            ? ' Status : Bersedia'
+                                            : i['status'] == -1
+                                                ? ' Status : Tidak Bersedia'
+                                                : ' Status : Sedang Melakukan Pelayanan',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w300),
+                                      ),
+                                    ]),
 
-                                FutureBuilder(
-                                    //Widget FutureBuilder untuk mendapatkan data
-                                    //dari fungsi jarak
-                                    future: jarak(
-                                        i['GerejaPelayanan'][0]['lat'],
-                                        i['GerejaPelayanan'][0]['lng']),
-                                    builder: (context, AsyncSnapshot snapshot) {
-                                      try {
-                                        return Column(children: <Widget>[
-                                          Text(
-                                            //Text yang berisi jarak pengguna dengan
-                                            //lokasi gereja
-                                            snapshot.data,
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12),
-                                          )
-                                        ]);
-                                      } catch (e) {
-                                        //Jika data error atau masih proses pengerjaan
-                                        //Jika data error atau masih proses pengerjaan
-                                        print(e);
-                                        return Center(
-                                            child: CircularProgressIndicator());
-                                      }
-                                    }),
+                                if (jenisSelectedPelayanan == "Pemberkatan" ||
+                                    jenisSelectedPelayanan == "Perkawinan" ||
+                                    jenisSelectedPelayanan == "Tobat" ||
+                                    jenisSelectedPelayanan == "Perminyakan")
+                                  if (jenisPencarian == "general")
+                                    Column(
+                                      children: [
+                                        Text(
+                                          i['nama'],
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 26.0,
+                                              fontWeight: FontWeight.w300),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                        Text(
+                                          'Paroki: ' + i['paroki'],
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12),
+                                        ),
+                                        Text(
+                                          'Alamat: ' + i['address'],
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12),
+                                        ),
+                                        FutureBuilder(
+                                            //Widget FutureBuilder untuk mendapatkan data
+                                            //dari fungsi jarak
+                                            future: jarak(i['lat'], i['lng']),
+                                            builder: (context,
+                                                AsyncSnapshot snapshot) {
+                                              try {
+                                                return Column(
+                                                    children: <Widget>[
+                                                      Text(
+                                                        //Text yang berisi jarak pengguna dengan
+                                                        //lokasi gereja
+
+                                                        snapshot.data,
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12),
+                                                      )
+                                                    ]);
+                                              } catch (e) {
+                                                //Jika data error atau masih proses pengerjaan
+                                                print(e);
+                                                return Center(
+                                                    child:
+                                                        CircularProgressIndicator());
+                                              }
+                                            }),
+                                      ],
+                                    ),
+                                if (jenisSelectedPelayanan != "Pemberkatan" &&
+                                    jenisSelectedPelayanan != "Perkawinan" &&
+                                    jenisSelectedPelayanan != "Tobat" &&
+                                    jenisSelectedPelayanan != "Perminyakan" &&
+                                    jenisPencarian == "general")
+                                  Column(children: [
+                                    Text(
+                                      i['GerejaPelayanan'][0]['nama'],
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 26.0,
+                                          fontWeight: FontWeight.w300),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    Text(
+                                      'Paroki: ' +
+                                          i['GerejaPelayanan'][0]['paroki'],
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 12),
+                                    ),
+                                    Text(
+                                      'Alamat: ' +
+                                          i['GerejaPelayanan'][0]['address'],
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 12),
+                                    ),
+                                    if (i['kapasitas'] != null)
+                                      Text(
+                                        'Kapasitas Tersedia: ' +
+                                            i['kapasitas'].toString(),
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 12),
+                                      ),
+                                    Text(
+                                      'Jenis: ' + i['jenis'],
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 12),
+                                    ),
+                                    //////Batas akhir penampilan data dalam widget Text
+                                    ///
+                                    ///
+                                    ///
+
+                                    FutureBuilder(
+                                        //Widget FutureBuilder untuk mendapatkan data
+                                        //dari fungsi jarak
+                                        future: jarak(
+                                            i['GerejaPelayanan'][0]['lat'],
+                                            i['GerejaPelayanan'][0]['lng']),
+                                        builder:
+                                            (context, AsyncSnapshot snapshot) {
+                                          try {
+                                            return Column(children: <Widget>[
+                                              Text(
+                                                //Text yang berisi jarak pengguna dengan
+                                                //lokasi gereja
+                                                snapshot.data,
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 12),
+                                              )
+                                            ]);
+                                          } catch (e) {
+                                            //Jika data error atau masih proses pengerjaan
+                                            //Jika data error atau masih proses pengerjaan
+                                            print(e);
+                                            return Center(
+                                                child:
+                                                    CircularProgressIndicator());
+                                          }
+                                        }),
+                                  ]),
                               ])),
                         ),
                     ]);

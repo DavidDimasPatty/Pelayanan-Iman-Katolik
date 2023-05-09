@@ -95,7 +95,7 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
           //Bentuk Top Navigation Bar: Rounded Rectangle
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
-        title: const Text('Pendaftaran Baptis'),
+        title: Text('Pendaftaran ' + jenisSelectedPelayanan),
         actions: <Widget>[
           //Tombol Top Navigation Bar
           IconButton(

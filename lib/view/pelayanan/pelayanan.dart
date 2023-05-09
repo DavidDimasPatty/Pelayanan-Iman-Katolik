@@ -81,8 +81,8 @@ class pelayanan extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          daftarPelayanan(iduser, i, "general", null)),
+                      builder: (context) => daftarPelayanan(
+                          iduser, jenisPelayanan, i, "general", null)),
                 );
               },
               child: Container(

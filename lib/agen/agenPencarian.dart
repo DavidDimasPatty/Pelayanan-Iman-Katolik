@@ -694,7 +694,7 @@ class AgentPencarian extends Agent {
 
     ////PERKAWINAN atau SAKRAMENTALI atau TOBAT atau PERMINYAKAN
     else if (data[0] == "Perkawinan" ||
-        data[0] == "Sakramentali" ||
+        data[0] == "Pemberkatan" ||
         data[0] == "Tobat" ||
         data[0] == "Perminyakan") {
       var pelayanan2Collection;

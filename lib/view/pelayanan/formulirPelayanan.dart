@@ -53,7 +53,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
   TextEditingController namaController = new TextEditingController();
   TextEditingController parokiController = new TextEditingController();
   TextEditingController lingkunganController = new TextEditingController();
-  List jenisPemberkatan = ['Gedung', 'Rumah', 'Barang', 'Doa Arwah'];
+  var jenisPemberkatan = ['Gedung', 'Rumah', 'Barang', 'Doa Arwah'];
   // var selectedJenis;
   String ddValue = "Gedung";
 
@@ -235,7 +235,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
       //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
       appBar: AppBar(
         // widget Top Navigation Bar
-        title: Text('Formulir Perkawinan'),
+        title: Text('Formulir ' + jenisSelectedPelayanan),
         shape: RoundedRectangleBorder(
           //Bentuk Top Navigation Bar: Rounded Rectangle
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
@@ -298,19 +298,32 @@ class _formulirPelayanan extends State<formulirPelayanan> {
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Aturan Perkawinan Gereja: ",
+                                          "Aturan " +
+                                              jenisSelectedPelayanan +
+                                              " Gereja: ",
                                           style: TextStyle(
                                               color: Colors.red,
                                               fontSize: 15.0,
                                               fontWeight: FontWeight.w600),
                                         ),
-                                        Text(
-                                          snapshot.data[0]['perkawinan'],
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.w300),
-                                        ),
+                                        if (jenisSelectedPelayanan ==
+                                            "Perkawinan")
+                                          Text(
+                                            snapshot.data[0]['perkawinan'],
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.w300),
+                                          ),
+                                        if (jenisSelectedPelayanan ==
+                                            "Pemberkatan")
+                                          Text(
+                                            snapshot.data[0]['pemberkatan'],
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.w300),
+                                          ),
                                       ],
                                     ),
                                     SizedBox(
@@ -335,85 +348,245 @@ class _formulirPelayanan extends State<formulirPelayanan> {
                   return Center(child: CircularProgressIndicator());
                 }
               }),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Nama Lengkap Pria",
-                textAlign: TextAlign.left,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 5),
-              ),
-              TextField(
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
-                ],
-                controller: namaPriaController,
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
+          if (jenisSelectedPelayanan == "Perkawinan")
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Nama Lengkap Pria",
+                  textAlign: TextAlign.left,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                ),
+                TextField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+                  ],
+                  controller: namaPriaController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.black,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    hintText: "Masukan Nama Lengkap Pria",
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 11),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Nama Lengkap Wanita",
-                textAlign: TextAlign.left,
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 5),
-              ),
-              TextField(
-                controller: namaWanitaController,
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
+                      hintText: "Masukan Nama Lengkap Pria",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 11),
+                ),
+              ],
+            ),
+          if (jenisSelectedPelayanan == "Perkawinan")
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Nama Lengkap Wanita",
+                  textAlign: TextAlign.left,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                ),
+                TextField(
+                  controller: namaWanitaController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
                       ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(
-                        color: Colors.black,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    hintText: "Masukan Nama Lengkap Wanita",
-                    hintStyle: TextStyle(color: Colors.grey),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-              ),
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 11),
-          ),
+                      hintText: "Masukan Nama Lengkap Wanita",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 11),
+                ),
+              ],
+            ),
+          if (jenisSelectedPelayanan == "Pemberkatan")
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Nama Lengkap",
+                  textAlign: TextAlign.left,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                ),
+                TextField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
+                  ],
+                  controller: namaController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      hintText: "Masukan Nama Lengkap",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 11),
+                ),
+              ],
+            ),
+          if (jenisSelectedPelayanan == "Pemberkatan")
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Paroki",
+                  textAlign: TextAlign.left,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                ),
+                TextField(
+                  controller: parokiController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      hintText: "Masukan Nama Paroki",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 11),
+                ),
+              ],
+            ),
+          if (jenisSelectedPelayanan == "Pemberkatan")
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Lingkungan",
+                  textAlign: TextAlign.left,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                ),
+                TextField(
+                  controller: lingkunganController,
+                  style: TextStyle(color: Colors.black),
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.blue,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(
+                          color: Colors.black,
+                        ),
+                      ),
+                      hintText: "Masukan Nama Lingkungan",
+                      hintStyle: TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 11),
+                ),
+              ],
+            ),
+          if (jenisSelectedPelayanan == "Pemberkatan")
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Jenis Pemberkatan",
+                  textAlign: TextAlign.left,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                ),
+                DropdownButton(
+                  // Initial Value
+                  value: ddValue,
+                  hint: Text("Pilih Jenis Pemberkatan"),
+                  // Down Arrow Icon
+                  icon: const Icon(Icons.keyboard_arrow_down),
+
+                  items: jenisPemberkatan.map((String items) {
+                    return DropdownMenuItem(
+                      value: items,
+                      child: Text(items),
+                    );
+                  }).toList(),
+                  // After selecting the desired option,it will
+                  // change button value to selected value
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      ddValue = newValue!;
+                    });
+                  },
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 11),
+                ),
+              ],
+            ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -498,7 +671,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Alamat Acara Pernikahan",
+                "Alamat",
                 textAlign: TextAlign.left,
               ),
               Padding(
@@ -520,7 +693,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
                         color: Colors.black,
                       ),
                     ),
-                    hintText: "Masukan Alamat Pernikahan",
+                    hintText: "Masukan Alamat",
                     hintStyle: TextStyle(color: Colors.grey),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
