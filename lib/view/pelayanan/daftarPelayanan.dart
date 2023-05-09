@@ -166,11 +166,24 @@ class _daftarPelayanan extends State<daftarPelayanan> {
       } else if (jenisSelectedPelayanan != "Pemberkatan" &&
           jenisSelectedPelayanan != "Perkawinan" &&
           jenisSelectedPelayanan != "Tobat" &&
-          jenisSelectedPelayanan != "Perminyakan") {
+          jenisSelectedPelayanan != "Perminyakan" &&
+          jenisPelayanan != "Umum") {
         for (var item in dummyTemp) {
           //Setiap isi pada variabel dummyTemp akan diiterasi dan dicari
           // berdasarkan parameter pencarian
           if (item['GerejaPelayanan'][0]['nama']
+              .toLowerCase()
+              .contains(query.toLowerCase())) {
+            listOMaps.add(item);
+            //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
+            //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
+          }
+        }
+      } else if (jenisPelayanan == "Umum") {
+        for (var item in dummyTemp) {
+          //Setiap isi pada variabel dummyTemp akan diiterasi dan dicari
+          // berdasarkan parameter pencarian
+          if (item['namaKegiatan']
               .toLowerCase()
               .contains(query.toLowerCase())) {
             listOMaps.add(item);
@@ -351,6 +364,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                     MaterialPageRoute(
                                         builder: (context) => formulirPelayanan(
                                             iduser,
+                                            jenisPelayanan,
                                             jenisSelectedPelayanan,
                                             "detail",
                                             idGereja,
@@ -362,6 +376,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                         builder: (context) =>
                                             detailDaftarPelayanan(
                                                 iduser,
+                                                jenisPelayanan,
                                                 jenisSelectedPelayanan,
                                                 "detail",
                                                 idGereja,
@@ -382,20 +397,31 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                           "imam",
                                           i["_id"])),
                                 );
-                              } else if (jenisSelectedPelayanan !=
-                                      "Pemberkatan" &&
-                                  jenisSelectedPelayanan != "Perkawinan" &&
-                                  jenisSelectedPelayanan != "Tobat" &&
-                                  jenisSelectedPelayanan != "Perminyakan") {
+                              } else if (jenisSelectedPelayanan == "Baptis" ||
+                                  jenisSelectedPelayanan == "Komuni" ||
+                                  jenisSelectedPelayanan == "Krisma") {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
                                             detailDaftarPelayanan(
                                                 iduser,
+                                                jenisPelayanan,
                                                 jenisSelectedPelayanan,
                                                 "detail",
                                                 i['GerejaPelayanan'][0]['_id'],
+                                                i["_id"])));
+                              } else if (jenisPelayanan == "Umum") {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            detailDaftarPelayanan(
+                                                iduser,
+                                                jenisPelayanan,
+                                                jenisSelectedPelayanan,
+                                                "detail",
+                                                null,
                                                 i["_id"])));
                               }
                             }
@@ -518,11 +544,9 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                             }),
                                       ],
                                     ),
-                                if (jenisSelectedPelayanan != "Pemberkatan" &&
-                                    jenisSelectedPelayanan != "Perkawinan" &&
-                                    jenisSelectedPelayanan != "Tobat" &&
-                                    jenisSelectedPelayanan != "Perminyakan" &&
-                                    jenisPencarian == "general")
+                                if (jenisSelectedPelayanan == "Baptis" ||
+                                    jenisSelectedPelayanan == "Komuni" ||
+                                    jenisSelectedPelayanan == "Krisma")
                                   Column(children: [
                                     Text(
                                       i['GerejaPelayanan'][0]['nama'],
@@ -590,6 +614,33 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                           }
                                         }),
                                   ]),
+                                if (jenisPelayanan == "Umum")
+                                  Column(children: [
+                                    Text(
+                                      i['namaKegiatan'],
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 26.0,
+                                          fontWeight: FontWeight.w300),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    Text(
+                                      'Tema Kegiatan: ' + i['temaKegiatan'],
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 12),
+                                    ),
+                                    Text(
+                                      'Alamat: ' + i['lokasi'],
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 12),
+                                    ),
+                                    Text(
+                                      'Kapasitas Tersedia: ' +
+                                          i['kapasitas'].toString(),
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 12),
+                                    ),
+                                  ])
                               ])),
                         ),
                     ]);

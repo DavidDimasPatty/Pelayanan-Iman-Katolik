@@ -18,14 +18,21 @@ class detailDaftarPelayanan extends StatefulWidget {
   final idGereja;
   final iduser;
   final idPelayanan;
+  String jenisPelayanan;
   String jenisSelectedPelayanan;
   String jenisPencarian;
   @override
-  detailDaftarPelayanan(this.iduser, this.jenisSelectedPelayanan,
-      this.jenisPencarian, this.idGereja, this.idPelayanan);
+  detailDaftarPelayanan(
+      this.iduser,
+      this.jenisPelayanan,
+      this.jenisSelectedPelayanan,
+      this.jenisPencarian,
+      this.idGereja,
+      this.idPelayanan);
 
   _detailDaftarPelayanan createState() => _detailDaftarPelayanan(
       this.iduser,
+      this.jenisPelayanan,
       this.jenisSelectedPelayanan,
       this.jenisPencarian,
       this.idGereja,
@@ -36,11 +43,17 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
   final idGereja;
   final iduser;
   final idPelayanan;
+  String jenisPelayanan;
   String jenisSelectedPelayanan;
   String jenisPencarian;
   var hasil;
-  _detailDaftarPelayanan(this.iduser, this.jenisSelectedPelayanan,
-      this.jenisPencarian, this.idGereja, this.idPelayanan);
+  _detailDaftarPelayanan(
+      this.iduser,
+      this.jenisPelayanan,
+      this.jenisSelectedPelayanan,
+      this.jenisPencarian,
+      this.idGereja,
+      this.idPelayanan);
 ///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu

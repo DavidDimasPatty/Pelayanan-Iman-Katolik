@@ -16,14 +16,21 @@ class formulirPelayanan extends StatefulWidget {
   final iduser;
   final idGereja;
   final idImam;
+  String jenisPelayanan;
   String jenisSelectedPelayanan;
   String jenisPencarian;
 
-  formulirPelayanan(this.iduser, this.jenisSelectedPelayanan,
-      this.jenisPencarian, this.idGereja, this.idImam);
+  formulirPelayanan(
+      this.iduser,
+      this.jenisPelayanan,
+      this.jenisSelectedPelayanan,
+      this.jenisPencarian,
+      this.idGereja,
+      this.idImam);
   @override
   _formulirPelayanan createState() => _formulirPelayanan(
       this.iduser,
+      this.jenisPelayanan,
       this.jenisSelectedPelayanan,
       this.jenisPencarian,
       this.idGereja,
@@ -34,11 +41,17 @@ class _formulirPelayanan extends State<formulirPelayanan> {
   final iduser;
   final idGereja;
   final idImam;
+  String jenisPelayanan;
   String jenisSelectedPelayanan;
   String jenisPencarian;
   var ready = false;
-  _formulirPelayanan(this.iduser, this.jenisSelectedPelayanan,
-      this.jenisPencarian, this.idGereja, this.idImam);
+  _formulirPelayanan(
+      this.iduser,
+      this.jenisPelayanan,
+      this.jenisSelectedPelayanan,
+      this.jenisPencarian,
+      this.idGereja,
+      this.idImam);
 
   @override
   //Perkawinan
