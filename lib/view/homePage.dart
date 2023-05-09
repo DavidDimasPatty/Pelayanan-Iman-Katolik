@@ -344,7 +344,8 @@ class _homePage extends State<homePage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      tiketSaya(iduser)),
+                                                      tiketSaya(
+                                                          iduser, "current")),
                                             );
                                           },
                                           child: Container(
@@ -864,7 +865,8 @@ class _homePage extends State<homePage> {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
+                    MaterialPageRoute(
+                        builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {}
                 //Jika item pertama ditekan maka tidak akan memanggil kelas, karena sudah

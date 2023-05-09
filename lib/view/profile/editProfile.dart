@@ -537,7 +537,8 @@ class _editProfile extends State<editProfile> {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
+                    MaterialPageRoute(
+                        builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(

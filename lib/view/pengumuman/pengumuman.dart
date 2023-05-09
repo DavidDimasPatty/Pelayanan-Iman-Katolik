@@ -352,7 +352,8 @@ class _Pengumuman extends State<pengumuman> {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
+                    MaterialPageRoute(
+                        builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   //Jika item pertama ditekan maka akan memanggil kelas homePage

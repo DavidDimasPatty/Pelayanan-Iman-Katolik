@@ -379,7 +379,7 @@ class _Alkitab extends State<Alkitab> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => tiketSaya(this.iduser)),
+                        builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(

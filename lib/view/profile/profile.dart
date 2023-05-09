@@ -571,7 +571,7 @@ class _profile extends State<profile> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              history(iduser)),
+                                              tiketSaya(iduser, "history")),
                                     );
                                   },
                                   shape: RoundedRectangleBorder(
@@ -661,7 +661,8 @@ class _profile extends State<profile> {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
+                    MaterialPageRoute(
+                        builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(

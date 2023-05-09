@@ -103,7 +103,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
     return await hasil;
   }
 
-  Future submitForm(jenis) async {
+  Future submitForm() async {
     Messages message;
     if (jenisSelectedPelayanan == "Perkawinan") {
       if (namaPriaController.text != "" &&
@@ -157,10 +157,11 @@ class _formulirPelayanan extends State<formulirPelayanan> {
             context,
             MaterialPageRoute(builder: (context) => homePage(iduser)),
           );
-        } else {
+        }
+        if (hasil == 'failed') {
           Fluttertoast.showToast(
               /////// Widget toast untuk menampilkan pesan pada halaman
-              msg: "Lengkapi semua isi form",
+              msg: "Gagal Mendaftar" + jenisSelectedPelayanan,
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
               timeInSecForIosWeb: 2,
@@ -170,75 +171,101 @@ class _formulirPelayanan extends State<formulirPelayanan> {
               /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
               );
         }
-      }
-    }
-    if (namaController.text != "" &&
-        parokiController.text != "" &&
-        lingkunganController.text != "" &&
-        notelpController.text != "" &&
-        alamatController.text != "" &&
-        ddValue != "" &&
-        _selectedDate != "" &&
-        noteController.text != "") {
-      Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-      Messages message = Messages(
-          'Agent Page',
-          'Agent Pendaftaran',
-          "REQUEST",
-          Tasks('enroll pelayanan', [
-            "sakramentali",
-            iduser,
-            namaController.text,
-            parokiController.text,
-            lingkunganController.text,
-            notelpController.text,
-            alamatController.text,
-            jenis,
-            _selectedDate,
-            noteController,
-            idGereja,
-            idImam
-          ]));
-
-      MessagePassing messagePassing =
-          MessagePassing(); //Memanggil distributor pesan
-      await messagePassing
-          .sendMessage(message); //Mengirim pesan ke distributor pesan
-      var hasil =
-          await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
-      completer.complete(); //Batas pengerjaan yang memerlukan completer
-
-      await completer
-          .future; //Proses penungguan sudah selesai ketika varibel hasil
-      //memiliki nilai
-
-      if (hasil == 'oke') {
+      } else {
         Fluttertoast.showToast(
             /////// Widget toast untuk menampilkan pesan pada halaman
-            msg: "Berhasil Mendaftar Pemberkatan",
+            msg: "Lengkapi semua isi form",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 2,
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.red,
             textColor: Colors.white,
-            fontSize: 16.0);
-        Navigator.pop(
-          context,
-          MaterialPageRoute(builder: (context) => homePage(iduser)),
-        );
+            fontSize: 16.0
+            /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+            );
       }
     } else {
-      Fluttertoast.showToast(
-          /////// Widget toast untuk menampilkan pesan pada halaman
-          msg: "Lengkapi semua isi form",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 2,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-          /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+      if (namaController.text != "" &&
+          parokiController.text != "" &&
+          lingkunganController.text != "" &&
+          notelpController.text != "" &&
+          alamatController.text != "" &&
+          ddValue != "" &&
+          _selectedDate != "" &&
+          noteController.text != "") {
+        Completer<void> completer = Completer<void>(); //variabel untuk menunggu
+        Messages message = Messages(
+            'Agent Page',
+            'Agent Pendaftaran',
+            "REQUEST",
+            Tasks('enroll pelayanan', [
+              jenisSelectedPelayanan,
+              iduser,
+              namaController.text,
+              parokiController.text,
+              lingkunganController.text,
+              notelpController.text,
+              alamatController.text,
+              ddValue,
+              _selectedDate,
+              noteController.text,
+              idGereja,
+              idImam
+            ]));
+
+        MessagePassing messagePassing =
+            MessagePassing(); //Memanggil distributor pesan
+        await messagePassing
+            .sendMessage(message); //Mengirim pesan ke distributor pesan
+        var hasil = await AgentPage
+            .getData(); //Memanggil data yang tersedia di agen Page
+        completer.complete(); //Batas pengerjaan yang memerlukan completer
+
+        await completer
+            .future; //Proses penungguan sudah selesai ketika varibel hasil
+        //memiliki nilai
+
+        if (hasil == 'oke') {
+          Fluttertoast.showToast(
+              /////// Widget toast untuk menampilkan pesan pada halaman
+              msg: "Berhasil Mendaftar Pemberkatan",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 2,
+              backgroundColor: Colors.green,
+              textColor: Colors.white,
+              fontSize: 16.0);
+          Navigator.pop(
+            context,
+            MaterialPageRoute(builder: (context) => homePage(iduser)),
           );
+        }
+        if (hasil == 'failed') {
+          Fluttertoast.showToast(
+              /////// Widget toast untuk menampilkan pesan pada halaman
+              msg: "Gagal Mendaftar" + jenisSelectedPelayanan,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 2,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0
+              /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+              );
+        }
+      } else {
+        Fluttertoast.showToast(
+            /////// Widget toast untuk menampilkan pesan pada halaman
+            msg: "Lengkapi semua isi form",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+            /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+            );
+      }
     }
   }
 
@@ -783,7 +810,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
               //dan memiliki dekorasi seperti(warna,child yang
               //berupa widgetText, dan bentuk tombol)
               onPressed: () async {
-                // submitForm();
+                submitForm();
               },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(80.0)),
@@ -861,7 +888,8 @@ class _formulirPelayanan extends State<formulirPelayanan> {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
+                    MaterialPageRoute(
+                        builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(

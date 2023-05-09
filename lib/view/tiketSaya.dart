@@ -7,6 +7,7 @@ import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
+import 'package:pelayanan_iman_katolik/view/pelayanan/tiketDetailPelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
 import 'package:pelayanan_iman_katolik/view/sakramen/baptis/tiketSayaDetailBaptis.dart';
 import 'package:pelayanan_iman_katolik/view/sakramen/komuni/tiketSayaDetailKomuni.dart';
@@ -19,25 +20,22 @@ import 'package:pelayanan_iman_katolik/view/umum/tiketSayaDetailKegiatan.dart';
 
 class tiketSaya extends StatefulWidget {
   final iduser;
-  tiketSaya(this.iduser);
+  String status;
+  tiketSaya(this.iduser, this.status);
   @override
-  _tiketSaya createState() => _tiketSaya(this.iduser);
+  _tiketSaya createState() => _tiketSaya(this.iduser, this.status);
 }
 
 class _tiketSaya extends State<tiketSaya> {
   var iduser;
-
-  _tiketSaya(this.iduser);
+  String status;
+  _tiketSaya(this.iduser, this.status);
 
 ///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages(
-        'Agent Page',
-        'Agent Pencarian',
-        "REQUEST",
-        Tasks(
-            'cari jadwal pendaftaran', ["current", iduser])); //Pembuatan pesan
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
+        Tasks('cari jadwal pendaftaran', [status, iduser])); //Pembuatan pesan
 
     MessagePassing messagePassing =
         MessagePassing(); //Memanggil distributor pesan
@@ -144,11 +142,14 @@ class _tiketSaya extends State<tiketSaya> {
                             InkWell(
                                 borderRadius: new BorderRadius.circular(24),
                                 onTap: () {
-                                  tiketSayaDetailBaptis(
+                                  tiketSayaDetailPelayanan(
                                           iduser,
                                           i['UserBaptis'][0]['idGereja'],
+                                          "Baptis",
+                                          "detail",
                                           i['UserBaptis'][0]['_id'],
-                                          i['_id'])
+                                          i['_id'],
+                                          status)
                                       .showDialogBox(context);
                                 },
                                 child: Container(
@@ -224,11 +225,14 @@ class _tiketSaya extends State<tiketSaya> {
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
-                                      tiketSayaDetailKomuni(
+                                      tiketSayaDetailPelayanan(
                                               iduser,
                                               i['UserKomuni'][0]['idGereja'],
+                                              "Komuni",
+                                              "detail",
                                               i['UserKomuni'][0]['_id'],
-                                              i['_id'])
+                                              i['_id'],
+                                              status)
                                           .showDialogBox(context);
                                     },
                                     child: Container(
@@ -307,11 +311,14 @@ class _tiketSaya extends State<tiketSaya> {
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
-                                      tiketSayaDetailKrisma(
+                                      tiketSayaDetailPelayanan(
                                               iduser,
                                               i['UserKrisma'][0]['idGereja'],
+                                              "Krisma",
+                                              "detail",
                                               i['UserKrisma'][0]['_id'],
-                                              i['_id'])
+                                              i['_id'],
+                                              status)
                                           .showDialogBox(context);
                                     },
                                     child: Container(
@@ -397,11 +404,15 @@ class _tiketSaya extends State<tiketSaya> {
                               InkWell(
                                   borderRadius: new BorderRadius.circular(24),
                                   onTap: () {
-                                    tiketSayaDetailKegiatan(
-                                      iduser,
-                                      i['_id'],
-                                      i['UserKegiatan'][0]['_id'],
-                                    ).showDialogBox(context);
+                                    tiketSayaDetailPelayanan(
+                                            iduser,
+                                            null,
+                                            "Umum",
+                                            "detail",
+                                            i['UserKegiatan'][0]['_id'],
+                                            i['_id'],
+                                            status)
+                                        .showDialogBox(context);
                                   },
                                   child: Container(
                                     margin: EdgeInsets.all(20),
@@ -479,10 +490,15 @@ class _tiketSaya extends State<tiketSaya> {
                                       borderRadius:
                                           new BorderRadius.circular(24),
                                       onTap: () {
-                                        tiketSayaDetailPemberkatan(
-                                          iduser,
-                                          i['_id'],
-                                        ).showDialogBox(context);
+                                        tiketSayaDetailPelayanan(
+                                                iduser,
+                                                null,
+                                                "Pemberkatan",
+                                                "history",
+                                                i["_id"],
+                                                null,
+                                                status)
+                                            .showDialogBox(context);
                                       },
                                       child: Container(
                                         margin: EdgeInsets.all(20),
@@ -602,10 +618,15 @@ class _tiketSaya extends State<tiketSaya> {
                                       borderRadius:
                                           new BorderRadius.circular(24),
                                       onTap: () {
-                                        tiketSayaDetailPerkawinan(
-                                          iduser,
-                                          i['_id'],
-                                        ).showDialogBox(context);
+                                        tiketSayaDetailPelayanan(
+                                                iduser,
+                                                null,
+                                                "Perkawinan",
+                                                "history",
+                                                i["_id"],
+                                                null,
+                                                status)
+                                            .showDialogBox(context);
                                       },
                                       child: Container(
                                         margin: EdgeInsets.all(20),
@@ -749,7 +770,8 @@ class _tiketSaya extends State<tiketSaya> {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => tiketSaya(iduser)),
+                    MaterialPageRoute(
+                        builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   //Jika item pertama ditekan maka akan memanggil kelas homePage

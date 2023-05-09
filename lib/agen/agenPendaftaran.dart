@@ -303,6 +303,115 @@ class AgentPendaftaran extends Agent {
     }
   }
 
+  // Future<Messages> _cancelPelayanan(dynamic data, String sender) async {
+  //   //Fungsi tindakan untuk memperbarui dat pada
+  //   //collection userPelayanan atau pelayanan
+  //   /////Inisialisasi Variabel///////////////////////////////////////////////
+  //   var update1;
+  //   var update2;
+  //   var pelayananCollection;
+  //   String id = "";
+  //   var userPelayananCollection;
+  //   /////////////////////////////////////////////////////////////////////////
+  //   //////////////////////////////PENJELASAN DATA////////////////////////////
+  //   /// ["baptis", idUserBaptis, idBaptis, kapasitas, iduser]
+  //   ///data[0] = nama pelayanan
+  //   ///data[1] = id userPelayanan
+  //   ///data[2] = id pelayanan yang didaftar
+  //   ///data[3] = kapasitas pendaftaran
+  //   ///data[4] = id pengguna
+  //   ///
+  //   ///
+  //   if (data[0] != "perkawinan" && data[0] != "sakramentali") {
+  //     //Memberi nilai pada variabel pelayananCollection, id, dan userPelayananCollection
+  //     //dari data yang diterima, jika data [0] bukan perkawinan dan sakramentali
+  //     if (data[0] == "baptis") {
+  //       pelayananCollection = MongoDatabase.db.collection(BAPTIS_COLLECTION);
+  //       userPelayananCollection =
+  //           MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+  //       id = "idBaptis";
+  //     }
+  //     if (data[0] == "komuni") {
+  //       pelayananCollection = MongoDatabase.db.collection(KOMUNI_COLLECTION);
+  //       userPelayananCollection =
+  //           MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+  //       id = "idKomuni";
+  //     }
+  //     if (data[0] == "krisma") {
+  //       pelayananCollection = MongoDatabase.db.collection(KRISMA_COLLECTION);
+  //       userPelayananCollection =
+  //           MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
+  //       id = "idKrisma";
+  //     }
+  //     if (data[0] == "umum") {
+  //       pelayananCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
+  //       userPelayananCollection =
+  //           MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+  //       id = "idKegiatan";
+  //     }
+  //     //Memperbarui data status pada userPelayanan dan kapasitas pelayanan//
+  //     update1 = await userPelayananCollection.updateOne(
+  //         where.eq('_id', data[1]),
+  //         modify
+  //             .set('status', -1)
+  //             .set("updatedAt", DateTime.now())
+  //             .set("updatedBy", data[4]));
+
+  //     update2 = await pelayananCollection.updateOne(
+  //         where.eq('_id', data[2]), modify.set('kapasitas', data[3] + 1));
+  //     //////////////////////////////////////////////////////////////////
+  //     ///
+  //     if (update1.isSuccess && update2.isSuccess) {
+  //       //Jika pembaruan data berhasil maka akan dibuat pesan
+  //       Messages message = Messages(agentName, "Agent Page", "INFORM",
+  //           Tasks('status modifikasi data', "oke"));
+
+  //       return message;
+  //     } else {
+  //       //Jika pembaruan data tidak berhasil maka akan dibuat pesan
+  //       Messages message = Messages(agentName, "Agent Page", "INFORM",
+  //           Tasks('status modifikasi data', "failed"));
+  //       return message;
+  //     }
+  //   } else {
+  //     //Jika data[0] sakramentali atau perkawinan
+  //     if (data[0] == "sakramentali") {
+  //       //Perbarui data status pelayanan sakramentali
+  //       pelayananCollection =
+  //           MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
+  //       update1 = await pelayananCollection.updateOne(
+  //           where.eq('_id', data[1]),
+  //           modify
+  //               .set('status', -2)
+  //               .set("updatedAt", DateTime.now())
+  //               .set("updatedBy", data[2]));
+  //     }
+  //     if (data[0] == "perkawinan") {
+  //       //Perbarui data status pelayanan perkawinan
+  //       pelayananCollection =
+  //           MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
+  //       update1 = await pelayananCollection.updateOne(
+  //           where.eq('_id', data[1]),
+  //           modify
+  //               .set('status', -2)
+  //               .set("updatedAt", DateTime.now())
+  //               .set("updatedBy", data[2]));
+  //     }
+  //     if (update1.isSuccess) {
+  //       //Jika pembaruan data berhasil maka akan dibuat pesan
+  //       Messages message = Messages(agentName, "Agent Page", "INFORM",
+  //           Tasks('status modifikasi data', "oke"));
+
+  //       return message;
+  //     } else {
+  //       //Jika pembaruan data tidak berhasil maka akan dibuat pesan
+  //       Messages message = Messages(agentName, "Agent Page", "INFORM",
+  //           Tasks('status modifikasi data', "failed"));
+  //       return message;
+  //     }
+  //   }
+  // }
+
   Future<Messages> _cancelPelayanan(dynamic data, String sender) async {
     //Fungsi tindakan untuk memperbarui dat pada
     //collection userPelayanan atau pelayanan
@@ -322,28 +431,28 @@ class AgentPendaftaran extends Agent {
     ///data[4] = id pengguna
     ///
     ///
-    if (data[0] != "perkawinan" && data[0] != "sakramentali") {
+    if (data[0] != "Perkawinan" && data[0] != "Pemberkatan") {
       //Memberi nilai pada variabel pelayananCollection, id, dan userPelayananCollection
       //dari data yang diterima, jika data [0] bukan perkawinan dan sakramentali
-      if (data[0] == "baptis") {
+      if (data[0] == "Baptis") {
         pelayananCollection = MongoDatabase.db.collection(BAPTIS_COLLECTION);
         userPelayananCollection =
             MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
         id = "idBaptis";
       }
-      if (data[0] == "komuni") {
+      if (data[0] == "Komuni") {
         pelayananCollection = MongoDatabase.db.collection(KOMUNI_COLLECTION);
         userPelayananCollection =
             MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
         id = "idKomuni";
       }
-      if (data[0] == "krisma") {
+      if (data[0] == "Krisma") {
         pelayananCollection = MongoDatabase.db.collection(KRISMA_COLLECTION);
         userPelayananCollection =
             MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
         id = "idKrisma";
       }
-      if (data[0] == "umum") {
+      if (data[0] == "Umum") {
         pelayananCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
         userPelayananCollection =
             MongoDatabase.db.collection(USER_UMUM_COLLECTION);
@@ -375,7 +484,7 @@ class AgentPendaftaran extends Agent {
       }
     } else {
       //Jika data[0] sakramentali atau perkawinan
-      if (data[0] == "sakramentali") {
+      if (data[0] == "Pemberkatan") {
         //Perbarui data status pelayanan sakramentali
         pelayananCollection =
             MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
@@ -386,7 +495,7 @@ class AgentPendaftaran extends Agent {
                 .set("updatedAt", DateTime.now())
                 .set("updatedBy", data[2]));
       }
-      if (data[0] == "perkawinan") {
+      if (data[0] == "Perkawinan") {
         //Perbarui data status pelayanan perkawinan
         pelayananCollection =
             MongoDatabase.db.collection(PERKAWINAN_COLLECTION);

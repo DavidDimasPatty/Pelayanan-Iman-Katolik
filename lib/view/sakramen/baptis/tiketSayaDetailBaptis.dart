@@ -79,8 +79,10 @@ class tiketSayaDetailBaptis {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
-      Navigator.pop(context,
-          MaterialPageRoute(builder: (context) => tiketSaya(this.iduser)));
+      Navigator.pop(
+          context,
+          MaterialPageRoute(
+              builder: (context) => tiketSaya(iduser, "current")));
     }
   }
 
