@@ -110,7 +110,6 @@ class _Alkitab extends State<Alkitab> {
         axis: scrollDirection);
   }
 
-  TextEditingController editingController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

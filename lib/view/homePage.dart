@@ -8,6 +8,7 @@ import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/alkitabMenu.dart';
 import 'package:pelayanan_iman_katolik/view/logIn.dart';
+import 'package:pelayanan_iman_katolik/view/pelayanan/pelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/detailPengumuman.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/pengumuman.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
@@ -572,8 +573,8 @@ class _homePage extends State<homePage> {
                                           //Jika ditekan akan memanggil kelas Sakramen
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  Sakramen(iduser)),
+                                              builder: (context) => pelayanan(
+                                                  iduser, "Sakramen")),
                                         );
                                       },
                                       child: Column(
@@ -614,8 +615,8 @@ class _homePage extends State<homePage> {
                                           //Jika ditekan akan memanggil kelas sakramentali
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>
-                                                  sakramentali(iduser)),
+                                              builder: (context) => pelayanan(
+                                                  iduser, "Sakramentali")),
                                         );
                                       },
                                       child: Column(
@@ -626,7 +627,7 @@ class _homePage extends State<homePage> {
                                         children: <Widget>[
                                           Icon(Icons.sign_language, size: 30),
                                           Text(
-                                            "sakramentali",
+                                            "Sakramentali",
                                             style: TextStyle(
                                               fontSize: 10.5,
                                               fontWeight: FontWeight.bold,
@@ -656,7 +657,7 @@ class _homePage extends State<homePage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  Umum(iduser)),
+                                                  pelayanan(iduser, "Umum")),
                                         );
                                       },
                                       child: Column(
@@ -737,80 +738,79 @@ class _homePage extends State<homePage> {
                           ),
 
 ////////////////////////////////////////////////////////////////////////////Pembuatan Carrousel Pengumuman///////////////////////////////////////////////////////////
-                          GestureDetector(
-                              //Widget akan memanggil kelas jika Text
-                              //pengumuman ditekan oleh pengguna
-                              onTap: () {
-                                Navigator.push(
-                                  //widget akan memanggil kelas pengumuman
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          pengumuman(this.iduser)),
-                                );
-                              },
-                              child: Text(
-                                "pengumuman",
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 5),
-                          ),
+                          // GestureDetector(
+                          //     //Widget akan memanggil kelas jika Text
+                          //     //pengumuman ditekan oleh pengguna
+                          //     onTap: () {
+                          //       Navigator.push(
+                          //         //widget akan memanggil kelas pengumuman
+                          //         context,
+                          //         MaterialPageRoute(
+                          //             builder: (context) =>
+                          //                 pengumuman(this.iduser)),
+                          //       );
+                          //     },
+                          //     child: Text(
+                          //       "pengumuman",
+                          //       style: TextStyle(
+                          //         fontSize: 15,
+                          //         fontWeight: FontWeight.bold,
+                          //       ),
+                          //     )),
+                          // Padding(
+                          //   padding: EdgeInsets.symmetric(
+                          //       horizontal: 8, vertical: 5),
+                          // ),
 
-                          Container(
-                            //Container carrousel
-                            child: Center(
-                              child: CarouselSlider(
-                                //Widget untuk membuat tampilan carrousel pada
-                                //halaman home
-                                options: CarouselOptions(
-                                  autoPlay: true,
-                                  autoPlayInterval: Duration(seconds: 3),
-                                  autoPlayAnimationDuration:
-                                      Duration(milliseconds: 800),
-                                  autoPlayCurve: Curves.fastOutSlowIn,
-                                  pauseAutoPlayOnTouch: true,
-                                  enlargeCenterPage: true,
-                                  viewportFraction: 0.8,
-                                ),
-                                //Pengaturan carrousel yang ditampilkan
+                          // Container(
+                          //   //Container carrousel
+                          //   child: Center(
+                          //     child: CarouselSlider(
+                          //       //Widget untuk membuat tampilan carrousel pada
+                          //       //halaman home
+                          //       options: CarouselOptions(
+                          //         autoPlay: true,
+                          //         autoPlayInterval: Duration(seconds: 3),
+                          //         autoPlayAnimationDuration:
+                          //             Duration(milliseconds: 800),
+                          //         autoPlayCurve: Curves.fastOutSlowIn,
+                          //         pauseAutoPlayOnTouch: true,
+                          //         enlargeCenterPage: true,
+                          //         viewportFraction: 0.8,
+                          //       ),
+                          //       //Pengaturan carrousel yang ditampilkan
 
-                                items: cardList.map((item) {
-                                  //Setiap isi dari variabel cardlist diiterasi
-                                  return GestureDetector(
-                                      //Widget yang akan memanggil kelas jika
-                                      //salah satu pengumuman pada carrousel
-                                      //ditekan oleh pengguna
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              //Jika card ditekan maka kelas detail
-                                              //Pengumuman dipanggil
-                                              builder: (context) =>
-                                                  detailPengumuman(
-                                                      iduser,
-                                                      idImage[cardList
-                                                          .indexOf(item)])),
-                                        );
-                                      },
-                                      child: ItemCard(
-                                          //Setiap item card akan memiliki caption
-                                          //yang tedapat pada variabel caption
-                                          images: item.toString(),
-                                          captions:
-                                              caption[cardList.indexOf(item)]
-                                                  .toString()));
-                                }).toList(),
-                              ),
-
+                          //       items: cardList.map((item) {
+                          //         //Setiap isi dari variabel cardlist diiterasi
+                          //         return GestureDetector(
+                          //             //Widget yang akan memanggil kelas jika
+                          //             //salah satu pengumuman pada carrousel
+                          //             //ditekan oleh pengguna
+                          //             onTap: () {
+                          //               Navigator.push(
+                          //                 context,
+                          //                 MaterialPageRoute(
+                          //                     //Jika card ditekan maka kelas detail
+                          //                     //Pengumuman dipanggil
+                          //                     builder: (context) =>
+                          //                         detailPengumuman(
+                          //                             iduser,
+                          //                             idImage[cardList
+                          //                                 .indexOf(item)])),
+                          //               );
+                          //             },
+                          //             child: ItemCard(
+                          //                 //Setiap item card akan memiliki caption
+                          //                 //yang tedapat pada variabel caption
+                          //                 images: item.toString(),
+                          //                 captions:
+                          //                     caption[cardList.indexOf(item)]
+                          //                         .toString()));
+                          //       }).toList(),
+                          // ),
+                          // ),
+                          // )
 //////////////////////////////////////Batas Akhir Pembuatan Carrousel Pengumuman///////////////////////////////////////////////////////////
-                            ),
-                          )
                         ]);
                       } catch (e) {
                         print(e);

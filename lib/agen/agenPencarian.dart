@@ -442,27 +442,215 @@ class AgentPencarian extends Agent {
     }
   }
 
+  // Future<Messages> _cariPelayanan(dynamic data, String sender) async {
+  //   //Fungsi tindakan agen Pencarian untuk mencari data yang dibutuhkan pada
+  //   //halaman pelayanan dan detail pelayanan
+  //   var pelayananCollection;
+  //   var aturanCollection =
+  //       MongoDatabase.db.collection(ATURAN_PELAYANAN_COLLECTION);
+  //   String as = "";
+  //   //////BAPTIS ATAU KOMUNI ATAU KRISMA
+  //   if (data[0] == "baptis" || data[0] == "krisma" || data[0] == "komuni") {
+  //     if (data[0] == "baptis") {
+  //       pelayananCollection = MongoDatabase.db.collection(BAPTIS_COLLECTION);
+  //       as = "GerejaBaptis";
+  //     }
+
+  //     if (data[0] == "komuni") {
+  //       pelayananCollection = MongoDatabase.db.collection(KOMUNI_COLLECTION);
+  //       as = "GerejaKomuni";
+  //     }
+  //     if (data[0] == "krisma") {
+  //       pelayananCollection = MongoDatabase.db.collection(KRISMA_COLLECTION);
+  //       as = "GerejaKrisma";
+  //     }
+  //     if (data[1] == "general") {
+  //       //Jika data[1] = general maka pencarian pada data halaman pelayanan
+  //       final pipeline = AggregationPipelineBuilder()
+  //           .addStage(Match(where
+  //               .eq('status', 0)
+  //               .gt("kapasitas", 0)
+  //               .gte("jadwalTutup", DateTime.now())
+  //               .map['\$query']))
+  //           .addStage(Lookup(
+  //               from: 'Gereja',
+  //               localField: 'idGereja',
+  //               foreignField: '_id',
+  //               as: as))
+  //           .build();
+  //       var conn =
+  //           await pelayananCollection.aggregateToStream(pipeline).toList();
+  //       Messages message = Messages(
+  //           agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
+  //       return message;
+  //     } else {
+  //       //Jika data[1] != general maka pencarian pada data halaman detail pelayanan
+  //       var aturan =
+  //           await aturanCollection.find(where.eq("idGereja", data[3])).toList();
+
+  //       final pipeline = AggregationPipelineBuilder()
+  //           .addStage(Lookup(
+  //               from: 'Gereja',
+  //               localField: 'idGereja',
+  //               foreignField: '_id',
+  //               as: as))
+  //           .addStage(Match(where.eq('_id', data[2]).map['\$query']))
+  //           .build();
+  //       var conn =
+  //           await pelayananCollection.aggregateToStream(pipeline).toList();
+  //       Messages message = Messages(agentName, sender, "INFORM",
+  //           Tasks('hasil pencarian', [conn, aturan]));
+  //       return message;
+  //     }
+  //   }
+
+  //   ////PERKAWINAN atau SAKRAMENTALI atau TOBAT atau PERMINYAKAN
+  //   else if (data[0] == "perkawinan" ||
+  //       data[0] == "sakramentali" ||
+  //       data[0] == "tobat" ||
+  //       data[0] == "perminyakan") {
+  //     var pelayanan2Collection;
+  //     String status = "";
+  //     if (data[0] == "tobat") {
+  //       pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
+  //       as = "GerejaTobat";
+  //       status = "statusTobat";
+  //     }
+  //     if (data[0] == "perminyakan") {
+  //       pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
+  //       as = "GerejaPerminyakan";
+  //       status = "statusPerminyakan";
+  //     }
+  //     if (data[0] == "perkawinan") {
+  //       pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
+  //       pelayanan2Collection =
+  //           MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
+  //       as = "GerejaImam";
+  //       status = "statusPerkawinan";
+  //     }
+  //     if (data[0] == "sakramentali") {
+  //       pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
+  //       pelayanan2Collection =
+  //           MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
+  //       as = "GerejaImam";
+  //       status = "statusPemberkatan";
+  //     }
+  //     if (data[1] == "history") {
+  //       //Jika data[1] = history maka pencarian untuk halaman history pelayanan
+  //       var conn = await pelayanan2Collection.find({'_id': data[2]}).toList();
+  //       Messages message = Messages(
+  //           agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
+  //       return message;
+  //     } else if (data[1] == "general") {
+  //       //Jika data[1] = general maka pencarian untuk halaman pelayanan
+  //       pelayananCollection = MongoDatabase.db.collection(GEREJA_COLLECTION);
+  //       final pipeline = AggregationPipelineBuilder()
+  //           .addStage(Lookup(
+  //               from: 'imam',
+  //               localField: '_id',
+  //               foreignField: 'idGereja',
+  //               as: as))
+  //           .addStage(Match(where.eq("banned", 0).map['\$query']))
+  //           .addStage(Match(where
+  //               .eq('${as}.${status}', 0)
+  //               .eq('${as}.role', 0)
+  //               .map['\$query']))
+  //           .build();
+  //       var conn =
+  //           await pelayananCollection.aggregateToStream(pipeline).toList();
+  //       Messages message = Messages(
+  //           agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
+  //       return message;
+  //     } else if (data[1] == "imam") {
+  //       var conn = await pelayananCollection.find(
+  //           {'idGereja': data[2], status: 0, "banned": 0, "role": 0}).toList();
+  //       Messages message = Messages(
+  //           agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
+  //       return message;
+  //     } else {
+  //       if (data[0] == "perminyakan" || data[0] == "tobat") {
+  //         var aturan = await aturanCollection
+  //             .find(where.eq("idGereja", data[3]))
+  //             .toList();
+
+  //         final pipeline = AggregationPipelineBuilder()
+  //             .addStage(Lookup(
+  //                 from: 'Gereja',
+  //                 localField: 'idGereja',
+  //                 foreignField: '_id',
+  //                 as: as))
+  //             .addStage(Match(where.eq('_id', data[2]).map['\$query']))
+  //             .build();
+  //         var conn =
+  //             await pelayananCollection.aggregateToStream(pipeline).toList();
+  //         Messages message = Messages(agentName, sender, "INFORM",
+  //             Tasks('hasil pencarian', [conn, aturan]));
+  //         return message;
+  //       } else {
+  //         var aturan = await aturanCollection
+  //             .find(where.eq("idGereja", data[2]))
+  //             .toList();
+  //         Messages message = Messages(
+  //             agentName, sender, "INFORM", Tasks('hasil pencarian', aturan));
+  //         return message;
+  //       }
+  //     }
+  //   }
+
+  //   ////UMUM
+  //   else {
+  //     pelayananCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
+
+  //     if (data[1] == "detail") {
+  //       final pipeline = AggregationPipelineBuilder()
+  //           .addStage(Lookup(
+  //               from: 'Gereja',
+  //               localField: 'idGereja',
+  //               foreignField: '_id',
+  //               as: 'GerejaKegiatan'))
+  //           .addStage(Match(where.eq('_id', data[2]).map['\$query']))
+  //           .build();
+  //       var conn =
+  //           await pelayananCollection.aggregateToStream(pipeline).toList();
+
+  //       Messages message = Messages(
+  //           agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
+  //       return message;
+  //     } else {
+  //       var conn = await pelayananCollection
+  //           .find(where
+  //               .eq('jenisKegiatan', data[2])
+  //               .eq("status", 0)
+  //               .gt("kapasitas", 0)
+  //               .gte("tanggal", DateTime.now()))
+  //           .toList();
+  //       Messages message = Messages(
+  //           agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
+  //       return message;
+  //     }
+  //   }
+  // }
   Future<Messages> _cariPelayanan(dynamic data, String sender) async {
     //Fungsi tindakan agen Pencarian untuk mencari data yang dibutuhkan pada
     //halaman pelayanan dan detail pelayanan
     var pelayananCollection;
     var aturanCollection =
         MongoDatabase.db.collection(ATURAN_PELAYANAN_COLLECTION);
-    String as = "";
+    String as = "GerejaPelayanan";
     //////BAPTIS ATAU KOMUNI ATAU KRISMA
-    if (data[0] == "baptis" || data[0] == "krisma" || data[0] == "komuni") {
-      if (data[0] == "baptis") {
+    if (data[0] == "Baptis" || data[0] == "Krisma" || data[0] == "Komuni") {
+      if (data[0] == "Baptis") {
         pelayananCollection = MongoDatabase.db.collection(BAPTIS_COLLECTION);
-        as = "GerejaBaptis";
+        // as = "GerejaBaptis";
       }
 
-      if (data[0] == "komuni") {
+      if (data[0] == "Komuni") {
         pelayananCollection = MongoDatabase.db.collection(KOMUNI_COLLECTION);
-        as = "GerejaKomuni";
+        // as = "GerejaKomuni";
       }
-      if (data[0] == "krisma") {
+      if (data[0] == "Krisma") {
         pelayananCollection = MongoDatabase.db.collection(KRISMA_COLLECTION);
-        as = "GerejaKrisma";
+        // as = "GerejaKrisma";
       }
       if (data[1] == "general") {
         //Jika data[1] = general maka pencarian pada data halaman pelayanan
@@ -505,34 +693,34 @@ class AgentPencarian extends Agent {
     }
 
     ////PERKAWINAN atau SAKRAMENTALI atau TOBAT atau PERMINYAKAN
-    else if (data[0] == "perkawinan" ||
-        data[0] == "sakramentali" ||
-        data[0] == "tobat" ||
-        data[0] == "perminyakan") {
+    else if (data[0] == "Perkawinan" ||
+        data[0] == "Sakramentali" ||
+        data[0] == "Tobat" ||
+        data[0] == "Perminyakan") {
       var pelayanan2Collection;
       String status = "";
-      if (data[0] == "tobat") {
+      if (data[0] == "Tobat") {
         pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
-        as = "GerejaTobat";
+        // as = "GerejaTobat";
         status = "statusTobat";
       }
-      if (data[0] == "perminyakan") {
+      if (data[0] == "Perminyakan") {
         pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
-        as = "GerejaPerminyakan";
+        // as = "GerejaPerminyakan";
         status = "statusPerminyakan";
       }
-      if (data[0] == "perkawinan") {
+      if (data[0] == "Perkawinan") {
         pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
         pelayanan2Collection =
             MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
-        as = "GerejaImam";
+        // as = "GerejaImam";
         status = "statusPerkawinan";
       }
-      if (data[0] == "sakramentali") {
+      if (data[0] == "Pemberkatan") {
         pelayananCollection = MongoDatabase.db.collection(IMAM_COLLECTION);
         pelayanan2Collection =
             MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
-        as = "GerejaImam";
+        // as = "GerejaImam";
         status = "statusPemberkatan";
       }
       if (data[1] == "history") {
@@ -568,7 +756,7 @@ class AgentPencarian extends Agent {
             agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
         return message;
       } else {
-        if (data[0] == "perminyakan" || data[0] == "tobat") {
+        if (data[0] == "Perminyakan" || data[0] == "Tobat") {
           var aturan = await aturanCollection
               .find(where.eq("idGereja", data[3]))
               .toList();
@@ -607,7 +795,7 @@ class AgentPencarian extends Agent {
                 from: 'Gereja',
                 localField: 'idGereja',
                 foreignField: '_id',
-                as: 'GerejaKegiatan'))
+                as: as))
             .addStage(Match(where.eq('_id', data[2]).map['\$query']))
             .build();
         var conn =
