@@ -293,6 +293,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
         onRefresh: pullRefresh,
         //Ketika halaman direfresh akan memanggil fungsi pullRefresh
         child: ListView(
+          physics: AlwaysScrollableScrollPhysics(),
           //Widget ListView untuk wadah menampilkan data
           controller: _scrollController,
           //Controller untuk mendeteksi pergerakan pengguna pada listview

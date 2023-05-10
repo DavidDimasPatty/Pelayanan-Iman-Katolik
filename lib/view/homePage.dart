@@ -641,9 +641,17 @@ class _homePage extends State<homePage> {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 11),
-                              ),
+                            ],
+                          ),
+                          Padding(
+                            //Membuat ruang kosong antar widget
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                          ),
+                          Row(
+                            //Menu akan ditampilkan berdampingan satu sama lain
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
                               SizedBox.fromSize(
                                 //Pembuatan Tombol Menu Kegiatan Umum
                                 size: Size(75, 75),
