@@ -42,7 +42,6 @@ class _daftarPelayanan extends State<daftarPelayanan> {
   ////
   ///
   //////////Inisialisasi Variabel///////////
-  var distance;
   List hasil = [];
   StreamController _controller = StreamController();
   ScrollController _scrollController = ScrollController();
@@ -54,7 +53,6 @@ class _daftarPelayanan extends State<daftarPelayanan> {
   String jenisSelectedPelayanan;
   String jenisPencarian;
   String jenisPelayanan;
-
   ///////////////////////////////////////////
   ///
   ///
@@ -125,7 +123,8 @@ class _daftarPelayanan extends State<daftarPelayanan> {
     });
   }
 
-  Future jarak(lat, lang) async {
+  Future jarak(double lat, double lang) async {
+    String distance;
     //Fungsi untuk menghitung jarak pengguna terhadap lokasi Gereja
     //Berdasarkan GPS Device
     Position position = await Geolocator.getCurrentPosition(

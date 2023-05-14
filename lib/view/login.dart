@@ -326,7 +326,7 @@ class logIn extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ForgetPassword()),
+                                    builder: (context) => forgetPassword()),
                               );
                             },
                             child: Text(

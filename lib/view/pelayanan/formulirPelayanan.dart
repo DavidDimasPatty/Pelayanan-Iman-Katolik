@@ -44,7 +44,6 @@ class _formulirPelayanan extends State<formulirPelayanan> {
   String jenisPelayanan;
   String jenisSelectedPelayanan;
   String jenisPencarian;
-  var ready = false;
   _formulirPelayanan(
       this.iduser,
       this.jenisPelayanan,

@@ -6,7 +6,7 @@ import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
-import 'package:pelayanan_iman_katolik/view/alkitabMenu.dart';
+import 'package:pelayanan_iman_katolik/view/Alkitab.dart';
 import 'package:pelayanan_iman_katolik/view/logIn.dart';
 import 'package:pelayanan_iman_katolik/view/pelayanan/pelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/pengumuman/detailPengumuman.dart';

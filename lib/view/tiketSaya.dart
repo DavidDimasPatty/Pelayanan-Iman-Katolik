@@ -142,7 +142,7 @@ class _tiketSaya extends State<tiketSaya> {
                             InkWell(
                                 borderRadius: new BorderRadius.circular(24),
                                 onTap: () {
-                                  tiketSayaDetailPelayanan(
+                                  tiketDetailPelayanan(
                                           iduser,
                                           i['UserBaptis'][0]['idGereja'],
                                           "Baptis",
@@ -225,7 +225,7 @@ class _tiketSaya extends State<tiketSaya> {
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
-                                      tiketSayaDetailPelayanan(
+                                      tiketDetailPelayanan(
                                               iduser,
                                               i['UserKomuni'][0]['idGereja'],
                                               "Komuni",
@@ -311,7 +311,7 @@ class _tiketSaya extends State<tiketSaya> {
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
-                                      tiketSayaDetailPelayanan(
+                                      tiketDetailPelayanan(
                                               iduser,
                                               i['UserKrisma'][0]['idGereja'],
                                               "Krisma",
@@ -404,7 +404,7 @@ class _tiketSaya extends State<tiketSaya> {
                               InkWell(
                                   borderRadius: new BorderRadius.circular(24),
                                   onTap: () {
-                                    tiketSayaDetailPelayanan(
+                                    tiketDetailPelayanan(
                                             iduser,
                                             null,
                                             "Umum",
@@ -490,7 +490,7 @@ class _tiketSaya extends State<tiketSaya> {
                                       borderRadius:
                                           new BorderRadius.circular(24),
                                       onTap: () {
-                                        tiketSayaDetailPelayanan(
+                                        tiketDetailPelayanan(
                                                 iduser,
                                                 null,
                                                 "Pemberkatan",
@@ -618,7 +618,7 @@ class _tiketSaya extends State<tiketSaya> {
                                       borderRadius:
                                           new BorderRadius.circular(24),
                                       onTap: () {
-                                        tiketSayaDetailPelayanan(
+                                        tiketDetailPelayanan(
                                                 iduser,
                                                 null,
                                                 "Perkawinan",

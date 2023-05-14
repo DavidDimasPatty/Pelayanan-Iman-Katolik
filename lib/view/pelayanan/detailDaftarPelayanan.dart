@@ -106,7 +106,7 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
     return await hasil;
   }
 
-  showDirectionWithFirstMap(coordinates) async {
+  void showDirectionWithFirstMap(coordinates) async {
     final List<AvailableMap> availableMaps = await MapLauncher.installedMaps;
     await availableMaps.first.showDirections(
       destination: coordinates,

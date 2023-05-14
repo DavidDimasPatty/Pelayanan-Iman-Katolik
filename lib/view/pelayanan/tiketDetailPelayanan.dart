@@ -10,7 +10,7 @@ import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 
-class tiketSayaDetailPelayanan {
+class tiketDetailPelayanan {
   var iduser;
   var idPelayanan;
   var idGereja;
@@ -18,7 +18,7 @@ class tiketSayaDetailPelayanan {
   String jenisSelectedPelayanan;
   String jenisPencarian;
   String jenisPopUp;
-  tiketSayaDetailPelayanan(
+  tiketDetailPelayanan(
       this.iduser,
       this.idGereja,
       this.jenisSelectedPelayanan,
@@ -158,7 +158,7 @@ class tiketSayaDetailPelayanan {
     );
   }
 
-  void showDialogBox(BuildContext context) async {
+  showDialogBox(BuildContext context) async {
     //Pembuatan dialog box dan pemanggilan data
     //yang dibutuhkan pada dialog box
     await callDb();

@@ -16,7 +16,7 @@ class confirmPelayanan {
   final idGereja;
   final iduser;
   final idPelayanan;
-  var hasil;
+  List hasil = [];
   String jenisSelectedPelayanan;
   String jenisPencarian;
   String jenisPelayanan;
@@ -56,7 +56,7 @@ class confirmPelayanan {
     return await hasil;
   }
 
-  Future daftar(kapasitas, context) async {
+  Future daftar(int kapasitas, context) async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message;
     if (jenisPelayanan == "Umum") {

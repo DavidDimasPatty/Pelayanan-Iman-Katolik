@@ -13,7 +13,7 @@ import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/view/logIn.dart';
 
-class ForgetPassword extends StatelessWidget {
+class forgetPassword extends StatelessWidget {
   TextEditingController emailController = new TextEditingController();
 
   Future send(context) async {
