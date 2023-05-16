@@ -6,7 +6,7 @@
    <uses-permission android:name="android.permission.INTERNET" />
   
    <application
-        android:label="pelayanan_iman_katolik"
+        android:label="Pelayanan Imam Katolik"
         android:usesCleartextTraffic="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

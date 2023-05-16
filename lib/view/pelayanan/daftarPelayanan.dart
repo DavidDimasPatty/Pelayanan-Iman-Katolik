@@ -305,7 +305,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
               child: AnimSearchBar(
                 //Widget AnimSearchBar digunakan untuk menampilkan inputfield
                 //yang dianimasikan pada halaman
-                autoFocus: false,
+                autoFocus: false, color: Colors.blue,
                 width: 400,
                 rtl: true,
                 helpText: 'Cari ' + jenisSelectedPelayanan,
