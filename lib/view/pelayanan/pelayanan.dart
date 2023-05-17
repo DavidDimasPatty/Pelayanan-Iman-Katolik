@@ -4,12 +4,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/pelayanan/daftarPelayanan.dart';
-import 'package:pelayanan_iman_katolik/view/sakramen/baptis/baptis.dart';
-import 'package:pelayanan_iman_katolik/view/sakramen/komuni/komuni.dart';
-import 'package:pelayanan_iman_katolik/view/sakramen/krisma/krisma.dart';
-import 'package:pelayanan_iman_katolik/view/sakramen/perkawinan/perkawinan.dart';
-import 'package:pelayanan_iman_katolik/view/sakramen/perminyakan/perminyakan.dart';
-import 'package:pelayanan_iman_katolik/view/sakramen/tobat/tobat.dart';
 import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 
 import '../profile/profile.dart';
@@ -19,14 +13,7 @@ class pelayanan extends StatelessWidget {
   String jenisPelayanan;
   List<String>? selectedPelayanan;
   Map<String, List<String>> pelayananValue = {
-    "Sakramen": [
-      "Baptis",
-      "Komuni",
-      "Krisma",
-      "Perkawinan",
-      "Tobat",
-      "Perminyakan"
-    ],
+    "Sakramen": ["Baptis", "Komuni", "Krisma", "Perkawinan", "Tobat", "Perminyakan"],
     "Umum": [
       "Rekoleksi",
       "Retret",
@@ -37,8 +24,7 @@ class pelayanan extends StatelessWidget {
   pelayanan(this.iduser, this.jenisPelayanan);
   @override
   Widget build(BuildContext context) {
-    if (pelayananValue.containsKey(jenisPelayanan))
-      selectedPelayanan = pelayananValue[jenisPelayanan];
+    if (pelayananValue.containsKey(jenisPelayanan)) selectedPelayanan = pelayananValue[jenisPelayanan];
     return Scaffold(
       // Widget untuk membangun struktur halaman
       //////////////////////////////////////Pembuatan Top Navigation Bar////////////////////////////////////////////////////////////////
@@ -80,21 +66,16 @@ class pelayanan extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => daftarPelayanan(
-                          iduser, jenisPelayanan, i, "general", null)),
+                  MaterialPageRoute(builder: (context) => daftarPelayanan(iduser, jenisPelayanan, i, "general", null)),
                 );
               },
               child: Container(
                   margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          Colors.blueGrey,
-                          Colors.lightBlue,
-                        ]),
+                    gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                      Colors.blueGrey,
+                      Colors.lightBlue,
+                    ]),
                     border: Border.all(
                       color: Colors.lightBlue,
                     ),
@@ -102,10 +83,7 @@ class pelayanan extends StatelessWidget {
                   ),
                   child: Text(
                     i,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 26.0,
-                        fontWeight: FontWeight.w300),
+                    style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                     textAlign: TextAlign.center,
                   )),
             ),
@@ -118,8 +96,7 @@ class pelayanan extends StatelessWidget {
 /////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
             boxShadow: [
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
@@ -154,8 +131,7 @@ class pelayanan extends StatelessWidget {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(iduser, "current")),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(

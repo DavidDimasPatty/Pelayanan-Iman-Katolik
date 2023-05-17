@@ -29,19 +29,14 @@ class Settings extends StatelessWidget {
 
   Future LogOut(context) async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-        Tasks('log out', iduser)); //Pembuatan pesan
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('log out', iduser)); //Pembuatan pesan
 
-    MessagePassing messagePassing =
-        MessagePassing(); //Memanggil distributor pesan
-    await messagePassing
-        .sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasil =
-        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+    await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
 
-    await completer
-        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
     if (hasil == 'oke') {
       Fluttertoast.showToast(
@@ -107,36 +102,25 @@ class Settings extends StatelessWidget {
                 //dan memiliki dekorasi seperti(warna,child yang
                 //berupa widgetText, dan bentuk tombol)
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => privacySafety(this.iduser)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => privacySafety(this.iduser)));
                 },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
                 elevation: 10.0,
                 padding: EdgeInsets.all(0.0),
                 child: Ink(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          Colors.blueAccent,
-                          Colors.lightBlue,
-                        ]),
+                    gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                      Colors.blueAccent,
+                      Colors.lightBlue,
+                    ]),
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: Container(
-                    constraints: BoxConstraints(
-                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    constraints: BoxConstraints(maxWidth: double.maxFinite, minHeight: 50.0),
                     alignment: Alignment.center,
                     child: Text(
                       "Privacy & Safety",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w300),
+                      style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                     ),
                   ),
                 )),
@@ -147,36 +131,25 @@ class Settings extends StatelessWidget {
                 //dan memiliki dekorasi seperti(warna,child yang
                 //berupa widgetText, dan bentuk tombol)
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => customerService(iduser)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => customerService(iduser)));
                 },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
                 elevation: 10.0,
                 padding: EdgeInsets.all(0.0),
                 child: Ink(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          Colors.blueAccent,
-                          Colors.lightBlue,
-                        ]),
+                    gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                      Colors.blueAccent,
+                      Colors.lightBlue,
+                    ]),
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: Container(
-                    constraints: BoxConstraints(
-                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    constraints: BoxConstraints(maxWidth: double.maxFinite, minHeight: 50.0),
                     alignment: Alignment.center,
                     child: Text(
                       "Customer Service",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w300),
+                      style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                     ),
                   ),
                 )),
@@ -189,31 +162,23 @@ class Settings extends StatelessWidget {
                 onPressed: () async {
                   await LogOut(context);
                 },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
                 elevation: 10.0,
                 padding: EdgeInsets.all(0.0),
                 child: Ink(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          Colors.blueAccent,
-                          Colors.lightBlue,
-                        ]),
+                    gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                      Colors.blueAccent,
+                      Colors.lightBlue,
+                    ]),
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: Container(
-                    constraints: BoxConstraints(
-                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    constraints: BoxConstraints(maxWidth: double.maxFinite, minHeight: 50.0),
                     alignment: Alignment.center,
                     child: Text(
                       "Log Out",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w300),
+                      style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                     ),
                   ),
                 )),
@@ -229,8 +194,7 @@ class Settings extends StatelessWidget {
 /////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
             boxShadow: [
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
@@ -265,8 +229,7 @@ class Settings extends StatelessWidget {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(iduser, "current")),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(

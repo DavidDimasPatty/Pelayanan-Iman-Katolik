@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,7 +7,6 @@ import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/profile/editProfile.dart';
-import 'package:pelayanan_iman_katolik/view/profile/history.dart';
 import '../homePage.dart';
 import '../settings/setting.dart';
 import '../tiketSaya.dart';
@@ -18,13 +16,11 @@ import 'dart:io';
 class profile extends StatefulWidget {
   final iduser;
   profile(this.iduser);
-
   _profile createState() => _profile(this.iduser);
 }
 
 class _profile extends State<profile> {
   final iduser;
-
   Future selectFile(context) async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
     if (result == null) return;
@@ -37,38 +33,26 @@ class _profile extends State<profile> {
   ///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-        Tasks('cari profile', iduser)); //Pembuatan pesan
-
-    MessagePassing messagePassing =
-        MessagePassing(); //Memanggil distributor pesan
-    await messagePassing
-        .sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasil =
-        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('cari profile', iduser)); //Pembuatan pesan
+    MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+    await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
-
-    await completer
-        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
     return await hasil;
   }
 
   Future uploadFile(File file, context) async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-        Tasks('change profile picture', [iduser, file])); //Pembuatan pesan
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('change profile picture', [iduser, file])); //Pembuatan pesan
 
-    MessagePassing messagePassing =
-        MessagePassing(); //Memanggil distributor pesan
-    await messagePassing
-        .sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasilDaftar =
-        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+    await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasilDaftar = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
 
-    await completer
-        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
     if (hasilDaftar == 'oke') {
       Fluttertoast.showToast(
@@ -157,20 +141,16 @@ class _profile extends State<profile> {
                         Padding(padding: EdgeInsets.symmetric(vertical: 2)),
                         Column(
                           children: <Widget>[
-                            Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10)),
+                            Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                             ClipRRect(
                                 borderRadius: BorderRadius.circular(30),
                                 child: Container(
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(50),
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomCenter,
-                                          colors: [
-                                            Colors.blueAccent,
-                                            Colors.lightBlue,
-                                          ]),
+                                      gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomCenter, colors: [
+                                        Colors.blueAccent,
+                                        Colors.lightBlue,
+                                      ]),
                                       boxShadow: [
                                         BoxShadow(
                                           color: Colors.grey,
@@ -184,29 +164,19 @@ class _profile extends State<profile> {
                                       height: 350.0,
                                       child: Center(
                                         child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: <Widget>[
-                                            if (snapshot.data[0][0]
-                                                    ['picture'] ==
-                                                null)
+                                            if (snapshot.data[0][0]['picture'] == null)
                                               CircleAvatar(
                                                 backgroundImage: AssetImage(''),
-                                                backgroundColor:
-                                                    Colors.greenAccent,
+                                                backgroundColor: Colors.greenAccent,
                                                 radius: 80.0,
                                               ),
-                                            if (snapshot.data[0][0]
-                                                    ['picture'] !=
-                                                null)
+                                            if (snapshot.data[0][0]['picture'] != null)
                                               CircleAvatar(
-                                                backgroundImage: NetworkImage(
-                                                    snapshot.data[0][0]
-                                                        ['picture']),
-                                                backgroundColor:
-                                                    Colors.greenAccent,
+                                                backgroundImage: NetworkImage(snapshot.data[0][0]['picture']),
+                                                backgroundColor: Colors.greenAccent,
                                                 radius: 80.0,
                                               ),
                                             SizedBox(
@@ -214,30 +184,21 @@ class _profile extends State<profile> {
                                             ),
                                             Text(
                                               snapshot.data[0][0]['nama'],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 24.0,
-                                                  fontWeight: FontWeight.w700),
+                                              style: TextStyle(color: Colors.white, fontSize: 24.0, fontWeight: FontWeight.w700),
                                             ),
                                             SizedBox(
                                               height: 10.0,
                                             ),
                                             Card(
                                               shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(30.0),
+                                                borderRadius: BorderRadius.circular(30.0),
                                               ),
-                                              margin: EdgeInsets.symmetric(
-                                                  horizontal: 20.0,
-                                                  vertical: 5.0),
+                                              margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                                               clipBehavior: Clip.antiAlias,
                                               color: Colors.white,
                                               elevation: 20.0,
                                               child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 7.0,
-                                                        vertical: 22.0),
+                                                padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 22.0),
                                                 child: Row(
                                                   children: <Widget>[
                                                     Expanded(
@@ -246,38 +207,28 @@ class _profile extends State<profile> {
                                                           Text(
                                                             "Kunjungan Gereja Terdaftar :",
                                                             style: TextStyle(
-                                                              color: Colors
-                                                                  .redAccent,
+                                                              color: Colors.redAccent,
                                                               fontSize: 20.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
+                                                              fontWeight: FontWeight.bold,
                                                             ),
                                                           ),
                                                           SizedBox(
                                                             height: 5.0,
                                                           ),
-                                                          if (snapshot
-                                                                  .data[1] ==
-                                                              null)
+                                                          if (snapshot.data[1] == null)
                                                             Text(
                                                               "0",
                                                               style: TextStyle(
                                                                 fontSize: 20.0,
-                                                                color: Colors
-                                                                    .pinkAccent,
+                                                                color: Colors.pinkAccent,
                                                               ),
                                                             ),
-                                                          if (snapshot
-                                                                  .data[1] !=
-                                                              null)
+                                                          if (snapshot.data[1] != null)
                                                             Text(
-                                                              snapshot.data[1]
-                                                                  .toString(),
+                                                              snapshot.data[1].toString(),
                                                               style: TextStyle(
                                                                 fontSize: 20.0,
-                                                                color: Colors
-                                                                    .pinkAccent,
+                                                                color: Colors.pinkAccent,
                                                               ),
                                                             ),
                                                         ],
@@ -292,21 +243,17 @@ class _profile extends State<profile> {
                                       ),
                                     ))),
                             Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 8),
+                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                             ),
                             Container(
                               width: 350.0,
                               height: 350.0,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
-                                gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomCenter,
-                                    colors: [
-                                      Colors.grey,
-                                      Colors.lightBlue,
-                                    ]),
+                                gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomCenter, colors: [
+                                  Colors.grey,
+                                  Colors.lightBlue,
+                                ]),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.grey,
@@ -316,18 +263,14 @@ class _profile extends State<profile> {
                                 ],
                               ),
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 35.0, horizontal: 16.0),
+                                padding: const EdgeInsets.symmetric(vertical: 35.0, horizontal: 16.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
                                       "User Information:",
-                                      style: TextStyle(
-                                          color: Colors.pinkAccent,
-                                          fontStyle: FontStyle.normal,
-                                          fontSize: 18.0),
+                                      style: TextStyle(color: Colors.pinkAccent, fontStyle: FontStyle.normal, fontSize: 18.0),
                                     ),
                                     SizedBox(
                                       height: 18.0,
@@ -356,8 +299,7 @@ class _profile extends State<profile> {
                                       ],
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 12),
+                                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                                     ),
                                     Row(
                                       children: <Widget>[
@@ -382,8 +324,7 @@ class _profile extends State<profile> {
                                       ],
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 12),
+                                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                                     ),
                                     Row(
                                       children: <Widget>[
@@ -408,8 +349,7 @@ class _profile extends State<profile> {
                                       ],
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 12),
+                                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                                     ),
                                     Row(
                                       children: <Widget>[
@@ -434,8 +374,7 @@ class _profile extends State<profile> {
                                       ],
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 12),
+                                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                                     ),
                                     Row(
                                       children: <Widget>[
@@ -465,8 +404,7 @@ class _profile extends State<profile> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 12),
+                              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 12),
                             ),
                             Container(
                               width: 300.00,
@@ -476,42 +414,31 @@ class _profile extends State<profile> {
                                   //dan memiliki dekorasi seperti(warna,child yang
                                   //berupa widgetText, dan bentuk tombol)
                                   onPressed: () async {
-                                    await ImagePicker()
-                                        .pickImage(source: ImageSource.gallery);
+                                    await ImagePicker().pickImage(source: ImageSource.gallery);
                                     await selectFile(context);
                                   },
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(80.0)),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
                                   elevation: 0.0,
                                   padding: EdgeInsets.all(0.0),
                                   child: Ink(
                                     decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topRight,
-                                          end: Alignment.topLeft,
-                                          colors: [
-                                            Colors.blueAccent,
-                                            Colors.lightBlue,
-                                          ]),
+                                      gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                                        Colors.blueAccent,
+                                        Colors.lightBlue,
+                                      ]),
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: 300.0, minHeight: 50.0),
+                                      constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
                                       alignment: Alignment.center,
                                       child: Text(
                                         "Change Profile Picture",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 26.0,
-                                            fontWeight: FontWeight.w300),
+                                        style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                                       ),
                                     ),
                                   )),
                             ),
-                            Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10)),
+                            Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                             Container(
                               width: 300.00,
                               child: RaisedButton(
@@ -522,43 +449,31 @@ class _profile extends State<profile> {
                                   onPressed: () async {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              editProfile(iduser)),
+                                      MaterialPageRoute(builder: (context) => editProfile(iduser)),
                                     );
                                   },
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(80.0)),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
                                   elevation: 0.0,
                                   padding: EdgeInsets.all(0.0),
                                   child: Ink(
                                     decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topRight,
-                                          end: Alignment.topLeft,
-                                          colors: [
-                                            Colors.blueAccent,
-                                            Colors.lightBlue,
-                                          ]),
+                                      gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                                        Colors.blueAccent,
+                                        Colors.lightBlue,
+                                      ]),
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: 300.0, minHeight: 50.0),
+                                      constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
                                       alignment: Alignment.center,
                                       child: Text(
                                         "Edit Profile",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 26.0,
-                                            fontWeight: FontWeight.w300),
+                                        style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                                       ),
                                     ),
                                   )),
                             ),
-                            Padding(
-                                padding: EdgeInsets.symmetric(vertical: 10)),
+                            Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                             Container(
                               width: 300.00,
                               child: RaisedButton(
@@ -569,43 +484,31 @@ class _profile extends State<profile> {
                                   onPressed: () async {
                                     Navigator.push(
                                       context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              tiketSaya(iduser, "history")),
+                                      MaterialPageRoute(builder: (context) => tiketSaya(iduser, "history")),
                                     );
                                   },
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(80.0)),
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
                                   elevation: 0.0,
                                   padding: EdgeInsets.all(0.0),
                                   child: Ink(
                                     decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topRight,
-                                          end: Alignment.topLeft,
-                                          colors: [
-                                            Colors.blueAccent,
-                                            Colors.lightBlue,
-                                          ]),
+                                      gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                                        Colors.blueAccent,
+                                        Colors.lightBlue,
+                                      ]),
                                       borderRadius: BorderRadius.circular(30.0),
                                     ),
                                     child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: 300.0, minHeight: 50.0),
+                                      constraints: BoxConstraints(maxWidth: 300.0, minHeight: 50.0),
                                       alignment: Alignment.center,
                                       child: Text(
                                         "History Pendaftaran",
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 26.0,
-                                            fontWeight: FontWeight.w300),
+                                        style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                                       ),
                                     ),
                                   )),
                             ),
-                            Padding(
-                                padding: EdgeInsets.symmetric(vertical: 25)),
+                            Padding(padding: EdgeInsets.symmetric(vertical: 25)),
                           ],
                         )
                       ]);
@@ -625,8 +528,7 @@ class _profile extends State<profile> {
 /////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
             boxShadow: [
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
@@ -661,8 +563,7 @@ class _profile extends State<profile> {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(iduser, "current")),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(

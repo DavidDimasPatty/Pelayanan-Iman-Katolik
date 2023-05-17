@@ -1,12 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pelayanan_iman_katolik/FadeAnimation.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:http/http.dart' as http;
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
@@ -33,18 +28,13 @@ class forgetPassword extends StatelessWidget {
       emailController.clear();
     } else {
       Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-      Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-          Tasks('lupa password', [emailController.text])); //Pembuatan pesan
+      Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('lupa password', [emailController.text])); //Pembuatan pesan
 
-      MessagePassing messagePassing =
-          MessagePassing(); //Memanggil distributor pesan
-      await messagePassing
-          .sendMessage(message); //Mengirim pesan ke distributor pesan
-      var hasilDaftar =
-          await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+      MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+      await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
+      var hasilDaftar = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
       completer.complete(); //Batas pengerjaan yang memerlukan completer
-      await completer
-          .future; //Proses penungguan sudah selesai ketika varibel hasil
+      await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
       //memiliki nilai
       emailController.clear();
       if (hasilDaftar == 'oke') {
@@ -163,12 +153,7 @@ class forgetPassword extends StatelessWidget {
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color.fromRGBO(143, 148, 251, .2),
-                                      blurRadius: 20.0,
-                                      offset: Offset(0, 10))
-                                ]),
+                                boxShadow: [BoxShadow(color: Color.fromRGBO(143, 148, 251, .2), blurRadius: 20.0, offset: Offset(0, 10))]),
                             child: Column(
                               children: <Widget>[
                                 Container(
@@ -177,10 +162,7 @@ class forgetPassword extends StatelessWidget {
                                     style: TextStyle(color: Colors.black),
                                     controller: emailController,
                                     decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Masukan Email Akun",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey[400])),
+                                        border: InputBorder.none, hintText: "Masukan Email Akun", hintStyle: TextStyle(color: Colors.grey[400])),
                                   ),
                                 ),
                               ],
@@ -213,8 +195,7 @@ class forgetPassword extends StatelessWidget {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) => logIn()),
+                                MaterialPageRoute(builder: (context) => logIn()),
                               );
                             },
                             child: Text(

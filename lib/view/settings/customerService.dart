@@ -43,8 +43,7 @@ class customerService extends StatelessWidget {
               "Contact Us By:",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15)),
+            Padding(padding: EdgeInsets.symmetric(vertical: 20, horizontal: 15)),
             Column(
               children: <Widget>[
                 Row(children: <Widget>[
@@ -146,8 +145,7 @@ class customerService extends StatelessWidget {
       ),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
             boxShadow: [
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
@@ -175,8 +173,7 @@ class customerService extends StatelessWidget {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(iduser, "current")),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(

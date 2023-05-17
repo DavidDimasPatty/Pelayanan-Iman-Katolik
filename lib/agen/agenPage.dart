@@ -64,8 +64,7 @@ class AgentPage extends Agent {
       Plan("status modifikasi data", "INFORM"), //come from agen Pendaftaran
       Plan("hasil pencarian", "INFORM"), //come from agen Pencarian
       Plan("status aplikasi", "INFORM"), //come from agen Setting
-      Plan("status modifikasi/ pencarian data akun",
-          "INFORM"), //come from agen Akun
+      Plan("status modifikasi/ pencarian data akun", "INFORM"), //come from agen Akun
       Plan("error", "INFORM")
     ];
     //Perencanaan agen

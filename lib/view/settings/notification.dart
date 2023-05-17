@@ -38,19 +38,14 @@ class _notifClass extends State<notification> {
   ///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-        Tasks('cari user', iduser)); //Pembuatan pesan
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('cari user', iduser)); //Pembuatan pesan
 
-    MessagePassing messagePassing =
-        MessagePassing(); //Memanggil distributor pesan
-    await messagePassing
-        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+    await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
     completer.complete(); //Batas pengerjaan yang memerlukan completer
-    var checknotif =
-        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    var checknotif = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
 
-    await completer
-        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
 
     return checknotif;
@@ -58,19 +53,14 @@ class _notifClass extends State<notification> {
 
   Future updateNotifGd(notifGd) async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-        Tasks('update notification', [iduser, notifGd])); //Pembuatan pesan
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('update notification', [iduser, notifGd])); //Pembuatan pesan
 
-    MessagePassing messagePassing =
-        MessagePassing(); //Memanggil distributor pesan
-    await messagePassing
-        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+    await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
     completer.complete(); //Batas pengerjaan yang memerlukan completer
-    var hasil =
-        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
 
-    await completer
-        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
     if (hasil == 'oke') {
       Fluttertoast.showToast(
@@ -144,8 +134,7 @@ class _notifClass extends State<notification> {
                         Padding(padding: EdgeInsets.symmetric(vertical: 10)),
                         Row(
                           children: <Widget>[
-                            Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 6)),
+                            Padding(padding: EdgeInsets.symmetric(horizontal: 6)),
                             Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -159,13 +148,10 @@ class _notifClass extends State<notification> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(vertical: 3)),
+                                  Padding(padding: EdgeInsets.symmetric(vertical: 3)),
                                   Text(
                                     'Jika dimatikan tidak akan mendapatkan notifikasi gereja dimulai 1 jam sebelumnya',
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.grey),
+                                    style: TextStyle(fontSize: 12, color: Colors.grey),
                                   )
                                 ],
                               ),
@@ -208,8 +194,7 @@ class _notifClass extends State<notification> {
 /////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
             boxShadow: [
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
@@ -244,8 +229,7 @@ class _notifClass extends State<notification> {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(iduser, "current")),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(

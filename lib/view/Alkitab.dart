@@ -1,10 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:ffi';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
@@ -14,7 +9,6 @@ import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'tiketSaya.dart';
 import 'homePage.dart';
-import 'package:http/http.dart' as http;
 import 'package:dropdown_search/dropdown_search.dart';
 
 class Alkitab extends StatefulWidget {
@@ -45,22 +39,13 @@ class _Alkitab extends State<Alkitab> {
     //Pengiriman pesan untuk mendapatkan data yang diperlukan
     //untuk tampilan halaman
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari alkitab', ["load data"])); //Pembuatan pesan
-
-    MessagePassing messagePassing =
-        MessagePassing(); //Memanggil distributor pesan
-    await messagePassing
-        .sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasilPencarian =
-        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
-
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari alkitab', ["load data"])); //Pembuatan pesan
+    MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+    await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasilPencarian = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
-
-    await completer
-        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
-
     return await hasilPencarian;
   }
 
@@ -68,26 +53,14 @@ class _Alkitab extends State<Alkitab> {
     //Pengiriman pesan untuk mendapatkan data yang diperlukan
     //untuk tampilan halaman
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages(
-        'Agent Page',
-        'Agent Pencarian',
-        "REQUEST",
-        Tasks('cari alkitab',
-            ["cari ayat", dropdowninjil, dropdownpasal])); //Pembuatan pesan
-
-    MessagePassing messagePassing =
-        MessagePassing(); //Memanggil distributor pesan
-    await messagePassing
-        .sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasilPencarian =
-        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
-
+    Messages message =
+        Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari alkitab', ["cari ayat", dropdowninjil, dropdownpasal])); //Pembuatan pesan
+    MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+    await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasilPencarian = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
-
-    await completer
-        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
-
     return await hasilPencarian;
   }
 
@@ -104,10 +77,8 @@ class _Alkitab extends State<Alkitab> {
       });
     });
 
-    controller = AutoScrollController(
-        viewportBoundaryGetter: () =>
-            Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
-        axis: scrollDirection);
+    controller =
+        AutoScrollController(viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom), axis: scrollDirection);
   }
 
   @override
@@ -199,9 +170,7 @@ class _Alkitab extends State<Alkitab> {
                               dropdownayat = 0;
                               higlight = 0;
 
-                              for (int i = 1;
-                                  i < pasal[injil.indexOf(data)] + 1;
-                                  i++) {
+                              for (int i = 1; i < pasal[injil.indexOf(data)] + 1; i++) {
                                 pasalSelected.add(i);
                               }
                             });
@@ -240,17 +209,11 @@ class _Alkitab extends State<Alkitab> {
                               higlight = 0;
                               loadSearch().then((response) {
                                 setState(() {
-                                  for (int i = 1;
-                                      i < response[0]["data"]['verses'].length;
-                                      i++) {
+                                  for (int i = 1; i < response[0]["data"]['verses'].length; i++) {
                                     ayat.add(i);
-                                    isi.add(response[0]["data"]['verses'][i]
-                                                ['verse']
-                                            .toString() +
+                                    isi.add(response[0]["data"]['verses'][i]['verse'].toString() +
                                         ". " +
-                                        response[0]["data"]['verses'][i]
-                                                ['content']
-                                            .toString());
+                                        response[0]["data"]['verses'][i]['content'].toString());
                                   }
                                   _controllerStream.add(response);
                                 });
@@ -286,8 +249,7 @@ class _Alkitab extends State<Alkitab> {
                             setState(() {
                               higlight = data - 1;
                               dropdownayat = data;
-                              controller.scrollToIndex(higlight,
-                                  preferPosition: AutoScrollPosition.middle);
+                              controller.scrollToIndex(higlight, preferPosition: AutoScrollPosition.middle);
                             });
                           },
                         ),
@@ -296,45 +258,37 @@ class _Alkitab extends State<Alkitab> {
                     SizedBox(
                       height: 20,
                     ),
-                    Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (isi.length == 0)
-                            Center(
+                    Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      if (isi.length == 0)
+                        Center(
+                          child: Text(
+                            "Cari ayat alkitab",
+                            style: TextStyle(color: Colors.black, fontSize: 20.0),
+                          ),
+                        ),
+                      if (isi.length > 0)
+                        for (int i = 0; i < isi.length; i++)
+                          if (i == higlight)
+                            AutoScrollTag(
+                              key: ValueKey(i),
+                              controller: controller,
+                              index: i,
                               child: Text(
-                                "Cari ayat alkitab",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 20.0),
+                                isi[i],
+                                style: TextStyle(color: Colors.black, fontSize: 18.0, backgroundColor: Colors.yellow),
                               ),
-                            ),
-                          if (isi.length > 0)
-                            for (int i = 0; i < isi.length; i++)
-                              if (i == higlight)
-                                AutoScrollTag(
-                                  key: ValueKey(i),
-                                  controller: controller,
-                                  index: i,
-                                  child: Text(
-                                    isi[i],
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18.0,
-                                        backgroundColor: Colors.yellow),
-                                  ),
-                                )
-                              else if (i != higlight)
-                                AutoScrollTag(
-                                  key: ValueKey(i),
-                                  controller: controller,
-                                  index: i,
-                                  child: Text(
-                                    isi[i],
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 18.0),
-                                  ),
-                                )
-                        ]),
+                            )
+                          else if (i != higlight)
+                            AutoScrollTag(
+                              key: ValueKey(i),
+                              controller: controller,
+                              index: i,
+                              child: Text(
+                                isi[i],
+                                style: TextStyle(color: Colors.black, fontSize: 18.0),
+                              ),
+                            )
+                    ]),
                     SizedBox(
                       height: 10,
                     ),
@@ -349,8 +303,7 @@ class _Alkitab extends State<Alkitab> {
           }),
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
             boxShadow: [
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
@@ -378,14 +331,12 @@ class _Alkitab extends State<Alkitab> {
                 if (index == 1) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(iduser, "current")),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => homePage(this.iduser)),
+                    MaterialPageRoute(builder: (context) => homePage(this.iduser)),
                   );
                 }
               },

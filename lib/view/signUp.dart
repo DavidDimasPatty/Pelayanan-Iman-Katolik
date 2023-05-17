@@ -23,10 +23,7 @@ class signUp extends StatelessWidget {
     ///pegguna, melakukan pengecekan pada collection user
     /// dan menambahkan data baru pada collection user
     ///
-    if (nameController.text == "" ||
-        emailController.text == "" ||
-        passwordController.text == "" ||
-        repasswordController.text == "") {
+    if (nameController.text == "" || emailController.text == "" || passwordController.text == "" || repasswordController.text == "") {
       //////Jika input field tidak diisi semua
       Fluttertoast.showToast(
           /////// Widget toast untuk menampilkan pesan pada halaman
@@ -43,9 +40,7 @@ class signUp extends StatelessWidget {
       //////Jika input field diisi semua
       ///Melakukan pengecekan format email dengan regex/////////
       var email = emailController.text;
-      bool emailValid = RegExp(
-              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-          .hasMatch(email);
+      bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
       ////////////////////////////////////////////
       ///
       ///Melakukan pengecekan format nama dengan regex/////////
@@ -101,30 +96,17 @@ class signUp extends StatelessWidget {
         //Menghapus input field pengguna///
         emailController.clear();
         //////////////////////////////////////
-      } else if (emailValid == true &&
-          namaValid == true &&
-          passwordController.text == repasswordController.text) {
+      } else if (emailValid == true && namaValid == true && passwordController.text == repasswordController.text) {
         Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-        Messages message = Messages(
-            'Agent Page',
-            'Agent Akun',
-            "REQUEST",
-            Tasks('sign up', [
-              nameController.text,
-              emailController.text,
-              passwordController.text
-            ])); //Pembuatan pesan
+        Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
+            Tasks('sign up', [nameController.text, emailController.text, passwordController.text])); //Pembuatan pesan
 
-        MessagePassing messagePassing =
-            MessagePassing(); //Memanggil distributor pesan
-        await messagePassing
-            .sendMessage(message); //Mengirim pesan ke distributor pesan
-        var hasil = await AgentPage
-            .getData(); //Memanggil data yang tersedia di agen Page
+        MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+        await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
+        var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
         completer.complete(); //Batas pengerjaan yang memerlukan completer
 
-        await completer
-            .future; //Proses penungguan sudah selesai ketika varibel hasil
+        await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
         //memiliki nilai
         if (hasil == "nama") {
           //Jika nama sudah digunakan
@@ -220,8 +202,7 @@ class signUp extends StatelessWidget {
                   // scroll oleh pengguna
                   child: Container(
                     //Container untuk membungkus semua input field
-                    padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.28),
+                    padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.28),
                     //Konfigurasi batas halaman dengan child pada Container
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,33 +226,28 @@ class signUp extends StatelessWidget {
                                   TextField(
                                     controller: nameController,
                                     inputFormatters: [
-                                      FilteringTextInputFormatter.allow(
-                                          RegExp("[a-zA-Z ]")),
+                                      FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                                     ],
                                     //Format input user untuk nama
                                     style: TextStyle(color: Colors.white),
                                     decoration: InputDecoration(
                                         //Dekorasi input field(warna, hint, bentuk, border)
                                         enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                           borderSide: BorderSide(
                                             color: Colors.white,
                                           ),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                           borderSide: BorderSide(
                                             color: Colors.black,
                                           ),
                                         ),
                                         hintText: "Masukan Nama Lengkap",
-                                        hintStyle:
-                                            TextStyle(color: Colors.white),
+                                        hintStyle: TextStyle(color: Colors.white),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                         )),
                                   )),
 
@@ -288,25 +264,21 @@ class signUp extends StatelessWidget {
                                     decoration: InputDecoration(
                                         //Dekorasi input field(warna, hint, bentuk, border)
                                         enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                           borderSide: BorderSide(
                                             color: Colors.white,
                                           ),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                           borderSide: BorderSide(
                                             color: Colors.black,
                                           ),
                                         ),
                                         hintText: "Masukan Email Anda",
-                                        hintStyle:
-                                            TextStyle(color: Colors.white),
+                                        hintStyle: TextStyle(color: Colors.white),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                         )),
                                   )),
                               SizedBox(
@@ -324,25 +296,21 @@ class signUp extends StatelessWidget {
                                     decoration: InputDecoration(
                                         //Dekorasi input field(warna, hint, bentuk, border)
                                         enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                           borderSide: BorderSide(
                                             color: Colors.white,
                                           ),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                           borderSide: BorderSide(
                                             color: Colors.black,
                                           ),
                                         ),
                                         hintText: "Masukan Password Anda",
-                                        hintStyle:
-                                            TextStyle(color: Colors.white),
+                                        hintStyle: TextStyle(color: Colors.white),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                         )),
                                   )),
                               SizedBox(
@@ -360,25 +328,21 @@ class signUp extends StatelessWidget {
                                     decoration: InputDecoration(
                                         //Dekorasi input field(warna, hint, bentuk, border)
                                         enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                           borderSide: BorderSide(
                                             color: Colors.white,
                                           ),
                                         ),
                                         focusedBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                           borderSide: BorderSide(
                                             color: Colors.black,
                                           ),
                                         ),
                                         hintText: "Ketik Kembali Password",
-                                        hintStyle:
-                                            TextStyle(color: Colors.white),
+                                        hintStyle: TextStyle(color: Colors.white),
                                         border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(10),
                                         )),
                                   )),
 ///////////////////////////////////////////Batas Akhir Pembuatan Input Field/////////////////////////////////////////////////////////
@@ -392,17 +356,13 @@ class signUp extends StatelessWidget {
                                 //Row digunakan agar teks bersebelahan dengan
                                 //ikon arrow yang bisa ditekan untuk sign up
                                 //pengguna
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   FadeAnimation(
                                       1.8,
                                       Text(
                                         'Sign Up',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 27,
-                                            fontWeight: FontWeight.w700),
+                                        style: TextStyle(color: Colors.white, fontSize: 27, fontWeight: FontWeight.w700),
                                       )),
                                   FadeAnimation(
                                       1.8,
@@ -433,8 +393,7 @@ class signUp extends StatelessWidget {
                               //
                               Row(
                                 //Row digunakan untuk menaruh widget textButton
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 //Row memiliki komponen spaceBetween diantara
                                 //children
                                 children: [
@@ -444,8 +403,7 @@ class signUp extends StatelessWidget {
                                     onPressed: () {
                                       Navigator.push(
                                         context,
-                                        MaterialPageRoute(
-                                            builder: (context) => logIn()),
+                                        MaterialPageRoute(builder: (context) => logIn()),
                                       );
                                     },
                                     child: FadeAnimation(
@@ -453,11 +411,7 @@ class signUp extends StatelessWidget {
                                         Text(
                                           'Sign In',
                                           textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              color: Colors.white,
-                                              fontSize: 18),
+                                          style: TextStyle(decoration: TextDecoration.underline, color: Colors.white, fontSize: 18),
                                         )),
                                     style: ButtonStyle(),
                                   ),

@@ -1,15 +1,6 @@
-import 'package:file_picker/file_picker.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
-
 import 'package:pelayanan_iman_katolik/view/settings/gantiPasword.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-
 import 'package:pelayanan_iman_katolik/view/settings/notification.dart';
-
 import '../homePage.dart';
 import '../profile/profile.dart';
 import '../tiketSaya.dart';
@@ -17,9 +8,7 @@ import '../tiketSaya.dart';
 class privacySafety extends StatelessWidget {
   final iduser;
   var dataUser;
-
   privacySafety(this.iduser);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,35 +55,26 @@ class privacySafety extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => gantiPassword(this.iduser)),
+                    MaterialPageRoute(builder: (context) => gantiPassword(this.iduser)),
                   );
                 },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
                 elevation: 10.0,
                 padding: EdgeInsets.all(0.0),
                 child: Ink(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          Colors.blueAccent,
-                          Colors.lightBlue,
-                        ]),
+                    gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                      Colors.blueAccent,
+                      Colors.lightBlue,
+                    ]),
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: Container(
-                    constraints: BoxConstraints(
-                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    constraints: BoxConstraints(maxWidth: double.maxFinite, minHeight: 50.0),
                     alignment: Alignment.center,
                     child: Text(
                       "Ganti Password",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w300),
+                      style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                     ),
                   ),
                 )),
@@ -105,36 +85,25 @@ class privacySafety extends StatelessWidget {
                 //dan memiliki dekorasi seperti(warna,child yang
                 //berupa widgetText, dan bentuk tombol)
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => notification(this.iduser)));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => notification(this.iduser)));
                 },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(80.0)),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
                 elevation: 10.0,
                 padding: EdgeInsets.all(0.0),
                 child: Ink(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.topLeft,
-                        colors: [
-                          Colors.blueAccent,
-                          Colors.lightBlue,
-                        ]),
+                    gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                      Colors.blueAccent,
+                      Colors.lightBlue,
+                    ]),
                     borderRadius: BorderRadius.circular(30.0),
                   ),
                   child: Container(
-                    constraints: BoxConstraints(
-                        maxWidth: double.maxFinite, minHeight: 50.0),
+                    constraints: BoxConstraints(maxWidth: double.maxFinite, minHeight: 50.0),
                     alignment: Alignment.center,
                     child: Text(
                       "Notification",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26.0,
-                          fontWeight: FontWeight.w300),
+                      style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                     ),
                   ),
                 )),
@@ -150,8 +119,7 @@ class privacySafety extends StatelessWidget {
 /////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
             boxShadow: [
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
@@ -186,8 +154,7 @@ class privacySafety extends StatelessWidget {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(iduser, "current")),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(

@@ -9,14 +9,7 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/pelayanan/tiketDetailPelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
-import 'package:pelayanan_iman_katolik/view/sakramen/baptis/tiketSayaDetailBaptis.dart';
-import 'package:pelayanan_iman_katolik/view/sakramen/komuni/tiketSayaDetailKomuni.dart';
-import 'package:pelayanan_iman_katolik/view/sakramen/krisma/tiketSayaDetailKrisma.dart';
-import 'package:pelayanan_iman_katolik/view/sakramen/perkawinan/tiketSayaDetailPerkawinan.dart';
-import 'package:pelayanan_iman_katolik/view/sakramentali/tiketSayaDetailPemberkatan.dart';
-
 import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
-import 'package:pelayanan_iman_katolik/view/umum/tiketSayaDetailKegiatan.dart';
 
 class tiketSaya extends StatefulWidget {
   final iduser;
@@ -34,20 +27,15 @@ class _tiketSaya extends State<tiketSaya> {
 ///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari jadwal pendaftaran', [status, iduser])); //Pembuatan pesan
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari jadwal pendaftaran', [status, iduser])); //Pembuatan pesan
 
-    MessagePassing messagePassing =
-        MessagePassing(); //Memanggil distributor pesan
-    await messagePassing
-        .sendMessage(message); //Mengirim pesan ke distributor pesan
+    MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+    await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
 
-    var hasil =
-        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
 
-    await completer
-        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
     return hasil; //Mengembalikan variabel hasil
   }
@@ -121,21 +109,17 @@ class _tiketSaya extends State<tiketSaya> {
                     try {
                       return Column(children: <Widget>[
                         Padding(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 8),
+                            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                             child: Text(
                               "Baptis yang Terdaftar",
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 23.0),
+                              style: TextStyle(color: Colors.black, fontSize: 23.0),
                             )),
                         if (snapshot.data[0].length == 0)
                           Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 8),
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                               child: Text(
                                 "Tidak Ada Baptis yang Didaftar",
-                                style: TextStyle(
-                                    color: Colors.grey, fontSize: 15.0),
+                                style: TextStyle(color: Colors.grey, fontSize: 15.0),
                               )),
                         if (snapshot.data[0].length != 0)
                           for (var i in snapshot.data[0])
@@ -143,46 +127,29 @@ class _tiketSaya extends State<tiketSaya> {
                                 borderRadius: new BorderRadius.circular(24),
                                 onTap: () {
                                   tiketDetailPelayanan(
-                                          iduser,
-                                          i['UserBaptis'][0]['idGereja'],
-                                          "Baptis",
-                                          "detail",
-                                          i['UserBaptis'][0]['_id'],
-                                          i['_id'],
-                                          status)
+                                          iduser, i['UserBaptis'][0]['idGereja'], "Baptis", "detail", i['UserBaptis'][0]['_id'], i['_id'], status)
                                       .showDialogBox(context);
                                 },
                                 child: Container(
                                   margin: EdgeInsets.all(20),
                                   decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topRight,
-                                        end: Alignment.topLeft,
-                                        colors: [
-                                          Colors.blueAccent,
-                                          Colors.lightBlue,
-                                        ]),
+                                    gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                                      Colors.blueAccent,
+                                      Colors.lightBlue,
+                                    ]),
                                     border: Border.all(
                                       color: Colors.lightBlue,
                                     ),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10)),
+                                    borderRadius: BorderRadius.all(Radius.circular(10)),
                                   ),
                                   child: Column(
                                     children: <Widget>[
                                       Text(
                                         "Jadwal : " +
-                                            i['UserBaptis'][0]['jadwalBuka']
-                                                .toString()
-                                                .substring(0, 19) +
+                                            i['UserBaptis'][0]['jadwalBuka'].toString().substring(0, 19) +
                                             " s/d " +
-                                            i['UserBaptis'][0]['jadwalTutup']
-                                                .toString()
-                                                .substring(0, 19),
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w300),
+                                            i['UserBaptis'][0]['jadwalTutup'].toString().substring(0, 19),
+                                        style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                       ),
                                       Text(
                                         i['status'] == 0
@@ -190,10 +157,7 @@ class _tiketSaya extends State<tiketSaya> {
                                             : i['status'] == -1
                                                 ? ' Status : Dibatalkan'
                                                 : ' Status : Sudah Dihadiri',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w300),
+                                        style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                       ),
                                     ],
                                   ),
@@ -204,21 +168,17 @@ class _tiketSaya extends State<tiketSaya> {
                         Column(
                           children: <Widget>[
                             Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 8),
+                                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                                 child: Text(
                                   "Komuni yang Terdaftar",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 23.0),
+                                  style: TextStyle(color: Colors.black, fontSize: 23.0),
                                 )),
                             if (snapshot.data[1].length == 0)
                               Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 8),
+                                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                                   child: Text(
                                     "Tidak Ada Komuni yang Didaftar",
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 15.0),
+                                    style: TextStyle(color: Colors.grey, fontSize: 15.0),
                                   )),
                             if (snapshot.data[1].length != 0)
                               for (var i in snapshot.data[1])
@@ -226,47 +186,29 @@ class _tiketSaya extends State<tiketSaya> {
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
                                       tiketDetailPelayanan(
-                                              iduser,
-                                              i['UserKomuni'][0]['idGereja'],
-                                              "Komuni",
-                                              "detail",
-                                              i['UserKomuni'][0]['_id'],
-                                              i['_id'],
-                                              status)
+                                              iduser, i['UserKomuni'][0]['idGereja'], "Komuni", "detail", i['UserKomuni'][0]['_id'], i['_id'], status)
                                           .showDialogBox(context);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.all(20),
                                       decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.topLeft,
-                                            colors: [
-                                              Colors.blueAccent,
-                                              Colors.lightBlue,
-                                            ]),
+                                        gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                                          Colors.blueAccent,
+                                          Colors.lightBlue,
+                                        ]),
                                         border: Border.all(
                                           color: Colors.lightBlue,
                                         ),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
                                       ),
                                       child: Column(
                                         children: <Widget>[
                                           Text(
                                             "Jadwal : " +
-                                                i['UserKomuni'][0]['jadwalBuka']
-                                                    .toString()
-                                                    .substring(0, 19) +
+                                                i['UserKomuni'][0]['jadwalBuka'].toString().substring(0, 19) +
                                                 " s/d " +
-                                                i['UserKomuni'][0]
-                                                        ['jadwalTutup']
-                                                    .toString()
-                                                    .substring(0, 19),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w300),
+                                                i['UserKomuni'][0]['jadwalTutup'].toString().substring(0, 19),
+                                            style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                           ),
                                           Text(
                                             i['status'] == 0
@@ -274,10 +216,7 @@ class _tiketSaya extends State<tiketSaya> {
                                                 : i['status'] == -1
                                                     ? ' Status : Dibatalkan'
                                                     : ' Status : Sudah Dihadiri',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w300),
+                                            style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                           ),
                                         ],
                                       ),
@@ -290,21 +229,17 @@ class _tiketSaya extends State<tiketSaya> {
                         Column(
                           children: <Widget>[
                             Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 8),
+                                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                                 child: Text(
                                   "Krisma yang Terdaftar",
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 23.0),
+                                  style: TextStyle(color: Colors.black, fontSize: 23.0),
                                 )),
                             if (snapshot.data[2].length == 0)
                               Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 8),
+                                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                                   child: Text(
                                     "Tidak Ada Krisma yang Didaftar",
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 15.0),
+                                    style: TextStyle(color: Colors.grey, fontSize: 15.0),
                                   )),
                             if (snapshot.data[2].length != 0)
                               for (var i in snapshot.data[2])
@@ -312,47 +247,29 @@ class _tiketSaya extends State<tiketSaya> {
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
                                       tiketDetailPelayanan(
-                                              iduser,
-                                              i['UserKrisma'][0]['idGereja'],
-                                              "Krisma",
-                                              "detail",
-                                              i['UserKrisma'][0]['_id'],
-                                              i['_id'],
-                                              status)
+                                              iduser, i['UserKrisma'][0]['idGereja'], "Krisma", "detail", i['UserKrisma'][0]['_id'], i['_id'], status)
                                           .showDialogBox(context);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.all(20),
                                       decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topRight,
-                                            end: Alignment.topLeft,
-                                            colors: [
-                                              Colors.blueAccent,
-                                              Colors.lightBlue,
-                                            ]),
+                                        gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                                          Colors.blueAccent,
+                                          Colors.lightBlue,
+                                        ]),
                                         border: Border.all(
                                           color: Colors.lightBlue,
                                         ),
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)),
+                                        borderRadius: BorderRadius.all(Radius.circular(10)),
                                       ),
                                       child: Column(
                                         children: <Widget>[
                                           Text(
                                             "Jadwal : " +
-                                                i['UserKrisma'][0]['jadwalBuka']
-                                                    .toString()
-                                                    .substring(0, 19) +
+                                                i['UserKrisma'][0]['jadwalBuka'].toString().substring(0, 19) +
                                                 " s/d " +
-                                                i['UserKrisma'][0]
-                                                        ['jadwalTutup']
-                                                    .toString()
-                                                    .substring(0, 19),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w300),
+                                                i['UserKrisma'][0]['jadwalTutup'].toString().substring(0, 19),
+                                            style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                           ),
                                           // Text(
                                           //   "Nama Gereja : " +
@@ -368,10 +285,7 @@ class _tiketSaya extends State<tiketSaya> {
                                                 : i['status'] == -1
                                                     ? ' Status : Dibatalkan'
                                                     : ' Status : Sudah Dihadiri',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.w300),
+                                            style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                           ),
                                         ],
                                       ),
@@ -383,81 +297,51 @@ class _tiketSaya extends State<tiketSaya> {
 
                         Column(children: <Widget>[
                           Padding(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 8),
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                               child: Text(
                                 "Kegiatan Umum yang Terdaftar",
-                                style: TextStyle(
-                                    color: Colors.black, fontSize: 20.0),
+                                style: TextStyle(color: Colors.black, fontSize: 20.0),
                               )),
                           if (snapshot.data[3].length == 0)
                             Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 8),
+                                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                                 child: Text(
                                   "Tidak Ada Kegiatan Umum yang Didaftar",
-                                  style: TextStyle(
-                                      color: Colors.grey, fontSize: 15.0),
+                                  style: TextStyle(color: Colors.grey, fontSize: 15.0),
                                 )),
                           if (snapshot.data[3].length != 0)
                             for (var i in snapshot.data[3])
                               InkWell(
                                   borderRadius: new BorderRadius.circular(24),
                                   onTap: () {
-                                    tiketDetailPelayanan(
-                                            iduser,
-                                            null,
-                                            "Umum",
-                                            "detail",
-                                            i['UserKegiatan'][0]['_id'],
-                                            i['_id'],
-                                            status)
+                                    tiketDetailPelayanan(iduser, null, "Umum", "detail", i['UserKegiatan'][0]['_id'], i['_id'], status)
                                         .showDialogBox(context);
                                   },
                                   child: Container(
                                     margin: EdgeInsets.all(20),
                                     decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topRight,
-                                          end: Alignment.topLeft,
-                                          colors: [
-                                            Colors.blueAccent,
-                                            Colors.lightBlue,
-                                          ]),
+                                      gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                                        Colors.blueAccent,
+                                        Colors.lightBlue,
+                                      ]),
                                       border: Border.all(
                                         color: Colors.lightBlue,
                                       ),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(10)),
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
                                     ),
                                     child: Column(
                                       children: <Widget>[
                                         Text(
-                                          "Jadwal : " +
-                                              i['UserKegiatan'][0]['tanggal']
-                                                  .toString()
-                                                  .substring(0, 19),
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w300),
+                                          "Jadwal : " + i['UserKegiatan'][0]['tanggal'].toString().substring(0, 19),
+                                          style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                         ),
                                         Text(
-                                          "Nama Kegiatan : " +
-                                              i['UserKegiatan'][0]
-                                                  ['namaKegiatan'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w300),
+                                          "Nama Kegiatan : " + i['UserKegiatan'][0]['namaKegiatan'],
+                                          style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                         ),
                                         Text(
-                                          "Lokasi : " +
-                                              i['UserKegiatan'][0]['lokasi'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.w300),
+                                          "Lokasi : " + i['UserKegiatan'][0]['lokasi'],
+                                          style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                         ),
                                       ],
                                     ),
@@ -468,126 +352,78 @@ class _tiketSaya extends State<tiketSaya> {
                           Column(
                             children: <Widget>[
                               Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 8),
+                                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                                   child: Text(
                                     "Pemberkatan yang Terdaftar",
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 23.0),
+                                    style: TextStyle(color: Colors.black, fontSize: 23.0),
                                   )),
                               if (snapshot.data[4].length == 0)
                                 Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 8),
+                                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                                     child: Text(
                                       "Tidak Ada Pemberkatan yang Didaftar",
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 15.0),
+                                      style: TextStyle(color: Colors.grey, fontSize: 15.0),
                                     )),
                               if (snapshot.data[4].length != 0)
                                 for (var i in snapshot.data[4])
                                   InkWell(
-                                      borderRadius:
-                                          new BorderRadius.circular(24),
+                                      borderRadius: new BorderRadius.circular(24),
                                       onTap: () {
-                                        tiketDetailPelayanan(
-                                                iduser,
-                                                null,
-                                                "Pemberkatan",
-                                                "history",
-                                                i["_id"],
-                                                null,
-                                                status)
-                                            .showDialogBox(context);
+                                        tiketDetailPelayanan(iduser, null, "Pemberkatan", "history", i["_id"], null, status).showDialogBox(context);
                                       },
                                       child: Container(
                                         margin: EdgeInsets.all(20),
                                         decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.topRight,
-                                              end: Alignment.topLeft,
-                                              colors: [
-                                                Colors.blueAccent,
-                                                Colors.lightBlue,
-                                              ]),
+                                          gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                                            Colors.blueAccent,
+                                            Colors.lightBlue,
+                                          ]),
                                           border: Border.all(
                                             color: Colors.lightBlue,
                                           ),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
+                                          borderRadius: BorderRadius.all(Radius.circular(10)),
                                         ),
                                         child: Column(
                                           children: <Widget>[
                                             Text(
-                                              "Jadwal : " +
-                                                  i['tanggal']
-                                                      .toString()
-                                                      .substring(0, 19),
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16.0,
-                                                  fontWeight: FontWeight.w300),
+                                              "Jadwal : " + i['tanggal'].toString().substring(0, 19),
+                                              style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                             ),
                                             Text(
-                                              "Nama Kegiatan : Pemberkatan " +
-                                                  i['jenis'],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16.0,
-                                                  fontWeight: FontWeight.w300),
+                                              "Nama Kegiatan : Pemberkatan " + i['jenis'],
+                                              style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                             ),
                                             if (i['status'] == 0)
                                               Text(
                                                 "Status : Menunggu",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                                style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                               ),
                                             if (i['status'] == 1)
                                               Text(
                                                 "Status : Disetujui",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                                style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                               ),
                                             if (i['status'] == -1)
                                               Text(
                                                 "Status : Ditolak",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                                style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                               ),
                                             if (i['status'] == 2)
                                               Text(
                                                 "Status : Selesai",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                                style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                               ),
                                             if (i['status'] == -2)
                                               Text(
                                                 "Status : Dibatalkan",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                                style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                               ),
                                           ],
                                         ),
                                       )),
 
                               Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 8),
+                                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                               ),
                               /////////
                             ],
@@ -596,128 +432,78 @@ class _tiketSaya extends State<tiketSaya> {
                           Column(
                             children: <Widget>[
                               Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 10, horizontal: 8),
+                                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                                   child: Text(
                                     "Pernikahan yang Terdaftar",
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 23.0),
+                                    style: TextStyle(color: Colors.black, fontSize: 23.0),
                                   )),
                               if (snapshot.data[5].length == 0)
                                 Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 8),
+                                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                                     child: Text(
                                       "Tidak Ada Pernikahan yang Didaftar",
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 15.0),
+                                      style: TextStyle(color: Colors.grey, fontSize: 15.0),
                                     )),
                               if (snapshot.data[5].length != 0)
                                 for (var i in snapshot.data[5])
                                   InkWell(
-                                      borderRadius:
-                                          new BorderRadius.circular(24),
+                                      borderRadius: new BorderRadius.circular(24),
                                       onTap: () {
-                                        tiketDetailPelayanan(
-                                                iduser,
-                                                null,
-                                                "Perkawinan",
-                                                "history",
-                                                i["_id"],
-                                                null,
-                                                status)
-                                            .showDialogBox(context);
+                                        tiketDetailPelayanan(iduser, null, "Perkawinan", "history", i["_id"], null, status).showDialogBox(context);
                                       },
                                       child: Container(
                                         margin: EdgeInsets.all(20),
                                         decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                              begin: Alignment.topRight,
-                                              end: Alignment.topLeft,
-                                              colors: [
-                                                Colors.blueAccent,
-                                                Colors.lightBlue,
-                                              ]),
+                                          gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                                            Colors.blueAccent,
+                                            Colors.lightBlue,
+                                          ]),
                                           border: Border.all(
                                             color: Colors.lightBlue,
                                           ),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(10)),
+                                          borderRadius: BorderRadius.all(Radius.circular(10)),
                                         ),
                                         child: Column(
                                           children: <Widget>[
                                             Text(
-                                              "Jadwal : " +
-                                                  i['tanggal']
-                                                      .toString()
-                                                      .substring(0, 19),
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16.0,
-                                                  fontWeight: FontWeight.w300),
+                                              "Jadwal : " + i['tanggal'].toString().substring(0, 19),
+                                              style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                             ),
                                             Text(
-                                              "Nama Pasangan : " +
-                                                  i['namaPria'] +
-                                                  " dan " +
-                                                  i['namaPerempuan'],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16.0,
-                                                  fontWeight: FontWeight.w300),
+                                              "Nama Pasangan : " + i['namaPria'] + " dan " + i['namaPerempuan'],
+                                              style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                             ),
                                             if (i['status'] == 0)
                                               Text(
                                                 "Status : Menunggu",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                                style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                               ),
                                             if (i['status'] == 1)
                                               Text(
                                                 "Status : Disetujui",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                                style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                               ),
                                             if (i['status'] == -1)
                                               Text(
                                                 "Status : Ditolak",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                                style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                               ),
                                             if (i['status'] == 2)
                                               Text(
                                                 "Status : Selesai",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                                style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                               ),
                                             if (i['status'] == -2)
                                               Text(
                                                 "Status : Dibatalkan",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.w300),
+                                                style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                               ),
                                           ],
                                         ),
                                       )),
 
                               Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 8),
+                                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                               ),
                               /////////
                             ],
@@ -740,8 +526,7 @@ class _tiketSaya extends State<tiketSaya> {
 /////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
             boxShadow: [
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
@@ -770,8 +555,7 @@ class _tiketSaya extends State<tiketSaya> {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(iduser, "current")),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   //Jika item pertama ditekan maka akan memanggil kelas homePage

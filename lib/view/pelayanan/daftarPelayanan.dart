@@ -13,7 +13,6 @@ import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/pelayanan/detailDaftarPelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/pelayanan/formulirPelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
-import 'package:pelayanan_iman_katolik/view/sakramen/baptis/detailDaftarBaptis.dart';
 import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
 import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 
@@ -23,21 +22,15 @@ class daftarPelayanan extends StatefulWidget {
   String jenisPencarian;
   String jenisPelayanan;
   final idGereja;
-  daftarPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan,
-      this.jenisPencarian, this.idGereja);
+  daftarPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja);
   @override
-  _daftarPelayanan createState() => _daftarPelayanan(
-      this.iduser,
-      this.jenisPelayanan,
-      this.jenisSelectedPelayanan,
-      this.jenisPencarian,
-      this.idGereja);
+  _daftarPelayanan createState() =>
+      _daftarPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja);
 }
 
 class _daftarPelayanan extends State<daftarPelayanan> {
   /////////Konstruktor/////////////////
-  _daftarPelayanan(this.iduser, this.jenisPelayanan,
-      this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja);
+  _daftarPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja);
   ///////////////////////////////////
   ////
   ///
@@ -68,39 +61,22 @@ class _daftarPelayanan extends State<daftarPelayanan> {
     Messages message;
     if (jenisPencarian == "general") {
       if (jenisPelayanan == "Umum") {
-        message = Messages(
-            'Agent Page',
-            'Agent Pencarian',
-            "REQUEST",
-            Tasks('cari pelayanan',
-                [jenisPelayanan, jenisPencarian, jenisSelectedPelayanan]));
+        message =
+            Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisPelayanan, jenisPencarian, jenisSelectedPelayanan]));
       } else {
-        message = Messages(
-            'Agent Page',
-            'Agent Pencarian',
-            "REQUEST",
-            Tasks('cari pelayanan',
-                [jenisSelectedPelayanan, jenisPencarian])); //Pembuatan pesan
+        message =
+            Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian])); //Pembuatan pesan
       }
     } else {
-      message = Messages(
-          'Agent Page',
-          'Agent Pencarian',
-          "REQUEST",
-          Tasks('cari pelayanan',
-              [jenisSelectedPelayanan, jenisPencarian, idGereja]));
+      message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idGereja]));
     }
-    MessagePassing messagePassing =
-        MessagePassing(); //Memanggil distributor pesan
-    await messagePassing
-        .sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasilPencarian =
-        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+    await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasilPencarian = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
 
     completer.complete(); //Batas pengerjaan yang memerlukan completer
 
-    await completer
-        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
 
     return await hasilPencarian;
@@ -115,10 +91,8 @@ class _daftarPelayanan extends State<daftarPelayanan> {
     callDb().then((result) {
       setState(() {
         hasil.addAll(result); //variabel hasil akan bernilai hasil dari call db
-        dummyTemp.addAll(
-            result); //variabel dummyTemp akan bernilai hasil dari call db
-        _controller.add(
-            result); //variabel controller akan terisi yang menandakan streamer mendapatkan sinyal data
+        dummyTemp.addAll(result); //variabel dummyTemp akan bernilai hasil dari call db
+        _controller.add(result); //variabel controller akan terisi yang menandakan streamer mendapatkan sinyal data
       });
     });
   }
@@ -127,11 +101,9 @@ class _daftarPelayanan extends State<daftarPelayanan> {
     String distance;
     //Fungsi untuk menghitung jarak pengguna terhadap lokasi Gereja
     //Berdasarkan GPS Device
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high); // Mendapatkan posisi pengguna
+    Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high); // Mendapatkan posisi pengguna
 
-    double distanceInMeters = Geolocator.distanceBetween(
-        lat, lang, position.latitude, position.longitude); //Mengkalkulasikan
+    double distanceInMeters = Geolocator.distanceBetween(lat, lang, position.latitude, position.longitude); //Mengkalkulasikan
     //jarak antara pengguna dengan lokasi Gereja
     if (distanceInMeters > 1000) {
       //Jarak dijadikan KM atau M jika kurang dari 1 KM
@@ -170,9 +142,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
         for (var item in dummyTemp) {
           //Setiap isi pada variabel dummyTemp akan diiterasi dan dicari
           // berdasarkan parameter pencarian
-          if (item['GerejaPelayanan'][0]['nama']
-              .toLowerCase()
-              .contains(query.toLowerCase())) {
+          if (item['GerejaPelayanan'][0]['nama'].toLowerCase().contains(query.toLowerCase())) {
             listOMaps.add(item);
             //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
             //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
@@ -182,9 +152,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
         for (var item in dummyTemp) {
           //Setiap isi pada variabel dummyTemp akan diiterasi dan dicari
           // berdasarkan parameter pencarian
-          if (item['namaKegiatan']
-              .toLowerCase()
-              .contains(query.toLowerCase())) {
+          if (item['namaKegiatan'].toLowerCase().contains(query.toLowerCase())) {
             listOMaps.add(item);
             //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
             //Jika terdapat data yang sama, maka dimasukan ke variabel lisOMaps
@@ -240,8 +208,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
     });
     _scrollController.addListener(() {
       //Listener untuk mendeteksi jika pengguna sudah sampai batas bawah halaman
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         setState(() {
           //Jika sudah sampai bawah halaman data akan ditambah 5 secara dinamis
           data = data + 5;
@@ -357,31 +324,18 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                           onTap: () {
                             // Jika Container ditekan maka akan dipanggil kelas
                             if (jenisPencarian == "imam") {
-                              if (jenisSelectedPelayanan == "Pemberkatan" ||
-                                  jenisSelectedPelayanan == "Perkawinan") {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => formulirPelayanan(
-                                            iduser,
-                                            jenisPelayanan,
-                                            jenisSelectedPelayanan,
-                                            "detail",
-                                            idGereja,
-                                            i["_id"])));
-                              } else {
+                              if (jenisSelectedPelayanan == "Pemberkatan" || jenisSelectedPelayanan == "Perkawinan") {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            detailDaftarPelayanan(
-                                                iduser,
-                                                jenisPelayanan,
-                                                jenisSelectedPelayanan,
-                                                "detail",
-                                                idGereja,
-                                                null,
-                                                i["_id"])));
+                                            formulirPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "detail", idGereja, i["_id"])));
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => detailDaftarPelayanan(
+                                            iduser, jenisPelayanan, jenisSelectedPelayanan, "detail", idGereja, null, i["_id"])));
                               }
                             } else {
                               if (jenisSelectedPelayanan == "Pemberkatan" ||
@@ -391,12 +345,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => daftarPelayanan(
-                                          iduser,
-                                          jenisPelayanan,
-                                          jenisSelectedPelayanan,
-                                          "imam",
-                                          i["_id"])),
+                                      builder: (context) => daftarPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "imam", i["_id"])),
                                 );
                               } else if (jenisSelectedPelayanan == "Baptis" ||
                                   jenisSelectedPelayanan == "Komuni" ||
@@ -404,49 +353,30 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) =>
-                                            detailDaftarPelayanan(
-                                                iduser,
-                                                jenisPelayanan,
-                                                jenisSelectedPelayanan,
-                                                "detail",
-                                                i['GerejaPelayanan'][0]['_id'],
-                                                i["_id"],
-                                                null)));
+                                        builder: (context) => detailDaftarPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "detail",
+                                            i['GerejaPelayanan'][0]['_id'], i["_id"], null)));
                               } else if (jenisPelayanan == "Umum") {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            detailDaftarPelayanan(
-                                                iduser,
-                                                jenisPelayanan,
-                                                jenisSelectedPelayanan,
-                                                "detail",
-                                                null,
-                                                i["_id"],
-                                                null)));
+                                            detailDaftarPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "detail", null, i["_id"], null)));
                               }
                             }
                           },
                           child: Container(
                               //Widget Container yang membungkus data yang ditampilkan
                               // pada setiap iterasi
-                              margin: EdgeInsets.only(
-                                  right: 15, left: 15, bottom: 20),
+                              margin: EdgeInsets.only(right: 15, left: 15, bottom: 20),
                               decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    begin: Alignment.topRight,
-                                    end: Alignment.topLeft,
-                                    colors: [
-                                      Colors.blueGrey,
-                                      Colors.lightBlue,
-                                    ]),
+                                gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                                  Colors.blueGrey,
+                                  Colors.lightBlue,
+                                ]),
                                 border: Border.all(
                                   color: Colors.lightBlue,
                                 ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
+                                borderRadius: BorderRadius.all(Radius.circular(10)),
                               ),
                               //Dekorasi Container(warna, bentuk, gradient, margin)
                               child: Column(children: <Widget>[
@@ -471,23 +401,16 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                       ///dan mempunyai dekorasi(ukuran, warna, posisi)
                                       Text(
                                         i['nama'],
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 22.0,
-                                            fontWeight: FontWeight.w300),
+                                        style: TextStyle(color: Colors.white, fontSize: 22.0, fontWeight: FontWeight.w300),
                                         textAlign: TextAlign.left,
                                       ),
                                       Text(
-                                        i['status' + jenisSelectedPelayanan] ==
-                                                0
+                                        i['status' + jenisSelectedPelayanan] == 0
                                             ? ' Status : Bersedia'
                                             : i['status'] == -1
                                                 ? ' Status : Tidak Bersedia'
                                                 : ' Status : Sedang Melakukan Pelayanan',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w300),
+                                        style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                       ),
                                     ]),
 
@@ -500,88 +423,63 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                       children: [
                                         Text(
                                           i['nama'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 26.0,
-                                              fontWeight: FontWeight.w300),
+                                          style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                                           textAlign: TextAlign.left,
                                         ),
                                         Text(
                                           'Paroki: ' + i['paroki'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12),
+                                          style: TextStyle(color: Colors.white, fontSize: 12),
                                         ),
                                         Text(
                                           'Alamat: ' + i['address'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12),
+                                          style: TextStyle(color: Colors.white, fontSize: 12),
                                         ),
                                         FutureBuilder(
                                             //Widget FutureBuilder untuk mendapatkan data
                                             //dari fungsi jarak
                                             future: jarak(i['lat'], i['lng']),
-                                            builder: (context,
-                                                AsyncSnapshot snapshot) {
+                                            builder: (context, AsyncSnapshot snapshot) {
                                               try {
-                                                return Column(
-                                                    children: <Widget>[
-                                                      Text(
-                                                        //Text yang berisi jarak pengguna dengan
-                                                        //lokasi gereja
+                                                return Column(children: <Widget>[
+                                                  Text(
+                                                    //Text yang berisi jarak pengguna dengan
+                                                    //lokasi gereja
 
-                                                        snapshot.data,
-                                                        style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 12),
-                                                      )
-                                                    ]);
+                                                    snapshot.data,
+                                                    style: TextStyle(color: Colors.white, fontSize: 12),
+                                                  )
+                                                ]);
                                               } catch (e) {
                                                 //Jika data error atau masih proses pengerjaan
                                                 print(e);
-                                                return Center(
-                                                    child:
-                                                        CircularProgressIndicator());
+                                                return Center(child: CircularProgressIndicator());
                                               }
                                             }),
                                       ],
                                     ),
-                                if (jenisSelectedPelayanan == "Baptis" ||
-                                    jenisSelectedPelayanan == "Komuni" ||
-                                    jenisSelectedPelayanan == "Krisma")
+                                if (jenisSelectedPelayanan == "Baptis" || jenisSelectedPelayanan == "Komuni" || jenisSelectedPelayanan == "Krisma")
                                   Column(children: [
                                     Text(
                                       i['GerejaPelayanan'][0]['nama'],
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 26.0,
-                                          fontWeight: FontWeight.w300),
+                                      style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                                       textAlign: TextAlign.left,
                                     ),
                                     Text(
-                                      'Paroki: ' +
-                                          i['GerejaPelayanan'][0]['paroki'],
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 12),
+                                      'Paroki: ' + i['GerejaPelayanan'][0]['paroki'],
+                                      style: TextStyle(color: Colors.white, fontSize: 12),
                                     ),
                                     Text(
-                                      'Alamat: ' +
-                                          i['GerejaPelayanan'][0]['address'],
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 12),
+                                      'Alamat: ' + i['GerejaPelayanan'][0]['address'],
+                                      style: TextStyle(color: Colors.white, fontSize: 12),
                                     ),
                                     if (i['kapasitas'] != null)
                                       Text(
-                                        'Kapasitas Tersedia: ' +
-                                            i['kapasitas'].toString(),
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 12),
+                                        'Kapasitas Tersedia: ' + i['kapasitas'].toString(),
+                                        style: TextStyle(color: Colors.white, fontSize: 12),
                                       ),
                                     Text(
                                       'Jenis: ' + i['jenis'],
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 12),
+                                      style: TextStyle(color: Colors.white, fontSize: 12),
                                     ),
                                     //////Batas akhir penampilan data dalam widget Text
                                     ///
@@ -591,29 +489,22 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                     FutureBuilder(
                                         //Widget FutureBuilder untuk mendapatkan data
                                         //dari fungsi jarak
-                                        future: jarak(
-                                            i['GerejaPelayanan'][0]['lat'],
-                                            i['GerejaPelayanan'][0]['lng']),
-                                        builder:
-                                            (context, AsyncSnapshot snapshot) {
+                                        future: jarak(i['GerejaPelayanan'][0]['lat'], i['GerejaPelayanan'][0]['lng']),
+                                        builder: (context, AsyncSnapshot snapshot) {
                                           try {
                                             return Column(children: <Widget>[
                                               Text(
                                                 //Text yang berisi jarak pengguna dengan
                                                 //lokasi gereja
                                                 snapshot.data,
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 12),
+                                                style: TextStyle(color: Colors.white, fontSize: 12),
                                               )
                                             ]);
                                           } catch (e) {
                                             //Jika data error atau masih proses pengerjaan
                                             //Jika data error atau masih proses pengerjaan
                                             print(e);
-                                            return Center(
-                                                child:
-                                                    CircularProgressIndicator());
+                                            return Center(child: CircularProgressIndicator());
                                           }
                                         }),
                                   ]),
@@ -621,27 +512,20 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                   Column(children: [
                                     Text(
                                       i['namaKegiatan'],
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 26.0,
-                                          fontWeight: FontWeight.w300),
+                                      style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                                       textAlign: TextAlign.left,
                                     ),
                                     Text(
                                       'Tema Kegiatan: ' + i['temaKegiatan'],
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 12),
+                                      style: TextStyle(color: Colors.white, fontSize: 12),
                                     ),
                                     Text(
                                       'Alamat: ' + i['lokasi'],
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 12),
+                                      style: TextStyle(color: Colors.white, fontSize: 12),
                                     ),
                                     Text(
-                                      'Kapasitas Tersedia: ' +
-                                          i['kapasitas'].toString(),
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 12),
+                                      'Kapasitas Tersedia: ' + i['kapasitas'].toString(),
+                                      style: TextStyle(color: Colors.white, fontSize: 12),
                                     ),
                                   ])
                               ])),
@@ -666,8 +550,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
 /////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
             boxShadow: [
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
@@ -702,8 +585,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(iduser, "current")),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   //Jika item pertama ditekan maka akan memanggil kelas homePage

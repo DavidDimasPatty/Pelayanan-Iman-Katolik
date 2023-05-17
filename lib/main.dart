@@ -16,23 +16,15 @@ import 'package:pelayanan_iman_katolik/view/logIn.dart';
 ///////////////////////Fungsi////////////////////////
 Future callDb() async {
   //Mengirim pesan untuk settingan aplikasi saat diluncurkan
-  Completer<void> completer =
-      Completer<void>(); //variabel untuk menunggu //variabel untuk menunggu
-
-  Messages message = Messages('Agent Page', 'Agent Setting', "REQUEST",
-      Tasks('setting user', null)); //Pembuatan Pesan
-
-  MessagePassing messagePassing =
-      MessagePassing(); //Memanggil distributor pesan
-  await messagePassing
-      .sendMessage(message); //Mengirim pesan ke distributor pesan
+  Completer<void> completer = Completer<void>(); //variabel untuk menunggu //variabel untuk menunggu
+  Messages message = Messages('Agent Page', 'Agent Setting', "REQUEST", Tasks('setting user', null)); //Pembuatan Pesan
+  MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+  await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
   completer.complete(); //Batas pengerjaan yang memerlukan completer
   // sampai agen Page memiliki data
-  var hasil =
-      await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+  var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
   await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
   //memiliki nilai
-
   return hasil; //Mengembalikan variabel hasil //Mengembalikan variabel hasil
 }
 
@@ -44,9 +36,7 @@ callTampilan(tampilan) {
     try {
       if (tampilan[0][0].length != 0 && tampilan[0][0] != "nothing") {
         //Jika data akun pengguna tersimpan pada lokal file
-        var object = tampilan[0][0][0]
-            .toString()
-            .substring(10, tampilan[0][0][0].length - 2); //Mendapatkan data id
+        var object = tampilan[0][0][0].toString().substring(10, tampilan[0][0][0].length - 2); //Mendapatkan data id
         //pengguna yang tersimpan pada lokal file
         runApp(MaterialApp(
           //tema aplikasi akan terang karena pagi
@@ -55,8 +45,7 @@ callTampilan(tampilan) {
             brightness: Brightness.light,
             primaryColor: Colors.grey,
           ),
-          home:
-              homePage(ObjectId.parse(object)), // Memanggil halaman home dengan
+          home: homePage(ObjectId.parse(object)), // Memanggil halaman home dengan
           //parameter variabel object
         ));
         //Maka akan ditampilkan halaman home
@@ -89,9 +78,7 @@ callTampilan(tampilan) {
     try {
       if (tampilan[0][0].length != 0 && tampilan[0][0] != "nothing") {
         //Jika data akun pengguna tersimpan pada lokal file
-        var object = tampilan[0][0][0]
-            .toString()
-            .substring(10, tampilan[0][0][0].length - 2); //Mendapatkan data id
+        var object = tampilan[0][0][0].toString().substring(10, tampilan[0][0][0].length - 2); //Mendapatkan data id
         //pengguna yang tersimpan pada lokal file
 
         runApp(MaterialApp(
@@ -101,8 +88,7 @@ callTampilan(tampilan) {
             brightness: Brightness.dark,
             primaryColor: Colors.grey,
           ),
-          home:
-              homePage(ObjectId.parse(object)), // Memanggil halaman home dengan
+          home: homePage(ObjectId.parse(object)), // Memanggil halaman home dengan
           //parameter variabel object
         ));
       } else {
@@ -134,11 +120,8 @@ callTampilan(tampilan) {
 
 /// Create a [AndroidNotificationChannel] for heads up notifications
 AndroidNotificationChannel? channel; //variabel yang mendengarkan notifikasi
-
 /// Initialize the [FlutterLocalNotificationsPlugin] package
-FlutterLocalNotificationsPlugin?
-    flutterLocalNotificationsPlugin; //variabel notifikasi
-
+FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin; //variabel notifikasi
 void main() async {
   var data = await callDb(); // Memanggil callDb saat peluncuran aplikasi
   callTampilan(data); // Memanggil callDb saat peluncuran aplikasi
@@ -151,30 +134,23 @@ void main() async {
     );
 //Mengecek apakah aplikasi berjalan di dalam web atau tidak
 //Jika tidak, maka akan dilakukan konfigurasi notifikasi pada Android
-
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 //variabel untuk menampilkan notifikasi pada Android
-
     await flutterLocalNotificationsPlugin!
-        .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel!);
 //Variabel untuk membuat channel notifikasi pada Android
-
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
+    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true,
       badge: true,
       sound: true,
     );
   }
   //opsi notifikasi pada saat aplikasi berjalan di foreground
-
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
 //Mengaktifkan listener untuk menerima pesan dari FCM
     RemoteNotification? notification = message.notification!;
     AndroidNotification? android = message.notification?.android;
-
     if (notification != null && android != null && !kIsWeb) {
       //Mengecek apakah pesan memiliki notifikasi dan informasi Android,
       // dan aplikasi bukan berjalan di dalam web

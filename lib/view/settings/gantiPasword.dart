@@ -55,19 +55,14 @@ class gantiPassword extends StatelessWidget {
       passUlBaruController.text = "";
     } else {
       Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-      Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-          Tasks('find password', [iduser, passLamaController.text]));
+      Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('find password', [iduser, passLamaController.text]));
 
-      MessagePassing messagePassing =
-          MessagePassing(); //Memanggil distributor pesan
-      await messagePassing
-          .sendMessage(message); //Mengirim pesan ke distributor pesan
+      MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+      await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
       completer.complete(); //Batas pengerjaan yang memerlukan completer
-      var value =
-          await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+      var value = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
 
-      await completer
-          .future; //Proses penungguan sudah selesai ketika varibel hasil
+      await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
       //memiliki nilai
 
       if (value == "not") {
@@ -87,19 +82,14 @@ class gantiPassword extends StatelessWidget {
         passUlBaruController.text = "";
       } else {
         Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-        Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-            Tasks('change password', [iduser, passBaruController.text]));
+        Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('change password', [iduser, passBaruController.text]));
 
-        MessagePassing messagePassing =
-            MessagePassing(); //Memanggil distributor pesan
-        await messagePassing
-            .sendMessage(message); //Mengirim pesan ke distributor pesan
+        MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+        await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
         completer.complete(); //Batas pengerjaan yang memerlukan completer
-        var value = await AgentPage
-            .getData(); //Memanggil data yang tersedia di agen Page
+        var value = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
 
-        await completer
-            .future; //Proses penungguan sudah selesai ketika varibel hasil
+        await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
         //memiliki nilai
 
         passLamaController.text = "";
@@ -216,8 +206,7 @@ class gantiPassword extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                 child: ButtonBar(
                   alignment: MainAxisAlignment.center,
-                  buttonPadding:
-                      EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  buttonPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   children: [
                     RaisedButton(
                         //Widget yang membuat tombol, pada widget ini
@@ -244,8 +233,7 @@ class gantiPassword extends StatelessWidget {
 /////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
             boxShadow: [
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
@@ -280,8 +268,7 @@ class gantiPassword extends StatelessWidget {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(iduser, "current")),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(

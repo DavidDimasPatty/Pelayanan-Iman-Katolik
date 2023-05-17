@@ -7,7 +7,6 @@ import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
-import 'package:pelayanan_iman_katolik/view/sakramen/perkawinan/perkawinan.dart';
 import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter/material.dart';
@@ -20,21 +19,10 @@ class formulirPelayanan extends StatefulWidget {
   String jenisSelectedPelayanan;
   String jenisPencarian;
 
-  formulirPelayanan(
-      this.iduser,
-      this.jenisPelayanan,
-      this.jenisSelectedPelayanan,
-      this.jenisPencarian,
-      this.idGereja,
-      this.idImam);
+  formulirPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja, this.idImam);
   @override
-  _formulirPelayanan createState() => _formulirPelayanan(
-      this.iduser,
-      this.jenisPelayanan,
-      this.jenisSelectedPelayanan,
-      this.jenisPencarian,
-      this.idGereja,
-      this.idImam);
+  _formulirPelayanan createState() =>
+      _formulirPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja, this.idImam);
 }
 
 class _formulirPelayanan extends State<formulirPelayanan> {
@@ -44,13 +32,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
   String jenisPelayanan;
   String jenisSelectedPelayanan;
   String jenisPencarian;
-  _formulirPelayanan(
-      this.iduser,
-      this.jenisPelayanan,
-      this.jenisSelectedPelayanan,
-      this.jenisPencarian,
-      this.idGereja,
-      this.idImam);
+  _formulirPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja, this.idImam);
 
   @override
   //Perkawinan
@@ -79,25 +61,13 @@ class _formulirPelayanan extends State<formulirPelayanan> {
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages(
-        'Agent Page',
-        'Agent Pencarian',
-        "REQUEST",
-        Tasks('cari pelayanan', [
-          jenisSelectedPelayanan,
-          jenisPencarian,
-          idGereja
-        ])); //Pembuatan pesan
+        'Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idGereja])); //Pembuatan pesan
 
-    MessagePassing messagePassing =
-        MessagePassing(); //Memanggil distributor pesan
-    await messagePassing
-        .sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasil =
-        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+    await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
-
-    await completer
-        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
     return await hasil;
   }
@@ -131,16 +101,12 @@ class _formulirPelayanan extends State<formulirPelayanan> {
               idImam
             ]));
 
-        MessagePassing messagePassing =
-            MessagePassing(); //Memanggil distributor pesan
-        await messagePassing
-            .sendMessage(message); //Mengirim pesan ke distributor pesan
-        var hasil = await AgentPage
-            .getData(); //Memanggil data yang tersedia di agen Page
+        MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+        await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
+        var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
         completer.complete(); //Batas pengerjaan yang memerlukan completer
 
-        await completer
-            .future; //Proses penungguan sudah selesai ketika varibel hasil
+        await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
         //memiliki nilai
         if (hasil == 'oke') {
           Fluttertoast.showToast(
@@ -212,16 +178,11 @@ class _formulirPelayanan extends State<formulirPelayanan> {
               idImam
             ]));
 
-        MessagePassing messagePassing =
-            MessagePassing(); //Memanggil distributor pesan
-        await messagePassing
-            .sendMessage(message); //Mengirim pesan ke distributor pesan
-        var hasil = await AgentPage
-            .getData(); //Memanggil data yang tersedia di agen Page
+        MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+        await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
+        var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
         completer.complete(); //Batas pengerjaan yang memerlukan completer
-
-        await completer
-            .future; //Proses penungguan sudah selesai ketika varibel hasil
+        await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
         //memiliki nilai
 
         if (hasil == 'oke') {
@@ -316,52 +277,35 @@ class _formulirPelayanan extends State<formulirPelayanan> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0),
                         ),
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 5.0),
+                        margin: EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
                         clipBehavior: Clip.antiAlias,
                         color: Colors.white,
                         elevation: 20.0,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 7.0, vertical: 22.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 22.0),
                           child: Row(
                             children: <Widget>[
                               Expanded(
                                 child: Column(
                                   children: <Widget>[
                                     Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          "Aturan " +
-                                              jenisSelectedPelayanan +
-                                              " Gereja: ",
-                                          style: TextStyle(
-                                              color: Colors.red,
-                                              fontSize: 15.0,
-                                              fontWeight: FontWeight.w600),
+                                          "Aturan " + jenisSelectedPelayanan + " Gereja: ",
+                                          style: TextStyle(color: Colors.red, fontSize: 15.0, fontWeight: FontWeight.w600),
                                         ),
-                                        if (jenisSelectedPelayanan ==
-                                            "Perkawinan")
+                                        if (jenisSelectedPelayanan == "Perkawinan")
                                           Text(
                                             snapshot.data[0]['perkawinan'],
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.w300),
+                                            style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                           ),
-                                        if (jenisSelectedPelayanan ==
-                                            "Pemberkatan")
+                                        if (jenisSelectedPelayanan == "Pemberkatan")
                                           Text(
                                             snapshot.data[0]['pemberkatan'],
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.w300),
+                                            style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                           ),
                                       ],
                                     ),
@@ -757,8 +701,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
               SfDateRangePicker(
                 view: DateRangePickerView.month,
                 onSelectionChanged: _onSelectionChanged,
-                monthViewSettings:
-                    DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
+                monthViewSettings: DateRangePickerMonthViewSettings(firstDayOfWeek: 1),
               )
             ],
           ),
@@ -811,31 +754,23 @@ class _formulirPelayanan extends State<formulirPelayanan> {
               onPressed: () async {
                 submitForm();
               },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(80.0)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
               elevation: 10.0,
               padding: EdgeInsets.all(0.0),
               child: Ink(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.topLeft,
-                      colors: [
-                        Colors.blueAccent,
-                        Colors.lightBlue,
-                      ]),
+                  gradient: LinearGradient(begin: Alignment.topRight, end: Alignment.topLeft, colors: [
+                    Colors.blueAccent,
+                    Colors.lightBlue,
+                  ]),
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: Container(
-                  constraints: BoxConstraints(
-                      maxWidth: double.maxFinite, minHeight: 50.0),
+                  constraints: BoxConstraints(maxWidth: double.maxFinite, minHeight: 50.0),
                   alignment: Alignment.center,
                   child: Text(
                     "Submit Form",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 26.0,
-                        fontWeight: FontWeight.w300),
+                    style: TextStyle(color: Colors.white, fontSize: 26.0, fontWeight: FontWeight.w300),
                   ),
                 ),
               )),
@@ -851,8 +786,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
 /////////////////////////////////////////////////////////Pembuatan Bottom Navigation Bar////////////////////////////////////////
       bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            borderRadius: BorderRadius.only(topRight: Radius.circular(30), topLeft: Radius.circular(30)),
             boxShadow: [
               BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
             ],
@@ -887,8 +821,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
                   //Jika item kedua ditekan maka akan memanggil kelas tiketSaya
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => tiketSaya(iduser, "current")),
+                    MaterialPageRoute(builder: (context) => tiketSaya(iduser, "current")),
                   );
                 } else if (index == 0) {
                   Navigator.push(

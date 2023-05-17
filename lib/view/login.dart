@@ -23,18 +23,13 @@ class logIn extends StatelessWidget {
     ///pegguna dan melakukan pengecekan pada collection user
     ///
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-        Tasks('login', [id, password])); //Pembuatan pesan
+    Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('login', [id, password])); //Pembuatan pesan
 
-    MessagePassing messagePassing =
-        MessagePassing(); //Memanggil distributor pesan
-    await messagePassing
-        .sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasil =
-        await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
+    await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
+    var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
-    await completer
-        .future; //Proses penungguan sudah selesai ketika varibel hasil
+    await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
     return await hasil;
   }
@@ -125,10 +120,7 @@ class logIn extends StatelessWidget {
                               child: Text(
                                 'Halo, Umat Katolik!',
                                 style: GoogleFonts.davidLibre(
-                                  textStyle: TextStyle(
-                                      fontSize: 30,
-                                      color: Colors.white,
-                                      letterSpacing: .5),
+                                  textStyle: TextStyle(fontSize: 30, color: Colors.white, letterSpacing: .5),
                                 ),
                               ),
                             ),
@@ -160,30 +152,19 @@ class logIn extends StatelessWidget {
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Color.fromRGBO(143, 148, 251, .2),
-                                      blurRadius: 20.0,
-                                      offset: Offset(0, 10))
-                                ]),
+                                boxShadow: [BoxShadow(color: Color.fromRGBO(143, 148, 251, .2), blurRadius: 20.0, offset: Offset(0, 10))]),
                             child: Column(
                               children: <Widget>[
                                 Container(
                                   //Membungkus input field untuk merapihkan posisi
                                   padding: EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom:
-                                              BorderSide(color: Colors.grey))),
+                                  decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey))),
                                   child: TextField(
                                     //Dekorasi input field(warna, hint, bentuk, border)
                                     controller: emailController,
                                     style: TextStyle(color: Colors.black),
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Email",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey[400])),
+                                    decoration:
+                                        InputDecoration(border: InputBorder.none, hintText: "Email", hintStyle: TextStyle(color: Colors.grey[400])),
                                   ),
                                 ),
                                 Container(
@@ -197,10 +178,7 @@ class logIn extends StatelessWidget {
                                     autocorrect: false,
                                     controller: passwordController,
                                     decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Password",
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey[400])),
+                                        border: InputBorder.none, hintText: "Password", hintStyle: TextStyle(color: Colors.grey[400])),
                                   ),
                                 )
                               ],
@@ -229,12 +207,10 @@ class logIn extends StatelessWidget {
                                 ),
                                 onPressed: () async {
                                   //Pengecekan jika email dan password kosong
-                                  if (emailController.text == "" ||
-                                      passwordController.text == "") {
+                                  if (emailController.text == "" || passwordController.text == "") {
                                     Fluttertoast.showToast(
                                         /////// Widget toast untuk menampilkan pesan pada halaman
-                                        msg:
-                                            "Email atau Password Tidak Boleh Kosong",
+                                        msg: "Email atau Password Tidak Boleh Kosong",
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.CENTER,
                                         timeInSecForIosWeb: 2,
@@ -245,9 +221,7 @@ class logIn extends StatelessWidget {
                                     passwordController.clear();
                                   } else {
                                     //Jika email dan password tidak kosong
-                                    var ret = await logInCheck(
-                                        emailController.text,
-                                        passwordController.text);
+                                    var ret = await logInCheck(emailController.text, passwordController.text);
 
                                     if (ret.runtimeType == String) {
                                       //Jika terjadi error pada pengerjaan
@@ -262,8 +236,7 @@ class logIn extends StatelessWidget {
                                           fontSize: 16.0);
                                       emailController.clear();
                                       passwordController.clear();
-                                    } else if (ret.runtimeType != String &&
-                                        ret.length > 0) {
+                                    } else if (ret.runtimeType != String && ret.length > 0) {
                                       //Jika berhasil login maka akan
                                       //dipanggil kelas homePage
                                       Navigator.pushReplacement(
@@ -302,8 +275,7 @@ class logIn extends StatelessWidget {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) => signUp()),
+                                MaterialPageRoute(builder: (context) => signUp()),
                               );
                             },
                             child: Text(
@@ -325,8 +297,7 @@ class logIn extends StatelessWidget {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) => forgetPassword()),
+                                MaterialPageRoute(builder: (context) => forgetPassword()),
                               );
                             },
                             child: Text(

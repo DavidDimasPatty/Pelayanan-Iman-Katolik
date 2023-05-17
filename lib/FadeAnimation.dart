@@ -28,8 +28,7 @@ class FadeAnimation extends StatelessWidget {
 
     return PlayAnimation<MultiTweenValues<AnimationType>>(
       //Mengembalikan widget yang sudah dianimasikan
-      delay: Duration(
-          milliseconds: (500 * delay).round()), //lamanya widget akan muncul
+      delay: Duration(milliseconds: (500 * delay).round()), //lamanya widget akan muncul
       duration: tween.duration, // lamanya animasi berjalan
       tween: tween, //animasi yang dibuat
       child: child, //widget yang dianimasikan
@@ -37,8 +36,7 @@ class FadeAnimation extends StatelessWidget {
         //membangun tampilan widget setelah animasi dijalankan
         opacity: value.get(AnimationType.opacity), //opacity kembali semula
         child: Transform.translate(
-            offset: Offset(
-                value.get(AnimationType.translateX), 0), //posisi kembali semula
+            offset: Offset(value.get(AnimationType.translateX), 0), //posisi kembali semula
             child: child),
       ),
     );
