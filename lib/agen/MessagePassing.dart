@@ -11,13 +11,7 @@ class MessagePassing {
   //Kelas distributor pengiriman pesan antara agen
   //
   //Kumpulan agen yang dibuat pada sistem
-  Map<String, Agent> agents = {
-    'Agent Pencarian': AgentPencarian(),
-    'Agent Pendaftaran': AgentPendaftaran(),
-    'Agent Setting': AgentSetting(),
-    'Agent Akun': AgentAkun(),
-    'Agent Page': AgentPage()
-  };
+  Map<String, Agent> agents = {'Agent Pencarian': AgentPencarian(), 'Agent Pendaftaran': AgentPendaftaran(), 'Agent Setting': AgentSetting(), 'Agent Akun': AgentAkun(), 'Agent Page': AgentPage()};
 
   ///
   Future<dynamic> sendMessage(Messages message) async {

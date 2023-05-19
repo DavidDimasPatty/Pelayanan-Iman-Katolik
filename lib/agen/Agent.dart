@@ -56,18 +56,15 @@ abstract class Agent {
     dynamic task = msgCome.task;
     //Mengektifitaskan pemanggilan variabel
 
-    var goalsQuest =
-        goals.where((element) => element.request == task.action).toList();
+    var goalsQuest = goals.where((element) => element.request == task.action).toList();
     int clock = goalsQuest[0].time as int;
     //Mendapatkan batas waktu pengerjaan dalam goals terhadap tugas
 
     Timer timer = Timer.periodic(Duration(seconds: clock), (timer) {
       stop = true;
       timer.cancel(); //memberhentikan timer
-      addEstimatedTime(
-          task.action); //menambahkan waktu pengerjaan terhadap tugas tersebut
-      MessagePassing messagePassing =
-          MessagePassing(); //Memanggil distributor pesan
+      addEstimatedTime(task.action); //menambahkan waktu pengerjaan terhadap tugas tersebut
+      MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
       Messages msg = overTime(msgCome, sender);
       messagePassing.sendMessage(msg); //Mengirim pesan overtime
     });
@@ -78,8 +75,7 @@ abstract class Agent {
       message = await action(task.action, msgCome, sender);
       //Memanggil fungsi action untuk memilih tindakan yang dikerjakan
     } catch (e) {
-      message = Messages(
-          agentName, sender, "INFORM", Tasks('lack of parameters', "failed"));
+      message = Messages(agentName, sender, "INFORM", Tasks('lack of parameters', "failed"));
       //Jika terdapat error dalam pengerjaan maka pesan gagal
     }
 
@@ -89,19 +85,16 @@ abstract class Agent {
         timer.cancel();
         //Memberhentikan timer
         bool checkGoals = false;
-        if (message.task.data.runtimeType == String &&
-            message.task.data == "failed") {
+        if (message.task.data.runtimeType == String && message.task.data == "failed") {
           //Jika hasil pengerjaan gagal
-          MessagePassing messagePassing =
-              MessagePassing(); //Memanggil distributor pesan
+          MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
           Messages msg = rejectTask(msgCome, sender);
           //agen menolak tugas
           return messagePassing.sendMessage(msg);
         } else {
           //Jika hasil pengerjaan tidak gagal
           for (var g in goals) {
-            if (g.request == task.action &&
-                g.goals == message.task.data.runtimeType) {
+            if (g.request == task.action && g.goals == message.task.data.runtimeType) {
               //Dicek apakah goal terhadap tugas (tipe data) sudah cocok
               checkGoals = true;
               break;
@@ -109,21 +102,18 @@ abstract class Agent {
           }
           if (message.task.action == "done") {
             //Jika merupakan hasil tugas koordinasi dengan agen lain
-            print(agentName +
-                " Success doing collaboration with another agent for task ${task.action}");
+            print(agentName + " Success doing collaboration with another agent for task ${task.action}");
             return null;
             //Tidak mengirimkan apa apa
           } else if (checkGoals == true) {
             //Jika goal tugas agen sama dengan goal pengerjaan
             print(agentName + ' returning data to ${message.receiver}');
-            MessagePassing messagePassing =
-                MessagePassing(); //Memanggil distributor pesan
+            MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
             return messagePassing.sendMessage(message);
             //pesan dikirim ke agen
           } else if (checkGoals == false) {
             //jika tidak sama dengan goal tugas agen
-            MessagePassing messagePassing =
-                MessagePassing(); //Memanggil distributor pesan
+            MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
             Messages msg = failedGoal(msgCome, sender);
             return messagePassing.sendMessage(msg);
           }
@@ -134,36 +124,29 @@ abstract class Agent {
 
   Messages rejectTask(dynamic task, sender) {
     //Fungsi untuk membuat pesan agen tidak mampu melakukan pengerjaan
-    Messages message =
-        Messages(agentName, sender, "INFORM", Tasks('error', 'failed'));
+    Messages message = Messages(agentName, sender, "INFORM", Tasks('error', 'failed'));
 
-    print(agentName +
-        ' rejecting task from $sender because not capable of doing: ${task.task.action} with protocol ${task.protocol}');
+    print(agentName + ' rejecting task from $sender because not capable of doing: ${task.task.action} with protocol ${task.protocol}');
     return message;
   }
 
   Messages overTime(dynamic task, sender) {
     //Fungsi untuk membuat pesan agen melewati batas waktu pengerjaan goals
-    Messages message =
-        Messages(agentName, sender, "INFORM", Tasks('error', 'failed'));
+    Messages message = Messages(agentName, sender, "INFORM", Tasks('error', 'failed'));
 
-    print(agentName +
-        ' rejecting task from $sender because takes time too long: ${task.task.action}');
+    print(agentName + ' rejecting task from $sender because takes time too long: ${task.task.action}');
     return message;
   }
 
   Messages failedGoal(dynamic task, sender) {
     //Fungsi untuk membuat pesan penolakan terhadap pesan agen
-    Messages message =
-        Messages(agentName, sender, "INFORM", Tasks('error', 'failed'));
+    Messages message = Messages(agentName, sender, "INFORM", Tasks('error', 'failed'));
 
-    print(agentName +
-        " rejecting task from $sender because the result of ${task.task.action} dataType does'nt suit the goal from ${agentName}");
+    print(agentName + " rejecting task from $sender because the result of ${task.task.action} dataType does'nt suit the goal from ${agentName}");
     return message;
   }
 
-  action(String goals, dynamic data,
-      String sender); //aksi yang dilakukan masing-masing agen
+  action(String goals, dynamic data, String sender); //aksi yang dilakukan masing-masing agen
   addEstimatedTime(String goals); //penambahan waktu dari goals tugas agen
 }
 ////////////////////////////Batas Akhir Fungsi Agen///////////////////////////////////////////////

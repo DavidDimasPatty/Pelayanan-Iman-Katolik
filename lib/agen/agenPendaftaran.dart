@@ -66,105 +66,65 @@ class AgentPendaftaran extends Agent {
       //dari data yang diterima, jika data [0] bukan perkawinan dan sakramentali
       if (data[0] == "Baptis") {
         pelayananCollection = MongoDatabase.db.collection(BAPTIS_COLLECTION);
-        userPelayananCollection =
-            MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+        userPelayananCollection = MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
         id = "idBaptis";
       }
       if (data[0] == "Komuni") {
         pelayananCollection = MongoDatabase.db.collection(KOMUNI_COLLECTION);
-        userPelayananCollection =
-            MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+        userPelayananCollection = MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
         id = "idKomuni";
       }
       if (data[0] == "Krisma") {
         pelayananCollection = MongoDatabase.db.collection(KRISMA_COLLECTION);
-        userPelayananCollection =
-            MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
+        userPelayananCollection = MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
         id = "idKrisma";
       }
       if (data[0] == "Umum") {
         pelayananCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
-        userPelayananCollection =
-            MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+        userPelayananCollection = MongoDatabase.db.collection(USER_UMUM_COLLECTION);
         id = "idKegiatan";
       }
       //////////////////////////////////////////////////////////////////
       ////////////Menambahkan data baru ke collection user pelayanan//////////
-      var configJson = modelDB.userPelayanan(
-          id, data[1], data[2], DateTime.now(), 0, DateTime.now(), data[1]);
+      var configJson = modelDB.userPelayanan(id, data[1], data[2], DateTime.now(), 0, DateTime.now(), data[1]);
       add2 = await userPelayananCollection.insertOne(configJson);
       ////////////////////////////////////////////////////////////////////////
       /////////////////////Memperbarui kapasitas pelayanan////////////////////
-      add1 = await pelayananCollection.updateOne(
-          where.eq('_id', data[1]), modify.set('kapasitas', data[3] - 1));
+      add1 = await pelayananCollection.updateOne(where.eq('_id', data[1]), modify.set('kapasitas', data[3] - 1));
       /////////////////////////////////////////////////////////////////////
       if (add1.isSuccess && add2.isSuccess) {
         //Jika proses menambahkan dan memperbarui data berhasil
-        Messages message = Messages(agentName, "Agent Page", "INFORM",
-            Tasks('status modifikasi data', "oke"));
+        Messages message = Messages(agentName, "Agent Page", "INFORM", Tasks('status modifikasi data', "oke"));
 
         return message;
       } else {
         //Jika proses menambahkan dan memperbarui data gagal
-        Messages message = Messages(agentName, "Agent Page", "INFORM",
-            Tasks('status modifikasi data', "failed"));
+        Messages message = Messages(agentName, "Agent Page", "INFORM", Tasks('status modifikasi data', "failed"));
         return message;
       }
     } else {
       ///Jika data[0] sakramentali atau perkawinan
       if (data[0] == "Pemberkatan") {
-        pelayananCollection =
-            MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
-        var configJson = modelDB.pemberkatan(
-            data[1],
-            data[10],
-            data[11],
-            data[2],
-            data[3],
-            data[4],
-            data[5],
-            data[6],
-            data[7],
-            DateTime.parse(data[8]),
-            data[9],
-            0,
-            DateTime.now(),
-            data[1],
-            DateTime.now());
+        pelayananCollection = MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
+        var configJson =
+            modelDB.pemberkatan(data[1], data[10], data[11], data[2], data[3], data[4], data[5], data[6], data[7], DateTime.parse(data[8]), data[9], 0, DateTime.now(), data[1], DateTime.now());
         add1 = await pelayananCollection.insertOne(configJson);
         ////////////Menambahkan data baru ke collection pelayanan//////////
       }
       if (data[0] == "Perkawinan") {
-        pelayananCollection =
-            MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
-        var configJson = modelDB.perkawinan(
-            data[1],
-            data[9],
-            data[10],
-            data[2],
-            data[3],
-            data[4],
-            data[5],
-            data[6],
-            DateTime.parse(data[7]),
-            data[8],
-            0,
-            DateTime.now(),
-            data[1],
-            DateTime.now());
+        pelayananCollection = MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
+        var configJson = modelDB.perkawinan(data[1], data[9], data[10], data[2], data[3], data[4], data[5], data[6], DateTime.parse(data[7]), data[8], 0, DateTime.now(), data[1], DateTime.now());
         add1 = await pelayananCollection.insertOne(configJson);
         ////////////Menambahkan data baru ke collection pelayanan//////////
       }
       if (add1.isSuccess) {
         //Jika proses menambahkan data berhasil
-        Messages message = Messages(agentName, "Agent Page", "INFORM",
-            Tasks('status modifikasi data', "oke"));
+        Messages message = Messages(agentName, "Agent Page", "INFORM", Tasks('status modifikasi data', "oke"));
 
         return message;
       } else {
         //Jika proses menambahkan data gagal
-        Messages message = Messages(agentName, "Agent Page", "INFORM",
-            Tasks('status modifikasi data', "failed"));
+        Messages message = Messages(agentName, "Agent Page", "INFORM", Tasks('status modifikasi data', "failed"));
         return message;
       }
     }
@@ -194,86 +154,60 @@ class AgentPendaftaran extends Agent {
       //dari data yang diterima, jika data [0] bukan perkawinan dan sakramentali
       if (data[0] == "Baptis") {
         pelayananCollection = MongoDatabase.db.collection(BAPTIS_COLLECTION);
-        userPelayananCollection =
-            MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
+        userPelayananCollection = MongoDatabase.db.collection(USER_BAPTIS_COLLECTION);
         id = "idBaptis";
       }
       if (data[0] == "Komuni") {
         pelayananCollection = MongoDatabase.db.collection(KOMUNI_COLLECTION);
-        userPelayananCollection =
-            MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
+        userPelayananCollection = MongoDatabase.db.collection(USER_KOMUNI_COLLECTION);
         id = "idKomuni";
       }
       if (data[0] == "Krisma") {
         pelayananCollection = MongoDatabase.db.collection(KRISMA_COLLECTION);
-        userPelayananCollection =
-            MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
+        userPelayananCollection = MongoDatabase.db.collection(USER_KRISMA_COLLECTION);
         id = "idKrisma";
       }
       if (data[0] == "Umum") {
         pelayananCollection = MongoDatabase.db.collection(UMUM_COLLECTION);
-        userPelayananCollection =
-            MongoDatabase.db.collection(USER_UMUM_COLLECTION);
+        userPelayananCollection = MongoDatabase.db.collection(USER_UMUM_COLLECTION);
         id = "idKegiatan";
       }
       //Memperbarui data status pada userPelayanan dan kapasitas pelayanan//
-      update1 = await userPelayananCollection.updateOne(
-          where.eq('_id', data[1]),
-          modify
-              .set('status', -1)
-              .set("updatedAt", DateTime.now())
-              .set("updatedBy", data[4]));
+      update1 = await userPelayananCollection.updateOne(where.eq('_id', data[1]), modify.set('status', -1).set("updatedAt", DateTime.now()).set("updatedBy", data[4]));
 
-      update2 = await pelayananCollection.updateOne(
-          where.eq('_id', data[2]), modify.set('kapasitas', data[3] + 1));
+      update2 = await pelayananCollection.updateOne(where.eq('_id', data[2]), modify.set('kapasitas', data[3] + 1));
       //////////////////////////////////////////////////////////////////
       ///
       if (update1.isSuccess && update2.isSuccess) {
         //Jika pembaruan data berhasil maka akan dibuat pesan
-        Messages message = Messages(agentName, "Agent Page", "INFORM",
-            Tasks('status modifikasi data', "oke"));
+        Messages message = Messages(agentName, "Agent Page", "INFORM", Tasks('status modifikasi data', "oke"));
 
         return message;
       } else {
         //Jika pembaruan data tidak berhasil maka akan dibuat pesan
-        Messages message = Messages(agentName, "Agent Page", "INFORM",
-            Tasks('status modifikasi data', "failed"));
+        Messages message = Messages(agentName, "Agent Page", "INFORM", Tasks('status modifikasi data', "failed"));
         return message;
       }
     } else {
       //Jika data[0] sakramentali atau perkawinan
       if (data[0] == "Pemberkatan") {
         //Perbarui data status pelayanan sakramentali
-        pelayananCollection =
-            MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
-        update1 = await pelayananCollection.updateOne(
-            where.eq('_id', data[1]),
-            modify
-                .set('status', -2)
-                .set("updatedAt", DateTime.now())
-                .set("updatedBy", data[2]));
+        pelayananCollection = MongoDatabase.db.collection(PEMBERKATAN_COLLECTION);
+        update1 = await pelayananCollection.updateOne(where.eq('_id', data[1]), modify.set('status', -2).set("updatedAt", DateTime.now()).set("updatedBy", data[2]));
       }
       if (data[0] == "Perkawinan") {
         //Perbarui data status pelayanan perkawinan
-        pelayananCollection =
-            MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
-        update1 = await pelayananCollection.updateOne(
-            where.eq('_id', data[1]),
-            modify
-                .set('status', -2)
-                .set("updatedAt", DateTime.now())
-                .set("updatedBy", data[2]));
+        pelayananCollection = MongoDatabase.db.collection(PERKAWINAN_COLLECTION);
+        update1 = await pelayananCollection.updateOne(where.eq('_id', data[1]), modify.set('status', -2).set("updatedAt", DateTime.now()).set("updatedBy", data[2]));
       }
       if (update1.isSuccess) {
         //Jika pembaruan data berhasil maka akan dibuat pesan
-        Messages message = Messages(agentName, "Agent Page", "INFORM",
-            Tasks('status modifikasi data', "oke"));
+        Messages message = Messages(agentName, "Agent Page", "INFORM", Tasks('status modifikasi data', "oke"));
 
         return message;
       } else {
         //Jika pembaruan data tidak berhasil maka akan dibuat pesan
-        Messages message = Messages(agentName, "Agent Page", "INFORM",
-            Tasks('status modifikasi data', "failed"));
+        Messages message = Messages(agentName, "Agent Page", "INFORM", Tasks('status modifikasi data', "failed"));
         return message;
       }
     }

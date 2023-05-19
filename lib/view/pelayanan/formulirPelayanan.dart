@@ -21,8 +21,7 @@ class formulirPelayanan extends StatefulWidget {
 
   formulirPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja, this.idImam);
   @override
-  _formulirPelayanan createState() =>
-      _formulirPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja, this.idImam);
+  _formulirPelayanan createState() => _formulirPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja, this.idImam);
 }
 
 class _formulirPelayanan extends State<formulirPelayanan> {
@@ -60,8 +59,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
 ///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages(
-        'Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idGereja])); //Pembuatan pesan
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idGereja])); //Pembuatan pesan
 
     MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
     await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
@@ -348,6 +346,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                   ],
                   controller: namaPriaController,
+                  maxLength: 19,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
@@ -386,6 +385,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
                   padding: EdgeInsets.symmetric(vertical: 5),
                 ),
                 TextField(
+                  maxLength: 19,
                   controller: namaWanitaController,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
@@ -429,6 +429,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
                     FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),
                   ],
                   controller: namaController,
+                  maxLength: 19,
                   style: TextStyle(color: Colors.black),
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/FadeAnimation.dart';
 import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
@@ -163,8 +162,7 @@ class logIn extends StatelessWidget {
                                     //Dekorasi input field(warna, hint, bentuk, border)
                                     controller: emailController,
                                     style: TextStyle(color: Colors.black),
-                                    decoration:
-                                        InputDecoration(border: InputBorder.none, hintText: "Email", hintStyle: TextStyle(color: Colors.grey[400])),
+                                    decoration: InputDecoration(border: InputBorder.none, hintText: "Email", hintStyle: TextStyle(color: Colors.grey[400])),
                                   ),
                                 ),
                                 Container(
@@ -177,8 +175,7 @@ class logIn extends StatelessWidget {
                                     enableSuggestions: false,
                                     autocorrect: false,
                                     controller: passwordController,
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none, hintText: "Password", hintStyle: TextStyle(color: Colors.grey[400])),
+                                    decoration: InputDecoration(border: InputBorder.none, hintText: "Password", hintStyle: TextStyle(color: Colors.grey[400])),
                                   ),
                                 )
                               ],

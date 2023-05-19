@@ -121,10 +121,8 @@ class AgentSetting extends Agent {
       await file.writeAsString("");
       await file.writeAsString('\n' + data[0]['_id'].toString());
     }
-    print(
-        "Saving data to local file from data that was given by agent akun success");
-    Messages message =
-        Messages(agentName, sender, "INFORM", Tasks('done', "oke"));
+    print("Saving data to local file from data that was given by agent akun success");
+    Messages message = Messages(agentName, sender, "INFORM", Tasks('done', "oke"));
     //Membuat pesan berhasil koordinasi dengan agen Akun
     return message;
   }
@@ -139,8 +137,7 @@ class AgentSetting extends Agent {
     final file = await File('$path/logIn.txt');
     await file.writeAsString(""); //data pada lokal file dihapus
 
-    Messages message =
-        Messages(agentName, sender, "INFORM", Tasks('done', "oke"));
+    Messages message = Messages(agentName, sender, "INFORM", Tasks('done', "oke"));
     //Membuat pesan berhasil koordinasi dengan agen Akun
     return message;
   }

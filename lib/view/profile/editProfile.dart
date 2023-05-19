@@ -1,19 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/services.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
 import '../homePage.dart';
 import '../tiketSaya.dart';
 
@@ -54,9 +47,7 @@ class _editProfile extends State<editProfile> {
   Future submitForm(nama, email, paroki, lingkungan, notelp, alamat, context) async {
     if (namaController.text != "" && emailController.text != "") {
       Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-      Messages message =
-          Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('edit profile', [iduser, nama, email, paroki, lingkungan, notelp, alamat]));
-
+      Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('edit profile', [iduser, nama, email, paroki, lingkungan, notelp, alamat]));
       MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
       await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
       var hasilDaftar = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
@@ -429,8 +420,7 @@ class _editProfile extends State<editProfile> {
                             //dan memiliki dekorasi seperti(warna,child yang
                             //berupa widgetText, dan bentuk tombol)
                             onPressed: () async {
-                              await submitForm(namaController.text, emailController.text, parokiController.text, lingkunganController.text,
-                                  notelpController.text, alamatController.text, context);
+                              await submitForm(namaController.text, emailController.text, parokiController.text, lingkunganController.text, notelpController.text, alamatController.text, context);
                             },
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
                             elevation: 10.0,

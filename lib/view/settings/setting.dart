@@ -1,24 +1,12 @@
 import 'dart:async';
-
-import 'package:file_picker/file_picker.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
-
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/settings/customerService.dart';
-
-import 'package:pelayanan_iman_katolik/view/settings/gantiPasword.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-
 import 'package:pelayanan_iman_katolik/view/settings/privacySafety.dart';
-
 import '../homePage.dart';
 import '../logIn.dart';
 import '../profile/profile.dart';
@@ -30,12 +18,10 @@ class Settings extends StatelessWidget {
   Future LogOut(context) async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('log out', iduser)); //Pembuatan pesan
-
     MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
     await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
     var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
-
     await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
     if (hasil == 'oke') {

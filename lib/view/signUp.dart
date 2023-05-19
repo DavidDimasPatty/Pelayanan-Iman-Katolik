@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -98,8 +97,7 @@ class signUp extends StatelessWidget {
         //////////////////////////////////////
       } else if (emailValid == true && namaValid == true && passwordController.text == repasswordController.text) {
         Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-        Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST",
-            Tasks('sign up', [nameController.text, emailController.text, passwordController.text])); //Pembuatan pesan
+        Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('sign up', [nameController.text, emailController.text, passwordController.text])); //Pembuatan pesan
 
         MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
         await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
@@ -165,8 +163,7 @@ class signUp extends StatelessWidget {
         //Halaman dibangun dengan container
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: NetworkImage(
-                  'https://firebasestorage.googleapis.com/v0/b/pelayananimankatolik.appspot.com/o/register.png?alt=media&token=c875ef67-9a3e-46ba-a96d-e3b5d83e0bb8'),
+              image: NetworkImage('https://firebasestorage.googleapis.com/v0/b/pelayananimankatolik.appspot.com/o/register.png?alt=media&token=c875ef67-9a3e-46ba-a96d-e3b5d83e0bb8'),
               fit: BoxFit.cover),
         ),
         //Konfigurasi background halaman
@@ -224,6 +221,7 @@ class signUp extends StatelessWidget {
                               FadeAnimation(
                                   1.8,
                                   TextField(
+                                    maxLength: 19,
                                     controller: nameController,
                                     inputFormatters: [
                                       FilteringTextInputFormatter.allow(RegExp("[a-zA-Z ]")),

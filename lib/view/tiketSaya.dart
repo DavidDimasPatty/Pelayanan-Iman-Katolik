@@ -1,7 +1,5 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:pelayanan_iman_katolik/DatabaseFolder/mongodb.dart';
 import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
@@ -126,9 +124,7 @@ class _tiketSaya extends State<tiketSaya> {
                             InkWell(
                                 borderRadius: new BorderRadius.circular(24),
                                 onTap: () {
-                                  tiketDetailPelayanan(
-                                          iduser, i['UserBaptis'][0]['idGereja'], "Baptis", "detail", i['UserBaptis'][0]['_id'], i['_id'], status)
-                                      .showDialogBox(context);
+                                  tiketDetailPelayanan(iduser, i['UserBaptis'][0]['idGereja'], "Baptis", "detail", i['UserBaptis'][0]['_id'], i['_id'], status).showDialogBox(context);
                                 },
                                 child: Container(
                                   margin: EdgeInsets.all(20),
@@ -145,10 +141,7 @@ class _tiketSaya extends State<tiketSaya> {
                                   child: Column(
                                     children: <Widget>[
                                       Text(
-                                        "Jadwal : " +
-                                            i['UserBaptis'][0]['jadwalBuka'].toString().substring(0, 19) +
-                                            " s/d " +
-                                            i['UserBaptis'][0]['jadwalTutup'].toString().substring(0, 19),
+                                        "Jadwal : " + i['UserBaptis'][0]['jadwalBuka'].toString().substring(0, 19) + " s/d " + i['UserBaptis'][0]['jadwalTutup'].toString().substring(0, 19),
                                         style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                       ),
                                       Text(
@@ -185,9 +178,7 @@ class _tiketSaya extends State<tiketSaya> {
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
-                                      tiketDetailPelayanan(
-                                              iduser, i['UserKomuni'][0]['idGereja'], "Komuni", "detail", i['UserKomuni'][0]['_id'], i['_id'], status)
-                                          .showDialogBox(context);
+                                      tiketDetailPelayanan(iduser, i['UserKomuni'][0]['idGereja'], "Komuni", "detail", i['UserKomuni'][0]['_id'], i['_id'], status).showDialogBox(context);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.all(20),
@@ -204,10 +195,7 @@ class _tiketSaya extends State<tiketSaya> {
                                       child: Column(
                                         children: <Widget>[
                                           Text(
-                                            "Jadwal : " +
-                                                i['UserKomuni'][0]['jadwalBuka'].toString().substring(0, 19) +
-                                                " s/d " +
-                                                i['UserKomuni'][0]['jadwalTutup'].toString().substring(0, 19),
+                                            "Jadwal : " + i['UserKomuni'][0]['jadwalBuka'].toString().substring(0, 19) + " s/d " + i['UserKomuni'][0]['jadwalTutup'].toString().substring(0, 19),
                                             style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                           ),
                                           Text(
@@ -246,9 +234,7 @@ class _tiketSaya extends State<tiketSaya> {
                                 InkWell(
                                     borderRadius: new BorderRadius.circular(24),
                                     onTap: () {
-                                      tiketDetailPelayanan(
-                                              iduser, i['UserKrisma'][0]['idGereja'], "Krisma", "detail", i['UserKrisma'][0]['_id'], i['_id'], status)
-                                          .showDialogBox(context);
+                                      tiketDetailPelayanan(iduser, i['UserKrisma'][0]['idGereja'], "Krisma", "detail", i['UserKrisma'][0]['_id'], i['_id'], status).showDialogBox(context);
                                     },
                                     child: Container(
                                       margin: EdgeInsets.all(20),
@@ -265,10 +251,7 @@ class _tiketSaya extends State<tiketSaya> {
                                       child: Column(
                                         children: <Widget>[
                                           Text(
-                                            "Jadwal : " +
-                                                i['UserKrisma'][0]['jadwalBuka'].toString().substring(0, 19) +
-                                                " s/d " +
-                                                i['UserKrisma'][0]['jadwalTutup'].toString().substring(0, 19),
+                                            "Jadwal : " + i['UserKrisma'][0]['jadwalBuka'].toString().substring(0, 19) + " s/d " + i['UserKrisma'][0]['jadwalTutup'].toString().substring(0, 19),
                                             style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.w300),
                                           ),
                                           // Text(
@@ -314,8 +297,7 @@ class _tiketSaya extends State<tiketSaya> {
                               InkWell(
                                   borderRadius: new BorderRadius.circular(24),
                                   onTap: () {
-                                    tiketDetailPelayanan(iduser, null, "Umum", "detail", i['UserKegiatan'][0]['_id'], i['_id'], status)
-                                        .showDialogBox(context);
+                                    tiketDetailPelayanan(iduser, null, "Umum", "detail", i['UserKegiatan'][0]['_id'], i['_id'], status).showDialogBox(context);
                                   },
                                   child: Container(
                                     margin: EdgeInsets.all(20),
