@@ -12,7 +12,6 @@ import '../tiketSaya.dart';
 
 class gantiPassword extends StatelessWidget {
   final iduser;
-  var status;
   gantiPassword(this.iduser);
 
   @override

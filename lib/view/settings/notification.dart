@@ -18,7 +18,6 @@ class notification extends StatefulWidget {
 
 class _notifClass extends State<notification> {
   final iduser;
-  var checknotif;
   _notifClass(this.iduser);
   bool switch1 = false;
   void isSwitch() {

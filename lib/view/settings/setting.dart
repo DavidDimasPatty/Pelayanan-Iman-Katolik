@@ -14,7 +14,6 @@ import '../tiketSaya.dart';
 
 class Settings extends StatelessWidget {
   final iduser;
-
   Future LogOut(context) async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message = Messages('Agent Page', 'Agent Akun', "REQUEST", Tasks('log out', iduser)); //Pembuatan pesan

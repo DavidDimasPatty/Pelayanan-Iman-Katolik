@@ -4,20 +4,8 @@ import 'package:mongo_dart/mongo_dart.dart';
 class modelDB {
   //Model disesuaikan dengan nama, tipe data,
   // dan key pada collection di GerejaDB//////
-  static user(
-      String nama,
-      String email,
-      String password,
-      String picture,
-      int banned,
-      bool notifGD,
-      DateTime tanggalDaftar,
-      String paroki,
-      String alamat,
-      String lingkungan,
-      String notelp,
-      String token,
-      DateTime updatedAt) {
+  static user(String nama, String email, String password, String picture, int banned, bool notifGD, DateTime tanggalDaftar, String paroki, String alamat, String lingkungan, String notelp,
+      String token, DateTime updatedAt) {
     var model = {
       "nama": nama,
       "email": email,
@@ -75,20 +63,8 @@ class modelDB {
     return model;
   }
 
-  static Gereja(
-      String nama,
-      String address,
-      String paroki,
-      String lingkungan,
-      String deskripsi,
-      double lat,
-      double lng,
-      int banned,
-      String gambar,
-      DateTime createdAt,
-      ObjectId createdBy,
-      DateTime updatedAt,
-      ObjectId updatedBy) {
+  static Gereja(String nama, String address, String paroki, String lingkungan, String deskripsi, double lat, double lng, int banned, String gambar, DateTime createdAt, ObjectId createdBy,
+      DateTime updatedAt, ObjectId updatedBy) {
     var model = {
       "nama": nama,
       "address": address,
@@ -369,31 +345,6 @@ class modelDB {
       "updatedAt": updatedAt,
       "updatedBy": updatedBy,
       "createdAt": createdAt,
-    };
-    return model;
-  }
-
-  static gambarGereja(
-    ObjectId idGereja,
-    String gambar,
-    String caption,
-    int status,
-    String title,
-    DateTime createdAt,
-    ObjectId createdBy,
-    DateTime updatedAt,
-    ObjectId updatedBy,
-  ) {
-    var model = {
-      'idGereja': idGereja,
-      'gambar': gambar,
-      'caption': caption,
-      'status': status,
-      'title': title,
-      "createdAt": createdAt,
-      "createdBy": createdBy,
-      "updatedAt": updatedAt,
-      "updatedBy": updatedBy,
     };
     return model;
   }

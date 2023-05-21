@@ -10,7 +10,6 @@ import 'package:pelayanan_iman_katolik/view/logIn.dart';
 
 class forgetPassword extends StatelessWidget {
   TextEditingController emailController = new TextEditingController();
-
   Future send(context) async {
     ///Fungsi pengiriman pesan untuk melakukan pengecekan kepada input field
     ///pegguna dan melakukan pengecekan pada collection user lalu mengirim ke
@@ -161,8 +160,7 @@ class forgetPassword extends StatelessWidget {
                                   child: TextField(
                                     style: TextStyle(color: Colors.black),
                                     controller: emailController,
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none, hintText: "Masukan Email Akun", hintStyle: TextStyle(color: Colors.grey[400])),
+                                    decoration: InputDecoration(border: InputBorder.none, hintText: "Masukan Email Akun", hintStyle: TextStyle(color: Colors.grey[400])),
                                   ),
                                 ),
                               ],

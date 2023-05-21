@@ -7,7 +7,6 @@ import '../tiketSaya.dart';
 
 class privacySafety extends StatelessWidget {
   final iduser;
-  var dataUser;
   privacySafety(this.iduser);
   @override
   Widget build(BuildContext context) {

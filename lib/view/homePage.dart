@@ -13,7 +13,7 @@ import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
 import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 
 class homePage extends StatefulWidget {
-  var iduser;
+  final iduser;
 ////////////Konstruktor Stateful Widget////////////
   homePage(this.iduser);
   _homePage createState() => _homePage(this.iduser);

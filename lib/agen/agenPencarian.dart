@@ -20,7 +20,6 @@ class AgentPencarian extends Agent {
   static int _estimatedTime = 5;
   //Batas waktu awal pengerjaan seluruh tugas agen
   static Map<String, int> _timeAction = {
-    "cari pengumuman": _estimatedTime,
     "cari jadwal pendaftaran": _estimatedTime,
     "cari pelayanan": _estimatedTime,
     "cari tampilan home": _estimatedTime,
@@ -35,8 +34,6 @@ class AgentPencarian extends Agent {
     //Daftar tindakan yang bisa dilakukan oleh agen, fungsi ini memilih tindakan
     //berdasarkan tugas yang berada pada isi pesan
     switch (goals) {
-      case "cari pengumuman":
-        return _cariPengumuman(data.task.data, sender);
       case "cari jadwal pendaftaran":
         return _cariJadwalPendaftaran(data.task.data, sender);
       case "cari pelayanan":
@@ -269,47 +266,16 @@ class AgentPencarian extends Agent {
         hasil = datePerk;
       }
     } catch (e) {}
-//////////////////////////////////////////////////////////////////////////////////
-    ///
-    ///Mencari pengumuman data hanya diambil ke 4 terbaru////////////////////
-    var gambarGerejaCollection = MongoDatabase.db.collection(GAMBAR_GEREJA_COLLECTION);
-    var connGambar = await gambarGerejaCollection.find(where.sortBy('tanggal', descending: false).eq("status", 0).limit(4)).toList();
 /////////////////////////////////////////////////////////////////////////
     if (hasil != null) {
       ///Jika pengguna pernah melakukan pendaftaran ke salah satu pelayanan aktif
       var jadwalCollection = MongoDatabase.db.collection(GEREJA_COLLECTION);
       var conn = await jadwalCollection.find({'_id': hasil[0]['idGereja']}).toList();
-      Messages message = Messages(agentName, sender, "INFORM", Tasks('hasil pencarian', [data[1], conn, hasil, connGambar]));
+      Messages message = Messages(agentName, sender, "INFORM", Tasks('hasil pencarian', [data[1], conn, hasil]));
       return message;
     } else {
       ///Jika pengguna tidak pernah melakukan pendaftaran ke salah satu pelayanan aktif
-      Messages message = Messages(agentName, sender, "INFORM", Tasks('hasil pencarian', [data[1], null, hasil, connGambar]));
-      return message;
-    }
-  }
-
-  Future<Messages> _cariPengumuman(dynamic data, String sender) async {
-    //Fungsi tindakan untuk mencari data pada halaman pengumuman dan detail pengumuman
-    var pengumumanCollection = MongoDatabase.db.collection(GAMBAR_GEREJA_COLLECTION);
-    if (data[0] == "general") {
-      //Jika data[0] = general maka untuk halaman pengumuman
-      final pipeline = AggregationPipelineBuilder()
-          .addStage(Lookup(from: 'Gereja', localField: 'idGereja', foreignField: '_id', as: 'GerejaPengumuman'))
-          .addStage(Match(where.eq('status', 0).sortBy("createdAt", descending: true).map['\$query']))
-          .build();
-      var conn = await pengumumanCollection.aggregateToStream(pipeline).toList();
-      Messages message = Messages(agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
-      return message;
-    } else {
-      //Jika data[0] != general maka untuk halaman detail pengumuman
-      var pengumumanCollection = MongoDatabase.db.collection(GAMBAR_GEREJA_COLLECTION);
-      final pipeline = AggregationPipelineBuilder()
-          .addStage(Lookup(from: 'Gereja', localField: 'idGereja', foreignField: '_id', as: 'GerejaPengumuman'))
-          .addStage(Match(where.eq("_id", data[1]).map['\$query']))
-          .build();
-      var conn = await pengumumanCollection.aggregateToStream(pipeline).toList();
-      Messages message = Messages(agentName, sender, "INFORM", Tasks('hasil pencarian', conn));
-      //Membuat pesan yang berisikan hasil pencarian
+      Messages message = Messages(agentName, sender, "INFORM", Tasks('hasil pencarian', [data[1], null, hasil]));
       return message;
     }
   }
@@ -472,7 +438,6 @@ class AgentPencarian extends Agent {
     this.agentName = "Agent Pencarian";
     //nama agen
     plan = [
-      Plan("cari pengumuman", "REQUEST"),
       Plan("cari jadwal pendaftaran", "REQUEST"),
       Plan("cari pelayanan", "REQUEST"),
       Plan("cari tampilan home", "REQUEST"),
@@ -482,7 +447,6 @@ class AgentPencarian extends Agent {
     ];
     //Perencanaan agen
     goals = [
-      Goals("cari pengumuman", List<Map<String, Object?>>, _timeAction["cari pengumuman"]),
       Goals("cari jadwal pendaftaran", List<dynamic>, _timeAction["cari jadwal pendaftaran"]),
       Goals("cari pelayanan", List<Map<String, Object?>>, _timeAction["cari pelayanan"]),
       Goals("cari pelayanan", List<dynamic>, _timeAction["cari pelayanan"]),
