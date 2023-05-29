@@ -8,7 +8,7 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/pelayanan/confirmPelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
-import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
+import 'package:pelayanan_iman_katolik/view/setting/setting.dart';
 import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 import 'package:photo_view/photo_view.dart';
 

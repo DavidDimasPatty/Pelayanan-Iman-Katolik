@@ -5,7 +5,7 @@ import 'package:pelayanan_iman_katolik/agen/MessagePassing.dart';
 import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
-import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
+import 'package:pelayanan_iman_katolik/view/setting/setting.dart';
 import '../homePage.dart';
 import '../profile/profile.dart';
 import '../tiketSaya.dart';

@@ -7,7 +7,7 @@ import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/pelayanan/tiketDetailPelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
-import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
+import 'package:pelayanan_iman_katolik/view/setting/setting.dart';
 
 class tiketSaya extends StatefulWidget {
   final iduser;

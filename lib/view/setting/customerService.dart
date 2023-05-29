@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
+import 'package:pelayanan_iman_katolik/view/setting/setting.dart';
 import '../homePage.dart';
 import '../profile/profile.dart';
 import '../tiketSaya.dart';

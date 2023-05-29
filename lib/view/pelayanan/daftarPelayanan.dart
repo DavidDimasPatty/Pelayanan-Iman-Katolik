@@ -13,7 +13,7 @@ import 'package:pelayanan_iman_katolik/view/homePage.dart';
 import 'package:pelayanan_iman_katolik/view/pelayanan/detailDaftarPelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/pelayanan/formulirPelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
-import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
+import 'package:pelayanan_iman_katolik/view/setting/setting.dart';
 import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 
 class daftarPelayanan extends StatefulWidget {

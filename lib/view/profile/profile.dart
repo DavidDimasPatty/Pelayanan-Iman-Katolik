@@ -8,7 +8,7 @@ import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/profile/editProfile.dart';
 import '../homePage.dart';
-import '../settings/setting.dart';
+import '../setting/setting.dart';
 import '../tiketSaya.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';

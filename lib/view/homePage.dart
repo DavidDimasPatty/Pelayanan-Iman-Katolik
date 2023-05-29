@@ -9,7 +9,7 @@ import 'package:pelayanan_iman_katolik/view/Alkitab.dart';
 import 'package:pelayanan_iman_katolik/view/logIn.dart';
 import 'package:pelayanan_iman_katolik/view/pelayanan/pelayanan.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
-import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
+import 'package:pelayanan_iman_katolik/view/setting/setting.dart';
 import 'package:pelayanan_iman_katolik/view/tiketSaya.dart';
 
 class homePage extends StatefulWidget {
