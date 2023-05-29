@@ -80,7 +80,7 @@ class _tiketSaya extends State<tiketSaya> {
               Navigator.push(
                 //Widget navigator untuk memanggil kelas setting
                 context,
-                MaterialPageRoute(builder: (context) => Settings(iduser)),
+                MaterialPageRoute(builder: (context) => setting(iduser)),
               );
             },
           ),

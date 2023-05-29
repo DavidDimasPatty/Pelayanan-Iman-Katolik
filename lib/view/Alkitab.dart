@@ -53,8 +53,7 @@ class _Alkitab extends State<Alkitab> {
     //Pengiriman pesan untuk mendapatkan data yang diperlukan
     //untuk tampilan halaman
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message =
-        Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari alkitab', ["cari ayat", dropdowninjil, dropdownpasal])); //Pembuatan pesan
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari alkitab', ["cari ayat", dropdowninjil, dropdownpasal])); //Pembuatan pesan
     MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
     await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
     var hasilPencarian = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
@@ -77,8 +76,7 @@ class _Alkitab extends State<Alkitab> {
       });
     });
 
-    controller =
-        AutoScrollController(viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom), axis: scrollDirection);
+    controller = AutoScrollController(viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom), axis: scrollDirection);
   }
 
   @override
@@ -104,7 +102,7 @@ class _Alkitab extends State<Alkitab> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Settings(this.iduser)),
+                MaterialPageRoute(builder: (context) => setting(this.iduser)),
               );
             },
           ),
@@ -132,167 +130,160 @@ class _Alkitab extends State<Alkitab> {
               );
             }
             try {
-              return ListView(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  shrinkWrap: true,
-                  scrollDirection: scrollDirection,
-                  controller: controller,
+              return ListView(padding: EdgeInsets.symmetric(horizontal: 20), shrinkWrap: true, scrollDirection: scrollDirection, controller: controller, children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                    ),
+                    Text(
+                      "Pilih Injil",
+                      textAlign: TextAlign.left,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                    ),
+                    DropdownSearch<dynamic>(
+                      selectedItem: dropdowninjil,
+                      items: injil,
+                      dropdownDecoratorProps: DropDownDecoratorProps(
+                        dropdownSearchDecoration: InputDecoration(
+                          hintText: "Pilih Injil",
                         ),
-                        Text(
-                          "Pilih Injil",
-                          textAlign: TextAlign.left,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                        ),
-                        DropdownSearch<dynamic>(
-                          selectedItem: dropdowninjil,
-                          items: injil,
-                          dropdownDecoratorProps: DropDownDecoratorProps(
-                            dropdownSearchDecoration: InputDecoration(
-                              hintText: "Pilih Injil",
-                            ),
-                          ),
-                          onChanged: (dynamic? data) {
-                            setState(() {
-                              dropdowninjil = data;
-                              pasalSelected.clear();
-                              ayat.clear();
-                              isi.clear();
-                              dropdownpasal = 0;
-                              dropdownayat = 0;
-                              higlight = 0;
+                      ),
+                      onChanged: (dynamic? data) {
+                        setState(() {
+                          dropdowninjil = data;
+                          pasalSelected.clear();
+                          ayat.clear();
+                          isi.clear();
+                          dropdownpasal = 0;
+                          dropdownayat = 0;
+                          higlight = 0;
 
-                              for (int i = 1; i < pasal[injil.indexOf(data)] + 1; i++) {
-                                pasalSelected.add(i);
+                          for (int i = 1; i < pasal[injil.indexOf(data)] + 1; i++) {
+                            pasalSelected.add(i);
+                          }
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                    ),
+                    Text(
+                      "Pilih Pasal",
+                      textAlign: TextAlign.left,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                    ),
+                    DropdownSearch<dynamic>(
+                      selectedItem: dropdownpasal,
+                      items: pasalSelected,
+                      dropdownDecoratorProps: DropDownDecoratorProps(
+                        dropdownSearchDecoration: InputDecoration(
+                          hintText: "Pilih Pasal",
+                        ),
+                      ),
+                      onChanged: (dynamic? data) {
+                        setState(() {
+                          dropdownpasal = data;
+                          ayat.clear();
+                          isi.clear();
+                          dropdownayat = 0;
+                          higlight = 0;
+                          loadSearch().then((response) {
+                            setState(() {
+                              for (int i = 1; i < response[0]["data"]['verses'].length; i++) {
+                                ayat.add(i);
+                                isi.add(response[0]["data"]['verses'][i]['verse'].toString() + ". " + response[0]["data"]['verses'][i]['content'].toString());
                               }
+                              _controllerStream.add(response);
                             });
-                          },
-                        ),
-                      ],
+                          });
+                        });
+                      },
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                        ),
-                        Text(
-                          "Pilih Pasal",
-                          textAlign: TextAlign.left,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                        ),
-                        DropdownSearch<dynamic>(
-                          selectedItem: dropdownpasal,
-                          items: pasalSelected,
-                          dropdownDecoratorProps: DropDownDecoratorProps(
-                            dropdownSearchDecoration: InputDecoration(
-                              hintText: "Pilih Pasal",
-                            ),
-                          ),
-                          onChanged: (dynamic? data) {
-                            setState(() {
-                              dropdownpasal = data;
-                              ayat.clear();
-                              isi.clear();
-                              dropdownayat = 0;
-                              higlight = 0;
-                              loadSearch().then((response) {
-                                setState(() {
-                                  for (int i = 1; i < response[0]["data"]['verses'].length; i++) {
-                                    ayat.add(i);
-                                    isi.add(response[0]["data"]['verses'][i]['verse'].toString() +
-                                        ". " +
-                                        response[0]["data"]['verses'][i]['content'].toString());
-                                  }
-                                  _controllerStream.add(response);
-                                });
-                              });
-                            });
-                          },
-                        ),
-                      ],
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                        ),
-                        Text(
-                          "Pilih Ayat",
-                          textAlign: TextAlign.left,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(vertical: 5),
-                        ),
-                        DropdownSearch<dynamic>(
-                          selectedItem: dropdownayat,
-                          items: ayat,
-                          dropdownDecoratorProps: DropDownDecoratorProps(
-                            dropdownSearchDecoration: InputDecoration(
-                              hintText: "Pilih Ayat",
-                            ),
-                          ),
-                          onChanged: (dynamic? data) {
-                            setState(() {
-                              higlight = data - 1;
-                              dropdownayat = data;
-                              controller.scrollToIndex(higlight, preferPosition: AutoScrollPosition.middle);
-                            });
-                          },
-                        ),
-                      ],
+                    Text(
+                      "Pilih Ayat",
+                      textAlign: TextAlign.left,
                     ),
-                    SizedBox(
-                      height: 20,
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 5),
                     ),
-                    Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      if (isi.length == 0)
-                        Center(
+                    DropdownSearch<dynamic>(
+                      selectedItem: dropdownayat,
+                      items: ayat,
+                      dropdownDecoratorProps: DropDownDecoratorProps(
+                        dropdownSearchDecoration: InputDecoration(
+                          hintText: "Pilih Ayat",
+                        ),
+                      ),
+                      onChanged: (dynamic? data) {
+                        setState(() {
+                          higlight = data - 1;
+                          dropdownayat = data;
+                          controller.scrollToIndex(higlight, preferPosition: AutoScrollPosition.middle);
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Column(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  if (isi.length == 0)
+                    Center(
+                      child: Text(
+                        "Cari ayat alkitab",
+                        style: TextStyle(color: Colors.black, fontSize: 20.0),
+                      ),
+                    ),
+                  if (isi.length > 0)
+                    for (int i = 0; i < isi.length; i++)
+                      if (i == higlight)
+                        AutoScrollTag(
+                          key: ValueKey(i),
+                          controller: controller,
+                          index: i,
                           child: Text(
-                            "Cari ayat alkitab",
-                            style: TextStyle(color: Colors.black, fontSize: 20.0),
+                            isi[i],
+                            style: TextStyle(color: Colors.black, fontSize: 18.0, backgroundColor: Colors.yellow),
                           ),
-                        ),
-                      if (isi.length > 0)
-                        for (int i = 0; i < isi.length; i++)
-                          if (i == higlight)
-                            AutoScrollTag(
-                              key: ValueKey(i),
-                              controller: controller,
-                              index: i,
-                              child: Text(
-                                isi[i],
-                                style: TextStyle(color: Colors.black, fontSize: 18.0, backgroundColor: Colors.yellow),
-                              ),
-                            )
-                          else if (i != higlight)
-                            AutoScrollTag(
-                              key: ValueKey(i),
-                              controller: controller,
-                              index: i,
-                              child: Text(
-                                isi[i],
-                                style: TextStyle(color: Colors.black, fontSize: 18.0),
-                              ),
-                            )
-                    ]),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ]);
+                        )
+                      else if (i != higlight)
+                        AutoScrollTag(
+                          key: ValueKey(i),
+                          controller: controller,
+                          index: i,
+                          child: Text(
+                            isi[i],
+                            style: TextStyle(color: Colors.black, fontSize: 18.0),
+                          ),
+                        )
+                ]),
+                SizedBox(
+                  height: 10,
+                ),
+              ]);
             } catch (e) {
               //Jika terdapat salah penunjukan key pada map saat
               //pengambilan data

@@ -6,6 +6,7 @@ import 'package:pelayanan_iman_katolik/agen/Task.dart';
 import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/settings/privacySafety.dart';
+import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
 import '../homePage.dart';
 import '../profile/profile.dart';
 import '../tiketSaya.dart';
@@ -136,7 +137,12 @@ class gantiPassword extends StatelessWidget {
           ),
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => setting(iduser)),
+              );
+            },
           ),
         ],
       ),

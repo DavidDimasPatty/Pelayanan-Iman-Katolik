@@ -24,8 +24,7 @@ class daftarPelayanan extends StatefulWidget {
   final idGereja;
   daftarPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja);
   @override
-  _daftarPelayanan createState() =>
-      _daftarPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja);
+  _daftarPelayanan createState() => _daftarPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja);
 }
 
 class _daftarPelayanan extends State<daftarPelayanan> {
@@ -61,11 +60,9 @@ class _daftarPelayanan extends State<daftarPelayanan> {
     Messages message;
     if (jenisPencarian == "general") {
       if (jenisPelayanan == "Umum") {
-        message =
-            Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisPelayanan, jenisPencarian, jenisSelectedPelayanan]));
+        message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisPelayanan, jenisPencarian, jenisSelectedPelayanan]));
       } else {
-        message =
-            Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian])); //Pembuatan pesan
+        message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian])); //Pembuatan pesan
       }
     } else {
       message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idGereja]));
@@ -121,10 +118,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
     if (query.isNotEmpty) {
       List<Map<String, dynamic>> listOMaps = <Map<String, dynamic>>[];
       //variabel untuk menyimpan data sementara
-      if (jenisSelectedPelayanan == "Pemberkatan" ||
-          jenisSelectedPelayanan == "Perkawinan" ||
-          jenisSelectedPelayanan == "Tobat" ||
-          jenisSelectedPelayanan == "Perminyakan") {
+      if (jenisSelectedPelayanan == "Pemberkatan" || jenisSelectedPelayanan == "Perkawinan" || jenisSelectedPelayanan == "Tobat" || jenisSelectedPelayanan == "Perminyakan") {
         for (var item in dummyTemp) {
           //Setiap isi pada variabel dummyTemp akan diiterasi dan dicari
           // berdasarkan parameter pencarian
@@ -243,7 +237,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
               Navigator.push(
                 //Widget navigator untuk memanggil kelas setting
                 context,
-                MaterialPageRoute(builder: (context) => Settings(iduser)),
+                MaterialPageRoute(builder: (context) => setting(iduser)),
               );
             },
           ),
@@ -325,42 +319,24 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                             // Jika Container ditekan maka akan dipanggil kelas
                             if (jenisPencarian == "imam") {
                               if (jenisSelectedPelayanan == "Pemberkatan" || jenisSelectedPelayanan == "Perkawinan") {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            formulirPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "detail", idGereja, i["_id"])));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => formulirPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "detail", idGereja, i["_id"])));
                               } else {
                                 Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => detailDaftarPelayanan(
-                                            iduser, jenisPelayanan, jenisSelectedPelayanan, "detail", idGereja, null, i["_id"])));
+                                    context, MaterialPageRoute(builder: (context) => detailDaftarPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "detail", idGereja, null, i["_id"])));
                               }
                             } else {
-                              if (jenisSelectedPelayanan == "Pemberkatan" ||
-                                  jenisSelectedPelayanan == "Perkawinan" ||
-                                  jenisSelectedPelayanan == "Tobat" ||
-                                  jenisSelectedPelayanan == "Perminyakan") {
+                              if (jenisSelectedPelayanan == "Pemberkatan" || jenisSelectedPelayanan == "Perkawinan" || jenisSelectedPelayanan == "Tobat" || jenisSelectedPelayanan == "Perminyakan") {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) => daftarPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "imam", i["_id"])),
+                                  MaterialPageRoute(builder: (context) => daftarPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "imam", i["_id"])),
                                 );
-                              } else if (jenisSelectedPelayanan == "Baptis" ||
-                                  jenisSelectedPelayanan == "Komuni" ||
-                                  jenisSelectedPelayanan == "Krisma") {
+                              } else if (jenisSelectedPelayanan == "Baptis" || jenisSelectedPelayanan == "Komuni" || jenisSelectedPelayanan == "Krisma") {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => detailDaftarPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "detail",
-                                            i['GerejaPelayanan'][0]['_id'], i["_id"], null)));
+                                        builder: (context) => detailDaftarPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "detail", i['GerejaPelayanan'][0]['_id'], i["_id"], null)));
                               } else if (jenisPelayanan == "Umum") {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            detailDaftarPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "detail", null, i["_id"], null)));
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => detailDaftarPelayanan(iduser, jenisPelayanan, jenisSelectedPelayanan, "detail", null, i["_id"], null)));
                               }
                             }
                           },
@@ -387,10 +363,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                 ///Setiap data ditampilkan dalam widget Text
                                 ///dan mempunyai dekorasi(ukuran, warna, posisi)
 
-                                if (jenisSelectedPelayanan == "Pemberkatan" ||
-                                    jenisSelectedPelayanan == "Perkawinan" ||
-                                    jenisSelectedPelayanan == "Tobat" ||
-                                    jenisSelectedPelayanan == "Perminyakan")
+                                if (jenisSelectedPelayanan == "Pemberkatan" || jenisSelectedPelayanan == "Perkawinan" || jenisSelectedPelayanan == "Tobat" || jenisSelectedPelayanan == "Perminyakan")
                                   if (jenisPencarian == "imam")
                                     Column(children: <Widget>[
                                       //Didalam Container terdapat column agar
@@ -414,10 +387,7 @@ class _daftarPelayanan extends State<daftarPelayanan> {
                                       ),
                                     ]),
 
-                                if (jenisSelectedPelayanan == "Pemberkatan" ||
-                                    jenisSelectedPelayanan == "Perkawinan" ||
-                                    jenisSelectedPelayanan == "Tobat" ||
-                                    jenisSelectedPelayanan == "Perminyakan")
+                                if (jenisSelectedPelayanan == "Pemberkatan" || jenisSelectedPelayanan == "Perkawinan" || jenisSelectedPelayanan == "Tobat" || jenisSelectedPelayanan == "Perminyakan")
                                   if (jenisPencarian == "general")
                                     Column(
                                       children: [

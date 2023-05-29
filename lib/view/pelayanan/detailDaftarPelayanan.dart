@@ -21,11 +21,9 @@ class detailDaftarPelayanan extends StatefulWidget {
   String jenisPencarian;
   final idImam;
   @override
-  detailDaftarPelayanan(
-      this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja, this.idPelayanan, this.idImam);
+  detailDaftarPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja, this.idPelayanan, this.idImam);
 
-  _detailDaftarPelayanan createState() => _detailDaftarPelayanan(
-      this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja, this.idPelayanan, this.idImam);
+  _detailDaftarPelayanan createState() => _detailDaftarPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja, this.idPelayanan, this.idImam);
 }
 
 class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
@@ -37,8 +35,7 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
   String jenisSelectedPelayanan;
   String jenisPencarian;
   var hasil;
-  _detailDaftarPelayanan(
-      this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja, this.idPelayanan, this.idImam);
+  _detailDaftarPelayanan(this.iduser, this.jenisPelayanan, this.jenisSelectedPelayanan, this.jenisPencarian, this.idGereja, this.idPelayanan, this.idImam);
 ///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
@@ -46,11 +43,9 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
     if (jenisPelayanan == "Umum") {
       message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisPelayanan, jenisPencarian, idPelayanan]));
     } else if (jenisSelectedPelayanan == "Perminyakan" || jenisSelectedPelayanan == "Tobat") {
-      message =
-          Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idImam, idGereja]));
+      message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idImam, idGereja]));
     } else {
-      message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-          Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idPelayanan, idGereja])); //Pembuatan pesan
+      message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idPelayanan, idGereja])); //Pembuatan pesan
     }
     MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
     await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
@@ -108,7 +103,7 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Settings(iduser)),
+                MaterialPageRoute(builder: (context) => setting(iduser)),
               );
             },
           ),
@@ -209,13 +204,11 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                                                 children: <Widget>[
                                                                   Text(
                                                                     "Tema Kegiatan: ",
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                   Text(
                                                                     snapshot.data[0]['temaKegiatan'] as String,
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                 ],
                                                               ),
@@ -231,13 +224,11 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                                                 children: <Widget>[
                                                                   Text(
                                                                     "Lokasi: ",
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                   Text(
                                                                     snapshot.data[0]['lokasi'],
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                 ],
                                                               ),
@@ -253,13 +244,11 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                                                 children: <Widget>[
                                                                   Text(
                                                                     "Kapasitas: ",
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                   Text(
                                                                     snapshot.data[0]['kapasitas'].toString(),
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                 ],
                                                               ),
@@ -275,13 +264,11 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                                                 children: <Widget>[
                                                                   Text(
                                                                     "Tanggal: ",
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                   Text(
                                                                     snapshot.data[0]['tanggal'].toString().substring(0, 19),
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                 ],
                                                               ),
@@ -505,13 +492,11 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                                                 children: <Widget>[
                                                                   Text(
                                                                     "Paroki : ",
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                   Text(
                                                                     snapshot.data[0][0]['GerejaPelayanan'][0]['paroki'] as String,
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                 ],
                                                               ),
@@ -527,13 +512,11 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                                                 children: <Widget>[
                                                                   Text(
                                                                     "Alamat Gereja : ",
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                   Text(
                                                                     snapshot.data[0][0]['GerejaPelayanan'][0]['address'],
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                 ],
                                                               ),
@@ -645,13 +628,11 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                                                 children: <Widget>[
                                                                   Text(
                                                                     "Paroki: ",
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                   Text(
                                                                     snapshot.data[0][0]['GerejaPelayanan'][0]['paroki'] as String,
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                 ],
                                                               ),
@@ -667,13 +648,11 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                                                 children: <Widget>[
                                                                   Text(
                                                                     "Alamat Gereja: ",
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                   Text(
                                                                     snapshot.data[0][0]['GerejaPelayanan'][0]['address'],
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                 ],
                                                               ),
@@ -689,13 +668,11 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                                                 children: <Widget>[
                                                                   Text(
                                                                     "Kapasitas: ",
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                   Text(
                                                                     snapshot.data[0][0]['kapasitas'].toString(),
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                 ],
                                                               ),
@@ -711,13 +688,11 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                                                 children: <Widget>[
                                                                   Text(
                                                                     "Jenis: ",
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                   Text(
                                                                     snapshot.data[0][0]['jenis'],
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                 ],
                                                               ),
@@ -733,13 +708,11 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                                                 children: <Widget>[
                                                                   Text(
                                                                     "Tanggal Pembukaan: ",
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                   Text(
                                                                     snapshot.data[0][0]['jadwalBuka'].toString().substring(0, 19),
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                 ],
                                                               ),
@@ -755,13 +728,11 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                                                 children: <Widget>[
                                                                   Text(
                                                                     "Tanggal Penutupan: ",
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                   Text(
                                                                     snapshot.data[0][0]['jadwalTutup'].toString().substring(0, 19),
-                                                                    style:
-                                                                        TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                                    style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                                   ),
                                                                 ],
                                                               ),
@@ -839,8 +810,7 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                                     //dan memiliki dekorasi seperti(warna,child yang
                                     //berupa widgetText, dan bentuk tombol)
                                     onPressed: () async {
-                                      showDirectionWithFirstMap(
-                                          Coords(snapshot.data[0][0]['GerejaPelayanan'][0]['lat'], snapshot.data[0][0]['GerejaPelayanan'][0]['lng']));
+                                      showDirectionWithFirstMap(Coords(snapshot.data[0][0]['GerejaPelayanan'][0]['lat'], snapshot.data[0][0]['GerejaPelayanan'][0]['lng']));
                                     },
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
                                     elevation: 0.0,

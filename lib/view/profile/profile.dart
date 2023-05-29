@@ -119,7 +119,7 @@ class _profile extends State<profile> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Settings(iduser)),
+                MaterialPageRoute(builder: (context) => setting(iduser)),
               );
             },
           ),

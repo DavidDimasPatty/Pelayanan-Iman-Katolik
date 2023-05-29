@@ -7,6 +7,7 @@ import 'package:pelayanan_iman_katolik/agen/agenPage.dart';
 import 'package:pelayanan_iman_katolik/agen/Message.dart';
 import 'package:pelayanan_iman_katolik/view/profile/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
 import '../homePage.dart';
 import '../tiketSaya.dart';
 
@@ -142,7 +143,12 @@ class _editProfile extends State<editProfile> {
           ),
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => setting(iduser)),
+              );
+            },
           ),
         ],
       ),

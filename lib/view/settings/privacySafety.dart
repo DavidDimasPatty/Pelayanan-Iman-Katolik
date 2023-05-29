@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pelayanan_iman_katolik/view/settings/gantiPasword.dart';
 import 'package:pelayanan_iman_katolik/view/settings/notification.dart';
+import 'package:pelayanan_iman_katolik/view/settings/setting.dart';
 import '../homePage.dart';
 import '../profile/profile.dart';
 import '../tiketSaya.dart';
@@ -36,7 +37,12 @@ class privacySafety extends StatelessWidget {
           ),
           IconButton(
             icon: const Icon(Icons.settings),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => setting(iduser)),
+              );
+            },
           ),
         ],
       ),

@@ -12,7 +12,7 @@ import '../logIn.dart';
 import '../profile/profile.dart';
 import '../tiketSaya.dart';
 
-class Settings extends StatelessWidget {
+class setting extends StatelessWidget {
   final iduser;
   Future LogOut(context) async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
@@ -41,7 +41,7 @@ class Settings extends StatelessWidget {
     }
   }
 
-  Settings(this.iduser);
+  setting(this.iduser);
 
   @override
   Widget build(BuildContext context) {
