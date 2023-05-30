@@ -113,7 +113,7 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
           //Widget untuk refresh body halaman
           onRefresh: pullRefresh,
           //Ketika halaman direfresh akan memanggil fungsi pullRefresh
-          child: ListView(
+          child: Column(
             children: [
               FutureBuilder(
                   future: callDb(),

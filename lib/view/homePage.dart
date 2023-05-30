@@ -171,19 +171,20 @@ class _homePage extends State<homePage> {
                       //komponen builder yang mengambil snapshot/hasil
                       //dari fungsi callTampilan
                       try {
+                        print(snapshot.data);
                         if (snapshot.data[0][0]['banned'] == 1) {
                           //Jika ternyata pengguna di banned saat penggunaan aplikasi
                           LogOut(context);
                         }
 
-                        for (var i = 0; i < snapshot.data[3].length; i++) {
-                          //Mengambil data yang terdapat pada snapshot
-                          //untuk dimasukan ke variabel yang digunakan
-                          //untuk menampilkan halaman
-                          cardList.add(snapshot.data[3][i]['gambar']);
-                          caption.add(snapshot.data[3][i]['title']);
-                          idImage.add(snapshot.data[3][i]['_id']);
-                        }
+                        // for (var i = 0; i < snapshot.data[3].length; i++) {
+                        //   //Mengambil data yang terdapat pada snapshot
+                        //   //untuk dimasukan ke variabel yang digunakan
+                        //   //untuk menampilkan halaman
+                        //   cardList.add(snapshot.data[3][i]['gambar']);
+                        //   caption.add(snapshot.data[3][i]['title']);
+                        //   idImage.add(snapshot.data[3][i]['_id']);
+                        // }
                         return Column(children: [
                           //Jika widget FutureBuilder berhasil, FutureBuilder
                           //akan memanggil widget Column beserta

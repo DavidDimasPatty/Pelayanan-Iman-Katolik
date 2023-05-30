@@ -62,6 +62,23 @@ class signUp extends StatelessWidget {
         //Menghapus input field pengguna///
         nameController.clear();
         //////////////////////////////////////
+      } else if (passwordController.text.length < 6) {
+        /////////Jika password dan ketik ulang password tidak sama
+        Fluttertoast.showToast(
+            /////// Widget toast untuk menampilkan pesan pada halaman
+            msg: "Password harus lebih panjang dari 6 karakter",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+            /////Konfigurasi widget toast, untuk toast ini dibuat konfigurasi error
+            );
+        //Menghapus input field pengguna///
+        repasswordController.clear();
+        passwordController.clear();
+        //////////////////////////////////////
       } else if (passwordController.text != repasswordController.text) {
         /////////Jika password dan ketik ulang password tidak sama
         Fluttertoast.showToast(
