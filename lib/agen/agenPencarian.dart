@@ -11,8 +11,8 @@ import 'Plan.dart';
 import 'Task.dart';
 import 'package:http/http.dart' as http;
 
-class AgentPencarian extends Agent {
-  AgentPencarian() {
+class agenPencarian extends Agent {
+  agenPencarian() {
     //Konstruktor agen memanggil fungsi initAgent
     _initAgent();
   }

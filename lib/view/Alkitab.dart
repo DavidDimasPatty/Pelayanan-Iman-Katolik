@@ -42,7 +42,7 @@ class _Alkitab extends State<Alkitab> {
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari alkitab', ["load data"])); //Pembuatan pesan
     MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
     await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasilPencarian = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    var hasilPencarian = await agenPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
     await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
@@ -56,7 +56,7 @@ class _Alkitab extends State<Alkitab> {
     Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari alkitab', ["cari ayat", dropdowninjil, dropdownpasal])); //Pembuatan pesan
     MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
     await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasilPencarian = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    var hasilPencarian = await agenPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
     await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai

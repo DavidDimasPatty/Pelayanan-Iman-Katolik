@@ -20,11 +20,10 @@ class confirmPelayanan {
   ///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idPelayanan, idGereja])); //Pembuatan pesan
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idPelayanan, idGereja])); //Pembuatan pesan
     MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
     await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
-    hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    hasil = await agenPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
     await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
@@ -35,15 +34,13 @@ class confirmPelayanan {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message;
     if (jenisPelayanan == "Umum") {
-      message = Messages(
-          'Agent Page', 'Agent Pencarian', "REQUEST", Tasks('check pendaftaran', [jenisPelayanan, idPelayanan, iduser, kapasitas])); //Pembuatan pesan
+      message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('check pendaftaran', [jenisPelayanan, idPelayanan, iduser, kapasitas])); //Pembuatan pesan
     } else {
-      message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-          Tasks('check pendaftaran', [jenisSelectedPelayanan, idPelayanan, iduser, kapasitas])); //Pembuatan pesan
+      message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('check pendaftaran', [jenisSelectedPelayanan, idPelayanan, iduser, kapasitas])); //Pembuatan pesan
     }
     MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
     await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasilDaftar = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    var hasilDaftar = await agenPage.getData(); //Memanggil data yang tersedia di agen Page
 
     completer.complete(); //Batas pengerjaan yang memerlukan completer
 
@@ -129,14 +126,7 @@ class confirmPelayanan {
                           for (var i in hasil)
                             Column(
                               children: <Widget>[
-                                Text("Konfirmasi Pendaftaran " +
-                                    jenisSelectedPelayanan +
-                                    "  \n " +
-                                    i['namaKegiatan'] +
-                                    "\n" +
-                                    "Pada Tanggal " +
-                                    i['tanggal'].toString().substring(0, 19) +
-                                    " ?")
+                                Text("Konfirmasi Pendaftaran " + jenisSelectedPelayanan + "  \n " + i['namaKegiatan'] + "\n" + "Pada Tanggal " + i['tanggal'].toString().substring(0, 19) + " ?")
                               ],
                             )
                         ]);

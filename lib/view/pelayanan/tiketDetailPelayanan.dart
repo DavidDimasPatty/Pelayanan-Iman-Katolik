@@ -16,18 +16,16 @@ class tiketDetailPelayanan {
   String jenisSelectedPelayanan;
   String jenisPencarian;
   String jenisPopUp;
-  tiketDetailPelayanan(
-      this.iduser, this.idGereja, this.jenisSelectedPelayanan, this.jenisPencarian, this.idPelayanan, this.idUserPelayanan, this.jenisPopUp);
+  tiketDetailPelayanan(this.iduser, this.idGereja, this.jenisSelectedPelayanan, this.jenisPencarian, this.idPelayanan, this.idUserPelayanan, this.jenisPopUp);
 
 ///////////////////////Fungsi////////////////////////
   Future callDb() async {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
-    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST",
-        Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idPelayanan, idGereja])); //Pembuatan pesan
+    Messages message = Messages('Agent Page', 'Agent Pencarian', "REQUEST", Tasks('cari pelayanan', [jenisSelectedPelayanan, jenisPencarian, idPelayanan, idGereja])); //Pembuatan pesan
 
     MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
     await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    var hasil = await agenPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
 
     await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
@@ -39,17 +37,15 @@ class tiketDetailPelayanan {
     Completer<void> completer = Completer<void>(); //variabel untuk menunggu
     Messages message; //Pembuatan pesan
     if (jenisSelectedPelayanan == "Baptis" || jenisSelectedPelayanan == "Komuni" || jenisSelectedPelayanan == "Krisma") {
-      message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST",
-          Tasks('cancel pelayanan', [jenisSelectedPelayanan, idUserPelayanan, idPelayanan, kapasitas, iduser]));
+      message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST", Tasks('cancel pelayanan', [jenisSelectedPelayanan, idUserPelayanan, idPelayanan, kapasitas, iduser]));
     } else if (jenisSelectedPelayanan == "Umum") {
-      message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST",
-          Tasks('cancel pelayanan', [jenisSelectedPelayanan, idUserPelayanan, idPelayanan, kapasitas, iduser]));
+      message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST", Tasks('cancel pelayanan', [jenisSelectedPelayanan, idUserPelayanan, idPelayanan, kapasitas, iduser]));
     } else {
       message = Messages('Agent Page', 'Agent Pendaftaran', "REQUEST", Tasks('cancel pelayanan', [jenisSelectedPelayanan, idPelayanan, iduser]));
     }
     MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
     await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    var hasil = await agenPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
 
     await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
@@ -174,10 +170,7 @@ class tiketDetailPelayanan {
                               "Detail Jadwal",
                               style: TextStyle(color: Colors.blueAccent, fontSize: 24.0, fontWeight: FontWeight.w300),
                             ),
-                            Text('Waktu: ' +
-                                snapshot.data[0][0]['jadwalBuka'].toString().substring(0, 19) +
-                                " s/d " +
-                                snapshot.data[0][0]['jadwalTutup'].toString().substring(0, 19)),
+                            Text('Waktu: ' + snapshot.data[0][0]['jadwalBuka'].toString().substring(0, 19) + " s/d " + snapshot.data[0][0]['jadwalTutup'].toString().substring(0, 19)),
                             Text('Nama Gereja: ' + snapshot.data[0][0]['GerejaPelayanan'][0]['nama']),
                             Text('Alamat Gereja: ' + snapshot.data[0][0]['GerejaPelayanan'][0]['address']),
                           ],

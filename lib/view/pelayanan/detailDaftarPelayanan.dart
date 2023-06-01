@@ -49,7 +49,7 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
     }
     MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
     await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
-    hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    hasil = await agenPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
 
     await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
@@ -123,11 +123,9 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                     //yang dibutuhkan oleh tampilan halaman
                     try {
                       if (jenisPelayanan == "Umum") {
-                        return ListView(
+                        return Column(
                           //Struktur halaman akan dibuat list
                           //agar halaman bisa di scroll kebawah
-                          shrinkWrap: true,
-                          padding: EdgeInsets.all(20.0),
                           children: <Widget>[
                             /////////
                             ///
@@ -337,11 +335,9 @@ class _detailDaftarPelayanan extends State<detailDaftarPelayanan> {
                           ],
                         );
                       } else if (jenisSelectedPelayanan == "Tobat" || jenisSelectedPelayanan == "Perminyakan") {
-                        return ListView(
+                        return Column(
                           //Struktur halaman akan dibuat list
                           //agar halaman bisa di scroll kebawah
-                          shrinkWrap: true,
-                          padding: EdgeInsets.all(20.0),
                           children: <Widget>[
                             Card(
                               //Membuat kartu berbentuk oval

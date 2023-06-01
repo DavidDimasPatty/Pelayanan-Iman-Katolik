@@ -6,8 +6,8 @@ import 'Goals.dart';
 import 'Plan.dart';
 import 'Task.dart';
 
-class AgentPage extends Agent {
-  AgentPage() {
+class agenPage extends Agent {
+  agenPage() {
     //Konstruktor agen memanggil fungsi initAgent
     _initAgent();
   }

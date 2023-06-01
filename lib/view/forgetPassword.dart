@@ -31,7 +31,7 @@ class forgetPassword extends StatelessWidget {
 
       MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
       await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
-      var hasilDaftar = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+      var hasilDaftar = await agenPage.getData(); //Memanggil data yang tersedia di agen Page
       completer.complete(); //Batas pengerjaan yang memerlukan completer
       await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
       //memiliki nilai

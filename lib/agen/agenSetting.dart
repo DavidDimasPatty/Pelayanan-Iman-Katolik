@@ -13,8 +13,8 @@ import 'Goals.dart';
 import 'Plan.dart';
 import 'Task.dart';
 
-class AgentSetting extends Agent {
-  AgentSetting() {
+class agenSetting extends Agent {
+  agenSetting() {
     //Konstruktor agen memanggil fungsi initAgent
     _initAgent();
   }

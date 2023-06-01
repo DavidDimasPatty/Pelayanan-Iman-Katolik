@@ -64,7 +64,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
 
     MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
     await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
-    var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+    var hasil = await agenPage.getData(); //Memanggil data yang tersedia di agen Page
     completer.complete(); //Batas pengerjaan yang memerlukan completer
     await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
     //memiliki nilai
@@ -102,7 +102,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
 
         MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
         await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
-        var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+        var hasil = await agenPage.getData(); //Memanggil data yang tersedia di agen Page
         completer.complete(); //Batas pengerjaan yang memerlukan completer
 
         await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
@@ -179,7 +179,7 @@ class _formulirPelayanan extends State<formulirPelayanan> {
 
         MessagePassing messagePassing = MessagePassing(); //Memanggil distributor pesan
         await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
-        var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+        var hasil = await agenPage.getData(); //Memanggil data yang tersedia di agen Page
         completer.complete(); //Batas pengerjaan yang memerlukan completer
         await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
         //memiliki nilai

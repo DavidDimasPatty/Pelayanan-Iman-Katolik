@@ -22,7 +22,7 @@ Future callDb() async {
   await messagePassing.sendMessage(message); //Mengirim pesan ke distributor pesan
   completer.complete(); //Batas pengerjaan yang memerlukan completer
   // sampai agen Page memiliki data
-  var hasil = await AgentPage.getData(); //Memanggil data yang tersedia di agen Page
+  var hasil = await agenPage.getData(); //Memanggil data yang tersedia di agen Page
   await completer.future; //Proses penungguan sudah selesai ketika varibel hasil
   //memiliki nilai
   return hasil; //Mengembalikan variabel hasil //Mengembalikan variabel hasil
@@ -136,9 +136,7 @@ void main() async {
 //Jika tidak, maka akan dilakukan konfigurasi notifikasi pada Android
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 //variabel untuk menampilkan notifikasi pada Android
-    await flutterLocalNotificationsPlugin!
-        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(channel!);
+    await flutterLocalNotificationsPlugin!.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel!);
 //Variabel untuk membuat channel notifikasi pada Android
     await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true,

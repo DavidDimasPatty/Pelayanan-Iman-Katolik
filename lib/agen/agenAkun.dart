@@ -17,8 +17,8 @@ import 'Goals.dart';
 import 'MessagePassing.dart';
 import 'Plan.dart';
 
-class AgentAkun extends Agent {
-  AgentAkun() {
+class agenAkun extends Agent {
+  agenAkun() {
     //Konstruktor agen memanggil fungsi initAgent
     _initAgent();
   }
