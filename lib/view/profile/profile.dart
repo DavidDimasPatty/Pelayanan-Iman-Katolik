@@ -10,7 +10,6 @@ import 'package:pelayanan_iman_katolik/view/profile/editProfile.dart';
 import '../homePage.dart';
 import '../setting/setting.dart';
 import '../tiketSaya.dart';
-import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 class profile extends StatefulWidget {
@@ -414,7 +413,7 @@ class _profile extends State<profile> {
                                   //dan memiliki dekorasi seperti(warna,child yang
                                   //berupa widgetText, dan bentuk tombol)
                                   onPressed: () async {
-                                    await ImagePicker().pickImage(source: ImageSource.gallery);
+                                    // await ImagePicker().pickImage(source: ImageSource.gallery);
                                     await selectFile(context);
                                   },
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(80.0)),
