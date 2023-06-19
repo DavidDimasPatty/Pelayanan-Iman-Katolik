@@ -40,10 +40,9 @@ class setting extends StatelessWidget {
           fontSize: 16.0);
 
       // Navigator.pop(context, true);
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (BuildContext context) => logIn()),
-          ModalRoute.withName('/'));
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => logIn()),
+          (Route<dynamic> route) => false);
     }
   }
 
