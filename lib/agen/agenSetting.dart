@@ -119,7 +119,7 @@ class agenSetting extends Agent {
       //Jika tidak ada file maka file akan dibuat dan diisi dengan data
       final file = await File('$path/logIn.txt').create(recursive: true);
       await file.writeAsString("");
-      await file.writeAsString('\n' + data[0]['_id'].toString());
+      await file.writeAsString(data[0]['_id'].toString());
     }
     print("Saving data to local file from data that was given by agent akun success");
     Messages message = Messages(agentName, sender, "INFORM", Tasks('done', "oke"));
