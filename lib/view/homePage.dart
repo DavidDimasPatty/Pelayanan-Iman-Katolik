@@ -176,15 +176,6 @@ class _homePage extends State<homePage> {
                           //Jika ternyata pengguna di banned saat penggunaan aplikasi
                           LogOut(context);
                         }
-
-                        // for (var i = 0; i < snapshot.data[3].length; i++) {
-                        //   //Mengambil data yang terdapat pada snapshot
-                        //   //untuk dimasukan ke variabel yang digunakan
-                        //   //untuk menampilkan halaman
-                        //   cardList.add(snapshot.data[3][i]['gambar']);
-                        //   caption.add(snapshot.data[3][i]['title']);
-                        //   idImage.add(snapshot.data[3][i]['_id']);
-                        // }
                         return Column(children: [
                           //Jika widget FutureBuilder berhasil, FutureBuilder
                           //akan memanggil widget Column beserta
@@ -378,14 +369,14 @@ class _homePage extends State<homePage> {
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.w300),
                                                       ),
-                                                    if (snapshot.data[2][0]['pelayanan'][0]["jadwalTutup"] != null)
+                                                    if (snapshot.data[2][0]['pelayanan'] != null && snapshot.data[2][0]['pelayanan'][0]["jadwalTutup"] != null)
                                                       //Jika data berisi tanggalDaftar
                                                       Text(
                                                         snapshot.data[2][0]['pelayanan'][0]["jadwalTutup"].toString().substring(0, 19),
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                       ),
-                                                    if (snapshot.data[2][0]['pelayanan'][0]["tanggal"] != null)
+                                                    if (snapshot.data[2][0]['pelayanan'] != null && snapshot.data[2][0]['pelayanan'][0]["tanggal"] != null)
                                                       //Jika data berisi tanggalDaftar
                                                       Text(
                                                         snapshot.data[2][0]['pelayanan'][0]["tanggal"].toString().substring(0, 19),
