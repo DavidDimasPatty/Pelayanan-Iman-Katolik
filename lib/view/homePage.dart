@@ -378,10 +378,17 @@ class _homePage extends State<homePage> {
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.w300),
                                                       ),
-                                                    if (snapshot.data[2][0]['tanggalDaftar'] != null)
+                                                    if (snapshot.data[2][0]['pelayanan'][0]["jadwalTutup"] != null)
                                                       //Jika data berisi tanggalDaftar
                                                       Text(
-                                                        snapshot.data[2][0]['tanggalDaftar'].toString().substring(0, 19),
+                                                        snapshot.data[2][0]['pelayanan'][0]["jadwalTutup"].toString().substring(0, 19),
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
+                                                      ),
+                                                    if (snapshot.data[2][0]['pelayanan'][0]["tanggal"] != null)
+                                                      //Jika data berisi tanggalDaftar
+                                                      Text(
+                                                        snapshot.data[2][0]['pelayanan'][0]["tanggal"].toString().substring(0, 19),
                                                         textAlign: TextAlign.center,
                                                         style: TextStyle(color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w300),
                                                       ),
