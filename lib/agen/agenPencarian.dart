@@ -258,44 +258,46 @@ class agenPencarian extends Agent {
 ///////////////////////////////////////////////////////////////////////
     ///
 //////////Membandingkan masing-masing pelayanan siapa yang paling dekat waktu mulainya/////////
-    DateTime ans = DateTime.utc(3000, 11, 9);
+    DateTime ans = DateTime.now();
     var hasil = null;
+    var batasAkhir = 1000000;
     try {
-      if (ans.compareTo(DateTime.parse(dateBap[0]['pelayanan'][0]["jadwalTutup"].toString())) > 0) {
-        ans = DateTime.parse(dateBap[0]['pelayanan'][0]["jadwalTutup"].toString());
+      if (ans.compareTo(DateTime.parse(dateBap[0]['pelayanan'][0]["jadwalTutup"].toString())) <= 0 &&
+          DateTime.parse(dateBap[0]['pelayanan'][0]["jadwalTutup"].toString()).difference(ans).inDays < batasAkhir) {
+        batasAkhir = DateTime.parse(dateBap[0]['pelayanan'][0]["jadwalTutup"].toString()).difference(ans).inDays;
         hasil = dateBap;
       }
     } catch (e) {}
-
     try {
-      if (ans.compareTo(DateTime.parse(dateKom[0]['pelayanan'][0]["jadwalTutup"].toString())) > 0) {
-        ans = DateTime.parse(dateKom[0]['pelayanan'][0]["jadwalTutup"].toString());
+      if (ans.compareTo(DateTime.parse(dateKom[0]['pelayanan'][0]["jadwalTutup"].toString())) <= 0 &&
+          DateTime.parse(dateKom[0]['pelayanan'][0]["jadwalTutup"].toString()).difference(ans).inDays < batasAkhir) {
+        batasAkhir = DateTime.parse(dateKom[0]['pelayanan'][0]["jadwalTutup"].toString()).difference(ans).inDays;
         hasil = dateKom;
       }
     } catch (e) {}
     try {
-      if (ans.compareTo(DateTime.parse(dateKeg[0]['pelayanan'][0]["tanggal"].toString())) > 0) {
-        ans = DateTime.parse(dateKeg[0]['pelayanan'][0]["tanggal"].toString());
+      if (ans.compareTo(DateTime.parse(dateKri[0]['pelayanan'][0]["jadwalTutup"].toString())) <= 0 &&
+          DateTime.parse(dateKri[0]['pelayanan'][0]["jadwalTutup"].toString()).difference(ans).inDays < batasAkhir) {
+        batasAkhir = DateTime.parse(dateKri[0]['pelayanan'][0]["jadwalTutup"].toString()).difference(ans).inDays;
+        hasil = dateKri;
+      }
+    } catch (e) {}
+    try {
+      if (ans.compareTo(DateTime.parse(dateKeg[0]['pelayanan'][0]["tanggal"].toString())) <= 0 &&
+          DateTime.parse(dateKeg[0]['pelayanan'][0]["tanggal"].toString()).difference(ans).inDays < batasAkhir) {
+        batasAkhir = DateTime.parse(dateKeg[0]['pelayanan'][0]["tanggal"].toString()).difference(ans).inDays;
         hasil = dateKeg;
       }
     } catch (e) {}
     try {
-      if (ans.compareTo(DateTime.parse(dateKri[0]['pelayanan'][0]["jadwalTutup"].toString())) > 0) {
-        ans = DateTime.parse(dateKri[0]['pelayanan'][0]["jadwalTutup"].toString());
-        hasil = dateKri;
-      }
-    } catch (e) {}
-
-    try {
-      if (ans.compareTo(DateTime.parse(datePem[0]['tanggal'].toString())) > 0) {
-        ans = DateTime.parse(datePem[0]['tanggal'].toString());
+      if (ans.compareTo(DateTime.parse(datePem[0]['tanggal'].toString())) <= 0 && DateTime.parse(datePem[0]['tanggal'].toString()).difference(ans).inDays < batasAkhir) {
+        batasAkhir = DateTime.parse(datePem[0]['tanggal'].toString()).difference(ans).inDays;
         hasil = datePem;
       }
     } catch (e) {}
-
     try {
-      if (ans.compareTo(DateTime.parse(datePerk[0]['tanggal'].toString())) > 0) {
-        ans = DateTime.parse(datePerk[0]['tanggal'].toString());
+      if (ans.compareTo(DateTime.parse(datePerk[0]['tanggal'].toString())) <= 0 && DateTime.parse(datePerk[0]['tanggal'].toString()).difference(ans).inDays < batasAkhir) {
+        batasAkhir = DateTime.parse(datePerk[0]['tanggal'].toString()).difference(ans).inDays;
         hasil = datePerk;
       }
     } catch (e) {}
